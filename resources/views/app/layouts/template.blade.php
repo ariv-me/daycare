@@ -118,6 +118,25 @@
         font-size: 0.8rem !important;
     }
 
+    .dropdown-menu .dropdown-item {
+        font-size: 13px;
+        color: #464444;
+        padding: 0.5rem 1.75rem;
+    }
+
+    .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item:focus, .dropdown-menu .dropdown-item:active, .dropdown-menu .dropdown-item.active {
+        color: #ffffff;
+        background: #3695eb;
+    }
+
+    .modal-footer {
+        padding: 0.3rem 0.875rem;
+    }
+
+    .modal-body {
+        padding: 1.3rem;
+    }
+
 </style>
     
 
