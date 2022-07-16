@@ -263,7 +263,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Arial", sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
@@ -9881,7 +9881,7 @@ svg.pulse-svg {
   display: flex;
   align-items: center; }
   .header-left .dashboard_bar {
-    font-size: 28px;
+    font-size: 18px;
     font-weight: 600;
     color: #000; }
     @media only screen and (max-width: 1199px) {
@@ -24729,7 +24729,7 @@ button {
       .card-body {
         padding: 1rem; } }
   .card-title {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
     color: #000;
     text-transform: capitalize; }
@@ -24743,7 +24743,7 @@ button {
     border-color: #d7dae3;
     position: relative;
     background: transparent;
-    padding: 1.5rem 1.875rem 1.25rem;
+    padding: 1.5rem -13.125rem 1.25rem;
     display: flex;
     justify-content: space-between;
     align-items: center; }
@@ -24761,7 +24761,7 @@ button {
   .card-footer {
     border-color: #d7dae3;
     background: transparent;
-    padding: 1.25rem 1.875rem 1.25rem; }
+    padding: 1.25rem -7.125rem 1.25rem; }
     [data-theme-version="dark"] .card-footer {
       border-color: #333a54; }
 

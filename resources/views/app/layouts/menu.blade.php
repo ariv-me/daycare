@@ -8,15 +8,18 @@
 
     @foreach($menu['menu_utama'] as $menu_utama)
 
-    <li class="has-submenu">
-        <a href="#" class="has-arrow"><i class="{{ $menu_utama->fitur_icon }}"></i>{{ $menu_utama->fitur_nama }}</a>
+    <li>
+        <a href="#" class="has-arrow ai-icon">
+            <i class="{{ $menu_utama->fitur_icon }}"></i>
+            <span class="nav-text">{{ $menu_utama->fitur_nama }}</span>
+        </a>
 
-        <ul class="submenu">
+        <ul aria-expanded="false">
             @foreach($menu['menu_sub'] as $menu_sub)
             
                 @if($menu_sub->fitur_parent == $menu_utama->fitur_id) 
                     @if($menu_sub->fitur_link == '#') 
-                    <li class="has-submenu">
+                    <li>
                         <a href="#">{{ $menu_sub->fitur_nama }}</a>
                         <ul class="submenu">
                             @foreach($menu['menu_anak'] as $menu_anak)
