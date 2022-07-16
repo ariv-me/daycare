@@ -11,7 +11,116 @@
 	<link href="{{ asset ('resources/sources/vendor/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ asset ('resources/sources/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link href="{{ asset ('resources/sources/css/style.css') }}" rel="stylesheet">
-	<link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset ('resources/sources/vendor/select2/css/select2.min.css') }}">
+    <link href="{{ asset('resources/sources/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
+
+<style>
+
+    .header {
+        height: 3.5rem;
+    }
+    .nav-header {
+        height: 3.5rem;
+    }
+    [data-header-position="fixed"] .content-body {
+        padding-top: 2.5rem;
+    }
+
+    .deznav {
+        height: calc(130% - 120px);
+        top: 3.5rem;
+    }
+
+    [data-sidebar-style="full"][data-layout="vertical"] .deznav .metismenu > li > a {
+        font-size: 15px;
+        padding: 6px 36px 26px 28px;
+    } 
+
+    .deznav .metismenu {
+  
+        padding-top: 23px;
+        padding-right: 20px;
+    }
+
+    [data-sidebar-style="full"][data-layout="vertical"] .deznav .metismenu > li > a {
+        font-size: 15px;
+        padding: 14px 36px 13px 28px;
+        border-radius: 0 1rem 74rem 0;
+    }
+
+    .deznav .metismenu > li a > i {
+        font-size: 1.2rem;
+    }
+
+    .deznav .metismenu ul a {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        position: relative;
+        font-size: 13px;
+        padding-left: 4.5rem;
+    }
+
+    .content-body .container-fluid, .content-body .container-sm, .content-body .container-md, .content-body .container-lg, .content-body .container-xl {
+        padding-top: 40px;
+        padding-right: 21px;
+        padding-left: 21px;
+    }
+
+    .card-header {
+
+        padding: 1.5rem -13.125rem 1.25rem;
+
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .form-control {
+        background: #fff;
+        border: 1px solid #d7dae3;
+        color: #3e4954;
+        height: 40.3px;
+        border-radius: 0.4rem;
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1.5rem;
+        border-radius: 0.4rem;
+        font-weight: 500;
+        font-size: 0.8rem;
+    }
+
+    .header-right .header-profile img {
+        width: 44px;
+        height: 44px;
+        border: 2px solid #36C95F;
+    }
+
+    .header-right .nav-item .nav-link {
+        color: #464a53;
+        font-size: 16px;
+    }
+
+    .btn-icon-left {
+        background: #fff;
+        border-radius: 10rem;
+        display: inline-block;
+        margin: -0.5rem -0.25rem -0.5rem -1.4rem;
+        padding: 0.5rem 0.8rem 0.5rem;
+        float: left;
+    }
+
+    .btn-lg, .btn-group-lg > .btn {
+        padding: 1rem 2rem;
+        font-size: 0.8rem !important;
+    }
+
+</style>
+    
+
 
 </head>
 <body>
@@ -115,7 +224,9 @@
     <script src="{{ asset ('resources/sources/js/custom.min.js') }}"></script>
 	<script src="{{ asset ('resources/sources/js/deznav-init.js') }}"></script>
 	<script src="{{ asset ('resources/sources/vendor/owl-carousel/owl.carousel.js') }}"></script>
-	
+	<script src="{{ asset ('resources/sources/vendor/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset ('resources/sources/js/plugins-init/select2-init.js') }}"></script>
+
 	<!-- Apex Chart -->
 	<script src="{{ asset ('resources/sources/vendor/apexchart/apexchart.js') }}"></script>
 	
