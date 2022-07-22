@@ -13,6 +13,14 @@
     <link href="{{ asset ('resources/sources/css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset ('resources/sources/vendor/select2/css/select2.min.css') }}">
     <link href="{{ asset('resources/sources/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+    <link href="{{ asset ('resources/sources/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('resources/sources/assets/jquery-toast-plugin-master/src/jquery.toast.css') }}" rel="stylesheet">  
+    <link href="{{ asset('resources/sources/assets/sweetalert/sweetalert.css') }}" rel="stylesheet"  type="text/css">
+    <link href="{{ asset('resources/sources/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('resources/sources/vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+
+   
+    
     <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
 
 <style>
@@ -83,7 +91,7 @@
         color: #3e4954;
         height: 40.3px;
         border-radius: 0.4rem;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 
     .btn {
@@ -133,8 +141,70 @@
         padding: 0.3rem 0.875rem;
     }
 
+    /* .card-footer {
+        border-color: #d7dae3;
+        background: transparent;
+        padding: 1.25rem -7.125rem 1.25rem;
+    } */
+
     .modal-body {
         padding: 1.3rem;
+    }
+    .modal-header {
+        padding: 1rem 1.3rem;
+    }
+    .form-control:disabled, .form-control[readonly] {
+        background: #ebe8e8;
+        opacity: 1;
+    }
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #7e7e7e;
+        font-size: small;
+    }
+
+    .table td{
+        padding: 12px 30px;
+        border-color: rgba(215, 218, 227, 0.5);
+        border-bottom: 1px solid;
+        border-top: none;
+    }
+
+    .sharp.btn-xs {
+        padding: 3px;
+        width: 26px;
+        height: 26px;
+        min-width: 61px;
+        min-height: 26px;
+    }
+
+    small, .small {
+        font-size: 80%;
+        font-weight: 400;
+        color: black;
+    }
+
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid #ffb800;
+    }
+    .btn {
+        padding: 0.6rem 1.5rem;
+        border-radius: 0.4rem;
+        font-weight: 500;
+        font-size: 0.7rem;
+    }
+
+    .dropdown-menu .dropdown-item {
+        font-size: 12px;
+        color: #464444;
+        padding: 0.5rem 1.75rem;
+    }
+    .card-body {
+        padding: 1rem;
     }
 
 </style>
@@ -236,68 +306,41 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <!-- Required vendors -->
+
+
+    <!-- jQuery  -->
+    <script src="{{ asset('resources/sources/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('resources/sources/assets/sweetalert/jquery.sweet-alert.custom.js')}}"></script>
+
+
     <script src="{{ asset ('resources/sources/vendor/global/global.min.js') }}"></script>
 	<script src="{{ asset ('resources/sources/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
-	<script src="{{ asset ('resources/sources/vendor/chart.js/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset ('resources/sources/js/custom.min.js') }}"></script>
 	<script src="{{ asset ('resources/sources/js/deznav-init.js') }}"></script>
 	<script src="{{ asset ('resources/sources/vendor/owl-carousel/owl.carousel.js') }}"></script>
 	<script src="{{ asset ('resources/sources/vendor/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset ('resources/sources/js/plugins-init/select2-init.js') }}"></script>
+    <script src="{{ asset('resources/sources/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 
-	<!-- Apex Chart -->
-	<script src="{{ asset ('resources/sources/vendor/apexchart/apexchart.js') }}"></script>
-	
-	<!-- Dashboard 1 -->
-	<script src="{{ asset ('resources/sources/js/dashboard/dashboard-1.js') }}"></script>
-	<script>
-		function assignedDoctor()
-		{
-		
-			/*  testimonial one function by = owl.carousel.js */
-			jQuery('.assigned-doctor').owlCarousel({
-				loop:false,
-				margin:30,
-				nav:true,
-				autoplaySpeed: 3000,
-				navSpeed: 3000,
-				paginationSpeed: 3000,
-				slideSpeed: 3000,
-				smartSpeed: 3000,
-				autoplay: false,
-				dots: false,
-				navText: ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>'],
-				responsive:{
-					0:{
-						items:1
-					},
-					576:{
-						items:2
-					},	
-					767:{
-						items:3
-					},			
-					991:{
-						items:2
-					},
-					1200:{
-						items:3
-					},
-					1600:{
-						items:5
-					}
-				}
-			})
-		}
-		
-		jQuery(window).on('load',function(){
-			setTimeout(function(){
-				assignedDoctor();
-			}, 1000); 
-		});
-		
-	</script>
+    <!-- Jquery Validation -->
+    <script src="{{ asset ('resources/sources/vendor/jquery-validation/jquery.validate.min.js') }}"></script>
+
+    <!-- Form validate init -->
+    <script src="{{ asset ('resources/sources/js/plugins-init/jquery.validate-init.js') }}"></script>
+    <script src="{{ asset ('resources/sources/vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset ('resources/sources/js/plugins-init/sweetalert.init.js') }}"></script>
+
+    <script src="{{ asset('resources/sources/assets/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{ asset('resources/sources/assets/sweetalert/jquery.sweet-alert.custom.js')}}"></script>
+    <script src="{{ asset('resources/sources/assets/jquery-toast-plugin-master/src/jquery.toast.js') }}"></script>
+    <script src="{{ asset('resources/sources/assets/plugins/moment/moment.js') }}"></script>
+
+    <!-- Datatable -->
+    <script src="{{ asset('resources/sources/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('resources/sources/js/plugins-init/datatables.init.js') }}."></script>
+    
+    @section('js')
+    @show
 	
 </body>
 </html>
