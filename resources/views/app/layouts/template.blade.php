@@ -1,346 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>ERES - Bootstrap Admin Dashboard </title>
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset ('resources/sources/images/favicon.png') }}">
-	<link href="{{ asset ('resources/sources/vendor/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
-    <link href="{{ asset ('resources/sources/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
-    <link href="{{ asset ('resources/sources/css/style.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset ('resources/sources/vendor/select2/css/select2.min.css') }}">
-    <link href="{{ asset('resources/sources/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
-    <link href="{{ asset ('resources/sources/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('resources/sources/assets/jquery-toast-plugin-master/src/jquery.toast.css') }}" rel="stylesheet">  
-    <link href="{{ asset('resources/sources/assets/sweetalert/sweetalert.css') }}" rel="stylesheet"  type="text/css">
-    <link href="{{ asset('resources/sources/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('resources/sources/vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{{ asset ('resources/templates/images/favicon.ico') }}">
 
-   
+    <title>EduAdmin - Dashboard</title>
     
-    <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
+	<!-- Vendors Style-->
+	<link rel="stylesheet" href="{{ asset('resources/templates/main/css/vendors_css.css') }}">
+	  
+	<!-- Style-->  
+	<link rel="stylesheet" href="{{ asset('resources/templates/main/css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('resources/templates/main/css/skin_color.css') }}">
+	<!-- DataTables -->
+	{{-- <link href="{{ asset('resources/templates/assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('resources/templates/assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+	<!-- Responsive datatable examples -->
+	<link href="{{ asset('resources/templates/assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />  --}}
+    
+	<style>
+		.main-header .navbar {
+			-moz-transition: margin-left 0.3s ease-in-out;
+			-o-transition: margin-left 0.3s ease-in-out;
+			-webkit-transition: margin-left 0.3s ease-in-out;
+			transition: margin-left 0.3s ease-in-out;
+			margin-bottom: 0;
+			margin-left: 270px;
+			min-height: 80px;
+			border-radius: 0;
+			border-bottom: 0px solid rgba(72, 94, 144, 0.16);
+			padding: 0 1.5rem;
+			box-shadow: none;
+			background: #ffffff;
+		}
+		.box-header .box-title {
+			display: inline-block;
+			margin: 0;
+			font-weight: 400;
+			font-size: 15px;
+		}
+		.form-group label {
+			font-weight: 500;
+			font-size: 12px;
+		}
+		.form-label {
+			margin-bottom: 0.3rem;
+		}
+		
+		body {
+			margin: 0;
+			font-family: var(--bs-font-sans-serif);
+			font-size: 0.9rem;
+			font-weight: 500;
+			line-height: 1.5;
+			color: #212529;
+			background-color: #fff;
+			-webkit-text-size-adjust: 100%;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		.sidebar-menu li.header {
+			padding: 15px 25px 15px 25px;
+			font-size: 12px;
+			font-weight: 500;
+			color: #04a08b;
+			opacity: 0.5;
+			text-transform: uppercase;
+		}
 
-<style>
+		.box-header {
+			color: #172b4c;
+			display: block;
+			padding: 0.6rem;
+			position: relative;
+			border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+		}
+		.box-footer {
+			border-top: 1px solid rgba(0, 0, 0, 0.07);
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+			padding-top: 0.4rem;
+			padding-bottom: 0.4rem;
+			padding-left: 1.4rem;
+			padding-right: 1.4rem;
+		}
+		.box-body-bayar {
+			-ms-flex: 1 1 auto;
+			padding-top: 0.4rem;
+			padding-bottom: 0.4rem;
+			padding-left: 1.4rem;
+			padding-right: 1.4rem;
+			flex: 1 1 auto;
+			border-radius: 10px;
+		}
 
-    .header {
-        height: 3.5rem;
-    }
-    .nav-header {
-        height: 3.5rem;
-    }
-    [data-header-position="fixed"] .content-body {
-        padding-top: 2.5rem;
-    }
+		.box-body-bayar2 {
+			padding-top: 1.5rem;
+			padding-bottom: 3rem;
+			padding-left: 1.5rem;
+			padding-right: 1.5rem;
+			-ms-flex: 1 1 auto;
+			flex: 1 1 auto;
+			border-radius: 10px;
+		}
+		.geser {
+			margin-top: 23px !important;
+		}
+	</style>
+  </head>
 
-    .deznav {
-        height: calc(130% - 120px);
-        top: 3.5rem;
-    }
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+	
+<div class="wrapper">
+	<div id="loader"></div>
+	
+  <header class="main-header">
+	<div class="d-flex align-items-center logo-box justify-content-start">
+		<a href="#" class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent" data-toggle="push-menu" role="button">
+			<span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+		</a>	
+		<!-- Logo -->
+		<a href="index.html" class="logo">
+		  <!-- logo-->
+		  <div class="logo-lg">
+			  <span class="light-logo"><img src="{{ asset('resources/templates/images/logo-dark-text.png') }}" alt="logo"></span>
+			  <span class="dark-logo"><img src="{{ asset('resources/templates/images/logo-light-text.png') }}" alt="logo"></span>
+		  </div>
+		</a>	
+	</div>  
 
-    [data-sidebar-style="full"][data-layout="vertical"] .deznav .metismenu > li > a {
-        font-size: 15px;
-        padding: 6px 36px 26px 28px;
-    } 
 
-    .deznav .metismenu {
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top">
+
+		@include('app.layouts.nav_header')
+      	<!-- Sidebar toggle button-->
+	 
+    </nav>
+  </header>
   
-        padding-top: 23px;
-        padding-right: 20px;
-    }
-
-    [data-sidebar-style="full"][data-layout="vertical"] .deznav .metismenu > li > a {
-        font-size: 15px;
-        padding: 14px 36px 13px 28px;
-        border-radius: 0 1rem 74rem 0;
-    }
-
-    .deznav .metismenu > li a > i {
-        font-size: 1.2rem;
-    }
-
-    .deznav .metismenu ul a {
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        position: relative;
-        font-size: 13px;
-        padding-left: 4.5rem;
-    }
-
-    .content-body .container-fluid, .content-body .container-sm, .content-body .container-md, .content-body .container-lg, .content-body .container-xl {
-        padding-top: 40px;
-        padding-right: 21px;
-        padding-left: 21px;
-    }
-
-    .card-header {
-
-        padding: 1.5rem -13.125rem 1.25rem;
-
-    }
-
-    .card-body {
-        padding: 1.5rem;
-    }
-
-    .form-control {
-        background: #fff;
-        border: 1px solid #d7dae3;
-        color: #3e4954;
-        height: 40.3px;
-        border-radius: 0.4rem;
-        font-size: 0.7rem;
-    }
-
-    .btn {
-        padding: 0.6rem 1.5rem;
-        border-radius: 0.4rem;
-        font-weight: 500;
-        font-size: 0.8rem;
-    }
-
-    .header-right .header-profile img {
-        width: 44px;
-        height: 44px;
-        border: 2px solid #36C95F;
-    }
-
-    .header-right .nav-item .nav-link {
-        color: #464a53;
-        font-size: 16px;
-    }
-
-    .btn-icon-left {
-        background: #fff;
-        border-radius: 10rem;
-        display: inline-block;
-        margin: -0.5rem -0.25rem -0.5rem -1.4rem;
-        padding: 0.5rem 0.8rem 0.5rem;
-        float: left;
-    }
-
-    .btn-lg, .btn-group-lg > .btn {
-        padding: 1rem 2rem;
-        font-size: 0.8rem !important;
-    }
-
-    .dropdown-menu .dropdown-item {
-        font-size: 13px;
-        color: #464444;
-        padding: 0.5rem 1.75rem;
-    }
-
-    .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item:focus, .dropdown-menu .dropdown-item:active, .dropdown-menu .dropdown-item.active {
-        color: #ffffff;
-        background: #3695eb;
-    }
-
-    .modal-footer {
-        padding: 0.3rem 0.875rem;
-    }
-
-    /* .card-footer {
-        border-color: #d7dae3;
-        background: transparent;
-        padding: 1.25rem -7.125rem 1.25rem;
-    } */
-
-    .modal-body {
-        padding: 1.3rem;
-    }
-    .modal-header {
-        padding: 1rem 1.3rem;
-    }
-    .form-control:disabled, .form-control[readonly] {
-        background: #ebe8e8;
-        opacity: 1;
-    }
-    .table {
-        width: 100%;
-        margin-bottom: 1rem;
-        color: #7e7e7e;
-        font-size: small;
-    }
-
-    .table td{
-        padding: 12px 30px;
-        border-color: rgba(215, 218, 227, 0.5);
-        border-bottom: 1px solid;
-        border-top: none;
-    }
-
-    .sharp.btn-xs {
-        padding: 3px;
-        width: 26px;
-        height: 26px;
-        min-width: 61px;
-        min-height: 26px;
-    }
-
-    small, .small {
-        font-size: 80%;
-        font-weight: 400;
-        color: black;
-    }
-
-    hr {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        border: 0;
-        border-top: 1px solid #ffb800;
-    }
-    .btn {
-        padding: 0.6rem 1.5rem;
-        border-radius: 0.4rem;
-        font-weight: 500;
-        font-size: 0.7rem;
-    }
-
-    .dropdown-menu .dropdown-item {
-        font-size: 12px;
-        color: #464444;
-        padding: 0.5rem 1.75rem;
-    }
-    .card-body {
-        padding: 1rem;
-    }
-
-</style>
+  <aside class="main-sidebar">
     
+    <!-- sidebar-->
+    <section class="sidebar position-relative">	
+	  	<div class="multinav">
+		  <div class="multinav-scroll" style="height: 100%;">	
 
+			  <!-- sidebar menu-->
 
-</head>
-<body>
+			  @include('app.layouts.menu')
 
-    <!--*******************
-        Preloader start
-    ********************-->
-    <div id="preloader">
-        <div class="sk-three-bounce">
-            <div class="sk-child sk-bounce1"></div>
-            <div class="sk-child sk-bounce2"></div>
-            <div class="sk-child sk-bounce3"></div>
+			 
+		  </div>
+		</div>
+    </section>
+	<div class="sidebar-footer">
+		<a href="javascript:void(0)" class="link" data-bs-toggle="tooltip" title="Settings"><span class="icon-Settings-2"></span></a>
+		<a href="mailbox.html" class="link" data-bs-toggle="tooltip" title="Email"><span class="icon-Mail"></span></a>
+		<a href="javascript:void(0)" class="link" data-bs-toggle="tooltip" title="Logout"><span class="icon-Lock-overturning"><span class="path1"></span><span class="path2"></span></span></a>
+	</div>
+  </aside>
 
-        </div>
-    </div>
-    <!--*******************
-        Preloader end
-    ********************-->
-
-    <!--**********************************
-        Main wrapper start
-    ***********************************-->
-    <div id="main-wrapper">
-
-        <!--**********************************
-            Nav header start
-        ***********************************-->
-        <div class="nav-header">
-                @include('app.layouts.nav_header')
-        </div>
-        <!--**********************************
-            Nav header end
-        ***********************************-->
-		
-		<!--**********************************
-            Header start
-        ***********************************-->
-        <div class="header">
-            @include('app.layouts.header')
-        </div>
-        <!--**********************************
-            Header end ti-comment-alt
-        ***********************************-->
-
-        <!--**********************************
-            Sidebar start
-        ***********************************-->
-        <div class="deznav">
-            <div class="deznav-scroll">
-
-				@include('app.layouts.menu')
-                
-				
-			</div>
-
-            <div class="copyright">
-                <p class="fs-14 font-w200"><strong class="font-w400">Eres Hospital Admin Dashboard</strong> © 2020 All Rights Reserved</p>
-                <p>Made with <i class="fa fa-heart"></i> by DexignZone</p>
-            </div>
-            
-        </div>
-        <!--**********************************
-            Sidebar end
-        ***********************************-->
-		
-		<!--**********************************
-            Content body start
-        ***********************************-->
-        <div class="content-body">
-            <!-- row -->
-			<div class="container-fluid">
-				@yield('content')
-            </div>
-        </div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
-
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
-           @include('app.layouts.footer')
-        </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
-
-    </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
-
-    <!--**********************************
-        Scripts
-    ***********************************-->
-
-
-    <!-- jQuery  -->
-    <script src="{{ asset('resources/sources/assets/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('resources/sources/assets/sweetalert/jquery.sweet-alert.custom.js')}}"></script>
-
-
-    <script src="{{ asset ('resources/sources/vendor/global/global.min.js') }}"></script>
-	<script src="{{ asset ('resources/sources/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
-    <script src="{{ asset ('resources/sources/js/custom.min.js') }}"></script>
-	<script src="{{ asset ('resources/sources/js/deznav-init.js') }}"></script>
-	<script src="{{ asset ('resources/sources/vendor/owl-carousel/owl.carousel.js') }}"></script>
-	<script src="{{ asset ('resources/sources/vendor/select2/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset ('resources/sources/js/plugins-init/select2-init.js') }}"></script>
-    <script src="{{ asset('resources/sources/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-
-    <!-- Jquery Validation -->
-    <script src="{{ asset ('resources/sources/vendor/jquery-validation/jquery.validate.min.js') }}"></script>
-
-    <!-- Form validate init -->
-    <script src="{{ asset ('resources/sources/js/plugins-init/jquery.validate-init.js') }}"></script>
-    <script src="{{ asset ('resources/sources/vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset ('resources/sources/js/plugins-init/sweetalert.init.js') }}"></script>
-
-    <script src="{{ asset('resources/sources/assets/sweetalert/sweetalert.min.js')}}"></script>
-    <script src="{{ asset('resources/sources/assets/sweetalert/jquery.sweet-alert.custom.js')}}"></script>
-    <script src="{{ asset('resources/sources/assets/jquery-toast-plugin-master/src/jquery.toast.js') }}"></script>
-    <script src="{{ asset('resources/sources/assets/plugins/moment/moment.js') }}"></script>
-
-    <!-- Datatable -->
-    <script src="{{ asset('resources/sources/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('resources/sources/js/plugins-init/datatables.init.js') }}."></script>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+	  <div class="container-full">
+		<!-- Main content -->
+		<section class="content">
+			@yield('content')
+		</section>
+		<!-- /.content -->
+	  </div>
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+	@include('app.layouts.footer')
     
+  </footer>
+  
+  <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+  
+</div>
+<!-- ./wrapper -->
+		
+	
+	
+	<!-- Page Content overlay -->
+	
+	
+	<!-- Vendor JS -->
+	<script src="{{ asset('resources/templates/main/js/vendors.min.js') }}"></script>
+    <script src="{{ asset('resources/templates/assets/icons/feather-icons/feather.min.js') }}"></script>
+	{{-- <script src="{{ asset('resources/templates/assets/vendor_components/datatable/datatables.min.js') }}"></script> --}}
+	<script src="{{ asset('resources/templates/assets/vendor_components/formatter/jquery.formatter.js') }}"></script>	
+	<script src="{{ asset('resources/templates/assets/vendor_components/Flot/jquery.flot.resize.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_components/Flot/jquery.flot.pie.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_components/Flot/jquery.flot.categories.js') }}"></script>	
+
+
+	<script src="{{ asset('resources/templates/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_components/moment/min/moment.min.js') }}"></script>
+	{{-- <script src="{{ asset('resources/templates/assets/vendor_components/fullcalendar/fullcalendar.js') }}"></script> --}}
+	
+	<!-- EduAdmin App -->
+	<script src="{{ asset('resources/templates/main/js/template.js') }}"></script>
+	<script src="{{ asset('resources/templates/main/js/pages/dashboard.js') }}"></script>
+
+	<script src="{{ asset('resources/templates/assets/vendor_components/select2/dist/js/select2.full.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_plugins/input-mask/jquery.inputmask.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_components/moment/min/moment.min.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_components/bootstrap-select/dist/js/bootstrap-select.js') }}"></script>
+
+	<script src="{{ asset('resources/templates/main/js/pages/chat-popup.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/icons/feather-icons/feather.min.js') }}"></script>	
+	<script src="{{ asset('resources/templates/assets/vendor_components/jquery-toast-plugin-master/src/jquery.toast.js') }}"></script>
+	<script src="{{ asset('resources/templates/main/js/pages/toastr.js') }}"></script>
+    <script src="{{ asset('resources/templates/main/js/pages/notification.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_components/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('resources/templates/assets/vendor_components/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
+	
+	<script src="{{ asset('resources/templates/assets/vendor_plugins/input-mask/jquery.inputmask.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/vendor_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
+	{{-- <!-- Required datatable js -->
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+	<script src="{{ asset('resources/templates/assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/pages/jquery.responsive-table.init.js') }}"></script>
+
+	<!-- Buttons examples -->
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/dataTables.buttons.min.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/buttons.bootstrap4.min.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/jszip.min.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/pdfmake.min.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/vfs_fonts.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/buttons.html5.min.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/buttons.print.min.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/buttons.colVis.min.js') }}"></script>
+	<!-- Responsive examples -->
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+	<script src="{{ asset('resources/templates/assets/plugins/datatables/responsive.bootstrap4.min.js') }}"></script> --}}
+	
     @section('js')
     @show
-	
+
 </body>
 </html>

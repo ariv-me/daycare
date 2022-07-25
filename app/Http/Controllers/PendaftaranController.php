@@ -51,14 +51,30 @@ class PendaftaranController extends Controller
         $result = array('success'=>false);
 
         try{
+
             $app = SistemApp::sistem();
-            
-            $data = DB::connection('daycare')
+            $kode = $r->get('kode');
+
+            if($kode == null){
+
+                $data = DB::connection('daycare')
                                 ->table('tc_daftar AS aa')
                                 ->leftjoin('tb_jenis AS bb','bb.jenis_id','=','aa.jenis_id')
                                 ->leftjoin('tb_grup AS cc','cc.grup_id','=','aa.grup_id')
+                                ->where('aa.kar_id',$app['kar_id'])
+                                ->where('aa.is_aktif','T')
+                                ->get();
+            } else {
+
+                $data = DB::connection('daycare')
+                                ->table('tc_daftar AS aa')
+                                ->leftjoin('tb_jenis AS bb','bb.jenis_id','=','aa.jenis_id')
+                                ->leftjoin('tb_grup AS cc','cc.grup_id','=','aa.grup_id')
+                                ->where('aa.daftar_kode',$kode)
                                 ->orderby('aa.daftar_kode')
                                 ->get();
+
+            }
                         
         } catch(\Exeption $e) {
             $result['message'] = $e->getMessage();
@@ -107,6 +123,8 @@ class PendaftaranController extends Controller
             $tmp->tarif_reg             = $tarif->tarif_reg;
             $tmp->tarif_spp             = $tarif->tarif_spp;
             $tmp->tarif_pembg           = $tarif->tarif_pembg;
+
+            $tmp->kar_id                = $app['kar_id'];
 
         
             //dd($tmp);

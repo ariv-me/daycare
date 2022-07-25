@@ -12,8 +12,8 @@ use DB;
 use App\Models\Pendaftaran;
 use App\Models\Grup;
 use App\Models\Anak;
-use App\Models\PendaftaranWali;
 use App\Models\Ortu;
+use App\Models\Perusahaan;
 
 class OrtuController extends Controller
 {
@@ -80,7 +80,14 @@ class OrtuController extends Controller
 
         try{
             
-            $data = Anak::get();
+            $data = DB::connection('daycare')
+                            ->table('tb_ortu AS aa')
+                            ->leftjoin('tb_anak AS bb','bb.ortu_id','=','aa.ortu_id')
+                            ->leftjoin('tb_perusahaan AS cc','cc.peru_id','=','aa.ortu_ayah_peru_id')
+                            ->leftjoin('ta_agama AS dd','dd.agama_id','=','aa.ortu_agama_ayah')
+                            ->orderby('aa.ortu_id','desc')
+                            ->get();
+            //dd($data);
 
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  
@@ -97,7 +104,9 @@ class OrtuController extends Controller
     public function edit(Request $r)
     {
         $id = strtolower($r->get('id'));
-        $data = Anak::where('anak_nis',$id)->first();
+       // dd($id);
+        $data = Ortu::where('ortu_id',$id)->first();
+
         return response()->json($data);
     }
 

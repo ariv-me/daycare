@@ -85,7 +85,7 @@ class ComboSistemController extends Controller
     }
 
     public function combo_ortu(){
-        $data = Ortu::orderby('ortu_id')->get();
+        $data = Ortu::orderby('ortu_id','desc')->get();
         return response()->json($data); 
     }
 

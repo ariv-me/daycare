@@ -2,19 +2,17 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"> <strong>Tambah Data Cari</strong> </h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                </button>
+                <h5 class="modal-title">Data Anak</h5>
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
                     <table class="table table-hover table-responsive-sm">
                         <thead>
                             <tr>
-                                <th class="width80">NO</th>
-                                <th>NIS</th>
-                                <th>NAMA</th>
-                                <th>AKSI</th>
+                                <th >NO</th>
+                                <th style="text-align: left">NIS</th>
+                                <th style="text-align: left">NAMA</th>
+                                <th style="text-align: center">AKSI</th>
                             </tr>
                         </thead>
                         <tbody id="show_data_anak">
