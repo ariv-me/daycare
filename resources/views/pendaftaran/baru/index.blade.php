@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-12 col-lg-8">
       <div class="box">
-        <div class="box-header bg-warning">
+        <div class="box-header bg-dark">
           <h4 class="box-title">Transaksi</h4>
         </div>
 
@@ -49,7 +49,7 @@
 
     <div class="col-12 col-lg-4">
       <div class="box">
-        <div class="box-header bg-success">
+        <div class="box-header bg-dark">
           <h4 class="box-title">Bayar</h4>
         </div>
             <div class="box-body-bayar">
@@ -67,9 +67,9 @@
 
     <div class="col-12 col-lg-12">
         <div class="box">
-          <div class="box-header bg-primary">
+          {{-- <div class="box-header bg-primary">
             <h4 class="box-title">Transaksi</h4>
-          </div>
+          </div> --}}
           {!! csrf_field() !!}                          
           <div class="box-body">
               <div class="row">
