@@ -4,159 +4,6 @@
 
 @section('content')
 
-<div class="row">
-    <div class="col-12 col-lg-8">
-      <div class="box">
-        <div class="box-header bg-dark">
-          <h4 class="box-title">Transaksi</h4>
-        </div>
-
-        <div class="box-body-bayar2">
-            <div class="row">
-               
-                <div class="col-md-4">
-                    <label class="form-label">Pendaftaran <span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-handshake-o"></i>
-                        </div>
-                        <select class="form-select" id="daftar_blm" name="daftar_blm" ></select>
-                      </div>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Tanggal Transaksi <span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control datepicker" id="daftar_tanggal" name="daftar_tanggal" disabled="disabled">
-                      </div>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Karyawan <span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-user"></i>
-                        </div>
-                        <input type="text" class="form-control" id="nama" name="nama" disabled="disabled" value="{{ $app['kar_nama_awal'] }}">
-                      </div>
-                </div>
-            </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="col-12 col-lg-4">
-      <div class="box">
-        <div class="box-header bg-dark">
-          <h4 class="box-title">Bayar</h4>
-        </div>
-            <div class="box-body-bayar">
-                <div class="pull-right">
-                    <strong><h1 id="bayar">200.000</h1></strong> 
-                </div>
-
-            </div>
-        <div class="box-footer">	
-            <button class="btn btn-danger btn-md">Batal</button>
-            <button class="btn btn-primary btn-md pull-right">Bayar</button>
-        </div>
-      </div>			 
-    </div>
-
-    <div class="col-12 col-lg-12">
-        <div class="box">
-          {{-- <div class="box-header bg-primary">
-            <h4 class="box-title">Transaksi</h4>
-          </div> --}}
-          {!! csrf_field() !!}                          
-          <div class="box-body">
-              <div class="row">
-                  <div class="col-md-2">
-                      <div class="form-group">
-                          <label class="form-label">NIS <span class="text-danger">*</span></label>
-                          <input type="text" class="form-control" id="daftar_nis" name="daftar_nis" disabled="disabled">
-                      </div>
-                  </div>
-                  <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="form-label">Anak</label>
-                          <div class="input-group">
-                              <input type="text" class="form-control" id="daftar_anak" name="daftar_anak" disabled="disabled">
-                              <button type="button" class="btn btn-warning btn-sm" id="btn_cari"> <i class="fa fa-search"></i> </button>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-label">Perusahaan <span class="text-danger">*</span></label>
-                        <select class="form-select" id="perusahaan" name="perusahaan" onchange="showFilterPerusahaan(this)" ></select>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="form-label">Jenis Pendaftaran <span class="text-danger">*</span></label>
-                        <select class="form-select" id="jenis" name="jenis" onchange="showFilterJenis(this)" ></select>
-                    </div>
-                  </div>
-                  <div class="col-md-1 geser">
-                    <button type="button" class="btn btn-success btn-sm" id="btn_proses"> <i class="fa fa fa-shopping-cart"></i> TAMBAH </button>
-                  </div>
-              </div>
-
-              <hr>
-
-              <div class="table-responsive">
-                <table class="table table table-striped table-hover mb-0" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead></thead>
-                        <tr>
-                            <th style="text-align: center">#</th>
-                            <th style="text-align: left">TARIF KODE</th>
-                            <th style="text-align: left">TARIF NAMA</th>
-                            <th style="text-align: center">REGISTRASI</th>
-                            <th style="text-align: center">SPP</th>
-                            <th style="text-align: center">PEMBANGUNAN</th>
-                            <th style="text-align: center">TOTAL</th>
-                        </tr>
-                    </thead>
-                    <tbody id="show_data_tarif">
-                        
-                    </tbody>
-                </table>
-            </div>
-  
-          </div>
-        </div>
-      </div>
-
-    <div class="col-12 col-lg-12">
-        <div class="box">
-          <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table table table-striped table-hover mb-0" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                        <thead>
-                            <tr>
-                                <th style="text-align: left">#</th>
-                                <th style="text-align: center">NIS</th>
-                                <th style="text-align: center">NAMA</th>
-                                <th style="text-align: center">REGISTRASI</th>
-                                <th style="text-align: center">SPP</th>
-                                <th style="text-align: center">PEMBANGUNAN</th>
-                                <th style="text-align: center">TOTAL</th>
-                                <th style="text-align: center">AKSI</th>
-                            </tr>
-                        </thead>
-                        <tbody id="show_data_daftar">
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>    
-    </div>
-
-</div>
 
 @include('pendaftaran.baru.modal_anak')
 
@@ -164,7 +11,7 @@
 
 @section('js')
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
 
     $(document).ready(function(){
 
@@ -618,7 +465,7 @@
 
 
 
-</script>
+</script> --}}
 
 
 @endsection

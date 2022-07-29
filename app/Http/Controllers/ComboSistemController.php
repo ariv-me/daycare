@@ -17,6 +17,7 @@ use App\Models\JenisPekerjaan;
 use App\Models\Anak;
 use App\Models\Ortu;
 use App\Models\SistemAgama;
+use App\Models\CateringKategori;
 
 
 
@@ -91,6 +92,11 @@ class ComboSistemController extends Controller
 
     public function combo_agama(){
         $data = SistemAgama::orderby('agama_id')->get();
+        return response()->json($data); 
+    }
+
+    public function combo_kategori(){
+        $data = CateringKategori::orderby('kat_id')->where('kat_aktif','Y')->get();
         return response()->json($data); 
     }
 
