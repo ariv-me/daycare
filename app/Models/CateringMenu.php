@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class CateringMenu extends Model
@@ -14,4 +15,6 @@ class CateringMenu extends Model
         $data = CateringMenu::where('menu_kode',$kode)->count();
         return $data;
     }
+
+
 }

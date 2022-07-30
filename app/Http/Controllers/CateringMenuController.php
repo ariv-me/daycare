@@ -52,10 +52,11 @@ class CateringMenuController extends Controller
                 
                 $data = $r->get('kategori');
 
-                $tmp->menu_kode      = $r->kode;
-                $tmp->kat_id      = $r->kategori;
-                $tmp->menu_nama      = $r->nama;
-                $tmp->menu_harga      = $r->harga;
+                $tmp->menu_kode             = $r->kode;
+                $tmp->kat_id                = $r->kategori;
+                $tmp->menu_nama             = $r->nama;
+                $tmp->menu_harga            = $r->harga;
+                $tmp->menu_harga_jual       = $r->harga_jual;
 
                 $tmp->created_nip   = $app['kar_id'];
                 $tmp->created_nama  = $app['kar_nama_awal'];
@@ -82,7 +83,6 @@ class CateringMenuController extends Controller
             $data = DB::connection('daycare')
                             ->table('ctrg_menu AS aa')
                             ->leftjoin('ctrg_kategori AS bb','bb.kat_id','=','aa.kat_id')
-                            ->where('aa.is_aktif','Y')
                             ->orderby('aa.menu_id','desc')
                             ->get();
 
@@ -98,6 +98,7 @@ class CateringMenuController extends Controller
                 $value->menu_kode           = strtoupper($value->menu_kode);
                 $value->item                = $data2->where('menu_kode',$value->menu_kode)->count();
                 $value->harga_tampil        = format_rupiah($value->menu_harga);
+                $value->harga_jual_tampil   = format_rupiah($value->menu_harga_jual);
 
                 return $value;
 
@@ -119,6 +120,8 @@ class CateringMenuController extends Controller
     {
         $id = strtolower($r->get('id'));
         $data = CateringMenu::where('menu_kode',$id)->first();
+
+
         return response()->json($data);
     }
 
@@ -132,9 +135,17 @@ class CateringMenuController extends Controller
  
               $tmp = CateringMenu::where('menu_kode',$id)->first();
 
-              $tmp->menu_kode = $r->kode;
-              $tmp->menu_nama = $r->nama;
-              $tmp->menu_harga = $r->harga;
+            //   $tmp->menu_kode = $r->kode;
+              $tmp->kat_id        = $r->kategori;
+              $tmp->menu_nama     = $r->nama;
+              $tmp->menu_harga    = $r->harga;
+              $tmp->menu_harga_jual    = $r->harga_jual;
+
+              $tmp->updated_nip   = $app['kar_id'];
+              $tmp->updated_nama  = $app['kar_nama_awal'];
+              $tmp->updated_ip    = $r->ip();
+
+              //dd($tmp);
             
               $tmp->save();
   

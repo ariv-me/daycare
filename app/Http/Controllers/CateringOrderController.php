@@ -14,7 +14,8 @@ use App\Models\Anak;
 use App\Models\Ortu;
 use App\Models\CateringMenu;
 use App\Models\CateringKategori;
-use App\Models\CateringOrder;
+use App\Models\CateringOrder; 
+use App\Models\CateringOrderDetail; 
 
 
 class CateringOrderController extends Controller
@@ -33,40 +34,71 @@ class CateringOrderController extends Controller
         return view('catering.order.index',compact('app','menu'));
     }
 
-    public function anak(Request $r){
-
-        //dd($r);
-
-        $transaction = DB::connection('daycare')->transaction(function() use($r){
-
-            $app = SistemApp::sistem();
-            $tmp = new Anak();
-
-            $nis = Anak::autonumber();
-
-            $tmp->anak_nama             = $r->anak_nama;
-            $tmp->anak_nis              = $nis;
-            $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
-            $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
-            $tmp->anak_jekel            = $r->anak_jekel;
-            $tmp->anak_ke               = $r->anak_ke;
-            $tmp->anak_jml_saudara      = $r->jml_saudara;
-            $tmp->ortu_ayah            = $r->ortu_ayah;
-            $tmp->ortu_pekerjaan       = $r->ortu_pekerjaan;
-            $tmp->ortu_hp              = $r->ortu_hp;
-            $tmp->ortu_alamat          = $r->ortu_alamat;
-
-            //dd($tmp);
-
-            $tmp->save();
+    public function save(Request $r){
 
 
-        });
+        $result = array('success'=>false);
 
-        return response()->json($transaction);
+        try {
+
+
+            $order_kode  = CateringOrder::order_kode();
+
+            $transaction = DB::connection('daycare')->transaction(function() use($r,$order_kode){
+    
+                $app        = SistemApp::sistem();
+                
+                /*-- SAVE --*/
+    
+                $tmp = new CateringOrder();
+
+
+                $tmp->order_kode = $order_kode;
+                $tmp->order_tgl = Carbon::now()->toDateString();
+                $tmp->order_jam = Carbon::now()->toTimeString();    
+       
+                $tmp->kar_id            = $app['kar_id'];
+                $tmp->kar_nama          = $app['kar_nama_awal'];
+                $tmp->usaha_id          = $app['usaha_id'];
+                $tmp->usaha_nama        = $app['usaha_nama'];
+                $tmp->created_ip        = $r->ip();
+    
+                $tmp->save();
+    
+                $detail = CateringOrderDetail::where('kar_id',$app['kar_id'])->where('is_aktif','T')->get();
+
+                //dd($detail);
+    
+                foreach ($detail as $key => $value) {
+    
+                    /*-- DETAIL UPDATE --*/
+    
+                    $sql = DB::connection('daycare')
+                                ->table('ctrg_order_detail')
+                                ->where('kar_id',$app['kar_id'])
+                                ->where('is_aktif','T')
+                                ->update([
+                                    'order_kode' => $order_kode,
+                                    'is_aktif' => 'Y'
+                                ]);
+                }
+    
+                return true;
+    
+            });
+
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+        
+        $result['success'] = true;
+        $result['invoice'] = $order_kode;
+
+        return response()->json($result);   
 
     }
-
     public function view(Request $r){
 
         $result = array('success'=>false);

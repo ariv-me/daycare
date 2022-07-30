@@ -20,6 +20,7 @@ use App\Http\Controllers\BayarController;
 /*-- CATERING --*/
 use App\Http\Controllers\CateringOrderController;
 use App\Http\Controllers\CateringOrderDetailController;
+use App\Http\Controllers\CateringOrderDataController;
 use App\Http\Controllers\CateringMenuController;
 use App\Http\Controllers\CateringKategoriController;
 
@@ -196,27 +197,38 @@ Route::group(['prefix' => 'tarif', 'as' => 'tarif.'], function () {
 
 Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
 
+	// ORDER
 
+	Route::get('/index', [CateringOrderController::class, 'index'])->name('index');
+	Route::get('/view', [CateringOrderController::class, 'view'])->name('view');
+	Route::post('/save', [CateringOrderController::class, 'save'])->name('save');
+	Route::get('/edit', [CateringOrderController::class, 'edit'])->name('edit');
+	Route::post('/update', [CateringOrderController::class, 'update'])->name('update');
+	Route::post('/void', [CateringOrderController::class, 'void'])->name('void');
+
+
+	// DATA
+	Route::get('/data_index', [CateringOrderDataController::class, 'index'])->name('data_index');
+	Route::get('/data_view', [CateringOrderDataController::class, 'view'])->name('data_view');
+	
+
+
+	// DETAIL
 	Route::get('/', [CateringOrderDetailController::class, 'index'])->name('index');
 	Route::get('/detail_view', [CateringOrderDetailController::class, 'view'])->name('detail_view');
 	Route::post('/detail_save', [CateringOrderDetailController::class, 'save'])->name('detail_save');
 	Route::get('/detail_edit', [CateringOrderDetailController::class, 'edit'])->name('detail_edit');
 	Route::post('/detail_update', [CateringOrderDetailController::class, 'update'])->name('detail_update');
-	Route::post('/detail_void', [CateringOrderDetailController::class, 'void'])->name('detail_void');
+	Route::get('/detail_void', [CateringOrderDetailController::class, 'void'])->name('detail_void');
 
 });
-
 
 // Catering
 
 Route::group(['prefix' => 'catering', 'as' => 'catering.'], function () {
 	
-	Route::get('/order_index', [CateringOrderController::class, 'index'])->name('order_index');
-	Route::get('/order_view', [CateringOrderController::class, 'view'])->name('order_view');
-	Route::post('/order_save', [CateringOrderController::class, 'save'])->name('order_save');
-	Route::get('/order_edit', [CateringOrderController::class, 'edit'])->name('order_edit');
-	Route::post('/order_update', [CateringOrderController::class, 'update'])->name('order_update');
-	Route::post('/order_void', [CateringOrderController::class, 'void'])->name('order_void');
+
+
 
 	Route::get('/menu_index', [CateringMenuController::class, 'index'])->name('menu_index');
 	Route::get('/menu_view', [CateringMenuController::class, 'view'])->name('menu_view');

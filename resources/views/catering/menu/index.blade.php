@@ -29,6 +29,7 @@
                                 <th style="text-align: center">NAMA</th>
                                 <th style="text-align: center">KATEGORI</th>
                                 <th style="text-align: center">HARGA</th>
+                                <th style="text-align: center">HARGA JUAL</th>
                                 <th style="text-align: center">ITEM</th>
                                 <th style="text-align: center">AKTIF</th>
                                 <th style="text-align: center">AKSI</th>
@@ -66,12 +67,25 @@
                             <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
                             <input class="form-control" name="nama" id="nama">
                         </div>
-                        <div class="form-group">
-                            <label> <strong>Harga</strong>  <small class="text-danger">*</small></label>
-                            <input class="form-control" name="harga" id="harga" maxlength="15" onkeypress="return angka(this, event)">
-                        </div>
-                       
                     </div>  
+                    <div class="col-md-6">
+                        <label> <strong>Harga Modal</strong>  <small class="text-danger">*</small></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rp.</span>
+                            </div>
+                            <input type="text" name="harga" id="harga" class="form-control col-md-12" onkeypress="return angka(this, event)" maxlength="8">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label> <strong>Harga Jual</strong>  <small class="text-danger">*</small></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> Rp.</span>
+                            </div>
+                            <input type="text" name="harga_jual" id="harga_jual" class="form-control col-md-12" onkeypress="return angka(this, event)" maxlength="8">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -91,27 +105,39 @@
             </div>
             <div class="modal-body">
                 {!! csrf_field() !!}
-
-
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="form-group">
+                            <label> <strong>Kategori</strong>  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori_edit"></select>
+                        </div>
                         <div class="form-group">
                             <label> <strong>Kode</strong>  <small class="text-danger">*</small></label>
                             <input class="form-control" name="kode" id="kode_edit" disabled="disabled">
                         </div>
-                    </div>  
-                    <div class="col-md-12">
                         <div class="form-group">
                             <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
                             <input class="form-control" name="nama" id="nama_edit">
                         </div>
                     </div>  
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label> <strong>Harga</strong>  <small class="text-danger">*</small></label>
-                            <input class="form-control" name="harga" id="harga_edit" onkeypress="return angka(this, event)">
+                    <div class="col-md-6">
+                        <label> <strong>Harga Modal</strong>  <small class="text-danger">*</small></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rp.</span>
+                            </div>
+                            <input type="text" name="harga" id="harga_edit" class="form-control col-md-12">
                         </div>
-                    </div>  
+                    </div>
+                    <div class="col-md-6">
+                        <label> <strong>Harga Jual</strong>  <small class="text-danger">*</small></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> Rp.</span>
+                            </div>
+                            <input type="text" name="harga_jual" id="harga_jual_edit" class="form-control col-md-12" onkeypress="return angka(this, event)" maxlength="5">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -207,6 +233,7 @@
                                 $('<td class= width="100%">'),
                                 $('<td class= width="10%" align="left">'),
                                 $('<td class= width="10%" align="right">'),
+                                $('<td class= width="10%" align="right">'),
                                 $('<td class= width="10%" align="center">'),
                                 $('<td class= width="5%" align="center">'),
                                 $('<td class= width="1%" align="center">')
@@ -219,6 +246,7 @@
                                 $('<td class= width="10%" align="center">'),
                                 $('<td class= width="100%">'),
                                 $('<td class= width="10%" align="left">'),
+                                $('<td class= width="10%" align="right">'),
                                 $('<td class= width="10%" align="right">'),
                                 $('<td class= width="10%" align="center">'),
                                 $('<td class= width="5%" align="center">'),
@@ -243,16 +271,19 @@
                             .html((data[i].harga_tampil)));   
 
                         tr.find('td:nth-child(6)').append($('<div>')
-                            .html((data[i].item)));   
+                            .html((data[i].harga_jual_tampil)));   
 
                         tr.find('td:nth-child(7)').append($('<div>')
+                            .html((data[i].item)));   
+
+                        tr.find('td:nth-child(8)').append($('<div>')
                             .html((data[i].is_aktif)));   
                         
                         if ((data[i].is_aktif) == 'Y'){
-                            tr.find('td:nth-child(8)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_set" data="'+data[i].menu_kode+'"><i class="fas fa-align-justify"></i></a><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].menu_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].menu_kode+'"><i class="fa fa-trash"></i></a></div>');   
+                            tr.find('td:nth-child(9)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_set" data="'+data[i].menu_kode+'"><i class="fas fa-align-justify"></i></a><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].menu_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].menu_kode+'"><i class="fa fa-trash"></i></a></div>');   
                         }
                         else {
-                            tr.find('td:nth-child(8)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_set" data="'+data[i].menu_kode+'"><i class="fas fa-align-justify"></i></a><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].menu_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].menu_kode+'"><i class="mdi mdi-check"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].menu_kode+'"><i class="fa fa-trash"></i></a></div>');   
+                            tr.find('td:nth-child(9)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_set" data="'+data[i].menu_kode+'"><i class="fas fa-align-justify"></i></a><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].menu_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].menu_kode+'"><i class="mdi mdi-check"></i></a></div>');   
                         }
                         
 
@@ -307,6 +338,7 @@
         $('#kode').val("");
         $('#nama').val("");
         $('#harga').val("");
+        $('#harga_jual').val("");
     }
 
     $('#btn_add').on('click',function(){
@@ -350,7 +382,7 @@
 
         } else if (!$("#harga").val()) {
             $.toast({
-                text: 'HARGA HARUS DI ISI',
+                text: 'HARGA MODAL HARUS DI ISI',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
@@ -360,12 +392,26 @@
             $("#harga").focus();
             return false;
 
+        } else if (!$("#harga_jual").val()) {
+            $.toast({
+                text: 'HARGA JUAL HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#harga_jual").focus();
+            return false;
+
         } 
 
-        var kategori = $('#kategori').val();
-        var kode = $('#kode').val();
-        var nama = $('#nama').val();
-        var harga = $('#harga').val();
+
+        var kategori        = $('#kategori').val();
+        var kode            = $('#kode').val();
+        var nama            = $('#nama').val();
+        var harga           = $('#harga').val();
+        var harga_jual      = $('#harga_jual').val();
 
         //console.log(kode);
         
@@ -377,6 +423,7 @@
         formData.append('kategori', kategori);
         formData.append('nama', nama);
         formData.append('harga', harga);
+        formData.append('harga_jual', harga_jual);
         formData.append('_token', token);
 
         $.ajax({
@@ -392,6 +439,99 @@
                     view();
                     swal("Berhasil!", "Data Berhasil Disimpan", "success");
                     $('#formModalAdd').modal('hide');
+                
+               
+            }
+        });
+
+     return false;
+
+    });
+
+    $('#btn_update').on('click', function(){
+
+        if (!$("#kategori_edit").val()) {
+            $.toast({
+                text: 'KATEGORI HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#kategori_edit").focus();
+            return false;
+
+        } else if (!$("#nama_edit").val()) {
+            $.toast({
+                text: 'NAMA HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#nama_edit").focus();
+            return false;
+
+        } else if (!$("#harga_edit").val()) {
+            $.toast({
+                text: 'HARGA MODAL HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#harga_edit").focus();
+            return false;
+
+        } else if (!$("#harga_jual_edit").val()) {
+            $.toast({
+                text: 'HARGA JUAL HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#harga_jual_edit").focus();
+            return false;
+
+        } 
+
+
+        var kategori        = $('#kategori_edit').val();
+        var kode            = $('#kode_edit').val();
+        var nama            = $('#nama_edit').val();
+        var harga           = $('#harga_edit').val();
+        var harga_jual      = $('#harga_jual_edit').val();
+
+        //console.log(kategori);
+        
+        var token = $('[name=_token]').val();
+
+        var formData = new FormData();
+    
+        formData.append('kode', kode);
+        formData.append('kategori', kategori);
+        formData.append('nama', nama);
+        formData.append('harga', harga);
+        formData.append('harga_jual', harga_jual);
+        formData.append('_token', token);
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('catering.menu_update') }}",
+            dataType: "JSON",
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(r) {
+                    
+                    view();
+                    swal("Berhasil!", "Data Berhasil Disimpan", "success");
+                    $('#formModalEdit').modal('hide');
                 
                
             }
@@ -494,6 +634,9 @@
                 $('#formModalEdit').find('[name="kode"]').val(data.menu_kode);
                 $('#formModalEdit').find('[name="nama"]').val(data.menu_nama);
                 $('#formModalEdit').find('[name="harga"]').val(data.menu_harga);
+                $('#formModalEdit').find('[name="harga_jual"]').val(data.menu_harga_jual);
+                $('#formModalEdit').find('[name="kategori"]').val(data.kat_id).trigger("change");
+
             }
         });
 
@@ -560,6 +703,32 @@
         });
     });
 
+    $('#show_data').on('click','.item_aktif',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Aktifkan Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Aktifkan !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('catering.menu_aktif') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        swal("Aktif !", "Data Sudah Di-Aktifkan !!.", "success");
+                        view();
+                    }
+                });  
+            }
+        });
+    });
+
     function combo_kategori(){
 
         $.ajax({
@@ -586,6 +755,29 @@
         });
 
     }
+
+
+
+    
+    /*-- FUNGSI --*/
+
+
+	function formatRupiah(angka, prefix)
+	{
+		var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split	= number_string.split(','),
+			sisa 	= split[0].length % 3,
+			rupiah 	= split[0].substr(0, sisa),
+			ribuan 	= split[0].substr(sisa).match(/\d{3}/gi);
+			
+		if (ribuan) {
+			separator = sisa ? '.' : '';
+			rupiah += separator + ribuan.join('.');
+		}
+		
+		rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+		return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+	}
     
 </script>
 

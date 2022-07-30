@@ -1,7 +1,6 @@
 @extends('app.layouts.template')
 
 
-
 @section('content')
 
 <div class="row mt-3">
@@ -48,18 +47,16 @@
                         </div>
                     </div>        
                 </div>
-            </div>
-            <div class="card-footer">
                 <div class="row">
                     <div class="col-md-9">
                        
                     </div>
                     <div class="col-md-3" style="text-align: right">
-                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" id="btn_save"><i class="fas fa-cart-plus"></i> ORDER </button>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" id="btn_save"><i class="fas fa-plus"></i> TAMBAH </button>
                     </div>
                 </div>
-
             </div>
+
         </div>
     </div>
 
@@ -73,19 +70,40 @@
                 </div>
             </div>
             <div class="card-body">
-                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table class="table table-bordered mb-0 table-centered">
                         <thead>
                             <tr>
                                 <th style="text-align: center">NO</th>
+                                <th style="text-align: center">KODE</th>
+                                <th style="text-align: center">MENU</th>
                                 <th style="text-align: center">NAMA ANAK</th>
                                 <th style="text-align: center">JADWAL</th>
-                                <th style="text-align: center">MENU</th>
                                 <th style="text-align: center">HARGA</th>
                                 <th style="text-align: center">AKSI</th>
                             </tr>
                         </thead>
                        <tbody id="show_data"></tbody>
                 </table>
+                <div class="row">
+                    <div class="col-md-8">
+                
+                    </div>
+                    <div class="col-md-4" style="text-align: right">
+                            <h1 class="text-danger" style="text-align: right"><strong>Rp.</strong><strong id="total"></strong></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-9">
+                       
+                    </div>
+                    <div class="col-md-3" style="text-align: right">
+                        <a href="{{ route('order.index') }}" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> BATAL</a>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" id="btn_order"><i class="fas fa-cart-plus"></i> ORDER </button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -141,26 +159,34 @@
 
     });
 
-    function view() {
+    function view(kode) {
 
         $.ajax({
             type: 'GET',
             url: "{{ route('order.detail_view') }}",
             async: true,
+            data : {kode:kode},
             dataType: 'JSON',
             success: function(r) {
                 var i;
-                $('#datatable').DataTable().destroy(); 
+                //$('#datatable').DataTable().destroy(); 
                 $('#show_data').empty();
                 data = r.data;
+                total = r.total;
+
+                console.log(total);
+
+                document.getElementById("total").innerHTML="<b>"+total+"</b>";
+
                 if (data.length) {
                     for (i = 0; i < data.length; i++) {
                    
                             var tr = $('<tr>').append([
                                 $('<td class= width="1%" align="center">'),
+                                $('<td class= width="5%" align="center">'),
                                 $('<td class= width="10%" align="left">'),
                                 $('<td class= width="10%" align="left">'),
-                                $('<td class= width="100%">'),
+                                $('<td class= width="5%" align="center">'),
                                 $('<td class= width="5%" align="right">'),
                                 $('<td class= width="1%" align="center">')
                             ]);
@@ -169,24 +195,41 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].anak_nama)));   
-                            
+                            .html((data[i].menu_kode)));   
+                        
                         tr.find('td:nth-child(3)').append($('<div>')
-                            .html((data[i].detail_jadwal)));   
-
+                            .html((data[i].menu_nama) + ('  -   ') + ('[ ') + (data[i].kat_nama) + (' ]')));
+                            
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html((data[i].menu_nama) + ('  -   ') + ('[ ') + (data[i].kat_nama) + (' ]')));   
+                            .html((data[i].anak_nama)));   
 
-                        tr.find('td:nth-child(5)').append($('<div>')
-                            .html((data[i].harga_tampil)));     
+                        if((data[i].detail_jadwal) == 'Pagi'){
+                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-pill badge-info')
+                            .html((data[i].detail_jadwal)));
 
-                        tr.find('td:nth-child(6)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-danger btn-xs item_delete" data="'+data[i].detail_id+'"><i class="fa fa-trash"></i></a></div>');   
+                        }else if((data[i].detail_jadwal) == 'Siang'){
+                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-pill badge-warning')
+                            .html((data[i].detail_jadwal)));
+                        
+                        }else{
+                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-pill badge-secondary')
+                            .html((data[i].detail_jadwal)));
+                        }
+
+                        tr.find('td:nth-child(6)').append($('<div>')
+                            .html((data[i].harga_jual_tampil)));     
+
+                        tr.find('td:nth-child(7)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-danger btn-xs item_delete" data="'+data[i].detail_id+'"><i class="fa fa-trash"></i></a></div>');   
 
                         tr.appendTo($('#show_data'));
                     }
 
+                } else {
+
+                     $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
                 }
-            $('#datatable').DataTable('refresh'); 
+            //$('#datatable').DataTable('refresh'); 
             }
         });
     }
@@ -210,13 +253,13 @@
                             $('<td class= width="1%" align="center">'),
                             $('<td class= width="10%" align="left">'),
                             $('<td class= width="10%" align="left">'),
-                            $('<td class= width="1%" align="center">')
+                            $('<td class= width="1%" align="right">')
                         ]);
 
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<a href="javascript:;" class="item_pilih" data="'+data[i].menu_kode+'">'+(data[i].menu_nama)+'</a>')); 
+                            .html('<a href="javascript:;" class="barang_pilih" data="'+data[i].menu_kode+'">'+(data[i].menu_nama)+'</a>')); 
                             
                         tr.find('td:nth-child(3)').append($('<div>')
                             .html((data[i].kat_nama)));   
@@ -233,9 +276,11 @@
         });
     }
 
-    $('#show_data_item').on('click','.item_pilih',function(){
+    $('#show_data_item').on('click','.barang_pilih',function(){
 
         var id = ($(this).attr('data')).toLowerCase();
+
+        console.log(id);
 
         $.ajax({
             type: "GET",
@@ -245,12 +290,13 @@
                 id: id
             },
             success: function(data) {
+                
+                console.log(data);
+
                 $('[name="kode"]').val(data.menu_kode);
                 $('[name="nama"]').val(data.menu_nama);
-                $('[name="harga"]').val(data.menu_harga);
+                $('[name="harga"]').val(data.menu_harga_jual);
                 $('#formModalMenu').modal('hide');
-
-                $('#qty').focus();
             }
         });
 
@@ -263,6 +309,8 @@
         $('#kode').val("");
         $('#nama').val("");
         $('#harga').val("");
+        $('#anak').val("").trigger("change");
+        $('#jadwal').val("").trigger("change");
     }
 
     $('#menu_view').on('click',function(){
@@ -275,17 +323,46 @@
 
     $('#btn_save').on('click', function(){
 
-        if (!$("#kode").val()) {
+        if (!$("#anak").val()) {
             $.toast({
-                text: 'MENU HARUS DI PILIH',
+                text: 'ANAK HARUS DI PILIH',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
+            $("#anak").focus();
+            return false;
+
+        } 
+          else if (!$("#jadwal").val()) {
+            
+            $.toast({
+                text: 'JADWAL MAKAN HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#jadwal").focus();
+            return false;
+
+        }
+          else if (!$("#kode").val()) {
+            
+            $.toast({
+                text: 'MENU HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
             $("#kode").focus();
             return false;
-        } 
+
+        }
 
         var tanggal = $('#tanggal').val();
         var anak = $('#anak').val();
@@ -319,7 +396,14 @@
             success: function(r) {
                     
                     view();
-                    swal("Berhasil!", "Data Berhasil Disimpan", "success");
+                    $.toast({
+                        text: 'DATA BERHASIL DI TAMBAHKAN',
+                        position: 'top-right',
+                        loaderBg: '#fff716',
+                        icon: 'success',
+                        hideAfter: 3000
+                    });
+                    reset();
                     $('#formModalAdd').modal('hide');
                 
                
@@ -356,50 +440,24 @@
 
     });
 
-    $('#btn_set').on('click', function(){
-
-
-        if (!$("#nama_item").val()) {
-            $.toast({
-                text: 'NAMA HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#nama_item").focus();
-            return false;
-
-        } 
-
-        var kode = $('#kode_item').val();
-        var nama = $('#nama_item').val();
-        
-        console.log(nama);
+    $('#btn_order').on('click', function(){
 
         var token = $('[name=_token]').val();
-
         var formData = new FormData();
 
-        formData.append('kode', kode);
-        formData.append('nama', nama);
-        formData.append('harga', harga);
         formData.append('_token', token);
 
         $.ajax({
             type: "POST",
-            url: "{{ route('catering.item_save') }}",
+            url: "{{ route('order.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
             processData: false,
             contentType: false,
             success: function(r) {
-                
-                $('#nama_item').val("");
-                var kode = $('#kode_item').val();
-                view_item(kode);
+
+                swal("Berhasil !", "Makanan Sudah Di Order !!.", "success");
                 view();
             }
         });
@@ -536,7 +594,7 @@
         });
     });
 
-    $('#show_data_item').on('click','.item_delete',function(){
+    $('#show_data').on('click','.item_delete',function(){
         var id=$(this).attr('data');
         swal({
                 title: "Anda Yakin Hapus Data Ini ?",
@@ -575,20 +633,26 @@
                         var html = '';
                         var i;
                         $('select[name=anak]').empty()
+                            var x = document.getElementById("anak");
+                            var option = document.createElement("option");
+                            option.text = "Pilih Anak";
+                            option.value = "";
+                        x.add(option);
                         for(i=0; i<data.length; i++){
                             var html = '';
                             html = '<option value='+(data[i].anak_nis)+'>'+(data[i].anak_nama)+'</option>';
                             $('select[name=anak]').append(html)
                         }
                     }
-                });
+        });
 
-        }
+    }
     
     function combo_jadwal(){
         $('select[name=jadwal]').empty()
             var html = '';
-            html = '<option value="Pagi">Pagi</option>'+
+            html = '<option value="">Pilih jadwal Makan</option>'+
+                   '<option value="Pagi">Pagi</option>'+
                    '<option value="Siang">Siang</option>'+
                    '<option value="Malam">Malam</option>';
         $('select[name=jadwal]').append(html)

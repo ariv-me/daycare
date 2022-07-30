@@ -20,7 +20,7 @@ use App\Models\CateringMenuItem;
 use App\Models\HCISKaryawan;
 
 
-class CateringOrderDetailController extends Controller
+class CateringOrderDataController extends Controller
 {
     
     public function __construct()
@@ -33,17 +33,10 @@ class CateringOrderDetailController extends Controller
         
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-
-        $kosong      = CateringOrderDetail::where('kar_id',$app['kar_id'])->where('is_aktif','T')->delete();
-
-        return view('catering.order.index',compact('app','menu'));
+        return view('catering.order.data.index',compact('app','menu'));
     }
 
 
-
-
-    /*------------------------------------------ DETAIL ----------------------------------------------------*/
-   
     public function save(Request $r){
 
         $app       = SistemApp::sistem();
@@ -99,19 +92,18 @@ class CateringOrderDetailController extends Controller
         $result = array('success'=>false);
 
         try{
-            $app = SistemApp::sistem();
+
             $order_kode = CateringOrder::order_kode();
 
             $data = DB::connection('daycare')
-                    ->table('ctrg_order_detail AS aa')
-                    ->leftjoin('tb_anak AS cc','cc.anak_nis','=','aa.anak_nis')
-                    ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
-                    ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
-                    ->where('aa.is_aktif','T')
-                    ->where('aa.kar_id',$app['kar_id'])
-                    ->orderby('aa.detail_id','desc')
-                    ->get();
-
+                            ->table('ctrg_order_detail AS aa')
+                            ->leftjoin('ctrg_order AS bb','bb.order_kode','=','aa.order_kode')
+                            ->leftjoin('tb_anak AS cc','cc.anak_nis','=','aa.anak_nis')
+                            ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
+                            ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
+                            ->where('aa.is_aktif','Y')
+                            ->orderby('aa.order_kode','desc')
+                            ->get();
                             
             $data = $data->map(function($value) {
     
@@ -160,28 +152,7 @@ class CateringOrderDetailController extends Controller
         $transaction = DB::connection('mysql')->transaction(function() use($r){
   
               $app = SistemApp::sistem();
-              $id = $r->get('kode');
- 
-              $tmp = CateringOrderDetail::where('detail_id',$id)->first();
-
-              $tmp->detail_status = $r->status;
-              $tmp->petugas_nip       = $app['kar_nip'];
-              $tmp->petugas_nama      = $app['kar_nama_awal'];
-              $tmp->updated_ip        = $r->ip();
-
-              $tmp->save();
   
-              return true;
-          });
-  
-          return response()->json($transaction);   
-    }
-
-    public function update_detail(Request $r){
-
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
-  
-              $app = SistemApp::sistem();
               $id = $r->get('kode');
  
               $tmp = CateringOrderDetail::where('detail_id',$id)->first();
