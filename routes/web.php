@@ -203,6 +203,7 @@ Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
 	Route::get('/view', [CateringOrderController::class, 'view'])->name('view');
 	Route::post('/save', [CateringOrderController::class, 'save'])->name('save');
 	Route::get('/edit', [CateringOrderController::class, 'edit'])->name('edit');
+	Route::get('/detail', [CateringOrderController::class, 'detail'])->name('detail');
 	Route::post('/update', [CateringOrderController::class, 'update'])->name('update');
 	Route::post('/void', [CateringOrderController::class, 'void'])->name('void');
 
@@ -210,8 +211,8 @@ Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
 	// DATA
 	Route::get('/data_index', [CateringOrderDataController::class, 'index'])->name('data_index');
 	Route::get('/data_view', [CateringOrderDataController::class, 'view'])->name('data_view');
+	Route::get('/piutang_view', [CateringOrderDataController::class, 'view_piutang'])->name('piutang_view');
 	
-
 
 	// DETAIL
 	Route::get('/', [CateringOrderDetailController::class, 'index'])->name('index');
@@ -227,8 +228,6 @@ Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
 
 Route::group(['prefix' => 'catering', 'as' => 'catering.'], function () {
 	
-
-
 
 	Route::get('/menu_index', [CateringMenuController::class, 'index'])->name('menu_index');
 	Route::get('/menu_view', [CateringMenuController::class, 'view'])->name('menu_view');

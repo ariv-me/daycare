@@ -1,5 +1,24 @@
 @extends('app.layouts.template')
 
+@section('css')
+
+<style>
+    .form-control2:disabled, .form-control2[readonly] {
+        background-color: #e9ecef;
+        opacity: 1;
+    }
+
+    .form-control2 {
+        font-size: 40px;
+        border-radius: 0rem;
+        height: calc(5rem + 2px);
+        padding: 0.5rem 0.5rem;
+    }
+
+   
+</style>
+
+@endsection
 
 @section('content')
 
@@ -88,7 +107,7 @@
                     <div class="col-md-8">
                 
                     </div>
-                    <div class="col-md-4" style="text-align: right">
+                    <div class="col-md-4 mt-1" style="text-align: right">
                             <h1 class="text-danger" style="text-align: right"><strong>Rp.</strong><strong id="total"></strong></h1>
                     </div>
                 </div>
@@ -134,6 +153,56 @@
     </div>
 </div>
 
+<div class="modal modal-default fade" id="formModalBayar">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #ffffff">
+
+            <div class="modal-body">
+            
+                {!! csrf_field() !!}
+    
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">TOTAL</label>
+                            <div class="col-sm-9">
+                                <input class="form-control2" name="total_trans" id="total_trans" onkeypress="return angka(this, event)" readonly="readonly">                
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">PEMBAYARAN</label>
+                            <div class="col-sm-9">   
+                                 <select class="form-control custom-select select2 text-left" style="width: 100%;" name="jenis_bayar" id="jenis_bayar" disabled="disabled"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">BAYAR</label>
+                            <div class="col-sm-9">   
+                                <input class="form-control2" name="total_bayar" id="total_bayar" onkeypress="return angka(this, event)" readonly="readonly" >
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-success btn-xl col-md-12" id="btn_bayar"><i class="fas fa-cart-plus"></i>     ORDER</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 @endsection
 
@@ -174,10 +243,8 @@
                 data = r.data;
                 total = r.total;
 
-                console.log(total);
-
-                document.getElementById("total").innerHTML="<b>"+total+"</b>";
-
+                document.getElementById("total").innerHTML="<b>"+total+"</b>";  
+                
                 if (data.length) {
                     for (i = 0; i < data.length; i++) {
                    
@@ -246,6 +313,9 @@
                 $('#datatable').DataTable().destroy(); 
                 $('#show_data_item').empty();
                 data = r.data;
+     
+                
+
                 if (data.length) {
                     for (i = 0; i < data.length; i++) {
                      
@@ -302,6 +372,51 @@
 
         return false;
 
+    });
+
+    /*-- ORDER + SAVE --*/
+
+    $('#btn_order').on('click', function(){    
+
+        var total = $('#total').text();
+
+        if ( total == "0") {
+            $.toast({
+                text: 'TRANSAKSI TIDAK ADA',
+                position: 'top-left',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#barang_kode").focus();
+            return false;
+
+        } else {
+
+            var total = $('#total').text();
+            var bayar = $('#total_bayar').val("0");
+
+            $('[name="total_trans"]').val(total);
+
+            var ttotal = total.replace(/\./g,'');
+            var tbayar = 0;
+            var tkembali = tbayar - ttotal;
+
+            var reverse = tkembali.toString().split('').reverse().join(''),
+            ribuan = reverse.match(/\d{1,3}/g);
+            ribuan = ribuan.join('.').split('').reverse().join('');
+
+            var str1 = "- ";
+            var str2 = ribuan;
+            var xkembali = str1.concat(str2);
+
+            $('[name="total_kembali"]').val(xkembali);
+
+            $('[name="total_bayar"]').val(tbayar);
+
+            //combo_jenis_bayar();
+            $('#formModalBayar').modal('show');
+        }    
     });
 
 
@@ -371,8 +486,6 @@
         var nama = $('#nama').val();
         var harga = $('#harga').val();
 
-        //console.log(kode);
-        
         var token = $('[name=_token]').val();
 
         var formData = new FormData();
@@ -405,8 +518,7 @@
                     });
                     reset();
                     $('#formModalAdd').modal('hide');
-                
-               
+
             }
         });
 
@@ -440,11 +552,13 @@
 
     });
 
-    $('#btn_order').on('click', function(){
+    $('#btn_bayar').on('click', function(){
 
+        var total = $('#total_trans').val();
         var token = $('[name=_token]').val();
         var formData = new FormData();
 
+        formData.append('total', total);
         formData.append('_token', token);
 
         $.ajax({
@@ -458,6 +572,7 @@
             success: function(r) {
 
                 swal("Berhasil !", "Makanan Sudah Di Order !!.", "success");
+                $('#formModalBayar').modal('hide');
                 view();
             }
         });
