@@ -111,7 +111,6 @@ class CateringOrderDetailController extends Controller
                     ->where('aa.kar_id',$app['kar_id'])
                     ->orderby('aa.detail_id','desc')
                     ->get();
-
                             
             $data = $data->map(function($value) {
     
@@ -164,9 +163,10 @@ class CateringOrderDetailController extends Controller
  
               $tmp = CateringOrderDetail::where('detail_id',$id)->first();
 
-              $tmp->detail_status = $r->status;
+              $tmp->detail_status     = $r->status;
               $tmp->petugas_nip       = $app['kar_nip'];
               $tmp->petugas_nama      = $app['kar_nama_awal'];
+              $tmp->updated_jam       = Carbon::now()->toTimeString();
               $tmp->updated_ip        = $r->ip();
 
               $tmp->save();

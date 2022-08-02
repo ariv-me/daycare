@@ -12,7 +12,7 @@ class CateringOrder extends Model
 {
     protected $connection = 'daycare';
     protected $table = 'ctrg_order';
-    protected $primaryKey = 'order_kode';
+    protected $primaryKey = 'order_id';
 
     public static function order_kode()
 
