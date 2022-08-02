@@ -14,20 +14,21 @@
 @section('content')
 
 <div class="row mt-3">
-    <div class="col-8">
+    <div class="col-lg-9">
         <div class="card">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-md-9">
-                        <h4 class="card-title">Data - Orderan</h4>
-                    </div>
-                </div>
-            </div>
-
+                <div class="row align-items-center">
+                    <div class="col">                      
+                        <h4 class="card-title">Audience Overview</h4>                      
+                    </div><!--end col-->
+                     
+                </div>  <!--end row-->                                  
+            </div><!--end card-header-->
             <div class="card-body">
-                {!! csrf_field() !!}
-  
                 <div class="row">
+
+                    {!! csrf_field() !!}
+                    
                     <div class="col-md-3">
                         <div class="form-group top"> 
                             <label> <strong>Tanggal Awal</strong></label>
@@ -63,81 +64,86 @@
                         <button type="button" class="btn btn-primary" id="btn_cari"><i class="fas fa-search"></i> </button>
                     </div>   
                 </div>
-            </div>
 
-        </div>
-    </div>
-
-    <div class="col-4">
+            </div><!--end card-body--> 
+        </div><!--end card--> 
+    </div> <!--end col-->  
+    <div class="col-lg-3">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Total Piutang</h4>
-            </div>
+                <div class="row align-items-center">
+                    <div class="col">                      
+                        <h4 class="card-title">Total Tagihan</h4>                      
+                    </div><!--end col-->
+                    <div class="col-auto"> 
+                              
+                    </div><!--end col-->
+                </div>  <!--end row-->                                  
+            </div><!--end card-header-->
             <div class="card-body">
-                   
-                  <h1 class="text-danger" style="text-align: right"> <strong>Rp.</strong> <strong id="total">0</strong></h1>
-                    
-                </div>
+               <h1 class="text-danger" style="text-align: right"> <strong>Rp.</strong> <strong id="total">0</strong></h1>                                 
+            </div><!--end card-body--> 
+        </div><!--end card--> 
+    </div> <!--end col-->          
+    
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+            
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link  active" data-toggle="tab" href="#order" role="tab" aria-selected="false"><strong><i class="fas fa-cart-arrow-down"></i> ORDER </strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#piutang" role="tab" aria-selected="false"> <strong><i class="fas fa-donate"></i> PIUTANG </strong></a>
+                    </li>                                                
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane p-3 active" id="order" role="tabpanel">
+        
+                        <table id="datatable" class="table table-bordered mb-0 table-centered">
+                            <thead>
+                                <tr>
+                                    <th width ="1%" style="text-align: center">NO</th>
+                                    <th width ="18%" style="text-align: center">KODE</th>
+                                    <th style="text-align: center">MENU & JADWAL</th>
+                                    <th style="text-align: center">ANAK</th>
+                                    <th width ="15%" style="text-align: center">STATUS</th>
+                                    <th width ="15%" style="text-align: center">HARGA</th>
+                                    <th width ="5%" style="text-align: center">AKSI</th>
+                                </tr>
+                            </thead>
+                            <tbody id="show_data"></tbody>
+                        </table>
+                
+                    </div>
+                    <div class="tab-pane p-3" id="piutang" role="tabpanel">
+                        <table class="table table-bordered mb-0 table-centered">
+                            <thead>
+                                <tr>
+                                    <th width ="5%" style="text-align: center">NO</th>
+                                    <th width ="15%" style="text-align: center">KODE</th>
+                                    <th width ="20%" style="text-align: center">TANGGAL</th>
+                                    <th width ="10%" style="text-align: center">STATUS</th>
+                                    <th width ="15%" style="text-align: center">TOTAL</th>
+                                    <th width ="5%" style="text-align: center">AKSI</th>
+                                </tr>
+                            </thead>
+                            <tbody id="show_data_piutang">
+
+                            </tbody>
+                        </table>
+                    </div>                                                
+                </div>        
+        
             </div>
         </div>
-    </div>
+    </div> 
 </div>
-<div class="col-12">
-    <div class="card">
-        <div class="card-body">
-         
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link  active" data-toggle="tab" href="#order" role="tab" aria-selected="false"><strong><i class="fas fa-cart-arrow-down"></i> ORDER </strong></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#piutang" role="tab" aria-selected="false"> <strong><i class="fas fa-donate"></i> PIUTANG </strong></a>
-                </li>                                                
-            </ul>
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane p-3 active" id="order" role="tabpanel">
-       
-                    <table id="datatable" class="table table-bordered mb-0 table-centered">
-                        <thead>
-                            <tr>
-                                <th width ="1%" style="text-align: center">NO</th>
-                                <th width ="18%" style="text-align: center">KODE</th>
-                                <th style="text-align: center">MENU & JADWAL</th>
-                                <th style="text-align: center">ANAK</th>
-                                <th width ="10%" style="text-align: center">STATUS</th>
-                                <th style="text-align: center">HARGA</th>
-                                <th width ="5%" style="text-align: center">AKSI</th>
-                            </tr>
-                        </thead>
-                        <tbody id="show_data"></tbody>
-                    </table>
-            
-                </div>
-                <div class="tab-pane p-3" id="piutang" role="tabpanel">
-                    <table class="table table-bordered mb-0 table-centered">
-                        <thead>
-                            <tr>
-                                <th width ="1%" style="text-align: center">NO</th>
-                                <th width ="10%" style="text-align: center">KODE</th>
-                                <th style="text-align: center">TANGGAL</th>
-                                <th style="text-align: center">STATUS</th>
-                                <th style="text-align: center">HARGA</th>
-                                <th width ="5%" style="text-align: center">AKSI</th>
-                            </tr>
-                        </thead>
-                        <tbody id="show_data_piutang">
-
-                        </tbody>
-                    </table>
-                </div>                                                
-            </div>        
-      
-        </div>
-    </div>
-</div>
 
 <div class="modal fade  bd-example-modal" id="formModalSet">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -154,7 +160,7 @@
                 </div> 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-sm" id="btn_set"><i class="fas fa-save"></i> SIMPAN</button>
+                <button type="button" class="btn btn-success btn-sm" id="btn_set_status"><i class="fas fa-save"></i> SIMPAN</button>
             </div>
         </div>
        
@@ -225,7 +231,7 @@
 
                                 <div class="row justify-content-center">
                                     <div class="col-lg-8">
-                                        <h5 class="mt-4">Terbilang :</h5>
+                                        <h6 class="mt-4"> <strong> Terbilang : </strong></h6>
                                             <small id="terbilang" class="font-12"> </small>
                                         </ul>
                                     </div> <!--end col-->                                       
@@ -240,7 +246,7 @@
                                             <div class="form-group row">
                                                 <label for="horizontalInput1" class="col-sm-2 col-form-label"> <strong>BAYAR</strong></label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="total_trans" name="total_trans">
+                                                    <input type="text" class="form-control" id="total_bayar" name="total_bayar">
                                                 </div>
                                             </div>
                                         </div>
@@ -253,9 +259,7 @@
                                     </div><!--end col-->
                                     <div class="col-lg-12 col-xl-4">
                                         <div class="float-right d-print-none">
-                                            <a href="javascript:window.print()" class="btn btn-info"><i class="fa fa-print"></i></a>
-                                            <a href="#" class="btn btn-primary">Submit</a>
-                                            <a href="#" class="btn btn-danger">Cancel</a>
+                                            <button type="button" class="btn btn-success" id="btn_bayar_save"><i class="fas fa-save"></i> BAYAR</button>
                                         </div>
                                     </div><!--end col-->
                                 </div><!--end row-->
@@ -342,7 +346,7 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].order_kode)));   
+                            .html('<strong>' +(data[i].order_kode) + '</strong>'));   
 
                         tr.find('td:nth-child(2)').append($('<div>')
                             .html('<i class="mdi mdi-calendar-clock text-dark"></i> '+ (moment(data[i].detail_tgl).format('DD-MM-YYYY')) + ' - ' + (data[i].detail_jam) ));   
@@ -369,15 +373,15 @@
                        
 
                         if((data[i].detail_status) == 'O'){
-                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-danger')
+                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-md badge-soft-danger')
                                 .html('Open'));
                             tr.find('td:nth-child(7)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs status_set" data="'+data[i].detail_id+'"><i class="fas fa-align-justify"></i></a></div>');   
                         } else if((data[i].detail_status) == 'P'){
-                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-primary')
+                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-md badge-soft-primary')
                                 .html('Proses'));
                             tr.find('td:nth-child(7)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs status_set" data="'+data[i].detail_id+'"><i class="fas fa-align-justify"></i></a></div>');   
                         } else if ((data[i].detail_status) == 'S'){
-                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-success')
+                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-md badge-soft-success')
                                 .html('Selesai'));
                             tr.find('td:nth-child(7)').append('<div class="btn-group"><i class="fas fa-check-circle text-success"></i></a></div>');   
                         }
@@ -442,11 +446,11 @@
                             .html('<i class="mdi mdi-calendar-clock text-dark"></i> '+ (moment(data[i].detail_tgl).format('DD-MM-YYYY')) + ' - ' + (data[i].order_jam) ));  
 
                         if ((data[i].order_status) == 'U'){
-                            tr.find('td:nth-child(4)').append($('<span>').addClass('badge badge-danger')
-                                .html('UTANG'));
+                            tr.find('td:nth-child(4)').append($('<span>').addClass('badge badge-md badge-soft-danger')
+                                .html('Utang'));
                         } else {
-                            tr.find('td:nth-child(4)').append($('<span>').addClass('badge badge-success')
-                                .html('LUNAS'));
+                            tr.find('td:nth-child(4)').append($('<span>').addClass('badge badge-md badge-soft-success')
+                                .html('Lunas'));
                         }
 
                         tr.find('td:nth-child(5)').append($('<div>')
@@ -467,11 +471,11 @@
         });
     }
 
-    function view_detail($id) {
+    function view_piutang_detail($id) {
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('order.detail') }}",
+            url: "{{ route('order.piutang_detail') }}",
             async: true,
             data : {id:$id},
             dataType: 'JSON',
@@ -556,27 +560,8 @@
 
     });
 
-    function combo_status(){
-        $('select[name=status]').empty()
-            var html = '';
-            html = '<option value="">Pilih Status</option>'+
-                   '<option value="O">Open</option>'+
-                   '<option value="P">Proses</option>'+
-                   '<option value="S">Selesai</option>';
-            $('select[name=status]').append(html)
-    }
 
-    function combo_status_filter(){
-        $('select[name=status_filter]').empty()
-            var html = '';
-            html = '<option value="Semua">Semua</option>'+
-                   '<option value="O">Open</option>'+
-                   '<option value="P">Proses</option>'+
-                   '<option value="S">Selesai</option>';
-            $('select[name=status_filter]').append(html)
-    }
-
-    $('#btn_set').on('click',function(){
+    $('#btn_set_status').on('click',function(){
 
         if (!$("#status").val()) {
             $.toast({
@@ -638,16 +623,69 @@
                 $('#formModalBayar').modal('show');    
                 $('#formModalBayar').find('[name="id_edit"]').val(data.order_kode);      
                 $('#formModalBayar').find('[name="total_trans"]').val(data.order_total);
+                $('#formModalBayar').find('[name="total_bayar"]').val(data.order_total);
 
                 var tgl_mulai = $('#tanggal_awal').val();
                 var tgl_akhir = $('#tanggal_akhir').val();
 
                 view_piutang(tgl_mulai,tgl_akhir);
-                view_detail(id)
+                view_piutang_detail(id)
 
             }
         });
    
+    });
+
+    $('#btn_bayar_save').on('click', function(){    
+
+        if (!$("#total_bayar").val()) {
+            $.toast({
+                text: 'TOTAL BAYAR HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#total_bayar").focus();
+            return false;
+
+        } 
+
+
+        var id           = $('#id_edit').val();
+        var total        = $('#total_trans').val();
+        var bayar        = $('#total_bayar').val();
+        
+        var token = $('[name=_token]').val();
+
+        var formData = new FormData();
+    
+        formData.append('id', id);
+        formData.append('total', total);
+        formData.append('bayar', bayar);
+
+        formData.append('_token', token);
+
+        $.ajax({
+            type : "POST",
+            url   : "{{ route('order.piutang_bayar') }}",
+            dataType: "JSON",
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(r){
+
+                swal("Berhasil!", "Data Berhasil Disimpan", "success");
+                $('#formModalBayar').modal('hide');
+
+                var tgl_mulai = $('#tanggal_awal').val();
+                var tgl_akhir = $('#tanggal_akhir').val();
+
+                view_piutang(tgl_mulai,tgl_akhir);
+
+            }
+        });
     });
 
     $('#btn_bayar').on('click', function(){    
@@ -673,6 +711,26 @@
             }
         });
     });
+
+    function combo_status(){
+        $('select[name=status]').empty()
+            var html = '';
+            html = '<option value="">Pilih Status</option>'+
+                   '<option value="O">Open</option>'+
+                   '<option value="P">Proses</option>'+
+                   '<option value="S">Selesai</option>';
+            $('select[name=status]').append(html)
+    }
+
+    function combo_status_filter(){
+        $('select[name=status_filter]').empty()
+            var html = '';
+            html = '<option value="Semua">Semua</option>'+
+                   '<option value="O">Open</option>'+
+                   '<option value="P">Proses</option>'+
+                   '<option value="S">Selesai</option>';
+            $('select[name=status_filter]').append(html)
+    }
 
 
     

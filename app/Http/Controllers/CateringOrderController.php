@@ -34,6 +34,10 @@ class CateringOrderController extends Controller
         return view('catering.order.index',compact('app','menu'));
     }
 
+
+    //------------------------------- ORDER SAVE --------------------------------
+
+
     public function save(Request $r){
 
 
@@ -128,7 +132,70 @@ class CateringOrderController extends Controller
         
     }
 
-    public function detail(Request $r){
+
+    //------------------------------- PIUTANG VIEW --------------------------------
+
+
+    public function view_piutang(Request $r){
+
+        $result = array('success'=>false);
+
+        try{
+
+            $tgl_mulai  = $r->get('tgl_mulai');
+            $tgl_akhir  = $r->get('tgl_akhir');
+            $status     = $r->get('status');
+
+
+            $tanggal_mulai = $tgl_mulai ? date('Y-m-d', strtotime($tgl_mulai)) : date('Y-m-d');
+            $tanggal_akhir = $tgl_akhir ? date('Y-m-d', strtotime($tgl_akhir)) : date('Y-m-d');
+
+            $order_kode = CateringOrder::order_kode();
+
+            $data = DB::connection('daycare')
+                        ->table('ctrg_order AS aa')
+                        ->where('aa.order_tgl', '>=', $tanggal_mulai)
+                        ->where('aa.order_tgl', '<=', $tanggal_akhir)
+                        ->where('aa.is_aktif','Y')
+                        ->orderby('aa.order_kode','desc')
+                        ->get();
+
+            $data2 = DB::connection('daycare')
+                        ->table('ctrg_order_detail AS aa')
+                        ->leftjoin('ctrg_order AS bb','bb.order_kode','=','aa.order_kode')
+                        ->leftjoin('tb_anak AS cc','cc.anak_nis','=','aa.anak_nis')
+                        ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
+                        ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
+                        ->where('aa.is_aktif','Y')
+                        ->orderby('aa.order_kode','desc')
+                        ->get();
+        
+            $data = $data->map(function($value) use($data2) {
+ 
+                $value->total_tampil        = format_rupiah($value->order_total);
+                $value->total_piutang       = $value->order_total;
+                
+                return $value;
+
+            });
+
+            // dd($order_kode);
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['data'] = $data;
+        $result['detail'] = $data2;
+        $result['total'] = format_rupiah($data->where('order_status','U')->sum('total_piutang'));
+
+        return response()->json($result);
+
+    }
+
+    public function piutang_detail(Request $r){
 
         $result = array('success'=>false);
 
@@ -176,6 +243,36 @@ class CateringOrderController extends Controller
 
         return response()->json($result);
 
+    }
+
+    //------------------------------- PIUTANG BAYAR PER KODE ORDER --------------------------------
+
+    public function piutang_bayar(Request $r){
+
+        $transaction = DB::connection('mysql')->transaction(function() use($r){
+  
+              $app = SistemApp::sistem();
+  
+              $id = $r->get('id');
+ 
+              $tmp = CateringOrder::where('order_kode',$id)->first();
+
+            //   $tmp->menu_kode = $r->kode;
+              $tmp->order_total         = $r->total;
+              $tmp->order_bayar         = $r->bayar;
+              $tmp->order_status         = 'L';
+
+
+              $tmp->updated_nip   = $app['kar_id'];
+              $tmp->updated_nama  = $app['kar_nama_awal'];
+              $tmp->updated_ip    = $r->ip();
+            
+              $tmp->save();
+  
+              return true;
+          });
+  
+          return response()->json($transaction);   
     }
 
 

@@ -39,6 +39,7 @@
         <link href="{{ asset('resources/templates3/view/assets/css/metisMenu.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('resources/templates3/plugins/daterangepicker/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('resources/templates3/view/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('resources/templates3/view/assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
         
         <link href="{{ asset('resources/templates3/plugins/jquery-toast-plugin-master/src/jquery.toast.css') }}" rel="stylesheet">  
         <link href="{{ asset('resources/templates3/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet"  type="text/css">
@@ -153,7 +154,7 @@
         <script src="{{ asset('resources/templates3/view/assets/js/feather.min.js') }}"></script>
         <script src="{{ asset('resources/templates3/view/assets/js/simplebar.min.js') }}"></script>
         <script src="{{ asset('resources/templates3/view/assets/js/jquery-ui.min.js') }}"></script>
-        <script src="{{ asset('resources/templates3/view/assets/js/moment.js') }}"></script>
+        <script src="{{ asset('resources/templates3/view/assets/js/moment/moment.js') }}"></script>
         <script src="{{ asset('resources/templates3/plugins/daterangepicker/daterangepicker.js') }}"></script>
 
         {{-- <script src="{{ asset('resources/templates3/plugins/apex-charts/apexcharts.min.js') }}"></script>
@@ -194,6 +195,7 @@
         <script src="{{ asset('resources/templates3/plugins/sweetalert/sweetalert.min.js')}}"></script>
         <script src="{{ asset('resources/templates3/plugins/sweetalert/jquery.sweet-alert.custom.js')}}"></script>
         <script src="{{ asset('resources/templates3/plugins/jquery-toast-plugin-master/src/jquery.toast.js') }}"></script>
+        <script src="{{ asset('resources/templates3/view/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
         <script src="{{ asset('resources/templates3/plugins/input-mask/jquery.inputmask.js') }}"></script>
         <script src="{{ asset('resources/templates3/plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
         <!-- App js -->

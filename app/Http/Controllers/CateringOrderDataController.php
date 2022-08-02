@@ -159,64 +159,7 @@ class CateringOrderDataController extends Controller
 
     }
 
-    public function view_piutang(Request $r){
-
-        $result = array('success'=>false);
-
-        try{
-
-            $tgl_mulai  = $r->get('tgl_mulai');
-            $tgl_akhir  = $r->get('tgl_akhir');
-            $status     = $r->get('status');
-
-
-            $tanggal_mulai = $tgl_mulai ? date('Y-m-d', strtotime($tgl_mulai)) : date('Y-m-d');
-            $tanggal_akhir = $tgl_akhir ? date('Y-m-d', strtotime($tgl_akhir)) : date('Y-m-d');
-
-            $order_kode = CateringOrder::order_kode();
-
-            $data = DB::connection('daycare')
-                        ->table('ctrg_order AS aa')
-                        ->where('aa.order_tgl', '>=', $tanggal_mulai)
-                        ->where('aa.order_tgl', '<=', $tanggal_akhir)
-                        ->where('aa.is_aktif','Y')
-                        ->orderby('aa.order_kode','desc')
-                        ->get();
-
-            $data2 = DB::connection('daycare')
-                        ->table('ctrg_order_detail AS aa')
-                        ->leftjoin('ctrg_order AS bb','bb.order_kode','=','aa.order_kode')
-                        ->leftjoin('tb_anak AS cc','cc.anak_nis','=','aa.anak_nis')
-                        ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
-                        ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
-                        ->where('aa.is_aktif','Y')
-                        ->orderby('aa.order_kode','desc')
-                        ->get();
-        
-            $data = $data->map(function($value) use($data2) {
- 
-                $value->total_tampil        = format_rupiah($value->order_total);
-                $value->total_piutang       = $value->order_total;
-                
-                return $value;
-
-            });
-
-            // dd($order_kode);
-
-        } catch (\Exception $e) {
-            $result['message'] = $e->getMessage();  
-            return response()->json($result);
-        }
-
-        $result['success'] = true;
-        $result['data'] = $data;
-        $result['detail'] = $data2;
-        $result['total'] = format_rupiah($data->where('order_status','U')->sum('total_piutang'));
-
-        return response()->json($result);
-
-    }
+  
 
     public function edit(Request $r)
     {

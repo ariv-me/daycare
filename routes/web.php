@@ -203,15 +203,18 @@ Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
 	Route::get('/view', [CateringOrderController::class, 'view'])->name('view');
 	Route::post('/save', [CateringOrderController::class, 'save'])->name('save');
 	Route::get('/edit', [CateringOrderController::class, 'edit'])->name('edit');
-	Route::get('/detail', [CateringOrderController::class, 'detail'])->name('detail');
-	Route::post('/update', [CateringOrderController::class, 'update'])->name('update');
 	Route::post('/void', [CateringOrderController::class, 'void'])->name('void');
+	
+	// PIUTANG BAYAR
+	Route::post('/piutang_bayar', [CateringOrderController::class, 'piutang_bayar'])->name('piutang_bayar');
 
+	// PIUTANG VIEW
+	Route::get('/piutang_view', [CateringOrderController::class, 'view_piutang'])->name('piutang_view');
+	Route::get('/piutang_detail', [CateringOrderController::class, 'piutang_detail'])->name('piutang_detail');
 
 	// DATA
 	Route::get('/data_index', [CateringOrderDataController::class, 'index'])->name('data_index');
 	Route::get('/data_view', [CateringOrderDataController::class, 'view'])->name('data_view');
-	Route::get('/piutang_view', [CateringOrderDataController::class, 'view_piutang'])->name('piutang_view');
 	
 
 	// DETAIL
