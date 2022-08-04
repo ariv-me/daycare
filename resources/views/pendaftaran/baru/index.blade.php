@@ -1,39 +1,139 @@
 @extends('app.layouts.template')
 
-
-
 @section('content')
 
+<div class="row">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Pendaftaran Baru</h4>
+            </div>
+            <div class="card-body">
+                <div class="form-validation">
+                    <div class="row">
+                        <div class="col-md-12 order-md-1">
+            
+                            {!! csrf_field() !!}
+    
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="state">NIS <span class="text-danger">*</span> </label>
+                                        <div class="input-group mb-1">
+                                            <input type="text" class="form-control" id="daftar_nis" name="daftar_nis" disabled="disabled">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label for="state">Nama Anak <span class="text-danger">*</span> </label>
+                                        <div class="input-group mb-1">
+                                            <input type="text" class="form-control" id="daftar_anak" name="daftar_anak" disabled="disabled">
+                                            <div class="input-group-append">
+                                                <button type="button" id="btn_add" class="btn btn-outline-primary mb-2" data-toggle="modal"><i class="fa fa-plus"></i></button>
+                                                <button type="button" id="btn_cari" class="btn btn-outline-warning mb-2" data-toggle="modal"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="row">
 
+                                    <div class="col-md-6 mb-3">
+                                        <label for="state">Perusahaan <span class="text-danger">*</span> </label>
+                                        <select class="form-control" style="width: 50%;" name="perusahaan" id="perusahaan"  onchange="showFilterPerusahaan(this)"></select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="state">Jenis Pendaftaran <span class="text-danger">*</span> </label>
+                                        <select class="form-control" style="width: 50%;" name="jenis" id="jenis"  onchange="showFilterJenis(this)"></select>
+                                    </div>
+                                   
+       
+                                </div>
+                                <hr>
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-responsive-sm">
+                                        <thead>
+                                            <tr>
+                                                <th class="width80">#</th>
+                                                <th>TARIF KODE</th>
+                                                <th>REGISTRASI</th>
+                                                <th>SPP</th>
+                                                <th>PEMBANGUNAN</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="show_data_tarif">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+    
+                                <hr class="mb-4">
+                                <button class="btn btn-info btn-lg btn-block" type="button" id="btn_proses">Proses</button>
+              
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div> 
+    </div>
+    <div class="col-xl-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Total Harga</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 order-md-1">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-rounded btn-danger btn-event w-100"><span class="btn-icon-left text-danger"><i class="fa fa-close"></i>
+                        </span>Batal</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-rounded btn-primary btn-event w-100"><span class="btn-icon-left text-primary"><i class="fa fa-shopping-cart"></i>
+                        </span>Bayar</button>
+                    </div>
+                </div>
+            
+            </div>
+        </div> 
+    </div>
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Detail</h4>
+            </div>
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--******************* Modal Add ********************-->
+@include('pendaftaran.baru.modal_add')
 @include('pendaftaran.baru.modal_anak')
 
 @endsection
 
 @section('js')
 
-{{-- <script type="text/javascript">
+<script type="text/javascript">
 
     $(document).ready(function(){
 
-        $('.datepicker').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
-        $('.datepicker[name=daftar_tanggal]').val(moment().format('DD-MM-YYYY'));
-        $('.datepicker').datepicker({
-          autoclose: true,
-          format:'dd-mm-yyyy',
-        });  
-
-        // $( "#daftar_tanggal" ).datepicker(moment(new Date(),"YYYY-MM-DD").utcOffset(0, true).format());
-        //$( "#daftar_tanggal" ).datepicker({dateFormat:"DD-MM-YYYY"}).datepicker("setDate",new Date());
-        
-        var tgl       = $('#daftar_tanggal').val();
-        
-        console.log(tgl);
-
-        combo_blm();
         combo_jenis();
+        combo_anak_jekel();
+        combo_wali_jekel();
+        combo_pekerjaan();
         combo_perusahaan();
         view_tarif();
-        view_daftar();
         reset();
 
     });
@@ -67,65 +167,6 @@
         view_anak();
     });
 
-
-    function view_daftar(kode) {
-
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('pendaftaran.view') }}",
-            async: true,
-            data : {kode:kode},
-            dataType: 'JSON',
-            success: function(r) {
-                var i;
-                //$('#datatable').DataTable().destroy(); 
-                $('#show_data_daftar').empty();
-                data = r.data;
-                if (data.length) {
-                    for (i = 0; i < data.length; i++) {
-
-                        var tr = $('<tr>').append([
-                            $('<td width="2%">'),
-                            $('<td width="10%" align="center">'),
-                            $('<td width="20%" align="left">'),
-                            $('<td width="15%" align="right">'),
-                            $('<td width="15%" align="right">'),
-                            $('<td width="15%" align="right">'),
-                            $('<td width="15%" align="right">'),
-                            $('<td width="15%" align="right">'),
-                        ]);
-
-                        tr.find('td:nth-child(1)').html((i + 1));
-
-                        tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].anak_nis)));   
-
-                        tr.find('td:nth-child(3)').append($('<div>')
-                            .html((data[i].anak_nama)));   
-
-                        tr.find('td:nth-child(4)').append($('<div>')
-                            .html((data[i].tarif_reg)));  
-
-                        tr.find('td:nth-child(5)').append($('<div>')
-                            .html((data[i].tarif_spp)));   
-
-                        tr.find('td:nth-child(6)').append($('<div>')
-                            .html((data[i].tarif_pembg)));   
-
-                        tr.find('td:nth-child(7)').append($('<div>')
-                            .html((data[i].tarif_pembg)));   
-
-                        tr.find('td:nth-child(8)').append('<div class="d-flex"><a href="javascript:;" class="text-warning font-w600 mr-4 item_pilih2" data="'+data[i].daftar_kode+'">EDIT</a><a href="javascript:;" class="text-danger font-w600 mr-4 item_pilih2" data="'+data[i].daftar_kode+'">HAPUS</a></div>'); 
-
-                        tr.appendTo($('#show_data_daftar'));
-                    }
-
-                }
-                //$('#datatable').DataTable('refresh'); 
-            }
-        });
-    }
-
     function view_anak() {
 
         $.ajax({
@@ -142,10 +183,10 @@
                     for (i = 0; i < data.length; i++) {
 
                         var tr = $('<tr>').append([
-                            $('<td class= width="5%" align="left">'),
-                            $('<td class= width="50%">'),
-                            $('<td class= width="50%">'),
-                            $('<td class= width="10%" align="center">'),
+                            $('<td width="5%" align="center">'),
+                            $('<td width="10%">'),
+                            $('<td width="60%">'),
+                            $('<td width="10%" align="center">')
                         ]);
 
                         tr.find('td:nth-child(1)').html((i + 1));
@@ -156,7 +197,7 @@
                         tr.find('td:nth-child(3)').append($('<div>')
                             .html((data[i].anak_nama)));   
 
-                        tr.find('td:nth-child(4)').append('<a href="javascript:;" class="btn btn-rounded btn-success btn-xs item_pilih"  data="'+data[i].anak_nis+'"><i class="fa fa-check"></i>  Pilih</a>'); 
+                        tr.find('td:nth-child(4)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-rounded btn-info btn-xs item_pilih" data="'+data[i].anak_nis+'">PILIH</a></div>'); 
 
                         tr.appendTo($('#show_data_anak'));
                     }
@@ -200,39 +241,33 @@
 
                         var tr = $('<tr>').append([
                             $('<td width="5%" align="center">'),
-                            $('<td width="15%">'),
-                            $('<td width="15%">'),
-                            $('<td width="15%" align="right">'),
-                            $('<td width="15%" align="right">'),
-                            $('<td width="15%" align="right">'),
-                            $('<td width="15%" align="right">')
+                            $('<td width="20%">'),
+                            $('<td width="10%">'),
+                            $('<td width="40%">'),
+                            $('<td width="10%" align="center">')
                         ]);
 
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].kode)));  
-
-                        tr.find('td:nth-child(3)').append($('<div>')
                             .html((data[i].kode)));   
 
-                        tr.find('td:nth-child(4)').append($('<div>')
+                        tr.find('td:nth-child(3)').append($('<div>')
                             .html((data[i].tarif_reg)));   
 
-                        tr.find('td:nth-child(5)').append($('<div>')
+                        tr.find('td:nth-child(4)').append($('<div>')
                             .html((data[i].tarif_spp)));  
 
-                        tr.find('td:nth-child(6)').append($('<div>')
+                        tr.find('td:nth-child(5)').append($('<div>')
                             .html((data[i].tarif_pembg)));   
 
-                        tr.find('td:nth-child(7)').append($('<div>')
-                            .html((data[i].tarif_pembg)));   
+                        // tr.find('td:nth-child(5)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-rounded btn-info btn-xs item_pilih" data="'+data[i].tarif_nis+'">PILIH</a></div>'); 
 
                         tr.appendTo($('#show_data_tarif'));
                     }
 
                 }
-                    //$('#datatable').DataTable('refresh'); 
+                //$('#datatable').DataTable('refresh'); 
             }
         });
     }
@@ -252,29 +287,8 @@
             success: function(data) {
                 $('[name="daftar_nis"]').val(data.anak_nis);
                 $('[name="daftar_anak"]').val(data.anak_nama);
-                $('[name="perusahaan"]').val(data.ortu_ayah_peru_id);
 
                 $('#formModalAnak').modal('hide');
-            }
-        });
-
-        return false;
-
-    });
-
-    $('#show_data_anak2').on('click','.item_pilih2',function(){
-
-        var id = $(this).attr('data');
-
-        $.ajax({
-            type: "GET",
-            url: "{{ route('anak.edit') }}",
-            dataType: "JSON",
-            data: {
-                id: id
-            },
-            success: function(data) {
-                $('[name="daftar_nis2"]').val(data.anak_nis);
             }
         });
 
@@ -287,7 +301,6 @@
     $('#btn_simpan').on('click', function(){
     
         
-        var anak_nis       = $('#anak_nis').val();
         var anak_nama       = $('#anak_nama').val();
         var anak_tmp_lahir  = $('#anak_tmp_lahir').val();
         var anak_tgl_lahir  = $('#anak_tgl_lahir').val();
@@ -306,7 +319,6 @@
 
         var formData = new FormData();
     
-        formData.append('anak_nis', anak_nis);
         formData.append('anak_nama', anak_nama);
         formData.append('anak_tmp_lahir', anak_tmp_lahir);
         formData.append('anak_tgl_lahir', anak_tgl_lahir);
@@ -339,15 +351,13 @@
 
     });
 
-
     $('#btn_proses').on('click', function(){
     
     
-    var daftar_tanggal       = $('#daftar_tanggal').val();
-    var daftar_nis           = $('#daftar_nis').val();
-    var daftar_anak          = $('#daftar_anak').val();
-    var perusahaan           = $('#perusahaan').val();
-    var jenis                = $('#jenis').val();
+    var daftar_nis       = $('#daftar_nis').val();
+    var daftar_anak      = $('#daftar_anak').val();
+    var perusahaan       = $('#perusahaan').val();
+    var jenis      = $('#jenis').val();
 
     console.log(daftar_anak);
     
@@ -378,9 +388,9 @@
                         icon: 'success',
                         hideAfter: 3000
                     });
-                     
-                    view_daftar(); 
                     reset();
+
+                   
 
                 }
             });
@@ -411,13 +421,40 @@
 
     }
 
-    function combo_blm(){
+    function combo_anak_jekel(){
 
-        $('select[name=daftar_blm]').empty()
+        $('select[name=anak_jekel]').empty()
             var html = '';
-            html = '<option value="B">Baru</option>'+
-                   '<option value="L">Lama</option>';
-        $('select[name=daftar_blm]').append(html)
+            html = '<option value="">--Pilih--</option>'+
+                    '<option value="L">Laki-Laki</option>'+
+                   '<option value="P">Perempuan</option>';
+        $('select[name=anak_jekel]').append(html)
+
+    }
+
+
+    function combo_wali_jekel(){
+
+        $('select[name=wali_jekel]').empty()
+            var html = '';
+            html = '<option value="">--Pilih--</option>'+
+                   '<option value="P">Laki-Laki</option>'+
+                   '<option value="P">Perempuan</option>';
+        $('select[name=wali_jekel]').append(html)
+
+    }
+
+    function combo_pekerjaan(){
+
+        $('select[name=ortu_pekerjaan]').empty()
+            var html = '';
+            html = '<option value="">--Pilih--</option>'+
+                   '<option value="1">PNS</option>'+
+                   '<option value="2">BUMN</option>';
+                   '<option value="3">Swasta</option>';
+                   '<option value="4">Wirausaha</option>';
+                   '<option value="5">Lainnya</option>';
+        $('select[name=ortu_pekerjaan]').append(html)
 
     }
 
@@ -465,7 +502,7 @@
 
 
 
-</script> --}}
+</script>
 
 
 @endsection

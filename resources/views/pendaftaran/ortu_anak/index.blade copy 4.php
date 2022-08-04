@@ -8,297 +8,380 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-9">
-                        <h4 class="card-title"><i class="fas fa-clipboard-list"></i>  DATA POKOK</h4>
+                        <h4 class="card-title"><i class="fas fa-clipboard-list"></i>  Pendaftaran</h4>
                     </div>
                 </div>
             </div>
-            <div class="card-body">   
-                {!! csrf_field() !!} 
-                <input type="hidden" id="id_edit" name="id_edit" class="form-control">
-               <div class="row">
-                    <div class="col-lg-6">
-                        <h4>AYAH</h4>
-                        <p class="text-muted mb-3">Form Input Data Ayah</p>
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label text-right">Nama Ayah</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="ayah_nama" name="ayah_nama">
-                                    <span class="input-group-append">
-                                        <button type="button" class="btn btn-success btn-sm" id="btn_ortu"> <i class="fa fa-search"></i> </button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-email-input" class="col-sm-2 col-form-label text-right">  Tanggl Lahir</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control datepicker" id="ayah_lahir" name="ayah_lahir">
-                            </div>
-                        </div> 
-                        <div class="form-group row">
-                            <label for="example-tel-input" class="col-sm-2 col-form-label text-right"> Agama</label>
-                            <div class="col-sm-10">
-                                <select class="form-control custom-select select2" style="width: 100%;" name="ayah_agama" id="ayah_agama"></select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Pekerjaan</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <select class="form-control custom-select select2" id="ayah_kerja" name="ayah_kerja"></select>
-                                    <span class="input-group-append">
-                                        <button type="button" class="btn btn-success btn-sm" id="btn_kerja"> <i class="fa fa-plus"></i> </button>
-                                    </span>
-                                </div> 
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Perusahaan</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <select class="form-control custom-select select2" id="ayah_perusahaan" name="ayah_perusahaan"></select>
-                                    <span class="input-group-append">
-                                        <button type="button" class="btn btn-success btn-sm" id="btn_peru"> <i class="fa fa-plus"></i> </button>
-                                    </span>
-                                </div>   
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-number-input" class="col-sm-2 col-form-label text-right">Nomor HP</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="ayah_hp" name="ayah_hp" onkeypress="return angka(this, event)">
-                            </div>
-                            <label for="example-number-input" class="col-sm-2 col-form-label text-right">Nomor WA</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="ayah_wa" name="ayah_wa" onkeypress="return angka(this, event)">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-datetime-local-input" class="col-sm-2 col-form-label text-right">Alamat</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="ayah_alamat" name="ayah_alamat">
-                            </div>
-                        </div> 
-                    </div>
-
-                    <div class="col-lg-6">
-                        <h4>IBU</h4>
-                        <p class="text-muted mb-3">Form Input Data Ibu</p>
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label text-right">Nama Ibu</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="ibu_nama" name="ibu_nama" data-dtp="dtp_1uPaU">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-email-input" class="col-sm-2 col-form-label text-right"> Tanggl Lahir</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control datepicker" id="ibu_lahir" name="ibu_lahir">
-                            </div>
-                        </div> 
-                        <div class="form-group row">
-                            <label for="example-tel-input" class="col-sm-2 col-form-label text-right"> Agama</label>
-                            <div class="col-sm-10">
-                                <select class="form-control custom-select select2" style="width: 100%;" name="ibu_agama" id="ibu_agama"></select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Pekerjaan</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <select class="form-control custom-select select2" id="ibu_kerja" name="ibu_kerja"></select>
-                                    <span class="input-group-append">
-                                        <button type="button" class="btn btn-success btn-sm" id="btn_kerja"> <i class="fa fa-plus"></i> </button>
-                                    </span>
-                                </div> 
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Perusahaan</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <select class="form-control custom-select select2" id="ibu_perusahaan" name="ibu_perusahaan"></select>
-                                    <span class="input-group-append">
-                                        <button type="button" class="btn btn-success btn-sm" id="btn_peru"> <i class="fa fa-plus"></i> </button>
-                                    </span>
-                                </div>   
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-number-input" class="col-sm-2 col-form-label text-right">Nomor HP</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="ibu_hp" name="ibu_hp" onkeypress="return angka(this, event)">
-                            </div>
-                            <label for="example-number-input" class="col-sm-2 col-form-label text-right">Nomor WA</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="ibu_wa" name="ibu_wa" onkeypress="return angka(this, event)">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-datetime-local-input" class="col-sm-2 col-form-label text-right">Alamat</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="ibu_alamat" name="ibu_alamat">
-                            </div>
-                        </div>  
-                    </div>
-                </div>
-                    
-                <div class="row">
-                    <div class="col-md-9">
-                    
-                    </div>
-                    <div class="col-md-3" style="text-align: right">
-                        <button type="button" class="btn btn-danger btn-sm me-1" id="btn_reset" >
-                            <i class="fas fa-times"></i> BATAL
-                        </button>
-                        <button type="submit" class="btn btn-success btn-sm" id="btn_simpan_ortu">
-                            <i class="fas fa-save"></i> SIMPAN
-                        </button>
-                    </div>
-                </div>
-
-                <hr class="hr-dashed">
-
-                <div class="lg-12">
-                    <h4>ANAK</h4>
-                    <p class="text-muted mb-3">Form Input Data Anak</p>
-                </div> 
-                <div class="row">
-                    {!! csrf_field() !!} 
-                    <input type="hidden" id="id_edit_anak" name="id_edit_anak" class="form-control">
-
-                    <div class="col-lg-6">
-
-                        <div class="form-group row">
-                            <label for="example-search-input" class="col-sm-2 col-form-label text-right">Orang Tua</label>
-                            <div class="col-sm-10">
-                                <select class="form-control custom-select select2" style="width: 100%;" name="ortu" id="ortu"></select>
-                            </div>
-                        </div> 
-
-                        <div class="form-group row">
-                            <label for="example-date-input" class="col-sm-2 col-form-label text-right">Jenis Kelamin</label>
-                            <div class="col-sm-4">
-                                <select class="form-control custom-select select2" style="width: 100%;" name="anak_jekel" id="anak_jekel"></select>
-                            </div>
-                            <label for="example-month-input" class="col-sm-2 col-form-label text-right">Taggal Lahir</label>
-                            <div class="col-sm-4">
-                                <input type="date" class="form-control" id="anak_tgl_lahir" name="anak_tgl_lahir">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-time-input" class="col-sm-2 col-form-label text-right">Anak Ke</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="anak_ke" name="anak_ke" onkeypress="return angka(this, event)">
-                            </div>
-                            <label for="example-time-input" class="col-sm-2 col-form-label text-right">Jumlah Saudara</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="anak_saudara" name="anak_saudara" value="0" onkeypress="return angka(this, event)">
-                            </div>
-                        </div>
-                    </div>
-
-
-                  <div class="col-lg-6">
-
-                        <div class="form-group row">
-                            <label for="example-url-input" class="col-sm-2 col-form-label text-right">Nama</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="anak_nama" name="anak_nama">
-                                    <span class="input-group-append">
-                                        <button type="button" class="btn btn-success btn-sm" id="btn_anak"> <i class="fa fa-search"></i> </button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div> 
-                        <div class="form-group row">
-                            <label for="example-week-input" class="col-sm-2 col-form-label text-right">Tempat Lahir</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="anak_tmp_lahir" name="anak_tmp_lahir">
-                            </div>
-                            <label for="example-time-input" class="col-sm-2 col-form-label text-right">Agama</label>
-                            <div class="col-sm-4">
-                                <select class="form-control custom-select select2" style="width: 100%;" name="anak_agama" id="anak_agama"></select>
-                            </div>
-                        </div>
-                     
-                        <div class="form-group row">
-                            <label for="example-time-input" class="col-sm-2 col-form-label text-right">Berat</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="anak_berat" name="anak_berat" onkeypress="return angka(this, event)">
-                            </div>
-                            <label for="example-time-input" class="col-sm-2 col-form-label text-right">Tinggi</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="anak_tinggi" name="anak_tinggi" onkeypress="return angka(this, event)">
-                            </div>
-                        </div>    
-                    </div>
-                  </div>
-                <hr class="hr-dashed">
-                <div class="row">
-                    <div class="col-md-9">
-                    
-                    </div>
-                    <div class="col-md-3" style="text-align: right">
-                        <button type="button" class="btn btn-danger btn-sm me-1" id="btn_reset" >
-                            <i class="fas fa-times"></i> BATAL
-                        </button>
-                        <button type="submit" class="btn btn-success btn-sm" id="btn_simpan_anak">
-                            <i class="fas fa-save"></i> SIMPAN
-                        </button>
-                    </div>
-                </div>
-                </div>
+            <div class="card-body">    
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs hr-dashed" role="tablist">
+                    <li class="nav-item hr-dashed">
+                        <a class="nav-link active" data-toggle="tab" href="#orang_tua" role="tab" aria-selected="true"><span class="badge badge-primary badge-pill">1</span>  <strong> ORANG TUA</strong> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#anak" role="tab" aria-selected="false"><span class="badge badge-primary badge-pill">2</span>  <strong> ANAK</strong></a>
+                    </li>                                                
                 
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane p-3 active" id="orang_tua" role="tabpanel">
+                        {!! csrf_field() !!}
+            
+                        <input type="hidden" class="form-control datepicker" id="tanggal" name="tanggal" disabled="disabled">
+
+                        <div class="row">
+
+                            <input type="hidden" id="id_edit" name="id_edit" class="form-control">
+
+                            <div class="col-lg-6 col-12 pl-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Ayah</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control datepicker" id="ayah_nama" name="ayah_nama" data-dtp="dtp_1uPaU">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+
+                                    <div class="col-md-3">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Tanggal Akhir</strong></label>
+                                            <div class="input-group">
+                                                <input type="date" class="form-control datepicker" id="ayah_lahir" name="ayah_lahir">
+                                            </div>                                                   
+                                        </div>
+                                    </div>   
+                                    <div class="col-md-3">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Agama</strong></label>
+                                            <div class="input-group">
+                                                <select class="form-control custom-select select2" style="width: 100%;" name="ayah_agama" id="ayah_agama"></select>
+                                            </div>                                                   
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Pekerjaan</strong></label>
+                                            <div class="input-group">
+                                                <select class="form-control custom-select select2" id="ayah_kerja" name="ayah_kerja"></select>
+                                                <span class="input-group-append">
+                                                    <button type="button" class="btn btn-success btn-sm" id="btn_kerja"> <i class="fa fa-plus"></i> </button>
+                                                </span>
+                                            </div>                                                
+                                        </div>
+                                    </div>      
+                                    <div class="col-md-6">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Perusahaan</strong></label>
+                                            <div class="input-group">
+                                                <select class="form-control custom-select select2" id="ayah_perusahaan" name="ayah_perusahaan"></select>
+                                                <span class="input-group-append">
+                                                    <button type="button" class="btn btn-success btn-sm" id="btn_peru"> <i class="fa fa-plus"></i> </button>
+                                                </span>
+                                            </div>                                                
+                                        </div>
+                                    </div>      
+                                    <div class="col-md-3">
+                                        <div class="form-group top"> 
+                                            <label> <strong>HP</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="ayah_hp" name="ayah_hp" onkeypress="return angka(this, event)">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-3">
+                                        <div class="form-group top"> 
+                                            <label> <strong>WA</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="ayah_wa" name="ayah_wa" onkeypress="return angka(this, event)">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-6">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Alamat</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="ayah_alamat" name="ayah_alamat">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+                                </div>                      
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Ibu</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control datepicker" id="ibu_nama" name="ibu_nama" data-dtp="dtp_1uPaU">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+
+                                    <div class="col-md-3">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Tanggal Akhir</strong></label>
+                                            <div class="input-group">
+                                                <input type="date" class="form-control datepicker" id="ibu_lahir" name="ibu_lahir">
+                                            </div>                                                   
+                                        </div>
+                                    </div>   
+                                    <div class="col-md-3">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Agama</strong></label>
+                                            <div class="input-group">
+                                                <select class="form-control custom-select select2" style="width: 100%;" name="ibu_agama" id="ibu_agama"></select>
+                                            </div>                                                   
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Pekerjaan</strong></label>
+                                            <div class="input-group">
+                                                <select class="form-control custom-select select2" id="ibu_kerja" name="ibu_kerja"></select>
+                                                <span class="input-group-append">
+                                                    <button type="button" class="btn btn-success btn-sm" id="btn_kerja"> <i class="fa fa-plus"></i> </button>
+                                                </span>
+                                            </div>                                                
+                                        </div>
+                                    </div>      
+                                    <div class="col-md-6">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Perusahaan</strong></label>
+                                            <div class="input-group">
+                                                <select class="form-control custom-select select2" id="ibu_perusahaan" name="ibu_perusahaan"></select>
+                                                <span class="input-group-append">
+                                                    <button type="button" class="btn btn-success btn-sm" id="btn_peru"> <i class="fa fa-plus"></i> </button>
+                                                </span>
+                                            </div>                                                
+                                        </div>
+                                    </div>      
+                                    <div class="col-md-3">
+                                        <div class="form-group top"> 
+                                            <label> <strong>HP</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="ibu_hp" name="ibu_hp" onkeypress="return angka(this, event)">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-3">
+                                        <div class="form-group top"> 
+                                            <label> <strong>WA</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="ibu_wa" name="ibu_wa" onkeypress="return angka(this, event)">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-6">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Alamat</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="ibu_alamat" name="ibu_alamat">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+                                </div>                   
+                            </div>
+                        </div>
+                        <hr class="hr-dashed">
+                        
+                        <div class="row">
+                            <div class="col-md-9">
+                            
+                            </div>
+                            <div class="col-md-3" style="text-align: right">
+                                <button type="button" class="btn btn-danger btn-sm me-1" id="btn_reset" >
+                                    <i class="fas fa-times"></i> BATAL
+                                </button>
+                                <button type="submit" class="btn btn-success btn-sm" id="btn_simpan_ortu">
+                                    <i class="fas fa-save"></i> SIMPAN
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <div class="tab-pane p-3" id="anak" role="tabpanel">
+                        <div class="row">
+                            <div class="col-lg-12 col-12 pl-3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group top"> 
+                                             <label> <strong>Orang Tua</strong></label>
+                                            <div class="input-group">
+                                                <select class="form-control custom-select select2" style="width: 100%;" name="ortu" id="ortu"></select>
+                                            </div>                                              
+                                        </div>
+                                    </div>  
+
+                                    <div class="col-md-4">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Nama</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="anak_nama" name="anak_nama">
+                                            </div>                                                   
+                                        </div>
+                                    </div>   
+                                    <div class="col-md-2">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Jenis Kelamin</strong></label>
+                                            <div class="input-group">
+                                                <select class="form-control custom-select select2" style="width: 100%;" name="anak_jekel" id="anak_jekel"></select>
+                                            </div>                                                   
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Tanggal Lahir</strong></label>
+                                            <div class="input-group">
+                                               <input type="date" class="form-control" id="anak_tgl_lahir" name="anak_tgl_lahir">
+                                            </div>                                                   
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Tempat Lahir</strong></label>
+                                            <div class="input-group">
+                                               <input type="text" class="form-control" id="anak_tmp_lahir" name="anak_tmp_lahir">
+                                            </div>                                                   
+                                        </div>
+                                    </div>
+                                     <div class="col-md-2">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Agama</strong></label>
+                                            <div class="input-group">
+                                                <select class="form-control custom-select select2" style="width: 100%;" name="anak_agama" id="anak_agama"></select>
+                                            </div>                                                   
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-md-2">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Anak Ke</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="anak_ke" name="anak_ke" onkeypress="return angka(this, event)">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-2">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Jumlah Saudara</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="anak_saudara" name="anak_saudara" onkeypress="return angka(this, event)">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-2">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Berat</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="anak_berat" name="anak_berat" onkeypress="return angka(this, event)">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-2">
+                                        <div class="form-group top"> 
+                                            <label> <strong>Tinggi</strong></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="anak_tinggi" name="anak_tinggi">
+                                            </div>                                                   
+                                        </div>
+                                    </div>  
+                                </div>                      
+                            </div>
+                        </div>
+                        <hr class="hr-dashed">
+                        
+                        <div class="row">
+                            <div class="col-md-9">
+                            
+                            </div>
+                            <div class="col-md-3" style="text-align: right">
+                                <button type="button" class="btn btn-danger btn-sm me-1" id="btn_reset" >
+                                    <i class="fas fa-times"></i> BATAL
+                                </button>
+                                <button type="submit" class="btn btn-success btn-sm" id="btn_simpan_anak">
+                                    <i class="fas fa-save"></i> SIMPAN
+                                </button>
+                            </div>
+                        </div>
+                    </div>                                                            
+                </div>
+            </div>
         </div>
     </div>
 
-</div>
-
-<div class="modal modal-default-modal-lg fade" id="formModalOrtu">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content" style="background-color: #ffffff">
-
-            <div class="modal-body">
-            
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
                 <table id="datatable" class="table table-bordered mb-0 table-centered">
                     <thead>
                         <tr>
-                            <th width ="2%" style="text-align: center">NO</th>
-                            <th width ="49%" style="text-align: center">AYAH</th>
-                            <th width ="49%" style ="text-align: center">IBU</th>
-
+                            <th width ="1%" style="text-align: center">NO</th>
+                            <th width ="18%" style="text-align: center">ORANG TUA</th>
+                            <th width ="5%" style ="text-align: center">USIA</th>
+                            <th width ="20%" style="text-align: center">PEKERJAAN</th>
+                            <th width ="7%" style="text-align: center">AGAMA</th>
+                            <th width ="10%" style="text-align: center">HP</th>
+                            <th width ="10%" style="text-align: center">WA</th>
+                            <th width ="5%" style="text-align: center">AKSI</th>
                         </tr>
                     </thead>
-                    <tbody id="show_data_ortu"></tbody>
+                    <tbody id="show_data"></tbody>
                 </table>
-
             </div>
         </div>
     </div>
+
 </div>
-<div class="modal modal-default-modal-lg fade" id="formModalAnak">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+
+<div class="modal modal-default fade" id="formModalBayar">
+    <div class="modal-dialog">
         <div class="modal-content" style="background-color: #ffffff">
 
             <div class="modal-body">
             
-                <table id="datatable2" class="table table-bordered mb-0 table-centered">
-                    <thead>
-                        <tr>
-                            <th width ="2%" style="text-align: center">NO</th>
-                            <th width ="15%" style="text-align: center">NIS</th>
-                            <th width ="48%" style ="text-align: center">ANAK</th>
-                            <th width ="10%" style ="text-align: center">USIA</th>
-                            <th width ="20%" style ="text-align: center">TGL LAHIR</th>
+                {!! csrf_field() !!}
+    
+                <div class="row">
 
-                        </tr>
-                    </thead>
-                    <tbody id="show_data_anak"></tbody>
-                </table>
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">TOTAL</label>
+                            <div class="col-sm-9">
+                                <input class="form-control2" name="total_trans" id="total_trans" onkeypress="return angka(this, event)" readonly="readonly">                
+                            </div>
+                        </div>
+                    </div> 
 
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">PEMBAYARAN</label>
+                            <div class="col-sm-9">   
+                                 <select class="form-control custom-select select2 text-left" style="width: 100%;" name="jenis_bayar" id="jenis_bayar" disabled="disabled"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">BAYAR</label>
+                            <div class="col-sm-9">   
+                                <input class="form-control2" name="total_bayar" id="total_bayar" onkeypress="return angka(this, event)" readonly="readonly" >
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-success btn-xl col-md-12" id="btn_reset"><i class="fas fa-cart-plus"></i>     ORDER</button>
+                            <button type="button" class="btn btn-success btn-xl col-md-12" id="btn_simpan_anak"><i class="fas fa-cart-plus"></i>     ORDER</button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -319,6 +402,7 @@
         combo_anak_agama();
         combo_anak_jekel();
         combo_ortu();
+        combo_blm();
         combo_anak();
         combo_jenis();
         combo_wali_jekel();
@@ -327,8 +411,6 @@
         combo_kerja_ayah();
         combo_kerja_ibu();
         view();
-        view_ortu();
-        view_anak();
         reset();
 
     });
@@ -354,7 +436,6 @@
         $('#ortu').val("").trigger("change");
         $('#anak_jekel').val("").trigger("change");
         $('#anak_agama').val("").trigger("change");
-        $('#anak_tgl_lahir').val("").trigger("change");
         $('#anak_nama').val(""); 
         $('#anak_tmp_lahir').val(""); 
         $('#anak_ke').val(""); 
@@ -363,7 +444,6 @@
         $('#anak_tinggi').val(""); 
         $('#anak_alamat').val(""); 
         $('#anak_alamat').val(""); 
-        $('#id_edit_anak').val(""); 
 
     }
 
@@ -379,17 +459,11 @@
         view_anak();
     });
 
-    $('#btn_ortu').on('click',function(){
+    $('#btn_add_ortu').on('click',function(){
 
-        $('#formModalOrtu').modal('show');
-        view_ortu();
-
-    });
-
-    $('#btn_anak').on('click',function(){
-
-        $('#formModalAnak').modal('show');
-        view_anak();
+        $('#formModalAddOrtu').modal('show');
+        view();
+        reset();
 
     });
 
@@ -407,7 +481,7 @@
             dataType: 'JSON',
             success: function(r) {
                 var i;
-                //$('#datatable').DataTable().destroy(); 
+                $('#datatable').DataTable().destroy(); 
                 $('#show_data').empty();
                 data = r.data;
 
@@ -474,109 +548,12 @@
                 //       $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
 
                 //  }
-                //$('#datatable').DataTable('refresh'); 
-            }
-        });
-    }
-
-    function view_ortu() {
-
-       $.ajax({
-            type: 'GET',
-            url: "{{ route('ortu.view') }}",
-            async: true,
-            dataType: 'JSON',
-            success: function(r) {
-                var i;
-                $('#datatable').DataTable().destroy(); 
-                $('#show_data_ortu').empty();
-                data = r.data;
-
-                if (data.length) {
-                    for (i = 0; i < data.length; i++) {
-                   
-                            var tr = $('<tr>').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="15%" align="left">'),
-                                $('<td class= width="15%" align="left">')
-                            ]);
-
-
-                        tr.find('td:nth-child(1)').html((i + 1));
-
-                        tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_ortu" data="'+data[i].ortu_id+'">'+(data[i].ortu_ayah)+'</a>')); 
-
-                        tr.find('td:nth-child(3)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_ortu" data="'+data[i].ortu_id+'">'+(data[i].ortu_ibu)+'</a>')); 
-
-                     
-                        tr.appendTo($('#show_data_ortu'));
-                    }
-
-                } //else {
-
-                //       $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
-
-                //  }
                 $('#datatable').DataTable('refresh'); 
             }
         });
     }
 
-    function view_anak() {
-
-       $.ajax({
-            type: 'GET',
-            url: "{{ route('anak.view') }}",
-            async: true,
-            dataType: 'JSON',
-            success: function(r) {
-                var i;
-                $('#datatable2').DataTable().destroy(); 
-                $('#show_data_anak').empty();
-                data = r.data;
-
-                if (data.length) {
-                    for (i = 0; i < data.length; i++) {
-                   
-                            var tr = $('<tr>').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="15%" align="left">'),
-                                $('<td class= width="15%" align="left">'),
-                                $('<td class= width="15%" align="center">'),
-                                $('<td class= width="15%" align="center">')
-                            ]);
-
-
-                        tr.find('td:nth-child(1)').html((i + 1));
-
-                        tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_nis+'">'+(data[i].anak_nis)+'</a>')); 
-                        
-                        tr.find('td:nth-child(3)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_nis+'">'+(data[i].anak_nama)+'</a>')); 
-                        
-                        tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<strong></strong>' +(data[i].usia)));     
-
-                        tr.find('td:nth-child(5)').append($('<div>')
-                            .html('<strong></strong>' +(data[i].anak_tgl_lahir))); 
-                     
-                        tr.appendTo($('#show_data_anak'));
-                    }
-
-                } //else {
-
-                //       $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
-
-                //  }
-                $('#datatable2').DataTable('refresh'); 
-            }
-        });
-    }
-
-    $('#show_data_ortu').on('click','.btn_edit_ortu',function(){
+    $('#show_data').on('click','.btn_edit_ortu',function(){
 
         var id = $(this).attr('data');
 
@@ -611,43 +588,9 @@
                 $('[name="ibu_wa"]').val(data.ortu_ibu_wa).trigger("change");
                 $('[name="ibu_alamat"]').val(data.ortu_ibu_alamat).trigger("change");
 
-                $('#formModalOrtu').modal('hide');
-            }
-        });
 
-        return false;
+              
 
-    });
-
-    $('#show_data_anak').on('click','.btn_edit_anak',function(){
-
-        var id = $(this).attr('data');
-
-        $.ajax({
-            type: "GET",
-            url: "{{ route('anak.edit') }}",
-            dataType: "JSON",
-            data: {
-                id: id
-            },
-            success: function(r) {
-                data = r.data;
-
-                console.log(data);
-
-                $('[name="id_edit_anak"]').val(data.anak_nis);
-                $('[name="ortu"]').val(data.ortu_id).trigger("change");
-                $('[name="anak_nama"]').val(data.anak_nama).trigger("change");
-                $('[name="anak_agama"]').val(data.agama_id).trigger("change");
-                $('[name="anak_jekel"]').val(data.anak_jekel).trigger("change");
-                $('[name="anak_tmp_lahir"]').val(data.anak_tmp_lahir).trigger("change");
-                $('[name="anak_tgl_lahir"]').val(data.anak_tgl_lahir).trigger("change");
-                $('[name="anak_ke"]').val(data.anak_ke).trigger("change");
-                $('[name="anak_saudara"]').val(data.anak_jml_saudara).trigger("change");
-                $('[name="anak_berat"]').val(data.anak_berat).trigger("change");
-                $('[name="anak_tinggi"]').val(data.anak_tinggi).trigger("change");
-
-                $('#formModalAnak').modal('hide');
             }
         });
 
@@ -741,6 +684,19 @@
             $("#anak_ke").focus();
             return false;
 
+        }
+         else if (!$("#anak_saudara").val()) {
+            $.toast({
+                text: 'SAUDARA MASIH KOSONG',
+                position: 'top-center',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_saudara").focus();
+            return false;
+
         } else if (!$("#anak_berat").val()) {
             $.toast({
                 text: 'BERAT MASIH KOSONG',
@@ -766,7 +722,6 @@
             return false;
         }
         
-        var nis             = $('#id_edit_anak').val();
         var ortu            = $('#ortu').val();
         var anak_nama       = $('#anak_nama').val();
         var anak_tmp_lahir  = $('#anak_tmp_lahir').val();
@@ -782,7 +737,6 @@
 
         var formData = new FormData();
     
-        formData.append('nis', nis);
         formData.append('ortu', ortu);
         formData.append('anak_nama', anak_nama);
         formData.append('anak_tmp_lahir', anak_tmp_lahir);
@@ -805,20 +759,12 @@
             cache: false,
             processData: false,
             contentType: false,
-            success: function(r) {
-
-                if (r.status == '1') {
-                    swal("Berhasil!", "Data Berhasil Update", "success");
-                    reset();
-                    combo_ortu();
-
-                } else if (r.status == '2'){
-                    swal("Berhasil!", "Data Berhasil Simpan", "success");
-                    reset();
-                    combo_ortu();
-
-                }
-                
+            success: function(data) {
+                $('#formModalAdd').modal('hide');
+                swal("Berhasil!", "Data Berhasil Disimpan", "success");
+                view();
+                reset();
+               
             }
         });
     
@@ -991,17 +937,13 @@
             success: function(r) {
 
                 if (r.status == '1') {
-                    swal("Berhasil!", "Data Berhasil Disimpan", "success");
-                    view();
-                    reset();
-                    combo_ortu();
-
-                } else if (r.status == '2'){
                     swal("Berhasil!", "Data Berhasil Update", "success");
                     view();
                     reset();
-                    combo_ortu();
-
+                } else if (r.status == '2'){
+                    swal("Berhasil!", "Data Berhasil Simpan", "success");
+                    view();
+                    reset();
                 }
                 
             }

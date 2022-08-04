@@ -34,42 +34,124 @@ class AnakController extends Controller
 
     public function save(Request $r){
 
-        //dd($r);
+        $result = array('success'=>false);
 
-        $transaction = DB::connection('daycare')->transaction(function() use($r){
+        try {
 
-            $app = SistemApp::sistem();
-            $tmp = new Anak();
+            $app       = SistemApp::sistem();
+            $anak      = Anak::where('anak_nis',$r->nis)->where('anak_tgl_lahir',$r->anak_tgl_lahir)->where('void','T')->first();
 
-            $nis = Anak::autonumber();
-
-            $tmp->ortu_id               = $r->ortu;
-            $tmp->anak_nama             = $r->anak_nama;
-            $tmp->anak_nis              = $nis;
-            $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
-            $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
-            $tmp->anak_jekel            = $r->anak_jekel;
-            $tmp->anak_ke               = $r->anak_ke;
-            $tmp->anak_jml_saudara      = $r->anak_saudara;
-            $tmp->agama_id              = $r->anak_agama;
-            $tmp->anak_alamat           = $r->anak_alamat;
-            $tmp->anak_berat            = $r->anak_berat;
-            $tmp->anak_tinggi           = $r->anak_tinggi;
+            //dd($anak);
             
-            $tmp->created_nip           = $app['kar_nip'];
-            $tmp->created_nama           = $app['kar_nama_awal'];
-            $tmp->created_ip = $r->ip();
+            if ($anak != null) {
+    
+                $data = DB::connection('mysql')->transaction(function() use($r,$app,$anak){  
+
+                    $nis = $anak->anak_nis;
+                    $tmp = Anak::where('anak_nis',$nis)->first();
+    
+                    $tmp->ortu_id               = $r->ortu;
+                    $tmp->anak_nama             = $r->anak_nama;
+                    $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
+                    $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
+                    $tmp->anak_jekel            = $r->anak_jekel;
+                    $tmp->anak_ke               = $r->anak_ke;
+                    $tmp->anak_jml_saudara      = $r->anak_saudara;
+                    $tmp->agama_id              = $r->anak_agama;
+                    $tmp->anak_alamat           = $r->anak_alamat;
+                    $tmp->anak_berat            = $r->anak_berat;
+                    $tmp->anak_tinggi           = $r->anak_tinggi;
+                    
+                    $tmp->updated_nip           = $app['kar_nip'];
+                    $tmp->updated_nama          = $app['kar_nama_awal'];
+                    $tmp->updated_ip            = $r->ip();
+
+                    $tmp->save();
+        
+                    return true;
+                });
+
+                $status = '1';
+
+
+            } else {
+
+                $data = DB::connection('mysql')->transaction(function() use($r,$app,$anak){
+
+                    $tmp = new Anak();
+                    $nis = Anak::autonumber();
+                    
+                    $tmp->ortu_id               = $r->ortu;
+                    $tmp->anak_nama             = $r->anak_nama;
+                    $tmp->anak_nis              = $nis;
+                    $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
+                    $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
+                    $tmp->anak_jekel            = $r->anak_jekel;
+                    $tmp->anak_ke               = $r->anak_ke;
+                    $tmp->anak_jml_saudara      = $r->anak_saudara;
+                    $tmp->agama_id              = $r->anak_agama;
+                    $tmp->anak_alamat           = $r->anak_alamat;
+                    $tmp->anak_berat            = $r->anak_berat;
+                    $tmp->anak_tinggi           = $r->anak_tinggi;
+                    
+                    $tmp->created_nip           = $app['kar_nip'];
+                    $tmp->created_nama           = $app['kar_nama_awal'];
+                    $tmp->created_ip = $r->ip();
+
+                    $tmp->save();
+        
+                    return true;
+                });
+
+                $status = '2';
+
+            }
+
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['status'] = $status;
+
+        return response()->json($result);
+
+        // $transaction = DB::connection('daycare')->transaction(function() use($r){
+
+        //     $app = SistemApp::sistem();
+        //     $tmp = new Anak();
+
+        //     $nis = Anak::autonumber();
+
+        //     $tmp->ortu_id               = $r->ortu;
+        //     $tmp->anak_nama             = $r->anak_nama;
+        //     $tmp->anak_nis              = $nis;
+        //     $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
+        //     $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
+        //     $tmp->anak_jekel            = $r->anak_jekel;
+        //     $tmp->anak_ke               = $r->anak_ke;
+        //     $tmp->anak_jml_saudara      = $r->anak_saudara;
+        //     $tmp->agama_id              = $r->anak_agama;
+        //     $tmp->anak_alamat           = $r->anak_alamat;
+        //     $tmp->anak_berat            = $r->anak_berat;
+        //     $tmp->anak_tinggi           = $r->anak_tinggi;
+            
+        //     $tmp->created_nip           = $app['kar_nip'];
+        //     $tmp->created_nama           = $app['kar_nama_awal'];
+        //     $tmp->created_ip = $r->ip();
 
 
    
-            //dd($tmp);
+        //     //dd($tmp);
 
-            $tmp->save();
+        //     $tmp->save();
 
 
-        });
+        // });
 
-        return response()->json($transaction);
+        // return response()->json($transaction);
 
     }
 
@@ -100,9 +182,14 @@ class AnakController extends Controller
 
     public function edit(Request $r)
     {
-        $id = strtolower($r->get('id'));
+        $id = $r->get('id');
+
         $data = Anak::where('anak_nis',$id)->first();
-        return response()->json($data);
+
+        $result = array();
+        $result['data']    = $data;
+
+       return response()->json($result);
     }
 
 

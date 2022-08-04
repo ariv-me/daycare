@@ -8,8 +8,15 @@ class Perusahaan extends Model
 {
     protected $connection = 'daycare';
     protected $table = 'tb_perusahaan';
-    protected $primaryKey = 'grup_id';
+    protected $primaryKey = 'peru_id';
 
+    public static function getNamaPerusahaan() {
 
+        $data = Perusahaan::where('peru_id','1')->first();
+
+        dd($data);
+
+        return $data;  
+    }
 
 }

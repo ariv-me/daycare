@@ -79,6 +79,18 @@
                 transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
                 transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
             }
+
+            /* body.dark-sidenav .left-sidenav {
+                background-color: #03d87f;
+            }
+
+            .update-msg {
+                border-radius: 5px;
+                padding: 20px 12px;
+                margin: 50px 24px 24px;
+                position: relative;
+                background-color: #ffd622;
+            } */
         </style>
 
     </head>
