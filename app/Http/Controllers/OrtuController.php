@@ -14,6 +14,7 @@ use App\Models\Grup;
 use App\Models\Anak;
 use App\Models\Ortu;
 use App\Models\Perusahaan;
+use App\Models\SistemAgama;
 
 class OrtuController extends Controller
 {
@@ -33,44 +34,136 @@ class OrtuController extends Controller
 
     public function save (Request $r){
 
-        //dd($r);
+        $result = array('success'=>false);
 
-        $transaction = DB::connection('daycare')->transaction(function() use($r){
+        try {
 
-            $app = SistemApp::sistem();
-            $tmp = new Ortu();
+            $app       = SistemApp::sistem();
+            $ortu      = Ortu::where('ortu_ayah_hp',$r->ayah_hp)->where('ortu_ibu_hp',$r->ibu_hp)->where('void','T')->first();
 
-            $tmp->ortu_ayah               = $r->ayah_nama;
-            $tmp->ortu_ayah_lahir         = $r->ayah_lahir;
-            $tmp->ortu_ayah_kerja         = $r->ayah_kerja;
-            $tmp->ortu_ayah_peru_id       = $r->ayah_perusahaan;
-            $tmp->ortu_ayah_hp            = $r->ayah_hp;
-            $tmp->ortu_ayah_wa            = $r->ayah_wa;
-            $tmp->ortu_ayah_alamat        = $r->ayah_alamat;
-            $tmp->ortu_agama_ayah         = $r->ayah_agama;
+            if ($ortu != null) {
+    
+                $data = DB::connection('mysql')->transaction(function() use($r,$app,$ortu){  
 
-            $tmp->ortu_ibu               = $r->ibu_nama;
-            $tmp->ortu_ibu_lahir         = $r->ibu_lahir;
-            $tmp->ortu_ibu_kerja         = $r->ibu_kerja;
-            $tmp->ortu_ibu_peru_id       = $r->ibu_perusahaan;
-            $tmp->ortu_ibu_hp            = $r->ibu_hp;
-            $tmp->ortu_ibu_wa            = $r->ibu_wa;
-            $tmp->ortu_ibu_alamat        = $r->ibu_alamat;
-            $tmp->ortu_agama_ibu         = $r->ibu_agama;
+                    $id = $ortu->ortu_id;
+                    $tmp = Ortu::where('ortu_id',$id)->first();
+    
+                    $tmp->ortu_ayah               = $r->ayah_nama;
+                    $tmp->ortu_ayah_lahir         = $r->ayah_lahir;
+                    $tmp->ortu_ayah_kerja         = $r->ayah_kerja;
+                    $tmp->ortu_ayah_peru_id       = $r->ayah_perusahaan;
+                    $tmp->ortu_ayah_hp            = $r->ayah_hp;
+                    $tmp->ortu_ayah_wa            = $r->ayah_wa;
+                    $tmp->ortu_ayah_alamat        = $r->ayah_alamat;
+                    $tmp->ortu_ayah_agama_id      = $r->ayah_agama;
+        
+                    $tmp->ortu_ibu               = $r->ibu_nama;
+                    $tmp->ortu_ibu_lahir         = $r->ibu_lahir;
+                    $tmp->ortu_ibu_kerja         = $r->ibu_kerja;
+                    $tmp->ortu_ibu_peru_id       = $r->ibu_perusahaan;
+                    $tmp->ortu_ibu_hp            = $r->ibu_hp;
+                    $tmp->ortu_ibu_wa            = $r->ibu_wa;
+                    $tmp->ortu_ibu_alamat        = $r->ibu_alamat;
+                    $tmp->ortu_ibu_agama_id      = $r->ibu_agama;
+        
+        
+                    $tmp->created_nip           = $app['kar_nip'];
+                    $tmp->created_nama          = $app['kar_nama_awal'];
+                    $tmp->created_ip            = $r->ip();
+
+                    $tmp->save();
+        
+                    return true;
+                });
+
+                $status = '1';
 
 
-            $tmp->created_nip           = $app['kar_nip'];
-            $tmp->created_nama           = $app['kar_nama_awal'];
-            $tmp->created_ip            = $r->ip();
+            } else {
+
+                $data = DB::connection('mysql')->transaction(function() use($r,$app,$ortu){
+
+                    $tmp = new Ortu();
+    
+                    $tmp->ortu_ayah               = $r->ayah_nama;
+                    $tmp->ortu_ayah_lahir         = $r->ayah_lahir;
+                    $tmp->ortu_ayah_kerja         = $r->ayah_kerja;
+                    $tmp->ortu_ayah_peru_id     = $r->ayah_perusahaan;
+                    $tmp->ortu_ayah_hp            = $r->ayah_hp;
+                    $tmp->ortu_ayah_wa            = $r->ayah_wa;
+                    $tmp->ortu_ayah_alamat        = $r->ayah_alamat;
+                    $tmp->ortu_ayah_agama_id    = $r->ayah_agama;
+        
+                    $tmp->ortu_ibu               = $r->ibu_nama;
+                    $tmp->ortu_ibu_lahir         = $r->ibu_lahir;
+                    $tmp->ortu_ibu_kerja         = $r->ibu_kerja;
+                    $tmp->ortu_ibu_peru_id     = $r->ibu_perusahaan;
+                    $tmp->ortu_ibu_hp            = $r->ibu_hp;
+                    $tmp->ortu_ibu_wa            = $r->ibu_wa;
+                    $tmp->ortu_ibu_alamat        = $r->ibu_alamat;
+                    $tmp->ortu_ibu_agama_id    = $r->ibu_agama;
+        
+        
+                    $tmp->created_nip           = $app['kar_nip'];
+                    $tmp->created_nama          = $app['kar_nama_awal'];
+                    $tmp->created_ip            = $r->ip();
+
+                    $tmp->save();
+        
+                    return true;
+                });
+
+                $status = '2';
+
+            }
+
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['status'] = $status;
+
+        return response()->json($result);
+
+        // $transaction = DB::connection('daycare')->transaction(function() use($r){
+
+        //     $app = SistemApp::sistem();
+        //     $tmp = new Ortu();
+
+        //     $tmp->ortu_ayah               = $r->ayah_nama;
+        //     $tmp->ortu_ayah_lahir         = $r->ayah_lahir;
+        //     $tmp->ortu_ayah_kerja         = $r->ayah_kerja;
+        //     $tmp->ortu_ayah_peru_id     = $r->ayah_perusahaan;
+        //     $tmp->ortu_ayah_hp            = $r->ayah_hp;
+        //     $tmp->ortu_ayah_wa            = $r->ayah_wa;
+        //     $tmp->ortu_ayah_alamat        = $r->ayah_alamat;
+        //     $tmp->ortu_ayah_agama_id    = $r->ayah_agama;
+
+        //     $tmp->ortu_ibu               = $r->ibu_nama;
+        //     $tmp->ortu_ibu_lahir         = $r->ibu_lahir;
+        //     $tmp->ortu_ibu_kerja         = $r->ibu_kerja;
+        //     $tmp->ortu_ibu_peru_id     = $r->ibu_perusahaan;
+        //     $tmp->ortu_ibu_hp            = $r->ibu_hp;
+        //     $tmp->ortu_ibu_wa            = $r->ibu_wa;
+        //     $tmp->ortu_ibu_alamat        = $r->ibu_alamat;
+        //     $tmp->ortu_ibu_agama_id    = $r->ibu_agama;
+
+
+        //     $tmp->created_nip           = $app['kar_nip'];
+        //     $tmp->created_nama          = $app['kar_nama_awal'];
+        //     $tmp->created_ip            = $r->ip();
             
-            //dd($tmp);
+        //     //dd($tmp);
 
-            $tmp->save();
+        //     $tmp->save();
 
 
-        });
+        // });
 
-        return response()->json($transaction);
+        // return response()->json($transaction);
 
     }
 
@@ -79,16 +172,33 @@ class OrtuController extends Controller
         $result = array('success'=>false);
 
         try{
+
+          
+
+           // dd($usia);
             
             $data = DB::connection('daycare')
                             ->table('tb_ortu AS aa')
-                            ->leftjoin('tb_anak AS bb','bb.ortu_id','=','aa.ortu_id')
-                            ->leftjoin('tb_perusahaan AS cc','cc.peru_id','=','aa.ortu_ayah_peru_id')
-                            ->leftjoin('ta_agama AS dd','dd.agama_id','=','aa.ortu_agama_ayah')
                             ->orderby('aa.ortu_id','desc')
                             ->get();
-            //dd($data);
 
+
+            $data = $data->map(function($value) {
+
+                $value->ayah_usia = Carbon::parse($value->ortu_ayah_lahir)->age;
+                $value->ibu_usia = Carbon::parse($value->ortu_ibu_lahir)->age;
+
+                $value->ibu_agama   = SistemAgama::where('agama_id',$value->ortu_ibu_agama_id)->first()->agama_nama;
+                $value->ayah_agama   = SistemAgama::where('agama_id',$value->ortu_ayah_agama_id)->first()->agama_nama;
+                
+                $value->ayah_kerja   = Perusahaan::where('peru_id',$value->ortu_ayah_peru_id)->first()->peru_nama;
+                $value->ibu_kerja   = Perusahaan::where('peru_id',$value->ortu_ibu_peru_id)->first()->peru_nama;
+
+                return $value;
+
+            });
+                
+                            
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  
             return response()->json($result);
@@ -103,11 +213,18 @@ class OrtuController extends Controller
 
     public function edit(Request $r)
     {
-        $id = strtolower($r->get('id'));
-       // dd($id);
+        $id = $r->get('id');
+
+        //dd($id);
+
         $data = Ortu::where('ortu_id',$id)->first();
 
-        return response()->json($data);
+        $result = array();
+        $result['data']    = $data;
+
+       
+
+       return response()->json($result);
     }
 
 

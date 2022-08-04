@@ -10,4 +10,10 @@ class SistemAgama extends Model
     protected $table = 'ta_agama';
     protected $primaryKey = 'agama_id';
 
+    public static function getNamaAgama($param) {
+
+        $data = Agama::where('peru_id',$param)->first();
+        return $data;  
+    }
+
 }
