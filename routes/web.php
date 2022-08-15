@@ -281,26 +281,3 @@ Route::group(['prefix' => 'combo_sistem', 'as' => 'combo_sistem.'], function () 
 	Route::get('/combo_kategori', [ComboSistemController::class, 'combo_kategori'])->name('combo_kategori');
 	
 });
-
-Route::get('/print', [HomeController::class, 'index'])->name('print');
-
-Route::post('/print', function(Request $request){
-	if($request->ajax()){
-		try {
-			$ip = '192.168.137.176'; // IP Komputer kita atau printer lain yang masih satu jaringan
-			$printer = 'EPSON TM-U220 Receipt'; // Nama Printer yang di sharing
-		    	$connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
-		    	$printer = new Printer($connector);
-		    	$printer -> text("Email :" . $request->email . "\n");
-		    	$printer -> text("Username:" . $request->username . "\n");
-		    	$printer -> cut();
-		    	$printer -> close();
-		    	$response = ['success'=>'true'];
-		} catch (Exception $e) {
-		    	$response = ['success'=>'false'];
-		}
-		return response()
-			->json($response);
-	}
-	return;
-});
