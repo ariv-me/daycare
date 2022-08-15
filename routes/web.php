@@ -226,7 +226,7 @@ Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
 	Route::get('/piutang_detail', [CateringOrderController::class, 'piutang_detail'])->name('piutang_detail');
 
 	// DATA
-	Route::get('/data_index', [CateringOrderDataController::class, 'index'])->name('data_index');
+	Route::get('/data', [CateringOrderDataController::class, 'index'])->name('data');
 	Route::get('/data_view', [CateringOrderDataController::class, 'view'])->name('data_view');
 	
 
