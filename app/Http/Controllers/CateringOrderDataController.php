@@ -77,7 +77,6 @@ class CateringOrderDataController extends Controller
             $tmp->usaha_nama        = $app['usaha_nama'];
             $tmp->created_ip        = $r->ip();
 
-            dd($tmp);
 
             $tmp->save();
 

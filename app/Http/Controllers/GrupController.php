@@ -15,6 +15,12 @@ use App\Models\Anak;
 use App\Models\PendaftaranWali;
 use App\Models\Ortu;
 
+use Mike42\Escpos\Printer; 
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\CapabilityProfile;
+
+
+
 
 class GrupController extends Controller
 {
@@ -91,6 +97,30 @@ class GrupController extends Controller
         $id = strtolower($r->get('id'));
         $data = Anak::where('anak_nis',$id)->first();
         return response()->json($data);
+    }
+
+    public function cetak(Request $r){
+
+        try {
+			$ip = '::1'; // IP Komputer kita atau printer lain yang masih satu jaringan
+			$printer = 'EPSON TM-U220 Receipt'; // Nama Printer yang di sharing
+                $profile = CapabilityProfile::load("simple");
+		    	//$connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
+                $connector = new WindowsPrintConnector("smb://127.0.0.1/Receipt");
+		    	$printer = new Printer($connector,$profile);
+		    	$printer -> text("Email :" . $r->email . "\n");
+		    	$printer -> text("Username:" . $r->username . "\n");
+		    	$printer -> cut();
+		    	$printer -> close();
+		    	$response = ['success'=>'true'];
+		} catch (Exception $e) {
+		    	$response = ['success'=>'false'];
+		}
+		return response()
+			->json($response);
+
+
+
     }
 
 

@@ -4,14 +4,14 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Dastyle - Admin & Dashboard Template</title>
+        <title>{{ $app['app_nama'] }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{ asset('resources/templates3/view/assets/images/favicon.ico') }}">
+        <link rel="shortcut icon" href="{{ asset('resources/templates3/view/assets/images/favicon.png') }}">
 
         <!-- jvectormap -->
         <link href="{{ asset('resources/templates3/plugins/jvectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet">
@@ -80,18 +80,124 @@
                 transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
             }
 
-            /* body.dark-sidenav .left-sidenav {
-                background-color: #03d87f;
+            .left-sidenav .brand {
+                text-align: center;
+                height: 74px;
+                /* border-bottom: 1px solid #2f3e61; */
+                background: white;
+            }
+            .left-sidenav .brand .logo .logo-sm {
+                height: 45px;
+               
+            }
+            .left-sidenav .brand .logo .logo-lg {
+                height: 30px;
+                margin-left: 2px;
+                margin-right: 13px;
+                display: inline-block;
+            }
+            /* body.dark-sidebar .left-sidebar .sidebar-user-pro {
+                padding: 20px 16px;
+            } */
+            
+            /* .mx-auto {
+                margin-right: auto!important;
+                margin-left: auto!important;
             }
 
-            .update-msg {
+            .position-relative {
+                position: relative!important;
+            }
+
+            .thumb-md {
+                height: 48px;
+                width: 48px;
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .rounded-circle {
+                border-radius: 50%!important;
+            } */
+
+            /* body.dark-sidenav .left-sidenav {
+                background-color: #03d87f;
+            } */
+
+            /* .update-msg {
                 border-radius: 5px;
                 padding: 20px 12px;
                 margin: 50px 24px 24px;
                 position: relative;
                 background-color: #ffd622;
+            }  */
+
+            /* .left-sidenav .brand {
+                text-align: center;
+                height: 74px;
+                background: #ffffff;
+            }
+
+            .left-sidenav .menu-content {
+                height: 100%;
+                padding-bottom: 70px;
+                background: #03d87f;
+            }
+
+            .left-sidenav-menu li>a.active .menu-icon {
+                color: #f8f8fc;
+                fill: rgb(0 0 0 / 0%);
+            }
+
+            body.dark-sidenav .left-sidenav-menu li>a {
+                color: #f8f8fc;
+            }
+
+            .left-sidenav-menu li>a {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                padding: 6px 0px;
+                color: #f8f8fc;
+                -webkit-transition: all 0.3s ease-out;
+                transition: all 0.3s ease-out;
+                font-weight: 300;
+            }
+
+            body.dark-sidenav .left-sidenav-menu li>a i {
+                color: #f8f8fc;
+            }
+
+            body.dark-sidenav .left-sidenav-menu li ul li>a {
+                color: #f8f8fc;
+            }
+
+            body.dark-sidenav .left-sidenav-menu li>a {
+                display: block;
+                padding: 7px 20px;
+                color: #eceef3;
+                border-left: 3px solid transparent;
+                -webkit-transition: all 0.3s ease-out;
+                transition: all 0.3s ease-out;
+            }
+
+            .left-sidenav-menu {
+                padding-left: 0;
+                margin-bottom: 0;
+                padding: 0px;
+            }
+
+            body.dark-sidenav .left-sidenav-menu li>a.active {
+                color: #fff;
+                background-color: #ffb822;
+                border-left-color: #f8f8fc;
+                padding: 20;
+                margin-top: -8px;
             } */
-        </style>
+</style>
 
     </head>
 
@@ -148,7 +254,7 @@
                 </div><!-- container -->
 
                 <footer class="footer text-center text-sm-left">
-                    &copy; 2020 Dastyle <span class="d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes</span>
+                    &copy; 2022 Yayasan Semen Padang <span class="d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger"></i> by SISFO YSP</span>
                 </footer><!--end footer-->
             </div>
             <!-- end page content -->

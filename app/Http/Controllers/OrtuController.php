@@ -24,14 +24,6 @@ class OrtuController extends Controller
         $this->middleware('auth');
     }
 
-    // public function index()
-    // {
-        
-    //     $app = SistemApp::sistem();
-    //     $menu = SistemApp::OtoritasMenu($app['idu']);
-    //     return view('pendaftaran.baru.index',compact('app','menu'));
-    // }
-
     public function save (Request $r){
 
         $result = array('success'=>false);
@@ -128,42 +120,30 @@ class OrtuController extends Controller
 
         return response()->json($result);
 
-        // $transaction = DB::connection('daycare')->transaction(function() use($r){
+       
 
-        //     $app = SistemApp::sistem();
-        //     $tmp = new Ortu();
+    }
 
-        //     $tmp->ortu_ayah               = $r->ayah_nama;
-        //     $tmp->ortu_ayah_lahir         = $r->ayah_lahir;
-        //     $tmp->ortu_ayah_kerja         = $r->ayah_kerja;
-        //     $tmp->ortu_ayah_peru_id     = $r->ayah_perusahaan;
-        //     $tmp->ortu_ayah_hp            = $r->ayah_hp;
-        //     $tmp->ortu_ayah_wa            = $r->ayah_wa;
-        //     $tmp->ortu_ayah_alamat        = $r->ayah_alamat;
-        //     $tmp->ortu_ayah_agama_id    = $r->ayah_agama;
+    public function save_daftar(Request $r){
 
-        //     $tmp->ortu_ibu               = $r->ibu_nama;
-        //     $tmp->ortu_ibu_lahir         = $r->ibu_lahir;
-        //     $tmp->ortu_ibu_kerja         = $r->ibu_kerja;
-        //     $tmp->ortu_ibu_peru_id     = $r->ibu_perusahaan;
-        //     $tmp->ortu_ibu_hp            = $r->ibu_hp;
-        //     $tmp->ortu_ibu_wa            = $r->ibu_wa;
-        //     $tmp->ortu_ibu_alamat        = $r->ibu_alamat;
-        //     $tmp->ortu_ibu_agama_id    = $r->ibu_agama;
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
 
+            $app = SistemApp::sistem();
+            $tmp = new Ortu();
+        
 
-        //     $tmp->created_nip           = $app['kar_nip'];
-        //     $tmp->created_nama          = $app['kar_nama_awal'];
-        //     $tmp->created_ip            = $r->ip();
-            
-        //     //dd($tmp);
+            $tmp->ortu_ayah             = $r->ayah;
+            $tmp->ortu_ibu              = $r->ibu;
 
-        //     $tmp->save();
+            $tmp->created_nip   = $app['kar_id'];
+            $tmp->created_nama  = $app['kar_nama_awal'];
+            $tmp->created_ip    = $r->ip();
 
+            $tmp->save();
 
-        // });
+        });
 
-        // return response()->json($transaction);
+        return response()->json($transaction);
 
     }
 
@@ -188,11 +168,41 @@ class OrtuController extends Controller
                 $value->ayah_usia = Carbon::parse($value->ortu_ayah_lahir)->age;
                 $value->ibu_usia = Carbon::parse($value->ortu_ibu_lahir)->age;
 
-                $value->ibu_agama   = SistemAgama::where('agama_id',$value->ortu_ibu_agama_id)->first()->agama_nama;
-                $value->ayah_agama   = SistemAgama::where('agama_id',$value->ortu_ayah_agama_id)->first()->agama_nama;
-                
-                $value->ayah_kerja   = Perusahaan::where('peru_id',$value->ortu_ayah_peru_id)->first()->peru_nama;
-                $value->ibu_kerja   = Perusahaan::where('peru_id',$value->ortu_ibu_peru_id)->first()->peru_nama;
+
+
+                if ($value->ortu_ibu_agama_id == null){
+
+                    $value->ibu_agama   =  strtoupper('Kosong') ;
+
+                } else if ($value->ortu_ibu_agama_id != null){
+
+                    $value->ibu_agama   = SistemAgama::where('agama_id',$value->ortu_ayah_agama_id)->first()->agama_nama;
+
+                } else if ($value->ortu_ayah_agama_id == null){
+
+                    $value->ibu_agama   =  strtoupper('Kosong') ;
+
+                } else if ($value->ortu_ayah_agama_id != null){
+
+                    $value->ayah_agama   = SistemAgama::where('agama_id',$value->ortu_ayah_agama_id)->first()->agama_nama;
+
+                } else if ($value->ortu_ayah_peru_id == null){
+
+                    $value->ayah_kerja   =  strtoupper('Kosong') ;
+
+                } else if ($value->ortu_ayah_peru_id != null){
+
+                    $value->ayah_kerja   = Perusahaan::where('peru_id',$value->ortu_ayah_peru_id)->first()->peru_nama;
+
+                } else if ($value->ortu_ibu_peru_id == null){
+
+                    $value->ayah_kerja   =  strtoupper('Kosong') ;
+
+                } else if ($value->ortu_ibu_peru_id != null){
+
+                    $value->ibu_kerja   = Perusahaan::where('peru_id',$value->ortu_ibu_peru_id)->first()->peru_nama;
+
+                }
 
                 return $value;
 
@@ -215,14 +225,10 @@ class OrtuController extends Controller
     {
         $id = $r->get('id');
 
-        //dd($id);
-
         $data = Ortu::where('ortu_id',$id)->first();
 
         $result = array();
         $result['data']    = $data;
-
-       
 
        return response()->json($result);
     }

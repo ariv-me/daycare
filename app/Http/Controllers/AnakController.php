@@ -32,6 +32,36 @@ class AnakController extends Controller
     //     return view('pendaftaran.baru.index',compact('app','menu'));
     // }
 
+    public function save_daftar(Request $r){
+
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
+
+            $app = SistemApp::sistem();
+            $tmp = new Anak();
+            $nis = Anak::autonumber();
+        
+
+            $tmp->ortu_id         = $r->ortu;
+            $tmp->anak_nis        = $nis;
+            $tmp->anak_nama       = $r->anak;
+            $tmp->anak_tgl_lahir  = $r->anak_lahir;
+            $tmp->anak_jekel      = $r->anak_jekel;
+
+            $tmp->created_nip   = $app['kar_id'];
+            $tmp->created_nama  = $app['kar_nama_awal'];
+            $tmp->created_ip    = $r->ip();
+
+            //dd($tmp);
+
+            $tmp->save();
+
+        });
+
+        return response()->json($transaction);
+
+    }
+
+
     public function save(Request $r){
 
         $result = array('success'=>false);
@@ -41,7 +71,6 @@ class AnakController extends Controller
             $app       = SistemApp::sistem();
             $anak      = Anak::where('anak_nis',$r->nis)->where('anak_tgl_lahir',$r->anak_tgl_lahir)->where('void','T')->first();
 
-            //dd($anak);
             
             if ($anak != null) {
     
@@ -118,41 +147,6 @@ class AnakController extends Controller
 
         return response()->json($result);
 
-        // $transaction = DB::connection('daycare')->transaction(function() use($r){
-
-        //     $app = SistemApp::sistem();
-        //     $tmp = new Anak();
-
-        //     $nis = Anak::autonumber();
-
-        //     $tmp->ortu_id               = $r->ortu;
-        //     $tmp->anak_nama             = $r->anak_nama;
-        //     $tmp->anak_nis              = $nis;
-        //     $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
-        //     $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
-        //     $tmp->anak_jekel            = $r->anak_jekel;
-        //     $tmp->anak_ke               = $r->anak_ke;
-        //     $tmp->anak_jml_saudara      = $r->anak_saudara;
-        //     $tmp->agama_id              = $r->anak_agama;
-        //     $tmp->anak_alamat           = $r->anak_alamat;
-        //     $tmp->anak_berat            = $r->anak_berat;
-        //     $tmp->anak_tinggi           = $r->anak_tinggi;
-            
-        //     $tmp->created_nip           = $app['kar_nip'];
-        //     $tmp->created_nama           = $app['kar_nama_awal'];
-        //     $tmp->created_ip = $r->ip();
-
-
-   
-        //     //dd($tmp);
-
-        //     $tmp->save();
-
-
-        // });
-
-        // return response()->json($transaction);
-
     }
 
     public function view(Request $r){
@@ -165,8 +159,16 @@ class AnakController extends Controller
                             ->table('tb_anak AS aa')
                             ->leftjoin('tb_ortu AS bb','bb.ortu_id','=','aa.ortu_id')
                             ->leftjoin('ta_agama AS cc','cc.agama_id','=','aa.agama_id')
-                            ->orderby('bb.ortu_id')
+                            ->orderby('bb.ortu_id','desc')
                             ->get();
+
+            $data = $data->map(function($value) {
+
+                $value->anak_usia = Carbon::parse($value->anak_tgl_lahir)->age;
+                return $value;
+
+            });
+
 
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  
@@ -182,15 +184,27 @@ class AnakController extends Controller
 
     public function edit(Request $r)
     {
-        $id = $r->get('id');
+        $result = array('success'=>false);
 
-        $data = Anak::where('anak_nis',$id)->first();
+        try{
+            $id = $r->get('id');
+            $data = DB::connection('daycare')
+                            ->table('tb_anak AS aa')
+                            ->leftjoin('tb_ortu AS bb','bb.ortu_id','=','aa.ortu_id')
+                            ->leftjoin('ta_agama AS cc','cc.agama_id','=','aa.agama_id')
+                            ->where('anak_nis',$id)
+                            ->first();
 
-        $result = array();
-        $result['data']    = $data;
 
-       return response()->json($result);
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['data'] = $data;
+
+        return response()->json($result);
     }
-
 
 }

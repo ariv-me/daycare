@@ -18,7 +18,7 @@
                                 <div class="col-md-4">
                                     <label for="state"><small> Pendaftaran </small><span class="text-danger">*</span> </label>
                                     <div class="input-group mb-1">
-                                        <select class="form-control" style="width: 50%;" name="daftar_blm" id="daftar_blm"></select>
+                                        <select class="form-control" style="width: 50%;" name="detai_blm" id="detai_blm"></select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -756,11 +756,11 @@
 
     function combo_blm(){
 
-        $('select[name=daftar_blm]').empty()
+        $('select[name=detai_blm]').empty()
             var html = '';
             html = '<option value="B">Baru</option>'+
                    '<option value="L">Lama</option>';
-        $('select[name=daftar_blm]').append(html)
+        $('select[name=detai_blm]').append(html)
 
     }
 

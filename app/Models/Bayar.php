@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Bayar extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'tc_bayar';
-    protected $primaryKey = 'bayar_kode';
+    protected $table = 'tc_daftar';
+    protected $primaryKey = 'daftar_kode';
 
-    public static function bayar_kode()
+    public static function daftar_kode()
 
     {
 
         $data = DB::connection('daycare')
-                     ->table('tc_bayar')
-                     ->select(DB::raw("MAX(RIGHT(bayar_kode,4)) as kd_max"));
+                     ->table('tc_daftar')
+                     ->select(DB::raw("MAX(RIGHT(daftar_kode,4)) as kd_max"));
                    
         
         $kode_depan = date('Ymd');    
