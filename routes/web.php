@@ -41,6 +41,11 @@ Auth::routes([
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+/**-- HOME & BLANK --**/
+Route::group(['prefix' => 'blank', 'as' => 'blank.'], function () {
+	Route::get('/', [HomeController::class, 'index_blank'])->name('index');
+});
+
 // Pendaftaran
 
 Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
@@ -240,7 +245,7 @@ Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
 Route::group(['prefix' => 'catering', 'as' => 'catering.'], function () {
 	
 
-	Route::get('/menu_index', [CateringMenuController::class, 'index'])->name('menu_index');
+	Route::get('/menu', [CateringMenuController::class, 'index'])->name('menu');
 	Route::get('/menu_view', [CateringMenuController::class, 'view'])->name('menu_view');
 	Route::post('/menu_save', [CateringMenuController::class, 'save'])->name('menu_save');
 	Route::get('/menu_edit', [CateringMenuController::class, 'edit'])->name('menu_edit');
@@ -254,7 +259,7 @@ Route::group(['prefix' => 'catering', 'as' => 'catering.'], function () {
 	Route::post('/item_save', [CateringMenuController::class, 'item_save'])->name('item_save');
 	Route::get('/item_delete', [CateringMenuController::class, 'item_delete'])->name('item_delete');
 	
-	Route::get('/kategori_index', [CateringKategoriController::class, 'index'])->name('kategori_index');
+	Route::get('/kategori', [CateringKategoriController::class, 'index'])->name('kategori');
 	Route::get('/kategori_view', [CateringKategoriController::class, 'view'])->name('kategori_view');
 	Route::post('/kategori_save', [CateringKategoriController::class, 'save'])->name('kategori_save');
 	Route::get('/kategori_edit', [CateringKategoriController::class, 'edit'])->name('kategori_edit');
