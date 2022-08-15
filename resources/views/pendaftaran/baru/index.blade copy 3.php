@@ -20,7 +20,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-handshake-o"></i>
                         </div>
-                        <select class="form-select" id="daftar_blm" name="daftar_blm" ></select>
+                        <select class="form-select" id="detai_blm" name="detai_blm" ></select>
                       </div>
                 </div>
                 <div class="col-md-4">
@@ -566,11 +566,11 @@
 
     function combo_blm(){
 
-        $('select[name=daftar_blm]').empty()
+        $('select[name=detai_blm]').empty()
             var html = '';
             html = '<option value="B">Baru</option>'+
                    '<option value="L">Lama</option>';
-        $('select[name=daftar_blm]').append(html)
+        $('select[name=detai_blm]').append(html)
 
     }
 

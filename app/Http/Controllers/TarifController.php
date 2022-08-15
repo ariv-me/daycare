@@ -74,9 +74,33 @@ class TarifController extends Controller
             
             $perusahaan = $r->perusahaan;
             $jenis      = $r->jenis;
-
             $grup = Perusahaan::where('grup_id',$perusahaan)->first()->grup_id;
+
+
             $data = Tarif::where('jenis_id',$jenis)->where('grup_id',$grup)->get();
+
+            $data = $data->map(function($value) {
+                
+
+
+                $value->registrasi        = $value->tarif_reg;
+                $value->spp               = $value->tarif_spp;
+                $value->tahun             = 12;
+                $value->pembangunan       = $value->tarif_pembg;
+                $value->total_spp           = round($value->spp*$value->tahun);
+
+                $value->reg_tampil          = format_rupiah($value->tarif_reg);
+                $value->spp_tampil          = format_rupiah($value->tarif_spp);
+                $value->pembangunan_tampil  = format_rupiah($value->tarif_pembg);
+                $value->total_spp_tampil    = format_rupiah(round($value->spp*$value->tahun),2);
+                
+                $value->total_bayar         = format_rupiah(round($value->registrasi+$value->total_spp+$value->pembangunan),2);
+
+                //dd($value->total_bayar);
+                
+                return $value;
+           
+            });
 
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  

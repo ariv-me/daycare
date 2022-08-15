@@ -711,11 +711,11 @@
 
     function combo_blm(){
 
-        $('select[name=daftar_blm]').empty()
+        $('select[name=detai_blm]').empty()
             var html = '';
             html = '<option value="B">Baru</option>'+
                    '<option value="L">Lama</option>';
-        $('select[name=daftar_blm]').append(html)
+        $('select[name=detai_blm]').append(html)
 
     }
 

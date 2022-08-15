@@ -47,7 +47,7 @@ class CateringOrderDetailController extends Controller
     public function save(Request $r){
 
         $app       = SistemApp::sistem();
-        $kode = $r->kode;
+        $kode      = $r->kode;
 
         $menu      = CateringMenu::get()->where('menu_kode',$r->kode)->first();
 
@@ -99,6 +99,7 @@ class CateringOrderDetailController extends Controller
         $result = array('success'=>false);
 
         try{
+
             $app = SistemApp::sistem();
             $order_kode = CateringOrder::order_kode();
 
@@ -121,7 +122,7 @@ class CateringOrderDetailController extends Controller
                
                 return $value;
 
-                });
+            });
 
             // dd($order_kode);
 

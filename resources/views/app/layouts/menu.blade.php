@@ -1,5 +1,5 @@
 <ul class="metismenu left-sidenav-menu">
-    <li class="menu-label mt-0">Main</li>
+    <li class="menu-label">Main</li>
 
     <li>
         <a href="{{ route('home') }}"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span></a>

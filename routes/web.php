@@ -14,7 +14,7 @@ use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\JenisPekerjaanController;
 use App\Http\Controllers\TarifController;
 use App\Http\Controllers\JenisController;
-use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\PendaftaranDetailController;
 use App\Http\Controllers\BayarController;
 
 /*-- CATERING --*/
@@ -28,12 +28,9 @@ use App\Http\Controllers\CateringKategoriController;
 
 
 
+
 Route::get('/', function () {
 	return view('auth.login');
-});
-
-Route::group(['prefix' => 'ws_generate', 'as' => 'ws_generate.'], function () {
-	Route::get('/mysph_dokter', [BridgingToJadwalController::class, 'mysph_dokter'])->name('mysph_dokter');
 });
 
 Auth::routes([
@@ -44,34 +41,39 @@ Auth::routes([
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-// Pendaftaran, Biaya
+// Pendaftaran
 
 Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 
-	Route::get('/', [PendaftaranController::class, 'index'])->name('index');
+	Route::get('/', [PendaftaranDetailController::class, 'index'])->name('index');
+
+	// Pendaftaran Transaksi
+
 	Route::get('/view', [PendaftaranController::class, 'view'])->name('view');
 	Route::post('/save', [PendaftaranController::class, 'save'])->name('save');
 	Route::get('/edit', [PendaftaranController::class, 'edit'])->name('edit');
 	Route::post('/update', [PendaftaranController::class, 'update'])->name('update');
 	Route::post('/void', [PendaftaranController::class, 'void'])->name('void');
 
-	Route::post('/anak', [PendaftaranController::class, 'anak'])->name('anak');
-	Route::post('/wali', [PendaftaranController::class, 'wali'])->name('wali');
+	// Pendaftaran Detail
 
-	Route::get('/ortu_anak', [PendaftaranController::class, 'ortu_anak'])->name('ortu_anak');
+	Route::get('/view_detail', [PendaftaranDetailController::class, 'view_detail'])->name('view_detail');
+	Route::post('/save_detail', [PendaftaranDetailController::class, 'save_detail'])->name('save_detail');
+	Route::get('/edit_detail', [PendaftaranDetailController::class, 'edit_detail'])->name('edit_detail');
+	Route::post('/update_detail', [PendaftaranDetailController::class, 'update_detail'])->name('update_detail');
+	Route::get('/delete_detail', [PendaftaranDetailController::class, 'delete_detail'])->name('delete_detail');
 	
 });
 
-Route::group(['prefix' => 'anak', 'as' => 'anak.'], function () {
+// Data Pokok 
 
-	Route::get('/', [OrtuController::class, 'index'])->name('index');
-	Route::get('/view', [OrtuController::class, 'view'])->name('view');
-	Route::post('/save', [OrtuController::class, 'save'])->name('save');
-	Route::get('/edit', [OrtuController::class, 'edit'])->name('edit');
-	Route::post('/update', [OrtuController::class, 'update'])->name('update');
-	Route::post('/void', [OrtuController::class, 'void'])->name('void');
+Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 
+	Route::get('/', [PendaftaranDetailController::class, 'dapok'])->name('dapok');
+	
 });
+
+
 
 Route::group(['prefix' => 'ortu', 'as' => 'ortu.'], function () {
 
@@ -81,6 +83,8 @@ Route::group(['prefix' => 'ortu', 'as' => 'ortu.'], function () {
 	Route::get('/edit', [OrtuController::class, 'edit'])->name('edit');
 	Route::post('/update', [OrtuController::class, 'update'])->name('update');
 	Route::post('/void', [OrtuController::class, 'void'])->name('void');
+
+	Route::post('/save_daftar', [OrtuController::class, 'save_daftar'])->name('save_daftar');
 
 });
 
@@ -92,6 +96,9 @@ Route::group(['prefix' => 'anak', 'as' => 'anak.'], function () {
 	Route::get('/edit', [AnakController::class, 'edit'])->name('edit');
 	Route::post('/update', [AnakController::class, 'update'])->name('update');
 	Route::post('/void', [AnakController::class, 'void'])->name('void');
+
+	Route::post('/save_daftar', [AnakController::class, 'save_daftar'])->name('save_daftar');
+
 
 });
 	
@@ -142,6 +149,7 @@ Route::group(['prefix' => 'grup', 'as' => 'grup.'], function () {
 	Route::get('/edit', [GrupController::class, 'edit'])->name('edit');
 	Route::post('/update', [GrupController::class, 'update'])->name('update');
 	Route::post('/void', [GrupController::class, 'void'])->name('void');
+	Route::post('/cetak', [GrupController::class, 'cetak'])->name('cetak');
 
 });
 
@@ -274,3 +282,25 @@ Route::group(['prefix' => 'combo_sistem', 'as' => 'combo_sistem.'], function () 
 	
 });
 
+Route::get('/print', [HomeController::class, 'index'])->name('print');
+
+Route::post('/print', function(Request $request){
+	if($request->ajax()){
+		try {
+			$ip = '192.168.137.176'; // IP Komputer kita atau printer lain yang masih satu jaringan
+			$printer = 'EPSON TM-U220 Receipt'; // Nama Printer yang di sharing
+		    	$connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
+		    	$printer = new Printer($connector);
+		    	$printer -> text("Email :" . $request->email . "\n");
+		    	$printer -> text("Username:" . $request->username . "\n");
+		    	$printer -> cut();
+		    	$printer -> close();
+		    	$response = ['success'=>'true'];
+		} catch (Exception $e) {
+		    	$response = ['success'=>'false'];
+		}
+		return response()
+			->json($response);
+	}
+	return;
+});

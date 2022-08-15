@@ -9,10 +9,10 @@ use Carbon\Carbon;
 
 use DB;
 
-use App\Models\Pendaftaran;
+
+use App\Models\PendaftaranDetail;
 use App\Models\Grup;
 use App\Models\Anak;
-use App\Models\PendaftaranWali;
 use App\Models\Perusahaan;
 use App\Models\Tarif;
 use App\Models\Agama;
@@ -21,7 +21,8 @@ use App\Models\JenisPekerjaan;
 use App\Models\HCISKaryawan;
 
 
-class PendaftaranController extends Controller
+
+class CateringOrderController extends Controller
 {
     
     public function __construct()
@@ -34,142 +35,249 @@ class PendaftaranController extends Controller
         
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('pendaftaran.baru.index',compact('app','menu'));
+        return view('catering.order.index',compact('app','menu'));
     }
 
-    public function ortu_anak()
-    {
-        
-        $app = SistemApp::sistem();
-        $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('pendaftaran.ortu_anak.index',compact('app','menu'));
-    }
 
-    public function view(Request $r)
-    {
-       
-        $result = array('success'=>false);
-
-        try{
-
-            $app = SistemApp::sistem();
-            $kode = $r->get('kode');
-
-            if($kode == null){
-
-                $data = DB::connection('daycare')
-                                ->table('tc_daftar AS aa')
-                                ->leftjoin('tb_jenis AS bb','bb.jenis_id','=','aa.jenis_id')
-                                ->leftjoin('tb_grup AS cc','cc.grup_id','=','aa.grup_id')
-                                ->where('aa.kar_id',$app['kar_id'])
-                                ->where('aa.is_aktif','T')
-                                ->get();
-            } else {
-
-                $data = DB::connection('daycare')
-                                ->table('tc_daftar AS aa')
-                                ->leftjoin('tb_jenis AS bb','bb.jenis_id','=','aa.jenis_id')
-                                ->leftjoin('tb_grup AS cc','cc.grup_id','=','aa.grup_id')
-                                ->where('aa.daftar_kode',$kode)
-                                ->orderby('aa.daftar_kode')
-                                ->get();
-
-            }
-                        
-        } catch(\Exeption $e) {
-            $result['message'] = $e->getMessage();
-            return response()->json($result);
-        }
-
-            $result['success'] = true;
-            $result['data'] = $data;
-
-            // $tanggal_mulai = $tanggal_mulai;
-            // $tanggal_akhir = $tanggal_akhir;
-
-            // $result['export_excel'] = $app['url'].'ysp_kerohanian/export_daftar_kunjungan/'.$tanggal_mulai.'/'.$tanggal_akhir;
-
-            return response()->json($result);
-
-    }
+    //------------------------------- ORDER SAVE --------------------------------
 
 
     public function save(Request $r){
 
-        //dd($r);
 
-        $transaction = DB::connection('daycare')->transaction(function() use($r){
+        $result = array('success'=>false);
 
-            $app = SistemApp::sistem();
-            $tmp = new Pendaftaran();
+        try {
 
-            $perusahaan = $r->perusahaan;
-            $jenis      = $r->jenis;
+            $daftar_kode  = Pendaftaran::daftar_kode();
 
-            $grup = Perusahaan::where('grup_id',$perusahaan)->first()->grup_id;
-            $tarif = Tarif::where('jenis_id',$jenis)->where('grup_id',$grup)->first();
+            $transaction = DB::connection('daycare')->transaction(function() use($r,$daftar_kode){
+    
+                $app        = SistemApp::sistem();
+                
+                /*-- SAVE --*/
+    
+                $tmp = new Pendaftaran();  
+                
+                $tmp->daftar_kode = $daftar_kode;
+                $tmp->order_tgl = Carbon::now()->toDateString();
+                $tmp->order_jam = Carbon::now()->toTimeString();    
+                $tmp->order_status = 'U';
+                $tmp->order_total = str_replace(".", "", $r->total);
+       
+                $tmp->kar_id            = $app['kar_id'];
+                $tmp->kar_nama          = $app['kar_nama_awal'];
+                $tmp->usaha_id          = $app['usaha_id'];
+                $tmp->usaha_nama        = $app['usaha_nama'];
+                $tmp->created_ip        = $r->ip();
+                
+                $tmp->save();
+    
+                $detail = PendaftaranDetail::where('kar_id',$app['kar_id'])->where('is_aktif','T')->get();
 
-            $kode_daftar = Pendaftaran::daftar_kode();
+                //dd($detail);
+    
+                foreach ($detail as $key => $value) {
+    
+                    /*-- DETAIL UPDATE --*/
+    
+                    $sql = DB::connection('daycare')
+                                ->table('ctrg_order_detail')
+                                ->where('kar_id',$app['kar_id'])
+                                ->where('is_aktif','T')
+                                ->update([
+                                    'order_kode' => $order_kode,
+                                    'is_aktif' => 'Y'
+                                ]);
+                }
+    
+                return true;
+    
+            });
+
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+        
+        $result['success'] = true;
+        $result['invoice'] = $order_kode;
+
+        return response()->json($result);   
+
+    }
+    public function view(Request $r){
+
+        $result = array('success'=>false);
+
+        try{
             
-            //d($kode_daftar);
-            //dd($tarif);
-        
-            $tmp->daftar_kode           = $kode_daftar;
-            $tmp->anak_nis              = $r->daftar_nis;
-            $tmp->anak_nama             = $r->daftar_anak;
-            $tmp->grup_id               = $grup;
-            $tmp->jenis_id              = $jenis;
-            $tmp->tarif_kode            = $tarif->kode;
-            $tmp->tarif_reg             = $tarif->tarif_reg;
-            $tmp->tarif_spp             = $tarif->tarif_spp;
-            $tmp->tarif_pembg           = $tarif->tarif_pembg;
+            $data = Anak::get();
 
-            $tmp->kar_id                = $app['kar_id'];
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
 
-        
-            //dd($tmp);
+        $result['success'] = true;
+        $result['data'] = $data;
 
-            $tmp->save();
-
-
-        });
-
-        return response()->json($transaction);
+        return response()->json($result);
 
     }
 
-    public function anak(Request $r){
-
-        //dd($r);
-
-        $transaction = DB::connection('daycare')->transaction(function() use($r){
-
-            $app = SistemApp::sistem();
-            $tmp = new Anak();
-
-            $nis = Anak::autonumber();
-
-            $tmp->anak_nama             = $r->anak_nama;
-            $tmp->anak_nis              = $nis;
-            $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
-            $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
-            $tmp->anak_jekel            = $r->anak_jekel;
-            $tmp->anak_ke               = $r->anak_ke;
-            $tmp->anak_jml_saudara      = $r->jml_saudara;
-            $tmp->ortu_ayah            = $r->ortu_ayah;
-            $tmp->ortu_pekerjaan       = $r->ortu_pekerjaan;
-            $tmp->ortu_hp              = $r->ortu_hp;
-            $tmp->ortu_alamat          = $r->ortu_alamat;
-
-            //dd($tmp);
-
-            $tmp->save();
+    public function edit(Request $r)
+    {
+        $id = $r->get('id');
+        
+        $data = CateringOrder::where('order_kode',$id)->first();
+        return response()->json($data);
+        
+    }
 
 
-        });
+    //------------------------------- PIUTANG VIEW --------------------------------
 
-        return response()->json($transaction);
+
+    public function view_piutang(Request $r){
+
+        $result = array('success'=>false);
+
+        try{
+
+            $tgl_mulai  = $r->get('tgl_mulai');
+            $tgl_akhir  = $r->get('tgl_akhir');
+            $status     = $r->get('status');
+
+
+            $tanggal_mulai = $tgl_mulai ? date('Y-m-d', strtotime($tgl_mulai)) : date('Y-m-d');
+            $tanggal_akhir = $tgl_akhir ? date('Y-m-d', strtotime($tgl_akhir)) : date('Y-m-d');
+
+            $order_kode = CateringOrder::order_kode();
+
+            $data = DB::connection('daycare')
+                        ->table('ctrg_order AS aa')
+                        ->where('aa.order_tgl', '>=', $tanggal_mulai)
+                        ->where('aa.order_tgl', '<=', $tanggal_akhir)
+                        ->where('aa.is_aktif','Y')
+                        ->orderby('aa.order_kode','desc')
+                        ->get();
+
+            $data2 = DB::connection('daycare')
+                        ->table('ctrg_order_detail AS aa')
+                        ->leftjoin('ctrg_order AS bb','bb.order_kode','=','aa.order_kode')
+                        ->leftjoin('tb_anak AS cc','cc.anak_nis','=','aa.anak_nis')
+                        ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
+                        ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
+                        ->where('aa.is_aktif','Y')
+                        ->orderby('aa.order_kode','desc')
+                        ->get();
+        
+            $data = $data->map(function($value) use($data2) {
+ 
+                $value->total_tampil        = format_rupiah($value->order_total);
+                $value->total_piutang       = $value->order_total;
+                
+                return $value;
+
+            });
+
+            // dd($order_kode);
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['data'] = $data;
+        $result['detail'] = $data2;
+        $result['total'] = format_rupiah($data->where('order_status','U')->sum('total_piutang'));
+
+        return response()->json($result);
 
     }
+
+    public function piutang_detail(Request $r){
+
+        $result = array('success'=>false);
+
+        try{
+            
+            $id = $r->get('id');
+
+            $order       = CateringOrder::where('order_kode',$id)->first();
+
+            $data = DB::connection('daycare')
+                            ->table('ctrg_order_detail AS aa')
+                            ->leftjoin('ctrg_order AS bb','bb.order_kode','=','aa.order_kode')
+                            ->leftjoin('tb_anak AS cc','cc.anak_nis','=','aa.anak_nis')
+                            ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
+                            ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
+                            ->where('aa.is_aktif','Y')
+                            ->where('aa.order_kode',$id)
+                            ->get();
+            //dd($data);
+
+            $data = $data->map(function($value) {
+ 
+                $value->harga_tampil        = format_rupiah($value->menu_harga_jual);
+                $value->order_kode          = $value->order_kode;
+                $value->total_tampil        = terbilang($value->order_total);
+                
+                return $value;
+
+            });
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['data'] = $data;
+
+        $result['order_tgl'] = helpers_tgl_indo_panjang($order->order_tgl);
+        $result['kode'] = $order->order_kode;
+        $result['nama'] = $order->kar_nama;
+        $result['usaha'] = $order->usaha_nama;
+        $result['terbilang'] = terbilang($order->order_total).' Rupiah';
+       
+
+        return response()->json($result);
+
+    }
+
+    //------------------------------- PIUTANG BAYAR PER KODE ORDER --------------------------------
+
+    public function piutang_bayar(Request $r){
+
+        $transaction = DB::connection('mysql')->transaction(function() use($r){
+  
+              $app = SistemApp::sistem();
+  
+              $id = $r->get('id');
+ 
+              $tmp = CateringOrder::where('order_kode',$id)->first();
+
+            //   $tmp->menu_kode = $r->kode;
+              $tmp->order_total         = $r->total;
+              $tmp->order_bayar         = $r->bayar;
+              $tmp->order_status         = 'L';
+
+
+              $tmp->updated_nip   = $app['kar_id'];
+              $tmp->updated_nama  = $app['kar_nama_awal'];
+              $tmp->updated_ip    = $r->ip();
+            
+              $tmp->save();
+  
+              return true;
+          });
+  
+          return response()->json($transaction);   
+    }
+
 
 }
