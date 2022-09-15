@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Bayar extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'tc_daftar';
+    protected $table = 'daftar_tc_transaksi';
     protected $primaryKey = 'daftar_kode';
 
     public static function daftar_kode()
@@ -15,7 +15,7 @@ class Bayar extends Model
     {
 
         $data = DB::connection('daycare')
-                     ->table('tc_daftar')
+                     ->table('daftar_tc_transaksi')
                      ->select(DB::raw("MAX(RIGHT(daftar_kode,4)) as kd_max"));
                    
         

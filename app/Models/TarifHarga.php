@@ -1,47 +1,49 @@
 <?php
 
 namespace App\Models;
+use DB;
+use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use DB;
-use Carbon\Carbon;
-
-class PendaftaranDetail extends Model
+class TarifHarga extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'daftar_tc_transaksi_detail';
-    protected $primaryKey = 'detail_id';
+    protected $table = 'tarif_tb_harga';
+    protected $primaryKey = 'kode';
 
-    public static function daftar_kode()
+    public static function autonumber()
 
     {
 
         $data = DB::connection('daycare')
-                     ->table('daftar_tc_transaksi_detail')
-                     ->select(DB::raw("MAX(RIGHT(daftar_kode,4)) as kd_max"));
+                     ->table('tarif_tb_harga')
+                     ->select(DB::raw("MAX(RIGHT(kode,4)) as kd_max"));
                    
         
-        $kode_depan = date('Ymd');    
+        // $kode_depan = date('Ymd');    
         
         // dd($data);
-
 
         if($data->count() > 0)
         {
             foreach($data->get() as $k)
             {
                 $tmp = ((int)$k->kd_max)+1;
-                $kd = "DFTR".$kode_depan.sprintf("%04s", $tmp);
+                $kd = "TRF".sprintf("%04s", $tmp);
             }
         }
+        
         else
         {
-            $kd = "DFTR".$kode_depan."0001";
+            $kd = "TRF"."0001";
         }
 
         return ($kd);
+
     }
 
+
 }
+

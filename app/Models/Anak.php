@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Anak extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'tb_anak';
+    protected $table = 'daftar_tb_anak';
     protected $primaryKey = 'anak_id';
 
     public static function autonumber()
@@ -18,7 +18,7 @@ class Anak extends Model
     {
 
         $data = DB::connection('daycare')
-                     ->table('tb_anak')
+                     ->table('daftar_tb_anak')
                      ->select(DB::raw("MAX(RIGHT(anak_id,4)) as kd_max"));
                    
         

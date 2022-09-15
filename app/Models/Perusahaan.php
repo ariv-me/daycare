@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Perusahaan extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'tb_perusahaan';
+    protected $table = 'sistem_tb_perusahaan';
     protected $primaryKey = 'peru_id';
 
     public static function getNamaPerusahaan() {

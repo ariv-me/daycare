@@ -18,6 +18,7 @@ use App\Models\Anak;
 use App\Models\Ortu;
 use App\Models\SistemAgama;
 use App\Models\CateringKategori;
+use App\Models\TarifJenis;
 
 
 
@@ -56,20 +57,25 @@ class ComboSistemController extends Controller
     }
 
     public function combo_grup(){
-        $data = Grup::orderby('grup_id')->where('aktif','Y')->get();
+        $data = Grup::orderby('grup_id','desc')->where('grup_aktif','Y')->get();
         return response()->json($data); 
     }
 
     public function combo_perusahaan(){
         $data = DB::connection('daycare')
-                    ->table('tb_perusahaan AS aa')
-                    ->leftjoin('tb_grup AS bb','bb.grup_id','=','aa.grup_id')
+                    ->table('sistem_tb_perusahaan AS aa')
+                    ->leftjoin('sistem_tb_grup AS bb','bb.grup_id','=','aa.grup_id')
                     ->orderby('bb.grup_id')
                     ->where('aa.peru_aktif','Y')
                     ->where('bb.grup_aktif','Y')
                     ->orderby('peru_id','desc')
                     ->get();
         return response()->json($data);
+    }
+
+    public function combo_jenis_tarif(){
+        $data = TarifJenis::orderby('jenis_id','desc')->where('jenis_aktif','Y')->get();
+        return response()->json($data); 
     }
 
     public function combo_jenis_pendaftaran(){

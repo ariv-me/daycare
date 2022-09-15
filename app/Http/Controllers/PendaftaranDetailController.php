@@ -59,9 +59,9 @@ class PendaftaranDetailController extends Controller
 
 
             $data = DB::connection('daycare')
-                        ->table('tc_daftar_detail AS aa')
-                        ->leftjoin('tb_jenis AS bb','bb.jenis_id','=','aa.jenis_id')
-                        ->leftjoin('tb_grup AS cc','cc.grup_id','=','aa.grup_id')
+                        ->table('daftar_tc_transaksi_detail AS aa')
+                        ->leftjoin('tarif_ta_jenis AS bb','bb.jenis_id','=','aa.jenis_id')
+                        ->leftjoin('sistem_tb_grup AS cc','cc.grup_id','=','aa.grup_id')
                         ->where('aa.kar_id',$app['kar_id'])
                         ->where('aa.is_aktif','T')
                         ->orderby('aa.detail_id','desc')
@@ -226,9 +226,9 @@ class PendaftaranDetailController extends Controller
         try{
             $id = $r->get('id');
             $data = DB::connection('daycare')
-                            ->table('tc_daftar_detail AS aa')
-                            ->leftjoin('tb_anak AS bb','bb.anak_nis','=','aa.anak_nis')
-                            ->leftjoin('tb_ortu AS cc','cc.ortu_id','=','bb.ortu_id')
+                            ->table('daftar_tc_transaksi_detail AS aa')
+                            ->leftjoin('daftar_tb_anak AS bb','bb.anak_nis','=','aa.anak_nis')
+                            ->leftjoin('daftar_tb_ortu AS cc','cc.ortu_id','=','bb.ortu_id')
                             ->where('aa.detail_id',$id)
                             ->first();
 

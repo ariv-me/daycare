@@ -9,7 +9,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-9">
-                        <h4 class="card-title">CATERING - KATEGORI</h4>
+                        <h4 class="card-title"><i class="mdi mdi-cash-multiple"></i> TARIF - JENIS</h4>
                     </div>
                     <div class="col-md-3" style="text-align: right">
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" id="btn_add"><i class="fas fa-plus-circle"></i> TAMBAH DATA </button>
@@ -19,16 +19,15 @@
             </div>
             <div class="card-body">
                 <div class="box-body">					
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="datatable" class="table table-bordered mb-0 table-centered">
                         <thead>
                             <tr>
-                                <th class="text-center">No</th>
-                                <th class="text-center">NAMA</th>
-                                <th class="text-center">AKTIF</th>
-                                <th class="text-center">Actions</th>
+                                <th width ="5%" style="text-align: center">NO</th>
+                                <th width ="80%" style="text-align: center">NAMA</th>
+                                <th width ="10%" style ="text-align: center">AKSI</th>
                             </tr>
                         </thead>
-                       <tbody id="show_data"></tbody>
+                        <tbody id="show_data"></tbody>
                     </table>
                 </div>
             </div>
@@ -85,7 +84,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-sm" id="btn_update"><i class="fas fa-save"></i> SIMPAN</button>
+                <button type="button" class="btn btn-warning btn-sm" id="btn_update"><i class="fas fa-save"></i> UPDATE</button>
             </div>
         </div>
     </div>
@@ -134,11 +133,8 @@
         } 
 
         var nama = $('#nama').val();
-
-        console.log(nama);
         
         var token = $('[name=_token]').val();
-
         var formData = new FormData();
     
         formData.append('nama', nama);
@@ -146,7 +142,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('catering.kategori_save') }}",
+            url: "{{ route('tarif.jenis_save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -171,7 +167,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('catering.kategori_view') }}",
+            url: "{{ route('tarif.jenis_view') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -183,12 +179,12 @@
                     for (i = 0; i < data.length; i++) {
 
 
-                        if((data[i].kat_aktif) == 'Y'){
+                        if((data[i].jenis_aktif) == 'Y'){
                             var tr = $('<tr>').append([
                                 $('<td class= width="1%" align="center">'),
                                 $('<td class= width="50%">'),
-                                $('<td class= width="5%" align="center">'),
                                 $('<td class= width="5%" align="center">')
+
                             ]);
 
                         } else {
@@ -196,23 +192,27 @@
                             var tr = $('<tr style="background-color:#fee6ec;">').append([
                                 $('<td class= width="1%" align="center">'),
                                 $('<td class= width="50%">'),
-                                $('<td class= width="5%" align="center">'),
                                 $('<td class= width="5%" align="center">')
+                
                             ]);
 
                         }
 
-
-
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].kat_nama)));   
+                            .html((data[i].jenis_nama)));   
+                        
+                        
+                        if((data[i].jenis_aktif) == 'Y'){
 
-                        tr.find('td:nth-child(3)').append($('<div>')
-                            .html((data[i].kat_aktif)));   
+                            tr.find('td:nth-child(3)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].jenis_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].jenis_id+'"><i class="mdi mdi-window-close"></i></a></div>');   
 
-                        tr.find('td:nth-child(4)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].kat_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].kat_id+'"><i class="mdi mdi-check"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].kat_id+'"><i class="mdi mdi-window-close"></i></a></div>');   
+                        } else {
+                            tr.find('td:nth-child(3)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].jenis_id+'"><i class="mdi mdi-check"></i></a></div>');   
+                        }
+
+                        
 
                         tr.appendTo($('#show_data'));
                     }
@@ -224,69 +224,19 @@
     }
 
 
-    $('#show_data_anak2').on('click','.item_pilih2',function(){
-
-        var id = $(this).attr('data');
-
-        $.ajax({
-            type: "GET",
-            url: "{{ route('anak.edit') }}",
-            dataType: "JSON",
-            data: {
-                id: id
-            },
-            success: function(data) {
-                $('[name="daftar_nis2"]').val(data.anak_nis);
-            }
-        });
-
-        return false;
-
-    });
-
-
-
-    $('#btn_simpan').on('click', function(){
-    
-        var anak_nama       = $('#anak_nama').val();
-        var token           = $('[name=_token]').val();
-
-        var formData = new FormData();
-
-        formData.append('anak_nama', anak_nama);
-        formData.append('_token', token);
-
-        $.ajax({
-            type: "POST",
-            url: "{{ route('catering.kategori_save') }}",
-            dataType: "JSON",
-            data: formData,
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function(data) {
-                $('#formModalAdd').modal('hide');
-                swal("Berhasil!", "Data Berhasil Disimpan", "success");
-            }
-        });
-    
-        return false;
-
-    });
-
     $('#show_data').on('click','.item_edit',function(){
 
         var id=$(this).attr('data');
 
         $.ajax({
             type : "GET",
-            url   : "{{ route('catering.kategori_edit') }}",
+            url   : "{{ route('tarif.jenis_edit') }}",
             dataType : "JSON",
             data : {id:id},
             success: function(data){
                 $('#formModalEdit').modal('show');
-                $('#formModalEdit').find('[name="id_edit"]').val(data.kat_id);
-                $('#formModalEdit').find('[name="nama_edit"]').val(data.kat_nama);
+                $('#formModalEdit').find('[name="id_edit"]').val(data.jenis_id);
+                $('#formModalEdit').find('[name="nama_edit"]').val(data.jenis_nama);
             }
         });
 
@@ -325,7 +275,7 @@
 
         $.ajax({
             type : "POST",
-            url   : "{{ route('catering.kategori_update') }}",
+            url   : "{{ route('tarif.jenis_update') }}",
             dataType : "JSON",
             data : formData,
             cache : false,
@@ -355,7 +305,7 @@
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('catering.kategori_aktif') }}",
+                    url   : "{{ route('tarif.jenis_aktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
@@ -381,7 +331,7 @@
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('catering.kategori_nonaktif') }}",
+                    url   : "{{ route('tarif.jenis_nonaktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
