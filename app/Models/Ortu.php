@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ortu extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'tb_ortu';
+    protected $table = 'daftar_tb_ortu';
     protected $primaryKey = 'ortu_id';
 
     public static function ortu_kode()
@@ -15,7 +15,7 @@ class Ortu extends Model
     {
 
         $data = DB::connection('daycare')
-                     ->table('tb_ortu')
+                     ->table('daftar_tb_ortu')
                      ->select(DB::raw("MAX(RIGHT(ortu_id,4)) as kd_max"));
                    
         

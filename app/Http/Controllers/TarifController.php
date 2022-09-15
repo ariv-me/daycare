@@ -121,5 +121,35 @@ class TarifController extends Controller
         return response()->json($data);
     }
 
+    public function aktif(Request $r)
+    {
+        $transaction = DB::connection('mysql')->transaction(function() use($r){
+
+            $id = $r->get('id');
+            $tmp = TarifKategori::where('kat_id',$id)->first();
+            $tmp->kat_aktif  = 'Y';
+            $tmp->save();
+
+            return true;
+        });
+
+        return response()->json($transaction);   
+    }
+    
+    public function nonaktif(Request $r)
+    {
+        $transaction = DB::connection('mysql')->transaction(function() use($r){
+
+            $id = $r->get('id');
+            $tmp = TarifKategori::where('kat_id',$id)->first();
+            $tmp->kat_aktif  = 'T';
+            $tmp->save();
+
+            return true;
+        });
+
+        return response()->json($transaction);   
+    }
+
 
 }

@@ -97,8 +97,8 @@ class PerusahaanController extends Controller
         try{
             
             $data = DB::connection('daycare')
-                    ->table('tb_perusahaan AS aa')
-                    ->leftjoin('tb_grup AS bb','bb.grup_id','=','aa.grup_id')
+                    ->table('sistem_tb_perusahaan AS aa')
+                    ->leftjoin('sistem_tb_grup AS bb','bb.grup_id','=','aa.grup_id')
                     ->orderby('bb.grup_id')
                     ->orderby('peru_id','desc')
                     ->get();

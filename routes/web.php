@@ -12,8 +12,9 @@ use App\Http\Controllers\OrtuController;
 use App\Http\Controllers\GrupController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\JenisPekerjaanController;
-use App\Http\Controllers\TarifController;
-use App\Http\Controllers\JenisController;
+use App\Http\Controllers\TarifJenisController;
+use App\Http\Controllers\TarifKategoriController;
+use App\Http\Controllers\TarifHargaController;
 use App\Http\Controllers\PendaftaranDetailController;
 use App\Http\Controllers\BayarController;
 
@@ -196,16 +197,40 @@ Route::group(['prefix' => 'jenis', 'as' => 'jenis.'], function () {
 
 });
 
-// Jenis tarif
+// Tarif
 
 Route::group(['prefix' => 'tarif', 'as' => 'tarif.'], function () {
 
-	Route::get('/', [TarifController::class, 'index'])->name('index');
-	Route::get('/view', [TarifController::class, 'view'])->name('view');
-	Route::post('/save', [TarifController::class, 'save'])->name('save');
-	Route::get('/edit', [TarifController::class, 'edit'])->name('edit');
-	Route::post('/update', [TarifController::class, 'update'])->name('update');
-	Route::post('/void', [TarifController::class, 'void'])->name('void');
+	// Tarif
+
+	Route::get('/jenis', [TarifJenisController::class, 'index'])->name('jenis');
+	Route::get('/jenis_view', [TarifJenisController::class, 'view'])->name('jenis_view');
+	Route::post('/jenis_save', [TarifJenisController::class, 'save'])->name('jenis_save');
+	Route::get('/jenis_edit', [TarifJenisController::class, 'edit'])->name('jenis_edit');
+	Route::post('/jenis_update', [TarifJenisController::class, 'update'])->name('jenis_update');
+	Route::get('/jenis_aktif', [TarifJenisController::class, 'aktif'])->name('jenis_aktif');
+	Route::get('/jenis_nonaktif', [TarifJenisController::class, 'nonaktif'])->name('jenis_nonaktif');
+
+	// Kategori
+
+	Route::get('/kategori', [TarifKategoriController::class, 'index'])->name('kategori');
+	Route::get('/kategori_view', [TarifKategoriController::class, 'view'])->name('kategori_view');
+	Route::post('/kategori_save', [TarifKategoriController::class, 'save'])->name('kategori_save');
+	Route::get('/kategori_edit', [TarifKategoriController::class, 'edit'])->name('kategori_edit');
+	Route::post('/kategori_update', [TarifKategoriController::class, 'update'])->name('kategori_update');
+	Route::get('/kategori_aktif', [TarifKategoriController::class, 'aktif'])->name('kategori_aktif');
+	Route::get('/kategori_nonaktif', [TarifKategoriController::class, 'nonaktif'])->name('kategori_nonaktif');
+
+	// Harga
+
+	Route::get('/harga', [TarifHargaController::class, 'index'])->name('harga');
+	Route::get('/harga_view', [TarifHargaController::class, 'view'])->name('harga_view');
+	Route::post('/harga_save', [TarifHargaController::class, 'save'])->name('harga_save');
+	Route::get('/harga_edit', [TarifHargaController::class, 'edit'])->name('harga_edit');
+	Route::post('/harga_update', [TarifHargaController::class, 'update'])->name('harga_update');
+	Route::get('/harga_aktif', [TarifHargaController::class, 'aktif'])->name('harga_aktif');
+	Route::get('/harga_nonaktif', [TarifHargaController::class, 'nonaktif'])->name('harga_nonaktif');
+	
 
 });
 
@@ -287,5 +312,6 @@ Route::group(['prefix' => 'combo_sistem', 'as' => 'combo_sistem.'], function () 
 	Route::get('/combo_jenis_pendaftaran', [ComboSistemController::class, 'combo_jenis_pendaftaran'])->name('combo_jenis_pendaftaran');
 	Route::get('/combo_agama', [ComboSistemController::class, 'combo_agama'])->name('combo_agama');
 	Route::get('/combo_kategori', [ComboSistemController::class, 'combo_kategori'])->name('combo_kategori');
+	Route::get('/combo_jenis_tarif', [ComboSistemController::class, 'combo_jenis_tarif'])->name('combo_jenis_tarif');
 	
 });

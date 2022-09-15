@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class JenisPendaftaran extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'tb_jenis';
+    protected $table = 'tarif_ta_jenis';
     protected $primaryKey = 'jenis_id';
 
 }

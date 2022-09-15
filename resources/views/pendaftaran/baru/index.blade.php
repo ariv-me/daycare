@@ -14,17 +14,6 @@
 @section('content')
 
 <div class="row mt-3">
-    {{-- <div class="col-xl-3">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title"><i class="fas fa-clipboard-list"></i> PENDAFTARAN</h4>
-            </div>
-            <div class="card-body">
-               
-            </div>
-        </div>
-    </div> --}}
-
     <div class="col-xl-12">
         <div class="card">
             <div class="card-header">
@@ -573,7 +562,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('tarif.view') }}",
+            url: "{{ route('tarif.harga_view') }}",
             async: true,
             data : {perusahaan:filter_perusahaan,jenis:filter_jenis},
             dataType: 'JSON',

@@ -158,7 +158,7 @@ class OrtuController extends Controller
            // dd($usia);
             
             $data = DB::connection('daycare')
-                            ->table('tb_ortu AS aa')
+                            ->table('daftar_tb_ortu AS aa')
                             ->orderby('aa.ortu_id','desc')
                             ->get();
 

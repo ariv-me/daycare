@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class Pendaftaran extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'tc_daftar';
+    protected $table = 'daftar_tc_transaksi';
     protected $primaryKey = 'daftar_id';
 
     public static function daftar_kode()
@@ -19,7 +19,7 @@ class Pendaftaran extends Model
     {
 
         $data = DB::connection('daycare')
-                     ->table('tc_daftar')
+                     ->table('daftar_tc_transaksi')
                      ->select(DB::raw("MAX(RIGHT(daftar_kode,4)) as kd_max"));
                    
         
