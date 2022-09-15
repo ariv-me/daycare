@@ -33,39 +33,62 @@ class PerusahaanController extends Controller
     //     return view('pendaftaran.baru.index',compact('app','menu'));
     // }
 
-    public function anak(Request $r){
+    public function save(Request $r){
 
-        //dd($r);
+        $result = array('success'=>false);
 
-        $transaction = DB::connection('daycare')->transaction(function() use($r){
+        try {
 
-            $app = SistemApp::sistem();
-            $tmp = new Anak();
+            $peru      = Perusahaan::where('peru_id',$r->id)->first();
+     
+            if ($peru != null) {
+    
+                $data = DB::connection('mysql')->transaction(function() use($r,$peru){  
 
-            $nis = Anak::autonumber();
+                    $peru_id    = $peru->peru_id;
+                    $tmp        = Perusahaan::where('peru_id',$peru_id)->first();
+                    $tmp->peru_nama            = $r->perusahaan_nama;
+                    $tmp->grup_id              = $r->perusahaan_grup;
+                    $tmp->peru_alamat    = $r->perusahaan_alamat;
+                    $tmp->save();
+        
+                    return true;
+                });
 
-            $tmp->anak_nama             = $r->anak_nama;
-            $tmp->anak_nis              = $nis;
-            $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
-            $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
-            $tmp->anak_jekel            = $r->anak_jekel;
-            $tmp->anak_ke               = $r->anak_ke;
-            $tmp->anak_jml_saudara      = $r->jml_saudara;
-            $tmp->ortu_ayah            = $r->ortu_ayah;
-            $tmp->ortu_pekerjaan       = $r->ortu_pekerjaan;
-            $tmp->ortu_hp              = $r->ortu_hp;
-            $tmp->ortu_alamat          = $r->ortu_alamat;
-
-            //dd($tmp);
-
-            $tmp->save();
+                $status = '1';
 
 
-        });
+            } else {
 
-        return response()->json($transaction);
+                $data = DB::connection('mysql')->transaction(function() use($r,$peru){
 
-    }
+                    $tmp = new Perusahaan();
+                    $tmp->peru_nama            = $r->perusahaan_nama;
+                    $tmp->grup_id              = $r->perusahaan_grup;
+                    $tmp->peru_alamat           = $r->perusahaan_alamat;
+                    $tmp->save();
+        
+                    return true;
+                });
+
+                $status = '2';
+
+            }
+
+            //dd($status);
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['status'] = $status;
+
+        return response()->json($result);
+
+        
+    }   
 
     public function view(Request $r){
 
@@ -73,7 +96,12 @@ class PerusahaanController extends Controller
 
         try{
             
-            $data = Anak::get();
+            $data = DB::connection('daycare')
+                    ->table('tb_perusahaan AS aa')
+                    ->leftjoin('tb_grup AS bb','bb.grup_id','=','aa.grup_id')
+                    ->orderby('bb.grup_id')
+                    ->orderby('peru_id','desc')
+                    ->get();
 
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  
@@ -90,8 +118,38 @@ class PerusahaanController extends Controller
     public function edit(Request $r)
     {
         $id = strtolower($r->get('id'));
-        $data = Anak::where('anak_nis',$id)->first();
+        $data = Perusahaan::where('peru_id',$id)->first();
         return response()->json($data);
+    }
+
+    public function aktif(Request $r)
+    {
+        $transaction = DB::connection('mysql')->transaction(function() use($r){
+            $id = $r->get('id');
+            $tmp = Perusahaan::where('peru_id',$id)->first();
+            $tmp->peru_aktif  = 'Y';
+          
+            $tmp->save();
+
+            return true;
+        });
+
+        return response()->json($transaction);   
+    }
+    
+    public function nonaktif(Request $r)
+    {
+        $transaction = DB::connection('mysql')->transaction(function() use($r){
+            $id = $r->get('id');
+            $tmp = Perusahaan::where('peru_id',$id)->first();
+            $tmp->peru_aktif  = 'T';
+          
+            $tmp->save();
+
+            return true;
+        });
+
+        return response()->json($transaction);   
     }
 
 

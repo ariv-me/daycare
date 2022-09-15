@@ -1,7 +1,7 @@
-@extends('apps.layouts.template')
+@extends('app.layouts.template')
 
 @section('content') 
-<div class="row">
+<div class="row mt-2">
     <div class="col-12">
         <div class="card">
             <div class="card-body">

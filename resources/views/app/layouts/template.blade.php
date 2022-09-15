@@ -83,8 +83,8 @@
             .left-sidenav .brand {
                 text-align: center;
                 height: 74px;
-                /* border-bottom: 1px solid #2f3e61; */
-                background: white;
+                border-bottom: 1px solid #1d273f;
+                /* background: white; */
             }
             .left-sidenav .brand .logo .logo-sm {
                 height: 45px;
@@ -206,7 +206,7 @@
         <div class="left-sidenav">
             <!-- LOGO -->
             <div class="brand">
-                <a href="dashboard/crm-index.html" class="logo">
+                <a href="#" class="logo">
                     <span>
                         <img src="{{ asset('resources/templates3/view/assets/images/logo-sm.png') }}" alt="logo-small" class="logo-sm">
                     </span>
@@ -216,6 +216,7 @@
                     </span>
                 </a>
             </div>
+
             <!--end logo-->
             <div class="menu-content h-100" data-simplebar>
 

@@ -8,7 +8,7 @@
     @foreach($menu['menu_utama'] as $menu_utama)
 
     <li>
-        <a href="#"><i class="{{ $menu_utama->fitur_icon }}"></i><span>{{ $menu_utama->fitur_nama }}</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+        <a href="#"><i class="{{ $menu_utama->fitur_icon }}"></i><span>  {{ $menu_utama->fitur_nama }}</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
         <ul class="nav-second-level" aria-expanded="false">
 
             @foreach($menu['menu_sub'] as $menu_sub)
@@ -20,7 +20,7 @@
                             <ul class="nav-second-level" aria-expanded="false">
                                 @foreach($menu['menu_anak'] as $menu_anak)
                                     @if($menu_anak->fitur_parent == $menu_sub->fitur_id) 
-                                        <li><a href="{{ route($menu_anak->fitur_link) }}">{{ $menu_anak->fitur_nama }}</a></li>
+                                        <li><a href="{{ route($menu_anak->fitur_link) }}">  {{ $menu_anak->fitur_nama }}</a></li>
                                     @endif
                                 @endforeach
                             </ul>

@@ -153,8 +153,8 @@ Route::group(['prefix' => 'grup', 'as' => 'grup.'], function () {
 	Route::post('/save', [GrupController::class, 'save'])->name('save');
 	Route::get('/edit', [GrupController::class, 'edit'])->name('edit');
 	Route::post('/update', [GrupController::class, 'update'])->name('update');
-	Route::post('/void', [GrupController::class, 'void'])->name('void');
-	Route::post('/cetak', [GrupController::class, 'cetak'])->name('cetak');
+	Route::post('/aktif', [GrupController::class, 'aktif'])->name('aktif');
+	Route::post('/nonaktif', [GrupController::class, 'nonaktif'])->name('nonaktif');
 
 });
 
@@ -166,6 +166,8 @@ Route::group(['prefix' => 'perusahaan', 'as' => 'perusahaan.'], function () {
 	Route::get('/edit', [PerusahaanController::class, 'edit'])->name('edit');
 	Route::post('/update', [PerusahaanController::class, 'update'])->name('update');
 	Route::post('/void', [PerusahaanController::class, 'void'])->name('void');
+	Route::get('/aktif', [PerusahaanController::class, 'aktif'])->name('aktif');
+	Route::get('/nonaktif', [PerusahaanController::class, 'nonaktif'])->name('nonaktif');
 
 });
 
@@ -176,7 +178,8 @@ Route::group(['prefix' => 'jenis_kerja', 'as' => 'jenis_kerja.'], function () {
 	Route::post('/save', [JenisPekerjaanController::class, 'save'])->name('save');
 	Route::get('/edit', [JenisPekerjaanController::class, 'edit'])->name('edit');
 	Route::post('/update', [JenisPekerjaanController::class, 'update'])->name('update');
-	Route::post('/void', [JenisPekerjaanController::class, 'void'])->name('void');
+	Route::get('/aktif', [JenisPekerjaanController::class, 'aktif'])->name('aktif');
+	Route::get('/nonaktif', [JenisPekerjaanController::class, 'nonaktif'])->name('nonaktif');
 
 });
 

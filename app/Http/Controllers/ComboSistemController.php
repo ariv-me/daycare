@@ -56,7 +56,7 @@ class ComboSistemController extends Controller
     }
 
     public function combo_grup(){
-        $data = Grup::orderby('grup_id')->get();
+        $data = Grup::orderby('grup_id')->where('aktif','Y')->get();
         return response()->json($data); 
     }
 
@@ -65,7 +65,9 @@ class ComboSistemController extends Controller
                     ->table('tb_perusahaan AS aa')
                     ->leftjoin('tb_grup AS bb','bb.grup_id','=','aa.grup_id')
                     ->orderby('bb.grup_id')
-                    ->where('bb.aktif','Y')
+                    ->where('aa.peru_aktif','Y')
+                    ->where('bb.grup_aktif','Y')
+                    ->orderby('peru_id','desc')
                     ->get();
         return response()->json($data);
     }
@@ -76,7 +78,7 @@ class ComboSistemController extends Controller
     }
 
     public function combo_jenis_pekerjaan(){
-        $data = JenisPekerjaan::orderby('kerja_id')->get();
+        $data = JenisPekerjaan::orderby('kerja_id','desc')->where('aktif','Y')->get();
         return response()->json($data); 
     }
 
