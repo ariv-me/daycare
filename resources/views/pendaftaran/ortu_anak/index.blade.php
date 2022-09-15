@@ -17,11 +17,11 @@
                 <input type="hidden" id="id_edit" name="id_edit" class="form-control">
                <div class="row">
                     <div class="col-lg-6">
-                        <h4>AYAH</h4>
+                        <h4 class="card-title">AYAH</h4>
                         <p class="text-muted mb-3">Form Input Data Ayah</p>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label text-right">Nama Ayah</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-12">
+                                <label for="example-text-input" class="">Nama Ayah</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="ayah_nama" name="ayah_nama">
                                     <span class="input-group-append">
@@ -31,20 +31,18 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-email-input" class="col-sm-2 col-form-label text-right">  Tanggl Lahir</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-5">
+                                <label for="example-email-input" class="">  Tanggl Lahir</label>
                                 <input type="date" class="form-control datepicker" id="ayah_lahir" name="ayah_lahir">
+                            </div>
+                            <div class="col-sm-7">
+                                <label for="example-tel-input" class=""> Agama</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="ayah_agama" id="ayah_agama"></select>
                             </div>
                         </div> 
                         <div class="form-group row">
-                            <label for="example-tel-input" class="col-sm-2 col-form-label text-right"> Agama</label>
-                            <div class="col-sm-10">
-                                <select class="form-control custom-select select2" style="width: 100%;" name="ayah_agama" id="ayah_agama"></select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Pekerjaan</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-5">
+                                <label for="example-password-input" class="">Pekerjaan</label>
                                 <div class="input-group">
                                     <select class="form-control custom-select select2" id="ayah_kerja" name="ayah_kerja"></select>
                                     <span class="input-group-append">
@@ -52,92 +50,87 @@
                                     </span>
                                 </div> 
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Perusahaan</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-7">
+                                <label for="example-password-input" class="">Perusahaan</label>
                                 <div class="input-group">
                                     <select class="form-control custom-select select2" id="ayah_perusahaan" name="ayah_perusahaan"></select>
                                     <span class="input-group-append">
-                                        <button type="button" class="btn btn-success btn-sm" id="btn_peru"> <i class="fa fa-plus"></i> </button>
+                                        <button type="button" class="btn btn-success btn-sm" id="btn_perusahaan"> <i class="fa fa-plus"></i> </button>
                                     </span>
                                 </div>   
                             </div>
                         </div>
+
                         <div class="form-group row">
-                            <label for="example-number-input" class="col-sm-2 col-form-label text-right">Nomor HP</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
+                                <label for="example-number-input" class="">Nomor HP</label>
                                 <input type="text" class="form-control" id="ayah_hp" name="ayah_hp" onkeypress="return angka(this, event)">
                             </div>
-                            <label for="example-number-input" class="col-sm-2 col-form-label text-right">Nomor WA</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
+                                <label for="example-number-input" class="">Nomor WA</label>
                                 <input type="text" class="form-control" id="ayah_wa" name="ayah_wa" onkeypress="return angka(this, event)">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-datetime-local-input" class="col-sm-2 col-form-label text-right">Alamat</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-12">
+                                <label for="example-datetime-local-input" class="">Alamat</label>
                                 <input type="text" class="form-control" id="ayah_alamat" name="ayah_alamat">
                             </div>
                         </div> 
                     </div>
 
                     <div class="col-lg-6">
-                        <h4>IBU</h4>
+                        <h4 class="card-title">IBU</h4>
                         <p class="text-muted mb-3">Form Input Data Ibu</p>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label text-right">Nama Ibu</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-12">
+                                <label for="example-text-input" class="">Nama Ibu</label>
                                 <input type="text" class="form-control" id="ibu_nama" name="ibu_nama" data-dtp="dtp_1uPaU">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-email-input" class="col-sm-2 col-form-label text-right"> Tanggl Lahir</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-5">
+                                <label for="example-email-input" class=""> Tanggl Lahir</label>
                                 <input type="date" class="form-control datepicker" id="ibu_lahir" name="ibu_lahir">
+                            </div>
+                            <div class="col-sm-7">
+                                <label for="example-tel-input" class=""> Agama</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="ibu_agama" id="ibu_agama"></select>
                             </div>
                         </div> 
                         <div class="form-group row">
-                            <label for="example-tel-input" class="col-sm-2 col-form-label text-right"> Agama</label>
-                            <div class="col-sm-10">
-                                <select class="form-control custom-select select2" style="width: 100%;" name="ibu_agama" id="ibu_agama"></select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Pekerjaan</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-5">
+                                <label for="example-password-input" class="">Pekerjaan</label>
                                 <div class="input-group">
                                     <select class="form-control custom-select select2" id="ibu_kerja" name="ibu_kerja"></select>
                                     <span class="input-group-append">
-                                        <button type="button" class="btn btn-success btn-sm" id="btn_kerja"> <i class="fa fa-plus"></i> </button>
+                                        <button type="button" class="btn btn-success btn-sm" id="btn_kerja_ibu"> <i class="fa fa-plus"></i> </button>
                                     </span>
                                 </div> 
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Perusahaan</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-7">
+                                <label for="example-password-input" class="">Perusahaan</label>
                                 <div class="input-group">
                                     <select class="form-control custom-select select2" id="ibu_perusahaan" name="ibu_perusahaan"></select>
                                     <span class="input-group-append">
-                                        <button type="button" class="btn btn-success btn-sm" id="btn_peru"> <i class="fa fa-plus"></i> </button>
+                                        <button type="button" class="btn btn-success btn-sm" id="btn_perusahaan_ibu"> <i class="fa fa-plus"></i> </button>
                                     </span>
                                 </div>   
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-number-input" class="col-sm-2 col-form-label text-right">Nomor HP</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
+                                <label for="example-number-input" class="">Nomor HP</label>
                                 <input type="text" class="form-control" id="ibu_hp" name="ibu_hp" onkeypress="return angka(this, event)">
                             </div>
-                            <label for="example-number-input" class="col-sm-2 col-form-label text-right">Nomor WA</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
+                                <label for="example-number-input" class="">Nomor WA</label>
                                 <input type="text" class="form-control" id="ibu_wa" name="ibu_wa" onkeypress="return angka(this, event)">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-datetime-local-input" class="col-sm-2 col-form-label text-right">Alamat</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-12">
+                                <label for="example-datetime-local-input" class="">Alamat</label>
                                 <input type="text" class="form-control" id="ibu_alamat" name="ibu_alamat">
                             </div>
                         </div>  
@@ -149,10 +142,10 @@
                     
                     </div>
                     <div class="col-md-3" style="text-align: right">
-                        <button type="button" class="btn btn-danger btn-sm me-1" id="btn_reset" >
+                        <button type="button" class="btn btn-danger btn-sm me-1" id="btn_reset_ortu" >
                             <i class="fas fa-times"></i> BATAL
                         </button>
-                        <button type="submit" class="btn btn-success btn-sm" id="btn_simpan_ortu">
+                        <button type="submit" class="btn btn-info btn-sm" id="btn_simpan_ortu">
                             <i class="fas fa-save"></i> SIMPAN
                         </button>
                     </div>
@@ -161,7 +154,7 @@
                 <hr class="hr-dashed">
 
                 <div class="lg-12">
-                    <h4>ANAK</h4>
+                    <h4 class="card-title">ANAK</h4>
                     <p class="text-muted mb-3">Form Input Data Anak</p>
                 </div> 
                 <div class="row">
@@ -171,40 +164,8 @@
                     <div class="col-lg-6">
 
                         <div class="form-group row">
-                            <label for="example-search-input" class="col-sm-2 col-form-label text-right">Orang Tua</label>
-                            <div class="col-sm-10">
-                                <select class="form-control custom-select select2" style="width: 100%;" name="ortu" id="ortu"></select>
-                            </div>
-                        </div> 
-
-                        <div class="form-group row">
-                            <label for="example-date-input" class="col-sm-2 col-form-label text-right">Jenis Kelamin</label>
-                            <div class="col-sm-4">
-                                <select class="form-control custom-select select2" style="width: 100%;" name="anak_jekel" id="anak_jekel"></select>
-                            </div>
-                            <label for="example-month-input" class="col-sm-2 col-form-label text-right">Taggal Lahir</label>
-                            <div class="col-sm-4">
-                                <input type="date" class="form-control" id="anak_tgl_lahir" name="anak_tgl_lahir">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-time-input" class="col-sm-2 col-form-label text-right">Anak Ke</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="anak_ke" name="anak_ke" onkeypress="return angka(this, event)">
-                            </div>
-                            <label for="example-time-input" class="col-sm-2 col-form-label text-right">Jumlah Saudara</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="anak_saudara" name="anak_saudara" value="0" onkeypress="return angka(this, event)">
-                            </div>
-                        </div>
-                    </div>
-
-
-                  <div class="col-lg-6">
-
-                        <div class="form-group row">
-                            <label for="example-url-input" class="col-sm-2 col-form-label text-right">Nama</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-12">
+                                <label for="example-url-input" class="">Nama</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="anak_nama" name="anak_nama">
                                     <span class="input-group-append">
@@ -214,38 +175,81 @@
                             </div>
                         </div> 
                         <div class="form-group row">
-                            <label for="example-week-input" class="col-sm-2 col-form-label text-right">Tempat Lahir</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
+                                <label for="example-date-input" class="">Jenis Kelamin</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="anak_jekel" id="anak_jekel"></select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="example-month-input" class="">Tanggal Lahir</label>
+                                <input type="date" class="form-control" id="anak_tgl_lahir" name="anak_tgl_lahir">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="example-time-input" class="">Anak Ke</label>
+                                <input type="text" class="form-control" id="anak_ke" name="anak_ke" onkeypress="return angka(this, event)">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="example-time-input" class="">Jumlah Saudara</label>
+                                <input type="text" class="form-control" id="anak_saudara" name="anak_saudara" value="0" onkeypress="return angka(this, event)">
+                            </div>
+                        </div>
+                    </div>
+
+
+                  <div class="col-lg-6">
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <label for="example-search-input" class="">Orang Tua</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="ortu" id="ortu"></select>
+                            </div>
+                        </div> 
+
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="example-week-input" class="">Tempat Lahir</label>
                                 <input type="text" class="form-control" id="anak_tmp_lahir" name="anak_tmp_lahir">
                             </div>
-                            <label for="example-time-input" class="col-sm-2 col-form-label text-right">Agama</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
+                                <label for="example-time-input" class="">Agama</label>
                                 <select class="form-control custom-select select2" style="width: 100%;" name="anak_agama" id="anak_agama"></select>
                             </div>
                         </div>
                      
                         <div class="form-group row">
-                            <label for="example-time-input" class="col-sm-2 col-form-label text-right">Berat</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="anak_berat" name="anak_berat" onkeypress="return angka(this, event)">
+                        
+                            <div class="col-sm-6">
+                                <label for="example-time-input" class="">Berat</label>
+                                <div class="input-group">  
+                                    <input type="text" class="form-control" id="anak_berat" name="anak_berat" onkeypress="return angka(this, event)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </div>
                             </div>
-                            <label for="example-time-input" class="col-sm-2 col-form-label text-right">Tinggi</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="anak_tinggi" name="anak_tinggi" onkeypress="return angka(this, event)">
+
+                            <div class="col-sm-6">
+                                <label for="example-time-input" class="">Tinggi</label>
+                                <div class="input-group">  
+                                    <input type="text" class="form-control" id="anak_tinggi" name="anak_tinggi" onkeypress="return angka(this, event)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Cm</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>    
                     </div>
                   </div>
                 <hr class="hr-dashed">
                 <div class="row">
-                    <div class="col-md-9">
-                    
+                    <div class="col-md-9">  
                     </div>
                     <div class="col-md-3" style="text-align: right">
-                        <button type="button" class="btn btn-danger btn-sm me-1" id="btn_reset" >
+                        <button type="button" class="btn btn-danger btn-sm me-1" id="btn_reset_anak" >
                             <i class="fas fa-times"></i> BATAL
                         </button>
-                        <button type="submit" class="btn btn-success btn-sm" id="btn_simpan_anak">
+                        <button type="submit" class="btn btn-info btn-sm" id="btn_simpan_anak">
                             <i class="fas fa-save"></i> SIMPAN
                         </button>
                     </div>
@@ -284,7 +288,6 @@
         <div class="modal-content" style="background-color: #ffffff">
 
             <div class="modal-body">
-            
                 <table id="datatable2" class="table table-bordered mb-0 table-centered">
                     <thead>
                         <tr>
@@ -298,7 +301,92 @@
                     </thead>
                     <tbody id="show_data_anak"></tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal modal-default fade" id="formModalPekerjaan">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> <strong>Jenis Pekerjaan</strong> </h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {!! csrf_field() !!}
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <input type="hidden" class="form-control" id="id_kerja" name="id_kerja">
+                        <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="kerja_nama" name="kerja_nama">
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-success btn-md" id="btn_simpan_kerja"> <i class="fa fa-save"></i> </button>
+                            </span>
+                        </div> 
+                    </div>
+                </div>
+                <hr class="hr-dashed">
+                <table id="datatable3" class="table table-bordered mb-0 mt-4 table-centered">
+                    <thead>
+                        <tr>
+                            <th width ="2%" style="text-align: center">NO</th>
+                            <th width ="100%" style="text-align: center">NAMA</th>
+                            <th width ="10%" style ="text-align: center">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="show_data_pekerjaan"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal modal-default-modal-lg fade" id="formModalPerusahaan">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> <strong>Perusahaan</strong> </h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {!! csrf_field() !!}
+                <div class="form-group row mb-3">
+                    <input type="text" class="form-control" id="id_perusahaan" name="id_perusahaan">
+                    <div class="col-sm-6">
+                        <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
+                        <input type="text" class="form-control" id="perusahaan_nama" name="perusahaan_nama">
+                    </div>
+                    <div class="col-sm-6">
+                        <label> <strong>Grup</strong>  <small class="text-danger">*</small></label>
+                        <select class="form-control custom-select select2" style="width: 100%;" name="perusahaan_grup" id="perusahaan_grup"></select>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <input type="hidden" class="form-control" id="id_perusahaan" name="id_perusahaan">
+                        <label> <strong>Alamat</strong>  <small class="text-danger">*</small></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="perusahaan_alamat" name="perusahaan_alamat">
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-success btn-md" id="btn_simpan_perusahaan"> <i class="fa fa-save"></i> </button>
+                            </span>
+                        </div> 
+                    </div>
+                </div>
+                <hr class="hr-dashed">
+                <table id="datatable4" class="table table-bordered mb-0 mt-4 table-centered">
+                    <thead>
+                        <tr>
+                            <th width ="1%" style="text-align: center">NO</th>
+                            <th width ="30%" style="text-align: center">NAMA</th>
+                            <th width ="25%" style="text-align: center">GRUP</th>
+                            <th width ="60%" style="text-align: center">ALAMAT</th>
+                            <th width ="5%" style ="text-align: center">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="show_data_perusahaan"></tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -327,8 +415,6 @@
         combo_kerja_ayah();
         combo_kerja_ibu();
         view();
-        view_ortu();
-        view_anak();
         reset();
 
     });
@@ -365,6 +451,22 @@
         $('#anak_alamat').val(""); 
         $('#id_edit_anak').val(""); 
 
+
+        $('#id_kerja').val(""); 
+        $('#kerja_nama').val(""); 
+
+    }
+
+    function reset_jenis_kerja(){
+        $('#id_kerja').val(""); 
+        $('#kerja_nama').val("");
+    }
+
+    function reset_perusahaan(){
+        $('#id_perusahaan').val(""); 
+        $('#perusahaan_grup').val("").trigger("change");
+        $('#perusahaan_nama').val("");
+        $('#perusahaan_alamat').val("");
     }
 
     $('#btn_add').on('click',function(){
@@ -372,6 +474,54 @@
         $('#formModalAdd').modal('show');
         reset();
 
+    });
+
+    $('#btn_kerja').on('click',function(){
+
+        $('#formModalPekerjaan').modal('show');
+        view_jenis_kerja();
+        reset_jenis_kerja();
+    });
+
+    $('#btn_kerja').on('click',function(){
+
+        $('#formModalPekerjaan').modal('show');
+        view_perusahaan();
+        reset_perusahaan();
+    });
+
+    $('#btn_kerja_ibu').on('click',function(){
+
+        $('#formModalPekerjaan').modal('show');
+        view_jenis_kerja();
+        reset_jenis_kerja();
+
+    });
+
+    $('#btn_perusahaan').on('click',function(){
+
+        $('#formModalPerusahaan').modal('show');
+        combo_grup();
+        view_perusahaan();
+        reset_perusahaan();
+
+    });
+
+    $('#btn_perusahaan_ibu').on('click',function(){
+
+        $('#formModalPerusahaan').modal('show');
+        combo_grup();
+        view_perusahaan();
+        reset_perusahaan();
+
+    });
+
+    $('#btn_reset_anak').on('click',function(){
+        reset();
+    });
+
+    $('#btn_reset_ortu').on('click',function(){
+        reset();
     });
 
     $('#btn_cari').on('click', function() {
@@ -558,10 +708,10 @@
                             .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_nis+'">'+(data[i].anak_nama)+'</a>')); 
                         
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<strong></strong>' +(data[i].usia)));     
+                            .html('<strong></strong>' +(data[i].anak_usia)));     
 
                         tr.find('td:nth-child(5)').append($('<div>')
-                            .html('<strong></strong>' +(data[i].anak_tgl_lahir))); 
+                            .html((moment(data[i].anak_tgl_lahir).format('DD-MM-YYYY'))));   
                      
                         tr.appendTo($('#show_data_anak'));
                     }
@@ -572,6 +722,144 @@
 
                 //  }
                 $('#datatable2').DataTable('refresh'); 
+            }
+        });
+    }
+
+    function view_jenis_kerja() {
+
+       $.ajax({
+            type: 'GET',
+            url: "{{ route('jenis_kerja.view') }}",
+            async: true,
+            dataType: 'JSON',
+            success: function(r) {
+                var i;
+               $('#datatable3').DataTable().destroy(); 
+                $('#show_data_pekerjaan').empty();
+                data = r.data;
+
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        if((data[i].aktif) == 'Y'){
+
+                            var tr = $('<tr>').append([
+                                $('<td class= width="1%" align="center">'),
+                                $('<td class= width="100%" align="left">'),
+                                $('<td class= width="5%" align="center">')
+                            ]);
+
+                        } else {
+
+                            var tr = $('<tr style="background-color:#fee6ec;">').append([
+
+                                $('<td class= width="1%" align="center">'),
+                                $('<td class= width="100%" align="left">'),
+                                $('<td class= width="5%" align="center">')
+                            ]);
+
+                        }
+                   
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html((data[i].kerja_nama))); 
+                        
+                        if((data[i].aktif) == 'Y'){
+
+                            tr.find('td:nth-child(3)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs btn_kerja_edit" data="'+data[i].kerja_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs btn_kerja_nonaktif" data="'+data[i].kerja_id+'"><i class="mdi mdi-window-close"></i></a></div>');   
+
+                        } else {
+                            
+                            tr.find('td:nth-child(3)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs btn_kerja_aktif" data="'+data[i].kerja_id+'"><i class="mdi mdi-check"></i></a></div>');   
+                        
+                        }
+
+
+                        tr.appendTo($('#show_data_pekerjaan'));
+                    }
+
+                } else {
+
+                    $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
+                }
+                $('#datatable3').DataTable('refresh'); 
+            }
+        });
+    }
+
+    function view_perusahaan() {
+
+       $.ajax({
+            type: 'GET',
+            url: "{{ route('perusahaan.view') }}",
+            async: true,
+            dataType: 'JSON',
+            success: function(r) {
+                var i;
+               $('#datatable4').DataTable().destroy(); 
+                $('#show_data_perusahaan').empty();
+                data = r.data;
+
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        if((data[i].peru_aktif) == 'Y'){
+
+                            var tr = $('<tr>').append([
+                                $('<td class= width="1%" align="center">'),
+                                $('<td class= width="40%" align="left">'),
+                                $('<td class= width="40%" align="left">'),
+                                $('<td class= width="60%" align="left">'),
+                                $('<td class= width="5%" align="center">')
+                            ]);
+
+                        } else {
+
+                            var tr = $('<tr style="background-color:#fee6ec;">').append([
+
+                                $('<td class= width="1%" align="center">'),
+                                $('<td class= width="40%" align="left">'),
+                                $('<td class= width="40%" align="left">'),
+                                $('<td class= width="60%" align="left">'),
+                                $('<td class= width="5%" align="center">')
+                            ]);
+
+                        }
+                   
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html((data[i].peru_nama))); 
+                        
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html((data[i].grup_nama))); 
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html((data[i].peru_alamat))); 
+                        
+                        if((data[i].peru_aktif) == 'Y'){
+
+                            tr.find('td:nth-child(5)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs btn_perusahaan_edit" data="'+data[i].peru_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs btn_perusahaan_nonaktif" data="'+data[i].peru_id+'"><i class="mdi mdi-window-close"></i></a></div>');   
+
+                        } else {
+                            
+                            tr.find('td:nth-child(5)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs btn_perusahaan_aktif" data="'+data[i].peru_id+'"><i class="mdi mdi-check"></i></a></div>');   
+                        
+                        }
+
+
+                        tr.appendTo($('#show_data_perusahaan'));
+                    }
+
+                } else {
+
+                    $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
+                }
+                $('#datatable4').DataTable('refresh'); 
             }
         });
     }
@@ -660,7 +948,7 @@
         if (!$("#ortu").val()) {
             $.toast({
                 text: 'ORANG TUA MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -672,7 +960,7 @@
         } else if (!$("#anak_nama").val()) {
             $.toast({
                 text: 'NAMA ANAK MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -684,7 +972,7 @@
         } else if (!$("#anak_jekel").val()) {
             $.toast({
                 text: 'JENIS KELAMIN MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -696,7 +984,7 @@
         } else if (!$("#anak_tgl_lahir").val()) {
             $.toast({
                 text: 'TANGGAL LAHIR MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -708,7 +996,7 @@
         } else if (!$("#anak_tmp_lahir").val()) {
             $.toast({
                 text: 'TEMPAT LAHIR MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -720,7 +1008,7 @@
         } else if (!$("#anak_agama").val()) {
             $.toast({
                 text: 'AGAMA MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -732,7 +1020,7 @@
         } else if (!$("#anak_ke").val()) {
             $.toast({
                 text: 'ANAK KE MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -744,7 +1032,7 @@
         } else if (!$("#anak_berat").val()) {
             $.toast({
                 text: 'BERAT MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -756,7 +1044,7 @@
         } else if (!$("#anak_tinggi").val()) {
             $.toast({
                 text: 'TINGGI MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -826,12 +1114,13 @@
 
     });
 
+
     $('#btn_simpan_ortu').on('click', function(){
         
         if (!$("#ayah_nama").val()) {
             $.toast({
                 text: 'NAMA AYAH MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -843,7 +1132,7 @@
         } else if (!$("#ayah_kerja").val()) {
             $.toast({
                 text: 'KERJA AYAH MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -855,7 +1144,7 @@
         } else if (!$("#ayah_hp").val()) {
             $.toast({
                 text: 'HP AYAH MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -867,7 +1156,7 @@
         } else if (!$("#ayah_perusahaan").val()) {
             $.toast({
                 text: 'HP AYAH MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -879,7 +1168,7 @@
         } else if (!$("#ayah_alamat").val()) {
             $.toast({
                 text: 'HP AYAH MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -891,7 +1180,7 @@
         } else if (!$("#ibu_nama").val()) {
             $.toast({
                 text: 'HP IBU MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -903,7 +1192,7 @@
         } else if (!$("#ibu_kerja").val()) {
             $.toast({
                 text: 'HP IBU MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -915,7 +1204,7 @@
         } else if (!$("#ibu_hp").val()) {
             $.toast({
                 text: 'HP IBU MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -927,7 +1216,7 @@
         } else if (!$("#ibu_alamat").val()) {
             $.toast({
                 text: 'HP IBU MASIH KOSONG',
-                position: 'top-center',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
@@ -1057,6 +1346,327 @@
         return false;
 
     });
+
+    $('#btn_simpan_kerja').on('click', function(){
+        
+        if (!$("#kerja_nama").val()) {
+            $.toast({
+                text: 'NAMA PEKERJAAN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#kerja_nama").focus();
+            return false;
+        } 
+        
+       
+        var id             = $('#id_kerja').val();
+        var kerja_nama     = $('#kerja_nama').val();
+        var token          = $('[name=_token]').val();
+
+        var formData = new FormData();
+    
+        formData.append('id', id);
+        formData.append('kerja_nama', kerja_nama);
+        formData.append('_token', token);
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('jenis_kerja.save') }}",
+            dataType: "JSON",
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(r) {
+
+                if (r.status == '1') {
+                    swal("Berhasil!", "Data Berhasil Update", "success");
+                    reset_jenis_kerja();
+                    view_jenis_kerja();
+                    combo_kerja_ayah();
+                    combo_kerja_ibu();
+
+                } else if (r.status == '2'){
+                    swal("Berhasil!", "Data Berhasil Simpan", "success");
+                    reset_jenis_kerja();
+                    view_jenis_kerja();
+                    combo_kerja_ayah();
+                    combo_kerja_ibu();
+
+                }
+                $('#formModalPekerjaan').modal('hide')
+            }
+        });
+    
+        return false;
+
+    });
+
+    $('#show_data_pekerjaan').on('click','.btn_kerja_edit',function(){
+
+        var id = $(this).attr('data');
+
+        $.ajax({
+            type: "GET",
+            url: "{{ route('jenis_kerja.edit') }}",
+            dataType: "JSON",
+            data: {
+                id: id
+            },
+            success: function(r) {
+                data = r.data;
+
+                console.log(data);
+
+                $('#formModalPekerjaan').find('[name="id_kerja"]').val(r.kerja_id);
+                $('#formModalPekerjaan').find('[name="kerja_nama"]').val(r.kerja_nama);
+
+            }
+        });
+
+        return false;
+
+    });
+
+    $('#show_data_pekerjaan').on('click','.btn_kerja_aktif',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Non-Aktifkan Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Non-Aktifkan !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('jenis_kerja.aktif') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
+                        $('#formModalPekerjaan').modal('hide');
+                        reset_jenis_kerja();
+                        view_jenis_kerja();
+                        combo_kerja_ayah();
+                        combo_kerja_ibu();
+                    }
+                });  
+            }
+        });
+    });
+
+    $('#show_data_pekerjaan').on('click','.btn_kerja_nonaktif',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Non-Aktifkan Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Non-Aktifkan !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('jenis_kerja.nonaktif') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
+                        $('#formModalPekerjaan').modal('hide')
+                        reset_jenis_kerja();
+                        view_jenis_kerja();
+                        combo_kerja_ayah();
+                        combo_kerja_ibu();
+                    }
+                });  
+            }
+        });
+    });
+
+    $('#btn_simpan_perusahaan').on('click', function(){
+        
+        if (!$("#perusahaan_nama").val()) {
+            $.toast({
+                text: 'NAMA PERUSAHAAN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#perusahaan_nama").focus();
+            return false;
+
+        } else if (!$("#perusahaan_grup").val()) {
+            $.toast({
+                text: 'GRUP PERUSAHAAN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#perusahaan_grup").focus();
+            return false;
+
+        } else if (!$("#perusahaan_alamat").val()) {
+            $.toast({
+                text: 'ALAMAT PERUSAHAAN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#perusahaan_alamat").focus();
+            return false;
+        }
+        
+       
+        var id                  = $('#id_perusahaan').val();
+        var perusahaan_nama     = $('#perusahaan_nama').val();
+        var perusahaan_grup     = $('#perusahaan_grup').val();
+        var perusahaan_alamat   = $('#perusahaan_alamat').val();
+        var token               = $('[name=_token]').val();
+
+        var formData = new FormData();
+    
+        formData.append('id', id);
+        formData.append('perusahaan_nama', perusahaan_nama);
+        formData.append('perusahaan_grup', perusahaan_grup);
+        formData.append('perusahaan_alamat', perusahaan_alamat);
+        formData.append('_token', token);
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('perusahaan.save') }}",
+            dataType: "JSON",
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(r) {
+
+                if (r.status == '1') {
+                    swal("Berhasil!", "Data Berhasil Update", "success");
+                    reset_perusahaan();
+                    view_perusahaan();
+                    combo_perusahaan();
+                    combo_perusahaan_ibu();
+
+                } else if (r.status == '2'){
+                    swal("Berhasil!", "Data Berhasil Simpan", "success");
+                    reset_perusahaan();
+                    view_perusahaan();
+                    combo_perusahaan();
+                    combo_perusahaan_ibu();
+
+                }
+                $('#formModalPerusahaan').modal('hide')
+            }
+        });
+    
+        return false;
+
+    });
+
+    $('#show_data_perusahaan').on('click','.btn_perusahaan_edit',function(){
+
+        var id = $(this).attr('data');
+
+        $.ajax({
+            type: "GET",
+            url: "{{ route('perusahaan.edit') }}",
+            dataType: "JSON",
+            data: {
+                id: id
+            },
+            success: function(r) {
+                data = r.data;
+
+                console.log(data);
+
+                $('#formModalPerusahaan').find('[name="id_perusahaan"]').val(r.peru_id);
+                $('#formModalPerusahaan').find('[name="perusahaan_nama"]').val(r.peru_nama);
+                $('#formModalPerusahaan').find('[name="perusahaan_grup"]').val(r.grup_id).trigger("change");
+                $('#formModalPerusahaan').find('[name="perusahaan_alamat"]').val(r.peru_alamat);
+
+            }
+        });
+
+        return false;
+
+    });
+
+    $('#show_data_perusahaan').on('click','.btn_perusahaan_aktif',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Non-Aktifkan Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Non-Aktifkan !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('perusahaan.aktif') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
+                        $('#formModalPerusahaan').modal('hide');
+                        reset_perusahaan();
+                        view_perusahaan();
+                        combo_perusahaan();
+                        combo_perusahaan_ibu();
+                    }
+                });  
+            }
+        });
+    });
+
+    $('#show_data_perusahaan').on('click','.btn_perusahaan_nonaktif',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Non-Aktifkan Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Non-Aktifkan !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('perusahaan.nonaktif') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
+                        $('#formModalPerusahaan').modal('hide')
+                        reset_perusahaan();
+                        view_perusahaan();
+                        combo_perusahaan();
+                        combo_perusahaan_ibu();
+                    }
+                });  
+            }
+        });
+    });
+
 
     function combo_anak(){
 
@@ -1304,6 +1914,11 @@
                 var html = '';
                 var i;
                 $('select[name=ayah_perusahaan]').empty()
+                var x = document.getElementById("ayah_perusahaan");
+                    var option = document.createElement("option");
+                    option.text = "--Pilih--";
+                    option.value = '';
+                    x.add(option);
                 for(i=0; i<data.length; i++){
                     var html = '';
                     html = '<option value='+(data[i].peru_id)+'>'+(data[i].grup_kode)+' - '+(data[i].peru_nama)+'</option>';
@@ -1325,6 +1940,11 @@
                 var html = '';
                 var i;
                 $('select[name=ibu_perusahaan]').empty()
+                var x = document.getElementById("ibu_perusahaan");
+                    var option = document.createElement("option");
+                    option.text = "--Pilih--";
+                    option.value = '';
+                    x.add(option);
                 for(i=0; i<data.length; i++){
                     var html = '';
                     html = '<option value='+(data[i].peru_id)+'>'+(data[i].grup_kode)+' - '+(data[i].peru_nama)+'</option>';
@@ -1356,6 +1976,33 @@
                         var html = '';
                         html = '<option value='+(data[i].ortu_id)+'>'+(data[i].ortu_ayah)+' - '+(data[i].ortu_ibu)+'</option>';
                         $('select[name=ortu]').append(html)
+                    }
+                }
+            });
+
+    }
+
+    function combo_grup(){
+
+         $('select[name=perusahaan_grup]').empty()
+        $.ajax({
+                type  : 'GET',
+                url   : "{{ route('combo_sistem.combo_grup') }}",
+                async : false,
+                dataType : 'JSON',
+                success : function(data){
+                    var html = '';
+                    var i;
+                    $('select[name=perusahaan_grup]').empty()
+                        var x = document.getElementById("perusahaan_grup");
+                        var option = document.createElement("option");
+                        option.text = "--Pilih--";
+                        option.value = '';
+                        x.add(option);
+                    for(i=0; i<data.length; i++){
+                        var html = '';
+                        html = '<option value='+(data[i].grup_id)+'>'+(data[i].grup_nama)+'</option>';
+                        $('select[name=perusahaan_grup]').append(html)
                     }
                 }
             });

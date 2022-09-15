@@ -42,7 +42,6 @@ class CateringKategoriController extends Controller
             $tmp = new CateringKategori();
 
             $tmp->kat_nama      = $r->nama;
-
             $tmp->save();
 
         });

@@ -24,13 +24,13 @@ class TarifController extends Controller
         $this->middleware('auth');
     }
 
-    // public function index()
-    // {
+    public function index()
+    {
         
-    //     $app = SistemApp::sistem();
-    //     $menu = SistemApp::OtoritasMenu($app['idu']);
-    //     return view('pendaftaran.baru.index',compact('app','menu'));
-    // }
+        $app = SistemApp::sistem();
+        $menu = SistemApp::OtoritasMenu($app['idu']);
+        return view('pendaftaran.baru.index',compact('app','menu'));
+    }
 
     public function anak(Request $r){
 
