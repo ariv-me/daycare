@@ -197,6 +197,16 @@
                 padding: 20;
                 margin-top: -8px;
             } */
+
+
+            label {
+                font-weight: 600;
+                color: #585e7e;
+                font-size: 13px;
+            }
+
+            
+        
 </style>
 
     </head>

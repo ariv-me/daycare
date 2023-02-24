@@ -10,6 +10,7 @@ use App\Http\Controllers\ComboSistemController;
 use App\Http\Controllers\AnakController;
 use App\Http\Controllers\OrtuController;
 use App\Http\Controllers\GrupController;
+use App\Http\Controllers\PenjemputController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\JenisPekerjaanController;
 use App\Http\Controllers\TarifJenisController;
@@ -89,6 +90,19 @@ Route::group(['prefix' => 'ortu', 'as' => 'ortu.'], function () {
 	Route::get('/edit', [OrtuController::class, 'edit'])->name('edit');
 	Route::post('/update', [OrtuController::class, 'update'])->name('update');
 	Route::post('/void', [OrtuController::class, 'void'])->name('void');
+
+	Route::post('/save_daftar', [OrtuController::class, 'save_daftar'])->name('save_daftar');
+
+});
+
+Route::group(['prefix' => 'penjemput', 'as' => 'penjemput.'], function () {
+
+	Route::get('/', [PenjemputController::class, 'index'])->name('index');
+	Route::get('/view', [PenjemputController::class, 'view'])->name('view');
+	Route::post('/save', [PenjemputController::class, 'save'])->name('save');
+	Route::get('/edit', [PenjemputController::class, 'edit'])->name('edit');
+	Route::post('/update', [PenjemputController::class, 'update'])->name('update');
+	Route::post('/void', [PenjemputController::class, 'void'])->name('void');
 
 	Route::post('/save_daftar', [OrtuController::class, 'save_daftar'])->name('save_daftar');
 
@@ -230,7 +244,6 @@ Route::group(['prefix' => 'tarif', 'as' => 'tarif.'], function () {
 	Route::post('/harga_update', [TarifHargaController::class, 'update'])->name('harga_update');
 	Route::get('/harga_aktif', [TarifHargaController::class, 'aktif'])->name('harga_aktif');
 	Route::get('/harga_nonaktif', [TarifHargaController::class, 'nonaktif'])->name('harga_nonaktif');
-	
 
 });
 
@@ -313,5 +326,10 @@ Route::group(['prefix' => 'combo_sistem', 'as' => 'combo_sistem.'], function () 
 	Route::get('/combo_agama', [ComboSistemController::class, 'combo_agama'])->name('combo_agama');
 	Route::get('/combo_kategori', [ComboSistemController::class, 'combo_kategori'])->name('combo_kategori');
 	Route::get('/combo_jenis_tarif', [ComboSistemController::class, 'combo_jenis_tarif'])->name('combo_jenis_tarif');
+	Route::get('/combo_provinsi', [ComboSistemController::class, 'combo_provinsi'])->name('combo_provinsi');
+	Route::get('/combo_kota', [ComboSistemController::class, 'combo_kota'])->name('combo_kota');
+	Route::get('/combo_kecamatan', [ComboSistemController::class, 'combo_kecamatan'])->name('combo_kecamatan');
+	Route::get('/combo_pendidikan', [ComboSistemController::class, 'combo_pendidikan'])->name('combo_pendidikan');
+	Route::get('/combo_hubungan', [ComboSistemController::class, 'combo_hubungan'])->name('combo_hubungan');
 	
 });

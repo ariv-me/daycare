@@ -36,9 +36,9 @@ class TarifHargaController extends Controller
 
             $app = SistemApp::sistem();
             $tmp = new TarifHarga();
-            $kode_harga = TarifHarga::autonumber();
+            $tarif_kode = TarifHarga::autonumber();
 
-            $tmp->kode         = $kode_harga;
+            $tmp->tarif_kode   = $tarif_kode;
             $tmp->grup_id      = $r->grup;
             $tmp->jenis_id     = $r->jenis;
             $tmp->tarif_reg    = $r->registrasi;
@@ -67,7 +67,7 @@ class TarifHargaController extends Controller
                             ->table('tarif_tb_harga AS aa')
                             ->leftjoin('tarif_ta_jenis AS bb','bb.jenis_id','=','aa.jenis_id')
                             ->leftjoin('sistem_tb_grup AS cc','cc.grup_id','=','aa.grup_id')
-                            ->orderby('kode','desc')
+                            ->orderby('tarif_kode','desc')
                             ->get();
 
             $data = $data->map(function($value) {
@@ -156,8 +156,36 @@ class TarifHargaController extends Controller
     public function edit(Request $r)
     {
         $id = strtolower($r->get('id'));
-        $data = TarifHarga::where('kode',$id)->first();
+        $data = TarifHarga::where('tarif_kode',$id)->first();
+        
         return response()->json($data);
+    }
+
+    public function update(Request $r){
+
+        $transaction = DB::connection('mysql')->transaction(function() use($r){
+  
+              $app = SistemApp::sistem();
+  
+              $id = $r->get('id');
+              $tmp = TarifHarga::where('tarif_kode',$id)->first();
+
+              $tmp->grup_id             = $r->grup;
+              $tmp->jenis_id            = $r->jenis;
+              $tmp->tarif_reg           = $r->registrasi;
+              $tmp->tarif_spp           = $r->bulanan;
+              $tmp->tarif_pembg         = $r->pembangunan;
+
+              $tmp->updated_nip         = $app['kar_nip'];
+              $tmp->updated_nama        = $app['kar_nama_awal'];;
+              $tmp->updated_ip          = $r->ip();
+            
+              $tmp->save();
+  
+              return true;
+          });
+  
+          return response()->json($transaction);   
     }
 
     public function aktif(Request $r)
@@ -168,7 +196,7 @@ class TarifHargaController extends Controller
 
             $id = $r->get('id');
             
-            $tmp = TarifHarga::where('kode',$id)->first();
+            $tmp = TarifHarga::where('tarif_kode',$id)->first();
             $tmp->void              = 'T';
             $tmp->void_nip          = $app['kar_nip'];
             $tmp->void_nama         = $app['kar_nama_awal'];;
@@ -187,7 +215,7 @@ class TarifHargaController extends Controller
 
             $app        = SistemApp::sistem();
             $id         = $r->get('id');
-            $tmp        = TarifHarga::where('kode',$id)->first();
+            $tmp        = TarifHarga::where('tarif_kode',$id)->first();
                     
             $tmp->void              = 'Y';
             $tmp->void_nip          = $app['kar_nip'];

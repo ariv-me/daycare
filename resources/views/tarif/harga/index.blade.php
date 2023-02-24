@@ -177,8 +177,11 @@
 
         $('.select2').select2();
 
+        combo_grup();
+        combo_jenis_tarif();
         view();
         reset();
+
 
     });
 
@@ -193,17 +196,6 @@
 
     $('#btn_add').on('click',function(){
         $('#formModalAdd').modal('show');
-        combo_grup();
-        combo_jenis_tarif();
-        reset();
-
-    });
-
-    $('#btn_edit').on('click',function(){
-
-        $('#formModalEdit').modal('show');
-        combo_grup();
-        combo_jenis_tarif();
         reset();
 
     });
@@ -355,7 +347,7 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].kode))); 
+                            .html((data[i].tarif_kode))); 
                             
                         tr.find('td:nth-child(3)').append($('<div>')
                            .html((data[i].grup_nama)));   
@@ -378,10 +370,10 @@
                         
                         if((data[i].void) == 'T'){
 
-                            tr.find('td:nth-child(9)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].kode+'"><i class="mdi mdi-window-close"></i></a></div>');   
+                            tr.find('td:nth-child(9)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].tarif_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-window-close"></i></a></div>');   
 
                         } else {
-                            tr.find('td:nth-child(9)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].kode+'"><i class="mdi mdi-check"></i></a></div>');   
+                            tr.find('td:nth-child(9)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-check"></i></a></div>');   
                         }
 
                         
@@ -406,8 +398,9 @@
             dataType : "JSON",
             data : {id:id},
             success: function(data){
+
                 $('#formModalEdit').modal('show');
-                $('#formModalEdit').find('[name="id_edit"]').val(data.kode);
+                $('#formModalEdit').find('[name="id_edit"]').val(data.tarif_kode);
                 $('#formModalEdit').find('[name="grup"]').val(data.grup_id).trigger("change");
                 $('#formModalEdit').find('[name="jenis"]').val(data.jenis_id).trigger("change");
                 $('#formModalEdit').find('[name="registrasi"]').val(data.tarif_reg);
@@ -427,27 +420,79 @@
 
     $('#btn_update').on('click',function(){
 
-        if (!$("#nama_edit").val()) {
+        if (!$("#grup_edit").val()) {
             $.toast({
-                text: 'NAMA HARUS DI ISI',
-                position: 'top-left',
+                text: 'GRUP HARUS DI ISI',
+                position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
-            $("#nama_edit").focus();
+            $("#grup_edit").focus();
+            return false;
+
+        } else if (!$("#jenis_edit").val()) {
+            $.toast({
+                text: 'JENIS HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#jenis_edit").focus();
+            return false;
+
+        } else if (!$("#registrasi_edit").val()) {
+            $.toast({
+                text: 'REGISTRASI HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#registrasi_edit").focus();
+            return false;
+
+        } else if (!$("#bulanan_edit").val()) {
+            $.toast({
+                text: 'BULANAN HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#bulanan_edit").focus();
+            return false;
+
+        } else if (!$("#pembangunan_edit").val()) {
+            $.toast({
+                text: 'PEMBANGUNAN HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#pembangunan_edit").focus();
             return false;
 
         } 
       
-        var id = $('#id_edit').val();
-        var nama = $('#nama_edit').val();
-        var token = $('[name=_token]').val();
+        var id          = $('#id_edit').val();
+        var grup        = $('#grup_edit').val();
+        var jenis       = $('#jenis_edit').val();
+        var registrasi  = $('#registrasi_edit').val();
+        var bulanan     = $('#bulanan_edit').val();
+        var pembangunan = $('#pembangunan_edit').val();
 
+        var token = $('[name=_token]').val();
         var formData = new FormData();
 
         formData.append('id', id);
-        formData.append('nama', nama);
+        formData.append('grup', grup);
+        formData.append('jenis', jenis);
+        formData.append('registrasi', registrasi);
+        formData.append('bulanan', bulanan);
+        formData.append('pembangunan', pembangunan);
         formData.append('_token', token);
 
         $.ajax({

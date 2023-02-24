@@ -30,6 +30,47 @@ class ComboSistemController extends Controller
         $this->middleware('auth');
     }
 
+     /*-- KECAMATAN --*/
+     public function combo_kecamatan(Request $r)
+     {
+         $kota = $r->kota;
+         $data = DB::connection('mysql')
+                         ->table('sistem_ta_3_kecamatan as aa')
+                         ->where('aa.kota_id',$kota)
+                         ->orderby('aa.kec_nama')
+                         ->get();
+        
+     
+         return response()->json($data);
+     }
+ 
+     /*-- KOTA --*/
+     public function combo_kota(Request $r)
+     {
+ 
+         $provinsi = $r->provinsi;
+         $data = DB::connection('mysql')
+                         ->table('sistem_ta_2_kota as aa')
+                         ->where('aa.pro_id',$provinsi)
+                         ->get();
+     
+         return response()->json($data);
+     }
+ 
+     /*-- PROVINSI --*/
+     public function combo_provinsi()
+     {
+ 
+         $data = DB::connection('mysql')
+                         ->table('sistem_ta_1_provinsi as aa')
+                         ->orderby('pro_nama')
+                         ->get();
+
+     
+         return response()->json($data);
+     }
+ 
+
     
     /*-- JENIS --*/
     public function combo_jenis()
@@ -44,11 +85,7 @@ class ComboSistemController extends Controller
         return response()->json($data); 
     }
 
-    /*-- HUBUNGAN  --*/
-    public function combo_hubungan(){
-        $data = SistemHubungan::orderby('hub_id')->get();
-        return response()->json($data); 
-    }
+ 
 
     /*-- BULAN --*/
     public function combo_bulan(){
@@ -71,6 +108,28 @@ class ComboSistemController extends Controller
                     ->orderby('peru_id','desc')
                     ->get();
         return response()->json($data);
+    }
+
+     /*-- JENJANG PENDIDIKAN--*/
+     public function combo_pendidikan(){
+
+        $data = DB::connection('mysql')
+                    ->table('sistem_ta_pendidikan AS aa')
+                    ->where('pdk_aktif','Y')
+                    ->get();
+
+        return response()->json($data); 
+
+    }
+
+    /*-- HUBUNGAN  --*/
+    public function combo_hubungan(){
+        $data = DB::connection('mysql')
+                    ->table('sistem_ta_hubungan AS aa')
+                    ->where('hub_aktif','Y')
+                    ->orderby('hub_level','asc')
+                    ->get();
+        return response()->json($data); 
     }
 
     public function combo_jenis_tarif(){
