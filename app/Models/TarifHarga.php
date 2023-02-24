@@ -11,7 +11,8 @@ class TarifHarga extends Model
 {
     protected $connection = 'daycare';
     protected $table = 'tarif_tb_harga';
-    protected $primaryKey = 'kode';
+    protected $primaryKey = 'tarif_id';
+
 
     public static function autonumber()
 
@@ -19,7 +20,7 @@ class TarifHarga extends Model
 
         $data = DB::connection('daycare')
                      ->table('tarif_tb_harga')
-                     ->select(DB::raw("MAX(RIGHT(kode,4)) as kd_max"));
+                     ->select(DB::raw("MAX(RIGHT(tarif_kode,4)) as kd_max"));
                    
         
         // $kode_depan = date('Ymd');    
