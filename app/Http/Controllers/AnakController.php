@@ -156,7 +156,7 @@ class AnakController extends Controller
         try{
             
             $data = DB::connection('daycare')
-                            ->table('daftar_tb_anak AS aa')
+                            ->table('dapok_tb_anak AS aa')
                             ->leftjoin('daftar_tb_ortu AS bb','bb.ortu_id','=','aa.ortu_id')
                             ->leftjoin('sistem_ta_agama AS cc','cc.agama_id','=','aa.agama_id')
                             ->orderby('bb.ortu_id','desc')
@@ -189,7 +189,7 @@ class AnakController extends Controller
         try{
             $id = $r->get('id');
             $data = DB::connection('daycare')
-                            ->table('daftar_tb_anak AS aa')
+                            ->table('dapok_tb_anak AS aa')
                             ->leftjoin('daftar_tb_ortu AS bb','bb.ortu_id','=','aa.ortu_id')
                             ->leftjoin('sistem_ta_agama AS cc','cc.agama_id','=','aa.agama_id')
                             ->where('anak_nis',$id)

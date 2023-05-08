@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SistemAgama extends Model
 {
-    protected $connection = 'mysql';
+    protected $connection = 'spf';
     protected $table = 'sistem_ta_agama';
     protected $primaryKey = 'agama_id';
 

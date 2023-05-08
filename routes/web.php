@@ -5,10 +5,9 @@ use Illuminate\Support\Facades\Auth;
 /*-- APP --*/
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeController;   
 use App\Http\Controllers\ComboSistemController;
 use App\Http\Controllers\AnakController;
-use App\Http\Controllers\OrtuController;
 use App\Http\Controllers\GrupController;
 use App\Http\Controllers\PenjemputController;
 use App\Http\Controllers\PerusahaanController;
@@ -25,6 +24,15 @@ use App\Http\Controllers\CateringOrderDetailController;
 use App\Http\Controllers\CateringOrderDataController;
 use App\Http\Controllers\CateringMenuController;
 use App\Http\Controllers\CateringKategoriController;
+
+/*-- DATA POKOK --*/
+use App\Http\Controllers\DapokController;
+use App\Http\Controllers\DapokOrtuController;
+use App\Http\Controllers\DapokAnakController;
+use App\Http\Controllers\DapokWaliController;
+use App\Http\Controllers\DapokPenjemputController;
+use App\Http\Controllers\DapokKontakDaruratController;
+
 
 
 
@@ -48,11 +56,72 @@ Route::group(['prefix' => 'blank', 'as' => 'blank.'], function () {
 	Route::get('/', [HomeController::class, 'index_blank'])->name('index');
 });
 
-// Pendaftaran
+
+/**-- Data Pokok --**/
+
+Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
+
+	Route::get('/', [DapokController::class, 'index'])->name('index');
+
+	Route::group(['prefix' => 'ortu', 'as' => 'ortu.'], function () {
+
+		Route::get('/', [DapokOrtuController::class, 'index'])->name('index');
+		Route::get('/view', [DapokOrtuController::class, 'view'])->name('view');
+		Route::post('/save', [DapokOrtuController::class, 'save'])->name('save');
+		Route::get('/edit', [DapokOrtuController::class, 'edit'])->name('edit');
+		Route::post('/update', [DapokOrtuController::class, 'update'])->name('update');
+		Route::post('/aktif', [DapokOrtuController::class, 'aktif'])->name('aktif');
+		Route::post('/nonaktif', [DapokOrtuController::class, 'nonaktif'])->name('nonaktif');
+		
+	});
+
+	Route::group(['prefix' => 'anak', 'as' => 'anak.'], function () {
+
+		Route::get('/', [DapokAnakController::class, 'index'])->name('index');
+		Route::get('/view', [DapokAnakController::class, 'view'])->name('view');
+		Route::post('/save', [DapokAnakController::class, 'save'])->name('save');
+		Route::get('/edit', [DapokAnakController::class, 'edit'])->name('edit');
+		Route::post('/update', [DapokAnakController::class, 'update'])->name('update');
+		Route::post('/aktif', [DapokAnakController::class, 'aktif'])->name('aktif');
+		Route::post('/nonaktif', [DapokAnakController::class, 'nonaktif'])->name('nonaktif');
+		
+	});
+
+	Route::group(['prefix' => 'penjemput', 'as' => 'penjemput.'], function () {
+
+		Route::get('/', [DapokPenjemputController::class, 'index'])->name('index');
+		Route::get('/view', [DapokPenjemputController::class, 'view'])->name('view');
+		Route::post('/save', [DapokPenjemputController::class, 'save'])->name('save');
+		Route::get('/edit', [DapokPenjemputController::class, 'edit'])->name('edit');
+		Route::post('/update', [DapokPenjemputController::class, 'update'])->name('update');
+		Route::post('/aktif', [DapokPenjemputController::class, 'aktif'])->name('aktif');
+		Route::post('/nonaktif', [DapokPenjemputController::class, 'nonaktif'])->name('nonaktif');
+		
+	});
+
+	Route::group(['prefix' => 'kontak_darurat', 'as' => 'kontak_darurat.'], function () {
+
+		Route::get('/', [DapokKontakDaruratController::class, 'index'])->name('index');
+		Route::get('/view', [DapokKontakDaruratController::class, 'view'])->name('view');
+		Route::post('/save', [DapokKontakDaruratController::class, 'save'])->name('save');
+		Route::get('/edit', [DapokKontakDaruratController::class, 'edit'])->name('edit');
+		Route::post('/update', [DapokKontakDaruratController::class, 'update'])->name('update');
+		Route::post('/aktif', [DapokKontakDaruratController::class, 'aktif'])->name('aktif');
+		Route::post('/nonaktif', [DapokKontakDaruratController::class, 'nonaktif'])->name('nonaktif');
+		
+	});
+
+	
+});
+
+/**-- PENDAFTARAN --**/
 
 Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 
-	Route::get('/', [PendaftaranDetailController::class, 'index'])->name('index');
+
+
+	
+	Route::get('/', [PendaftaranDetailController::class, 'index'])->name('index');	
 
 	// Pendaftaran Transaksi
 
@@ -72,28 +141,10 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 	
 });
 
-// Data Pokok 
-
-Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
-
-	Route::get('/', [PendaftaranDetailController::class, 'dapok'])->name('dapok');
-	
-});
 
 
 
-Route::group(['prefix' => 'ortu', 'as' => 'ortu.'], function () {
 
-	Route::get('/', [OrtuController::class, 'index'])->name('index');
-	Route::get('/view', [OrtuController::class, 'view'])->name('view');
-	Route::post('/save', [OrtuController::class, 'save'])->name('save');
-	Route::get('/edit', [OrtuController::class, 'edit'])->name('edit');
-	Route::post('/update', [OrtuController::class, 'update'])->name('update');
-	Route::post('/void', [OrtuController::class, 'void'])->name('void');
-
-	Route::post('/save_daftar', [OrtuController::class, 'save_daftar'])->name('save_daftar');
-
-});
 
 Route::group(['prefix' => 'penjemput', 'as' => 'penjemput.'], function () {
 
@@ -104,7 +155,6 @@ Route::group(['prefix' => 'penjemput', 'as' => 'penjemput.'], function () {
 	Route::post('/update', [PenjemputController::class, 'update'])->name('update');
 	Route::post('/void', [PenjemputController::class, 'void'])->name('void');
 
-	Route::post('/save_daftar', [OrtuController::class, 'save_daftar'])->name('save_daftar');
 
 });
 
@@ -147,17 +197,6 @@ Route::group(['prefix' => 'anak', 'as' => 'anak.'], function () {
 
 });
 
-
-Route::group(['prefix' => 'ortu', 'as' => 'ortu.'], function () {
-
-	Route::get('/', [OrtuController::class, 'index'])->name('index');
-	Route::get('/view', [OrtuController::class, 'view'])->name('view');
-	Route::post('/save', [OrtuController::class, 'save'])->name('save');
-	Route::get('/edit', [OrtuController::class, 'edit'])->name('edit');
-	Route::post('/update', [OrtuController::class, 'update'])->name('update');
-	Route::post('/void', [OrtuController::class, 'void'])->name('void');
-
-});
 
 // Grup, Perusahaan, Jenis Pekerjaan, 
 
