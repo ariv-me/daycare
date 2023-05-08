@@ -14,7 +14,7 @@ use App\Models\HCISKaryawan;
 
 class SistemApp extends Model
 {
-    protected $connection = 'mysql';
+    protected $connection = 'spf';
     protected $table = 'sistem_ta_app';
     protected $primaryKey = 'app_id';
 
@@ -25,7 +25,7 @@ class SistemApp extends Model
 
         $idu = \Auth::guard()->user()->idu;
         
-        $kar = DB::connection('mysql')
+        $kar = DB::connection('spf')
                         ->table('hris_ta_karyawan AS aa')
                         ->leftjoin('sistem_tc_unit AS bb','bb.unit_id','=','aa.unit_id')
                         ->leftjoin('sistem_tc_bagian AS cc','cc.bag_id','=','bb.bag_id')
@@ -95,7 +95,7 @@ class SistemApp extends Model
 
         if ($admin > 0 ) {
 
-            $menu_unit = DB::connection('mysql')
+            $menu_unit = DB::connection('spf')
                                 ->table('sistem_ta_fitur AS aa')
                                 ->where('aa.fitur_grup','5')
                                 ->where('aa.fitur_aktif','Y')
@@ -106,7 +106,7 @@ class SistemApp extends Model
 
         } else {
 
-            $menu = DB::connection('mysql')
+            $menu = DB::connection('spf')
                             ->table('sistem_ta_menu AS aa')
                             ->leftjoin('sistem_ta_fitur AS bb','bb.fitur_id','aa.fitur_id')
                             ->where('aa.unit_id',$unit)
@@ -118,7 +118,7 @@ class SistemApp extends Model
                             ->orderby('bb.fitur_nama')
                             ->get();          
 
-            $menu_all = DB::connection('mysql')
+            $menu_all = DB::connection('spf')
                                 ->table('sistem_ta_fitur AS aa')
                                 ->where('aa.fitur_grup','5')
                                 ->where('aa.fitur_all','Y')
@@ -146,7 +146,7 @@ class SistemApp extends Model
             $head[] = $header->fitur_parent;
         }
 
-        $menuUtama = DB::connection('mysql')
+        $menuUtama = DB::connection('spf')
                             ->table('sistem_ta_fitur AS aa')
                             ->whereIN('aa.fitur_id',$head)
                             ->where('aa.fitur_jenis','1')

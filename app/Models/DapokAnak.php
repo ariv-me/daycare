@@ -7,10 +7,10 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Anak extends Model
+class DapokAnak extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'daftar_tb_anak';
+    protected $table = 'dapok_tb_anak';
     protected $primaryKey = 'anak_id';
 
     public static function autonumber()
@@ -18,7 +18,7 @@ class Anak extends Model
     {
 
         $data = DB::connection('daycare')
-                     ->table('daftar_tb_anak')
+                     ->table('dapok_tb_anak')
                      ->select(DB::raw("MAX(RIGHT(anak_id,4)) as kd_max"));
                    
         

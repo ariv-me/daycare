@@ -28,23 +28,23 @@ class PendaftaranDetailController extends Controller
         $this->middleware('auth');
     }
 
+    // public function index()
+    // {
+        
+    //     $app = SistemApp::sistem();
+    //     $menu = SistemApp::OtoritasMenu($app['idu']);
+
+    //     $kosong      = PendaftaranDetail::where('kar_id',$app['kar_id'])->where('is_aktif','T')->delete();
+
+    //     return view('pendaftaran.baru.index',compact('app','menu'));
+    // }
+
     public function index()
     {
         
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-
-        $kosong      = PendaftaranDetail::where('kar_id',$app['kar_id'])->where('is_aktif','T')->delete();
-
-        return view('pendaftaran.baru.index',compact('app','menu'));
-    }
-
-    public function dapok()
-    {
-        
-        $app = SistemApp::sistem();
-        $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('pendaftaran.ortu_anak.index',compact('app','menu'));
+        return view('pendaftaran.data_pokok.index',compact('app','menu'));
     }
 
     public function view_detail(Request $r)
@@ -227,7 +227,7 @@ class PendaftaranDetailController extends Controller
             $id = $r->get('id');
             $data = DB::connection('daycare')
                             ->table('daftar_tc_transaksi_detail AS aa')
-                            ->leftjoin('daftar_tb_anak AS bb','bb.anak_nis','=','aa.anak_nis')
+                            ->leftjoin('dapok_tb_anak AS bb','bb.anak_nis','=','aa.anak_nis')
                             ->leftjoin('daftar_tb_ortu AS cc','cc.ortu_id','=','bb.ortu_id')
                             ->where('aa.detail_id',$id)
                             ->first();

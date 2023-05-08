@@ -105,7 +105,7 @@ class CateringOrderDetailController extends Controller
 
             $data = DB::connection('daycare')
                     ->table('ctrg_order_detail AS aa')
-                    ->leftjoin('daftar_tb_anak AS cc','cc.anak_nis','=','aa.anak_nis')
+                    ->leftjoin('dapok_tb_anak AS cc','cc.anak_nis','=','aa.anak_nis')
                     ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
                     ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
                     ->where('aa.is_aktif','T')

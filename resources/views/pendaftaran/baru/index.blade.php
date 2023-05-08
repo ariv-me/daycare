@@ -757,7 +757,6 @@
             },
             success: function(data) {
 
-                
                 $('[name="daftar_nis"]').val(data.anak_nis);
                 $('[name="daftar_anak"]').val(data.anak_nama);
 

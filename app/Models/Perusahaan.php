@@ -10,12 +10,10 @@ class Perusahaan extends Model
     protected $table = 'sistem_tb_perusahaan';
     protected $primaryKey = 'peru_id';
 
-    public static function getNamaPerusahaan() {
+    public static function getNamaPerusahaan($id) {
 
-        $data = Perusahaan::where('peru_id','1')->first();
-
+        $data = Perusahaan::where('peru_id','1')->first()->kerja_nama;
         dd($data);
-
         return $data;  
     }
 

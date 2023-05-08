@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 class SistemBulan extends Model
 {
-    protected $connection = 'mysql';
+    protected $connection = 'spf';
     protected $table = 'sistem_ta_bulan';
     protected $primaryKey = 'bulan_id';
 }

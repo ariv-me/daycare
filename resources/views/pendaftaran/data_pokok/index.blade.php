@@ -1,5 +1,59 @@
 @extends('app.layouts.template')
 
+@section('css')
+    <style>
+        .modal-header {
+            padding: 0.5rem 0.5rem 0.5rem 1rem;
+        }
+
+        .form-control {
+            border-radius: 0rem;
+            padding: 0.5rem 0.5rem;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border-radius: 0px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .table td, .table th {
+            font-size: 13px;
+            padding: 0.3rem;
+        }
+
+        label {
+            font-weight: 500;
+            color: #6c757d;
+            font-size: 13px;
+        }
+
+        .btn {
+            border-radius: 0px;
+        }
+
+        .card-header:first-child {
+            border-radius: calc(0rem - 1px) calc(0rem - 1px) 0 0;
+        }
+
+        .card {
+            border-radius: 0rem;
+        }
+
+        .red {
+            color:#ff0002;
+        }
+
+        code {
+            color: #ff0002;
+            font-size: 13px;
+        }
+
+    </style>   
+@endsection
+
 
 @section('content')
 
@@ -44,7 +98,7 @@
                             <div class="col-md-9">  
                                 
                             </div>
-                            <div class="col-md-3" style="text-align: right">
+                            <div class="col-md-3 mb-2" style="text-align: right">
                                 <button type="submit" class="btn btn-primary btn-round btn-xs waves-effect waves-light" id="btn_add_ortu">
                                     <i class="fas fa-plus"></i> TAMBAH DATA
                                 </button>
@@ -52,64 +106,20 @@
                         </div>
                         
                         <div class="table-responsive">
-                            <table class="table mt-2 table-centered">
-                                <thead class="thead-light">
+                            <table id="datatable_ortu" class="table table-bordered dt-responsive wrap" 
+                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
                                     <tr>
                                         <th style="text-align: center">#</th>
-                                        <th style="text-align: left">Ayah</th>
-                                        <th style="text-align: left">Pekerjaan Ayah</th>
-                                        <th style ="text-align: left">Ibu</th>
-                                        <th style ="text-align: left">Pekerjaan Ibu</th>
+                                        <th style="text-align: center">ORANG TUA</th>
+                                        <th style="text-align: center">PEKERJAAN</th>
+                                        <th style ="text-align: center">ALAMAT</th>
                                         <th style ="text-align: center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody id="show_data_ortu"></tbody>
                             </table>
                         </div>
-                        {{-- <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead class="thead-light">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Access</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>XYZ@Example.com</td>
-                                    <td><span class="badge badge-boxed  badge-outline-success">Business</span></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>XYZ@Example.com</td>
-                                    <td><span class="badge badge-boxed  badge-outline-warning">Personal</span></td>                                                    
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>XYZ@Example.com</td>
-                                    <td><span class="badge badge-boxed  badge-outline-danger">Disabled</span></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Mark</td>
-                                    <td>XYZ@Example.com</td>
-                                    <td><span class="badge badge-boxed  badge-outline-success">Business</span></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>Jacob</td>
-                                    <td>XYZ@Example.com</td>
-                                    <td><span class="badge badge-boxed  badge-outline-warning">Personal</span></td>                                                    
-                                </tr>
-                                </tbody>
-                            </table><!--end /table-->
-                        </div> --}}
                     </div>
 
                     <div class="tab-pane" id="pejemput" role="tabpanel">
@@ -295,7 +305,7 @@
                             </div>
                             <div class="col-sm-3 mt-2">
                                 <label for="example-email-input" class=""> Tanggl Lahir</label>
-                                <input type="date" class="form-control datepicker" id="ayah_lahir" name="ayah_lahir">
+                                <input type="text" class="form-control datepicker" id="ayah_lahir" name="ayah_lahir">
                             </div>
                             <div class="col-sm-3 mt-2">
                                 <label for="example-tel-input" class=""> Agama</label>
@@ -346,7 +356,7 @@
                             </div>
                             <div class="col-sm-3 mt-2">
                                 <label for="example-email-input" class=""> Tanggl Lahir</label>
-                                <input type="date" class="form-control datepicker" id="ibu_lahir" name="ibu_lahir">
+                                <input type="text" class="form-control datepicker" id="ibu_lahir" name="ibu_lahir">
                             </div>
                             <div class="col-sm-3 mt-2">
                                 <label for="example-tel-input" class=""> Agama</label>
@@ -402,8 +412,9 @@
 
             </div>
 
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-info btn-sm" id="btn_simpan_ortu">
+            <div class="modal-footer text-right">
+                <button type="button" class="btn btn-secondary btn-xs" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-info btn-xs" id="btn_simpan_ortu">
                     <i class="fas fa-save"></i> SIMPAN
                 </button>
             </div>
@@ -649,6 +660,15 @@
 
         $('.select2').select2();
 
+        $('.datepicker[name=tanggal]').val(moment().format('DD-MM-YYYY'));
+        $('.datepicker[name=ibu_lahir]').val(moment().format('DD-MM-YYYY'));
+        $('.datepicker[name=ayah_lahir]').val(moment().format('DD-MM-YYYY'));
+
+        $('.datepicker').datepicker({
+            autoclose: true,
+            format:'dd-mm-yyyy',
+        });
+
        
         combo_ortu();
         combo_anak();
@@ -893,7 +913,7 @@
 
        $.ajax({
             type: 'GET',
-            url: "{{ route('ortu.view') }}",
+            url: "{{ route('dapok.ortu.view') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -974,12 +994,12 @@
 
        $.ajax({
             type: 'GET',
-            url: "{{ route('ortu.view') }}",
+            url: "{{ route('dapok.ortu.view') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
                 var i;
-                $('#datatable').DataTable().destroy(); 
+                $('#datatable_ortu').DataTable().destroy(); 
                 $('#show_data_ortu').empty();
                 data = r.data;
 
@@ -989,46 +1009,48 @@
                             var tr = $('<tr>').append([
                                 $('<td class= width="1%" align="center">'),
                                 $('<td class= width="10%" align="left">'),
-                                $('<td class= width="20%" align="left">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="100%" align="left">'),
-                                $('<td class= width="1%" align="center">')
+                                $('<td class= width="30%" align="left">'),
+                                $('<td class= width="60%" align="left">'),
+                                $('<td class= width="5%" align="center">')
                             ]);
 
 
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_ortu" data="'+data[i].ortu_id+'">'+(data[i].ortu_ayah)+'</a>')); 
+                            .html('<a href="javascript:;" class="btn_edit_ortu" data="'+data[i].ortu_id+'"> <i class="text-info fas fa-male"></i> '+(data[i].ortu_ayah)+'</a>'+' - '+'<span class="text-muted"> <small>'+(data[i].ayah_usia)+' Tahun </small></span>')); 
                         
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<span class="text-muted">'+(data[i].ayah_usia)+' Tahun</span>'));
+                            .html('<a href="javascript:;" class="btn_edit_ortu" data="'+data[i].ortu_id+'"> <i class="text-pink fas fa-female"></i> '+(data[i].ortu_ibu)+'</a>'+' - '+'<span class="text-muted"> <small>'+(data[i].ibu_usia)+' Tahun </small></span>')); 
+                        
+                        // tr.find('td:nth-child(2)').append($('<div>')
+                        //     .html('<a href="javascript:;" class="btn_edit_ortu" data="'+data[i].ortu_id+'"> <i class="text-pink fas fa-female"></i> '+(data[i].ortu_ibu)+'</a>'+' - '+'<span class="text-muted" <small>'+(data[i].ibu_usia)+' Tahun </small></span>')); 
 
                         tr.find('td:nth-child(3)').append($('<div>')
-                            .html((data[i].peru_ayah))); 
+                            .html('<i class="text-info fas fa-male"></i> '+(data[i].peru_ayah))); 
+                        
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html('<i class="text-pink fas fa-female"></i> '+(data[i].peru_ibu))); 
 
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_ortu" data="'+data[i].ortu_id+'">'+(data[i].ortu_ibu)+'</a>')); 
+                            .html((data[i].provinsi)+', '+(data[i].kota)+', '+(data[i].kecamatan)));
 
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<span class="text-muted">'+(data[i].ibu_usia)+' Tahun</span>'));
+                            .html((data[i].ortu_alamat))); 
                         
-                        tr.find('td:nth-child(5)').append($('<div>')
-                            .html((data[i].peru_ayah))); 
-                        
-                        tr.find('td:nth-child(6)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].jenis_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].jenis_id+'"><i class="mdi mdi-window-close"></i></a></div>');   
-                        
+                        tr.find('td:nth-child(5)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].jenis_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].jenis_kode+'"><i class="mdi mdi-check"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].jenis_kode+'"><i class="mdi mdi-window-close"></i></a></div>');   
 
-                     
+                        
                         tr.appendTo($('#show_data_ortu'));
                     }
 
-                } //else {
+                } 
+                else {
 
-                //       $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
+                      $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
 
-                //  }
-                $('#datatable').DataTable('refresh'); 
+                 }
+                $('#datatable_ortu').DataTable('refresh'); 
             }
         });
     }
@@ -1229,7 +1251,7 @@
 
         $.ajax({
             type: "GET",
-            url: "{{ route('ortu.edit') }}",
+            url: "{{ route('dapok.ortu.edit') }}",
             dataType: "JSON",
             data: {
                 id: id
@@ -1880,7 +1902,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('ortu.save') }}",
+            url: "{{ route('dapok.ortu.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,

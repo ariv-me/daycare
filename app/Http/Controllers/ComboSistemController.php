@@ -34,7 +34,7 @@ class ComboSistemController extends Controller
      public function combo_kecamatan(Request $r)
      {
          $kota = $r->kota;
-         $data = DB::connection('mysql')
+         $data = DB::connection('spf')
                          ->table('sistem_ta_3_kecamatan as aa')
                          ->where('aa.kota_id',$kota)
                          ->orderby('aa.kec_nama')
@@ -49,7 +49,7 @@ class ComboSistemController extends Controller
      {
  
          $provinsi = $r->provinsi;
-         $data = DB::connection('mysql')
+         $data = DB::connection('spf')
                          ->table('sistem_ta_2_kota as aa')
                          ->where('aa.pro_id',$provinsi)
                          ->get();
@@ -61,7 +61,7 @@ class ComboSistemController extends Controller
      public function combo_provinsi()
      {
  
-         $data = DB::connection('mysql')
+         $data = DB::connection('spf')
                          ->table('sistem_ta_1_provinsi as aa')
                          ->orderby('pro_nama')
                          ->get();
@@ -113,7 +113,7 @@ class ComboSistemController extends Controller
      /*-- JENJANG PENDIDIKAN--*/
      public function combo_pendidikan(){
 
-        $data = DB::connection('mysql')
+        $data = DB::connection('spf')
                     ->table('sistem_ta_pendidikan AS aa')
                     ->where('pdk_aktif','Y')
                     ->get();
@@ -124,7 +124,7 @@ class ComboSistemController extends Controller
 
     /*-- HUBUNGAN  --*/
     public function combo_hubungan(){
-        $data = DB::connection('mysql')
+        $data = DB::connection('spf')
                     ->table('sistem_ta_hubungan AS aa')
                     ->where('hub_aktif','Y')
                     ->orderby('hub_level','asc')
