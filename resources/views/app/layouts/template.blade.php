@@ -45,6 +45,14 @@
         <link href="{{ asset('resources/templates3/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet"  type="text/css">
 
         <style>
+
+            hr {
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                border: 0;
+                border-top: 1px solid #FF9800;
+            }
+            
             .table td, .table th {
                 font-size: 13px;
                 padding: 0.3rem;

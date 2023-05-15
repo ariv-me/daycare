@@ -128,25 +128,24 @@
                             <div class="col-md-9">  
                                 
                             </div>
-                            <div class="col-md-3 mb-2" style="text-align: right">
+                            <div class="col-md-3" style="text-align: right">
                                 <button type="submit" class="btn btn-primary btn-round btn-xs waves-effect waves-light" id="btn_add_penjemput">
                                     <i class="fas fa-plus"></i> TAMBAH DATA
                                 </button>
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table id="#" class="table table-bordered dt-responsive wrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <table class="table table-sm mt-2 table-centered" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead class="thead-light">
                                     <tr>
                                         <th style="text-align: center">NO</th>
-                                        <th style="text-align: center">NAMA</th>
-                                        <th style ="text-align: center">HUBUNGAN</th>
-                                        <th style="text-align: center">PEKERJAAN</th>
-                                        <th style ="text-align: center">ALAMAT</th>
+                                        <th style="text-align: center">AYAH</th>
+                                        <th style ="text-align: center">IBU</th>
+                                        <th style ="text-align: center">ANAK</th>
                                         <th style ="text-align: center">AKSI</th>
                                     </tr>
                                 </thead>
-                                <tbody id="show_data_penjemput"></tbody>
+                                <tbody id="show_data_pejemput"></tbody>
                             </table>
                         </div>
                     </div>
@@ -395,11 +394,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Provinsi <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="provinsi" id="provinsi" onchange="showOrtuProvinsi(this)"></select>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="provinsi" id="provinsi" onchange="showFilterProvinsi(this)"></select>
                             </div>
                             <div class="col-md-3">
                                 <label>Kabupaten/Kota <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="kota" id="kota" onchange="showOrtuKota(this)"></select>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="kota" id="kota" onchange="showFilterKota(this)"></select>
                             </div>
                             <div class="col-md-3">
                                 <label>Kecamatan <small class="red">*</small></label>
@@ -432,7 +431,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
-            <input type="hidden" class="form-control" id="id_edit_ortu" name="id_edit_ortu">
+            <input type="text" class="form-control" id="id_edit_ortu" name="id_edit_ortu">
             <div class="modal-body">
 
                     <div class="col-lg-12">
@@ -541,11 +540,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Provinsi <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="provinsi" id="provinsi_edit" onchange="showOrtuProvinsiEdit(this)"></select>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="provinsi" id="provinsi_edit" onchange="showFilterProvinsi(this)"></select>
                             </div>
                             <div class="col-md-3">
                                 <label>Kabupaten/Kota <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="kota" id="kota_edit" onchange="showOrtuKotaEdit(this)"></select>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="kota" id="kota_edit" onchange="showFilterKota(this)"></select>
                             </div>
                             <div class="col-md-3">
                                 <label>Kecamatan <small class="red">*</small></label>
@@ -553,7 +552,7 @@
                             </div>
                             <div class="col-sm-12 mt-2">
                                 <label for="example-datetime-local-input" class="">Alamat</label>
-                                <input type="text" class="form-control" id="ortu_lamat_edit" name="alamat">
+                                <input type="text" class="form-control" id="ayah_alamat_edit" name="ayah_alamat">
                             </div>
                         </div>
                     </div>
@@ -562,8 +561,8 @@
 
             <div class="modal-footer text-right">
                 <button type="button" class="btn btn-secondary btn-xs" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-warning btn-xs" id="btn_update_ortu">
-                    <i class="fas fa-save"></i> UPDATE
+                <button type="submit" class="btn btn-info btn-xs" id="btn_update_ortu">
+                    <i class="fas fa-save"></i> SIMPAN
                 </button>
             </div>
         </div>
@@ -574,119 +573,6 @@
 {{-- PENJEMPUT --}}
 
 <div class="modal modal-default-modal-lg fade" id="formModalAddPenjemput">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-        <div class="modal-content" style="background-color: #ffffff">
-            <div class="modal-header">
-                <h5 class="modal-title"> <strong>Data Penjemput</strong> </h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-
-                    <div class="col-lg-12">
-                        {{-- <h4 class="card-title">AYAH</h4>
-                        <p class="text-muted mb-3">Form Input Data Ayah</p> --}}
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="example-text-input" class="">Nama</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="penjemput_nama" name="penjemput_nama">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3">
-                                <label for="example-email-input" class=""> NIK</label>
-                                <input type="text" class="form-control" id="penjemput_nik" name="penjemput_nik" onkeypress="return angka(this, event)">
-                            </div>
-
-                            <div class="col-sm-3">
-                                <label for="example-email-input" class=""> Tempat Lahir</label>
-                                <input type="text" class="form-control" id="penjemput_tmp_lahir" name="penjemput_tmp_lahir">
-                            </div>
-
-                            <div class="col-sm-3  mt-2">
-                                <label for="example-tel-input" class=""> Jenis Kelamin</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_jekel" id="penjemput_jekel"></select>
-                            </div>
-
-                            <div class="col-sm-3 mt-2">
-                                <label for="example-email-input" class=""> Tanggl Lahir</label>
-                                <input type="date" class="form-control datepicker" id="penjemput_lahir" name="penjemput_lahir">
-                            </div>
-
-                            <div class="col-sm-3 mt-2">
-                                <label for="example-tel-input" class=""> Agama</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_agama" id="penjemput_agama"></select>
-                            </div>
-
-                            <div class="col-sm-3 mt-2">
-                                <label for="example-tel-input" class=""> Status hubungan</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_hubungan" id="penjemput_hubungan"></select>
-                            </div>
-
-                            <div class="col-sm-3  mt-2">
-                                <label for="example-tel-input" class=""> Jenis Pekerjaan</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_kerja" id="penjemput_kerja"></select>
-                            </div>
-
-                            <div class="col-sm-3 mt-2">
-                                <label for="example-tel-input" class=""> Perusahaan</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_perusahaan" id="penjemput_perusahaan"></select>
-                            </div>
-                            <div class="col-sm-3 mt-2">
-                                <label for="example-tel-input" class=""> Tingkat Pendidikan</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_pdk" id="penjemput_pdk"></select>
-                            </div>
-
-                            <div class="col-sm-3 mt-2">
-                                <label for="example-number-input" class="">Nomor HP</label>
-                                <input type="text" class="form-control" id="penjemput_hp" name="penjemput_hp" onkeypress="return angka(this, event)">
-                            </div>
-                            <div class="col-sm-3 mt-2">
-                                <label for="example-number-input" class="">Nomor WA</label>
-                                <input type="text" class="form-control" id="penjemput_wa" name="penjemput_wa" onkeypress="return angka(this, event)">
-                            </div>
-                           
-                        
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Provinsi <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_provinsi" id="penjemput_provinsi" onchange="showFilterProvinsiPenjemput(this)"></select>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Kabupaten/Kota <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_kota" id="penjemput_kota" onchange="showFilterKotaPenjemput(this)"></select>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Kecamatan <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_kecamatan" id="penjemput_kecamatan"></select>
-                            </div>
-                            <div class="col-sm-12 mt-2">
-                                <label for="example-datetime-local-input" class="">Alamat</label>
-                                <input type="text" class="form-control" id="penjemput_alamat" name="penjemput_alamat">
-                            </div>
-                        </div>
-                    </div>
-
-            </div>
-
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-info btn-sm" id="btn_simpan_penjemput">
-                    <i class="fas fa-save"></i> SIMPAN
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal modal-default-modal-lg fade" id="formModalEditPenjemput">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content" style="background-color: #ffffff">
             <div class="modal-header">
@@ -824,7 +710,92 @@
 </div>
 
 
+<div class="modal modal-default fade" id="formModalPekerjaan">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> <strong>Jenis Pekerjaan</strong> </h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {!! csrf_field() !!}
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <input type="hidden" class="form-control" id="id_kerja" name="id_kerja">
+                        <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="kerja_nama" name="kerja_nama">
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-success btn-md" id="btn_simpan_kerja"> <i class="fa fa-save"></i> </button>
+                            </span>
+                        </div> 
+                    </div>
+                </div>
+                <hr class="hr-dashed">
+                <table id="datatable3" class="table table-bordered mb-0 mt-4 table-centered">
+                    <thead>
+                        <tr>
+                            <th width ="2%" style="text-align: center">NO</th>
+                            <th width ="100%" style="text-align: center">NAMA</th>
+                            <th width ="10%" style ="text-align: center">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="show_data_pekerjaan"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal modal-default-modal-lg fade" id="formModalPerusahaan">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> <strong>Perusahaan</strong> </h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {!! csrf_field() !!}
+                <div class="form-group row mb-3">
+                    <input type="text" class="form-control" id="id_perusahaan" name="id_perusahaan">
+                    <div class="col-sm-6">
+                        <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
+                        <input type="text" class="form-control" id="perusahaan_nama" name="perusahaan_nama">
+                    </div>
+                    <div class="col-sm-6">
+                        <label> <strong>Grup</strong>  <small class="text-danger">*</small></label>
+                        <select class="form-control custom-select select2" style="width: 100%;" name="perusahaan_grup" id="perusahaan_grup"></select>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <input type="hidden" class="form-control" id="id_perusahaan" name="id_perusahaan">
+                        <label> <strong>Alamat</strong>  <small class="text-danger">*</small></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="perusahaan_alamat" name="perusahaan_alamat">
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-success btn-md" id="btn_simpan_perusahaan"> <i class="fa fa-save"></i> </button>
+                            </span>
+                        </div> 
+                    </div>
+                </div>
+                <hr class="hr-dashed">
+                <table id="datatable4" class="table table-bordered mb-0 mt-4 table-centered">
+                    <thead>
+                        <tr>
+                            <th width ="1%" style="text-align: center">NO</th>
+                            <th width ="30%" style="text-align: center">NAMA</th>
+                            <th width ="25%" style="text-align: center">GRUP</th>
+                            <th width ="60%" style="text-align: center">ALAMAT</th>
+                            <th width ="5%" style ="text-align: center">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="show_data_perusahaan"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 
@@ -854,14 +825,13 @@
       
        // view();
         view_ortu();
-        view_penjemput();
         reset();
 
     });
 
-    // ORTU
+    // ayah
 
-    function showOrtuProvinsi(select){
+    function showFilterProvinsi(select){
         var provinsi=$('#provinsi').val();
         combo_kota(provinsi);
 
@@ -869,14 +839,14 @@
         combo_kecamatan(kota);
     }
 
-    function showOrtuKota(select){
+    function showFilterKota(select){
         var kota=$('#kota').val();
         combo_kecamatan(kota);
     }
 
-    // ORTU
+    // ayah EDIT
 
-    function showOrtuProvinsiEdit(select){
+    function showFilterProvinsiEdit(select){
         var provinsi=$('#provinsi_edit').val();
         combo_kota(provinsi);
 
@@ -884,7 +854,7 @@
         combo_kecamatan(kota);
     }
 
-    function showOrtuKotaEdit(select){
+    function showFilterKotaEdit(select){
         var kota=$('#kota_edit').val();
         combo_kecamatan(kota);
     }
@@ -959,6 +929,17 @@
 
     }
 
+    function reset_jenis_kerja(){
+        $('#id_kerja').val(""); 
+        $('#kerja_nama').val("");
+    }
+
+    function reset_perusahaan(){
+        $('#id_perusahaan').val(""); 
+        $('#perusahaan_grup').val("").trigger("change");
+        $('#perusahaan_nama').val("");
+        $('#perusahaan_alamat').val("");
+    }
 
     $('#btn_add').on('click',function(){
 
@@ -967,7 +948,45 @@
 
     });
 
+    $('#btn_kerja').on('click',function(){
 
+        $('#formModalPekerjaan').modal('show');
+        view_jenis_kerja();
+        reset_jenis_kerja();
+    });
+
+    $('#btn_kerja').on('click',function(){
+
+        $('#formModalPekerjaan').modal('show');
+        view_perusahaan();
+        reset_perusahaan();
+    });
+
+    $('#btn_kerja_ibu').on('click',function(){
+
+        $('#formModalPekerjaan').modal('show');
+        view_jenis_kerja();
+        reset_jenis_kerja();
+
+    });
+
+    $('#btn_perusahaan').on('click',function(){
+
+        $('#formModalPerusahaan').modal('show');
+        combo_grup();
+        view_perusahaan();
+        reset_perusahaan();
+
+    });
+
+    $('#btn_perusahaan_ibu').on('click',function(){
+
+        $('#formModalPerusahaan').modal('show');
+        combo_grup();
+        view_perusahaan();
+        reset_perusahaan();
+
+    });
 
     $('#btn_reset_anak').on('click',function(){
         reset();
@@ -1037,8 +1056,7 @@
         view_anak();
     });
 
- 
-    function view_penjemput() {
+    function view() {
 
        $.ajax({
             type: 'GET',
@@ -1047,77 +1065,74 @@
             dataType: 'JSON',
             success: function(r) {
                 var i;
-                $('#datatable_penjemput').DataTable().destroy(); 
-                $('#show_data_penjemput').empty();
+                //$('#datatable').DataTable().destroy(); 
+                $('#show_data').empty();
                 data = r.data;
 
                 if (data.length) {
                     for (i = 0; i < data.length; i++) {
-
-                        if((data[i].ortu_aktif) == 'Y'){
-
+                   
                             var tr = $('<tr>').append([
                                 $('<td class= width="1%" align="center">'),
+                                $('<td class= width="5%" align="left">'),
+                                $('<td class= width="13%" align="center">'),
                                 $('<td class= width="10%" align="left">'),
                                 $('<td class= width="10%" align="left">'),
-                                $('<td class= width="60%" align="left">'),
-                                $('<td class= width="60%" align="left">'),
-                                $('<td class= width="5%" align="center">')
+                                $('<td class= width="10%" align="left">'),
+                                $('<td class= width="5%" align="left">'),
+                                $('<td class= width="5%" align="center">'),
                             ]);
 
-                        } else {
-
-                            var tr = $('<tr style="background-color:#fee6ec;">').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="60%" align="left">'),
-                                $('<td class= width="60%" align="left">'),
-                                $('<td class= width="5%" align="center">')
-                            ]);
-
-                        }
-                   
 
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_ortu" data="'+data[i].ortu_id+'"> '+(data[i].ortu_ayah)+'</a>')); 
-                        
+                            .html('<strong></strong>' +(data[i].ortu_ayah))); 
+
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<small class="text-muted"><i class="mdi mdi-calendar"></i> '+(moment(data[i].ortu_ayah_tgl_lahir).format('DD-MM-YYYY'))+' - '+(data[i].ayah_usia)+' Tahun </small>'));
-                        
+                            .html('<strong></strong>' +(data[i].ortu_ibu)));   
+
                         tr.find('td:nth-child(3)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_ortu" data="'+data[i].ortu_id+'"> '+(data[i].ortu_ibu)+'</a>')); 
-                        
+                            .html('<strong></strong>' +(data[i].ayah_usia) + ' Tahun')); 
+
                         tr.find('td:nth-child(3)').append($('<div>')
-                            .html('<small class="text-muted"><i class="mdi mdi-calendar"></i> '+(moment(data[i].ortu_ibu_tgl_lahir).format('DD-MM-YYYY'))+' - '+(data[i].ibu_usia)+' Tahun </small>'));
-                        
+                            .html('<strong></strong>' +(data[i].ibu_usia) + ' Tahun'));   
+
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<b>Ayah :</b> <small> '+(data[i].peru_ayah)+'</small>')); 
-                        
+                             .html('<strong> </strong>' +(data[i].ayah_kerja)));
+
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<b>Ibu</b> <small> '+(data[i].peru_ibu)+'</small>')); 
-                        
-                        tr.find('td:nth-child(5)').append($('<div>')
-                            .html((data[i].ortu_alamat))); 
+                             .html('<strong></strong>' +(data[i].ibu_kerja))); 
 
                         tr.find('td:nth-child(5)').append($('<div>')
-                            .html('<small class="text-muted">'+(data[i].provinsi)+', '+(data[i].kota)+', '+(data[i].kecamatan)+'</small>'));
-                        
-                        tr.find('td:nth-child(6)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit_ortu" data="'+data[i].ortu_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-info btn-xs item_ortu_aktif" data="'+data[i].ortu_id+'"><i class="mdi mdi-check"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_ortu_nonaktif" data="'+data[i].ortu_id+'"><i class="mdi mdi-window-close"></i></a></div>');   
+                             .html('<strong> </strong>' +(data[i].ayah_agama)));
 
+                        tr.find('td:nth-child(5)').append($('<div>')
+                             .html('<strong></strong>' +(data[i].ibu_agama))); 
+
+                        tr.find('td:nth-child(6)').append($('<div>')
+                             .html('<strong> </strong>' +(data[i].ortu_ayah_hp)));
+
+                        tr.find('td:nth-child(6)').append($('<div>')
+                             .html('<strong></strong>' +(data[i].ortu_ibu_hp))); 
+
+                        tr.find('td:nth-child(7)').append($('<div>')
+                             .html('<strong> </strong>' +(data[i].ortu_ayah_wa)));
+
+                        tr.find('td:nth-child(7)').append($('<div>')
+                             .html('<strong></strong>' +(data[i].ortu_ibu_wa))); 
+
+                        tr.find('td:nth-child(8)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs btn_edit_ortu" data="'+data[i].ortu_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs btn_delete_ortu" data="'+data[i].ortu_id+'"><i class="fas fa-trash"></i></a></div>');   
                         
-                        tr.appendTo($('#show_data_penjemput'));
+                        tr.appendTo($('#show_data'));
                     }
 
-                } 
-                else {
+                } //else {
 
-                      $('#show_data_penjemput').append('<tr><td colspan="10">Data Kosong</td></tr>');
+                //       $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
 
-                 }
-                $('#datatable_penjemput').DataTable('refresh'); 
+                //  }
+                //$('#datatable').DataTable('refresh'); 
             }
         });
     }
@@ -1137,9 +1152,7 @@
 
                 if (data.length) {
                     for (i = 0; i < data.length; i++) {
-
-                        if((data[i].ortu_aktif) == 'Y'){
-
+                   
                             var tr = $('<tr>').append([
                                 $('<td class= width="1%" align="center">'),
                                 $('<td class= width="10%" align="left">'),
@@ -1149,19 +1162,6 @@
                                 $('<td class= width="5%" align="center">')
                             ]);
 
-                        } else {
-
-                            var tr = $('<tr style="background-color:#fee6ec;">').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="60%" align="left">'),
-                                $('<td class= width="60%" align="left">'),
-                                $('<td class= width="5%" align="center">')
-                            ]);
-
-                        }
-                   
 
                         tr.find('td:nth-child(1)').html((i + 1));
 
@@ -1258,7 +1258,143 @@
         });
     }
 
-    // ORANG TUA
+    function view_jenis_kerja() {
+
+       $.ajax({
+            type: 'GET',
+            url: "{{ route('jenis_kerja.view') }}",
+            async: true,
+            dataType: 'JSON',
+            success: function(r) {
+                var i;
+               $('#datatable3').DataTable().destroy(); 
+                $('#show_data_pekerjaan').empty();
+                data = r.data;
+
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        if((data[i].aktif) == 'Y'){
+
+                            var tr = $('<tr>').append([
+                                $('<td class= width="1%" align="center">'),
+                                $('<td class= width="100%" align="left">'),
+                                $('<td class= width="5%" align="center">')
+                            ]);
+
+                        } else {
+
+                            var tr = $('<tr style="background-color:#fee6ec;">').append([
+
+                                $('<td class= width="1%" align="center">'),
+                                $('<td class= width="100%" align="left">'),
+                                $('<td class= width="5%" align="center">')
+                            ]);
+
+                        }
+                   
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html((data[i].kerja_nama))); 
+                        
+                        if((data[i].aktif) == 'Y'){
+
+                            tr.find('td:nth-child(3)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs btn_kerja_edit" data="'+data[i].kerja_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs btn_kerja_nonaktif" data="'+data[i].kerja_id+'"><i class="mdi mdi-window-close"></i></a></div>');   
+
+                        } else {
+                            
+                            tr.find('td:nth-child(3)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs btn_kerja_aktif" data="'+data[i].kerja_id+'"><i class="mdi mdi-check"></i></a></div>');   
+                        
+                        }
+
+
+                        tr.appendTo($('#show_data_pekerjaan'));
+                    }
+
+                } else {
+
+                    $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
+                }
+                $('#datatable3').DataTable('refresh'); 
+            }
+        });
+    }
+
+    function view_perusahaan() {
+
+       $.ajax({
+            type: 'GET',
+            url: "{{ route('perusahaan.view') }}",
+            async: true,
+            dataType: 'JSON',
+            success: function(r) {
+                var i;
+               $('#datatable4').DataTable().destroy(); 
+                $('#show_data_perusahaan').empty();
+                data = r.data;
+
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        if((data[i].peru_aktif) == 'Y'){
+
+                            var tr = $('<tr>').append([
+                                $('<td class= width="1%" align="center">'),
+                                $('<td class= width="40%" align="left">'),
+                                $('<td class= width="40%" align="left">'),
+                                $('<td class= width="60%" align="left">'),
+                                $('<td class= width="5%" align="center">')
+                            ]);
+
+                        } else {
+
+                            var tr = $('<tr style="background-color:#fee6ec;">').append([
+
+                                $('<td class= width="1%" align="center">'),
+                                $('<td class= width="40%" align="left">'),
+                                $('<td class= width="40%" align="left">'),
+                                $('<td class= width="60%" align="left">'),
+                                $('<td class= width="5%" align="center">')
+                            ]);
+
+                        }
+                   
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html((data[i].peru_nama))); 
+                        
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html((data[i].grup_nama))); 
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html((data[i].peru_alamat))); 
+                        
+                        if((data[i].peru_aktif) == 'Y'){
+
+                            tr.find('td:nth-child(5)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs btn_perusahaan_edit" data="'+data[i].peru_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs btn_perusahaan_nonaktif" data="'+data[i].peru_id+'"><i class="mdi mdi-window-close"></i></a></div>');   
+
+                        } else {
+                            
+                            tr.find('td:nth-child(5)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs btn_perusahaan_aktif" data="'+data[i].peru_id+'"><i class="mdi mdi-check"></i></a></div>');   
+                        
+                        }
+
+
+                        tr.appendTo($('#show_data_perusahaan'));
+                    }
+
+                } else {
+
+                    $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
+                }
+                $('#datatable4').DataTable('refresh'); 
+            }
+        });
+    }
 
     $('#show_data_ortu').on('click', '.item_edit_ortu', function() {
 
@@ -1278,7 +1414,7 @@
             combo_kota(),
             combo_provinsi(),
             combo_ayah_pendidikan(),
-            combo_ibu_pendidikan(),  
+            combo_ibu_pendidikan(), 
         )
         .done(function() {
 
@@ -1298,32 +1434,21 @@
                     $('#formModalEditOrtu').modal('show');
                     $('#formModalEditOrtu').find('[name="id_edit_ortu"]').val(data.ortu_id);
                     $('#formModalEditOrtu').find('[name="ayah_nama"]').val(data.ortu_ayah);
-                    $('#formModalEditOrtu').find('[name="ayah_nik"]').val(data.ortu_ayah_nik);
-                    $('#formModalEditOrtu').find('[name="ayah_tmp_lahir"]').val(data.ortu_ayah_tmp_lahir);
-                    $('#formModalEditOrtu').find('[name="ayah_lahir"]').datepicker('setDate',moment(data.ortu_ayah_tgl_lahir).format('DD-MM-YYYY'));
+                    $('#formModalEditOrtu').find('[name="ayah_lahir"]').datepicker('setDate',moment(data.ortu_ayah_lahir).format('DD-MM-YYYY'));
                     $('#formModalEditOrtu').find('[name="ayah_agama"]').val(data.ortu_ayah_agama_id).trigger("change");
                     $('#formModalEditOrtu').find('[name="ayah_perusahaan"]').val(data.ortu_ayah_peru_id).trigger("change");
-                    $('#formModalEditOrtu').find('[name="ayah_pdk"]').val(data.ortu_ayah_pdk_id).trigger("change");
                     $('#formModalEditOrtu').find('[name="ayah_kerja"]').val(data.ortu_ayah_kerja).trigger("change");
                     $('#formModalEditOrtu').find('[name="ayah_hp"]').val(data.ortu_ayah_hp).trigger("change");
                     $('#formModalEditOrtu').find('[name="ayah_wa"]').val(data.ortu_ayah_wa).trigger("change");
                     $('#formModalEditOrtu').find('[name="ayah_alamat"]').val(data.ortu_ayah_alamat).trigger("change");
-
                     $('#formModalEditOrtu').find('[name="ibu_nama"]').val(data.ortu_ibu);
-                    $('#formModalEditOrtu').find('[name="ibu_nik"]').val(data.ortu_ibu_nik);
-                    $('#formModalEditOrtu').find('[name="ibu_tmp_lahir"]').val(data.ortu_ibu_tmp_lahir);
-                    $('#formModalEditOrtu').find('[name="ibu_lahir"]').datepicker('setDate',moment(data.ortu_ibu_tgl_lahir).format('DD-MM-YYYY'));
+                    $('#formModalEditOrtu').find('[name="ibu_lahir"]').datepicker('setDate',moment(data.ortu_ibu_lahir).format('DD-MM-YYYY'));
                     $('#formModalEditOrtu').find('[name="ibu_agama"]').val(data.ortu_ibu_agama_id).trigger("change");
                     $('#formModalEditOrtu').find('[name="ibu_perusahaan"]').val(data.ortu_ibu_peru_id).trigger("change");
-                    $('#formModalEditOrtu').find('[name="ibu_pdk"]').val(data.ortu_ibu_pdk_id).trigger("change");
                     $('#formModalEditOrtu').find('[name="ibu_kerja"]').val(data.ortu_ibu_kerja).trigger("change");
                     $('#formModalEditOrtu').find('[name="ibu_hp"]').val(data.ortu_ibu_hp).trigger("change");
                     $('#formModalEditOrtu').find('[name="ibu_wa"]').val(data.ortu_ibu_wa).trigger("change");
-
-                    $('#formModalEditOrtu').find('[name="provinsi"]').val(data.provinsi_id).trigger("change");
-                    $('#formModalEditOrtu').find('[name="kota"]').val(data.kota_id).trigger("change");
-                    $('#formModalEditOrtu').find('[name="kecamatan"]').val(data.kecamatan_id).trigger("change");
-                    $('#formModalEditOrtu').find('[name="alamat"]').val(data.ortu_alamat).trigger("change");
+                    $('#formModalEditOrtu').find('[name="ibu_alamat"]').val(data.ortu_ibu_alamat).trigger("change");
 
                 }
             });
@@ -1332,57 +1457,265 @@
         return false;
     });
 
-    $('#show_data_ortu').on('click','.item_ortu_aktif',function(){
-        var id=$(this).attr('data');
-        swal({
-                title: "Anda Yakin Non-Aktifkan Data Ini ?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Ya, Non-Aktifkan !",
-                closeOnConfirm: false
-        }, function (isConfirm) {
-            if (isConfirm) {
-                var _token = $('meta[name=csrf-token]').attr('content');
-                $.ajax({
-                    type : "GET",
-                    url   : "{{ route('dapok.ortu.aktif') }}",
-                    dataType : "JSON",
-                    data : {id,_token},
-                    success: function(data){
-                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
-                        view_ortu();
-                    }
-                });  
+    // $('#show_data_ortu').on('click','.btn_edit_ortu',function(){
+
+    //     var id = $(this).attr('data');
+
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "{{ route('dapok.ortu.edit') }}",
+    //         dataType: "JSON",
+    //         data: {
+    //             id: id
+    //         },
+    //         success: function(r) {
+    //             data = r.data;
+
+    //             //console.log(data);
+    //             $('#formModalEditOrtu').modal('show');
+    //             $('#formModalEdit').find('[name="id_edit"]').val(data.deposito_kode);
+    //             $('#formModalEdit').find('[name="trs_edit"]').val(data.trs_kode);
+    //             $('#formModalEdit').find('[name="bank"]').val(data.vendor_id).trigger("change");
+    //             $('#formModalEdit').find('[name="nominal"]').val(r.nominal_edit);
+    //             $('#formModalEdit').find('[name="jangka_waktu"]').val(data.deposito_umur);
+    //             $('#formModalEdit').find('[name="bunga"]').val(data.deposito_bunga);
+    //             $('#formModalEdit').find('[name="no"]').val(data.deposito_biliyet);
+    //             $('#formModalEdit').find('[name="tgl_buka"]').datepicker('setDate',moment(data.deposito_tgl_buka).format('DD-MM-YYYY'));
+    //             $('#formModalEdit').find('[name="status"]').val(data.deposito_status).trigger("change");   
+    //             // $('#formModalEditOrtu').find('[name="id_edit_ortu"]').val(data.ortu_id);
+    //             // $('#formModalEditOrtu').find('[name="ayah_nama"]').val(data.ortu_ayah);
+    //             // $('#formModalEditOrtu').find('[name="ayah_lahir"]').val(data.ortu_ayah_lahir).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ayah_agama"]').val(data.ortu_ayah_agama_id).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ayah_perusahaan"]').val(data.ortu_ayah_peru_id).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ayah_kerja"]').val(data.ortu_ayah_kerja).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ayah_hp"]').val(data.ortu_ayah_hp).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ayah_wa"]').val(data.ortu_ayah_wa).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ayah_alamat"]').val(data.ortu_ayah_alamat).trigger("change");
+
+    //             // $('#formModalEditOrtu').find('[name="ibu_nama"]').val(data.ortu_ibu);
+    //             // $('#formModalEditOrtu').find('[name="ibu_lahir"]').val(data.ortu_ibu_lahir).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ibu_agama"]').val(data.ortu_ibu_agama_id).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ibu_perusahaan"]').val(data.ortu_ibu_peru_id).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ibu_kerja"]').val(data.ortu_ibu_kerja).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ibu_hp"]').val(data.ortu_ibu_hp).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ibu_wa"]').val(data.ortu_ibu_wa).trigger("change");
+    //             // $('#formModalEditOrtu').find('[name="ibu_alamat"]').val(data.ortu_ibu_alamat).trigger("change");
+
+                
+    //         }
+    //     });
+
+    //     return false;
+
+    // });
+
+    $('#show_data_anak').on('click','.btn_edit_anak',function(){
+
+        var id = $(this).attr('data');
+
+        $.ajax({
+            type: "GET",
+            url: "{{ route('anak.edit') }}",
+            dataType: "JSON",
+            data: {
+                id: id
+            },
+            success: function(r) {
+                data = r.data;
+
+                console.log(data);
+
+                $('[name="id_edit_anak"]').val(data.anak_nis);
+                $('[name="ortu"]').val(data.ortu_id).trigger("change");
+                $('[name="anak_nama"]').val(data.anak_nama).trigger("change");
+                $('[name="anak_agama"]').val(data.agama_id).trigger("change");
+                $('[name="anak_jekel"]').val(data.anak_jekel).trigger("change");
+                $('[name="anak_tmp_lahir"]').val(data.anak_tmp_lahir).trigger("change");
+                $('[name="anak_tgl_lahir"]').val(data.anak_tgl_lahir).trigger("change");
+                $('[name="anak_ke"]').val(data.anak_ke).trigger("change");
+                $('[name="anak_saudara"]').val(data.anak_jml_saudara).trigger("change");
+                $('[name="anak_berat"]').val(data.anak_berat).trigger("change");
+                $('[name="anak_tinggi"]').val(data.anak_tinggi).trigger("change");
+
+                $('#formModalAnak').modal('hide');
             }
         });
+
+        return false;
+
     });
 
-    $('#show_data_ortu').on('click','.item_ortu_nonaktif',function(){
-        var id=$(this).attr('data');
-        swal({
-                title: "Anda Yakin Non-Aktifkan Data Ini ?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Ya, Non-Aktifkan !",
-                closeOnConfirm: false
-        }, function (isConfirm) {
-            if (isConfirm) {
-                var _token = $('meta[name=csrf-token]').attr('content');
-                $.ajax({
-                    type : "GET",
-                    url   : "{{ route('dapok.ortu.nonaktif') }}",
-                    dataType : "JSON",
-                    data : {id,_token},
-                    success: function(data){
-                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
-                        view_ortu();
-                    }
-                });  
+    $('#btn_simpan_anak').on('click', function(){
+        
+        if (!$("#ortu").val()) {
+            $.toast({
+                text: 'ORANG TUA MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#ortu").focus();
+            return false;
+
+        } else if (!$("#anak_nama").val()) {
+            $.toast({
+                text: 'NAMA ANAK MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_nama").focus();
+            return false;
+
+        } else if (!$("#anak_jekel").val()) {
+            $.toast({
+                text: 'JENIS KELAMIN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_jekel").focus();
+            return false;
+
+        } else if (!$("#anak_tgl_lahir").val()) {
+            $.toast({
+                text: 'TANGGAL LAHIR MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_tgl_lahir").focus();
+            return false;
+
+        } else if (!$("#anak_tmp_lahir").val()) {
+            $.toast({
+                text: 'TEMPAT LAHIR MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_tmp_lahir").focus();
+            return false;
+
+        } else if (!$("#anak_agama").val()) {
+            $.toast({
+                text: 'AGAMA MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_agama").focus();
+            return false;
+
+        } else if (!$("#anak_ke").val()) {
+            $.toast({
+                text: 'ANAK KE MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_ke").focus();
+            return false;
+
+        } else if (!$("#anak_berat").val()) {
+            $.toast({
+                text: 'BERAT MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_berat").focus();
+            return false;
+
+        } else if (!$("#anak_tinggi").val()) {
+            $.toast({
+                text: 'TINGGI MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_tinggi").focus();
+            return false;
+        }
+        
+        var nis             = $('#id_edit_anak').val();
+        var ortu            = $('#ortu').val();
+        var anak_nama       = $('#anak_nama').val();
+        var anak_tmp_lahir  = $('#anak_tmp_lahir').val();
+        var anak_tgl_lahir  = $('#anak_tgl_lahir').val();
+        var anak_jekel      = $('#anak_jekel').val();
+        var anak_ke         = $('#anak_ke').val();
+        var anak_saudara    = $('#anak_saudara').val();
+        var anak_agama      = $('#anak_agama').val();
+        var anak_alamat     = $('#anak_alamat').val();
+        var anak_berat      = $('#anak_berat').val();
+        var anak_tinggi     = $('#anak_tinggi').val();
+        var token           = $('[name=_token]').val();
+
+        var formData = new FormData();
+    
+        formData.append('nis', nis);
+        formData.append('ortu', ortu);
+        formData.append('anak_nama', anak_nama);
+        formData.append('anak_tmp_lahir', anak_tmp_lahir);
+        formData.append('anak_tgl_lahir', anak_tgl_lahir);
+        formData.append('anak_jekel', anak_jekel);
+        formData.append('anak_ke', anak_ke);
+        formData.append('anak_saudara', anak_saudara);
+        formData.append('anak_agama', anak_agama);
+        formData.append('anak_alamat', anak_alamat);
+        formData.append('anak_berat', anak_berat);
+        formData.append('anak_tinggi', anak_tinggi);
+
+        formData.append('_token', token);
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('anak.save') }}",
+            dataType: "JSON",
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(r) {
+
+                if (r.status == '1') {
+                    swal("Berhasil!", "Data Berhasil Update", "success");
+                    reset();
+                    combo_ortu();
+
+                } else if (r.status == '2'){
+                    swal("Berhasil!", "Data Berhasil Simpan", "success");
+                    reset();
+                    combo_ortu();
+
+                }
+                
             }
         });
+    
+        return false;
+
     });
+
 
     $('#btn_simpan_ortu').on('click', function(){
         
@@ -1735,7 +2068,7 @@
         var ayah_perusahaan = $('#ayah_perusahaan').val();
         var ayah_hp         = $('#ayah_hp').val();
         var ayah_wa         = $('#ayah_wa').val();
-        var ayah_pdk        = $('#ayah_pdk').val();
+        var ayah_pdk         = $('#ayah_pdk').val();
         var ayah_agama      = $('#ayah_agama').val();
 
         var ibu_nama        = $('#ibu_nama').val();
@@ -1809,645 +2142,6 @@
 
     });
 
-    $('#btn_update_ortu').on('click', function(){
-        
-        if (!$("#ayah_nama_edit").val()) {
-            $.toast({
-                text: 'NAMA AYAH MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ayah_nama_edit").focus();
-            return false;
-
-        } 
-        
-        else if (!$("#ayah_nik_edit").val()) {
-            $.toast({
-                text: 'NIK AYAH MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ayah_nik_edit").focus();
-            return false;
-
-        }
-
-        else if (!$("#ayah_tmp_lahir_edit").val()) {
-            $.toast({
-                text: 'TANGGAL LAHIR AYAH  KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ayah_tmp_lahir_edit").focus();
-            return false;
-
-        }
-
-        else if (!$("#ayah_lahir_edit").val()) {
-            $.toast({
-                text: 'TANGGAL LAHIR AYAH  KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ayah_lahir_edit").focus();
-            return false;
-
-        }
-
-        else if (!$("#ayah_agama_edit").val()) {
-            $.toast({
-                text: 'AGAMA AYAH  KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ayah_agama_edit").focus();
-            return false;
-
-        }
-
-        else if (!$("#ayah_kerja_edit").val()) {
-            $.toast({
-                text: 'KERJA AYAH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ayah_kerja_edit").focus();
-            return false;
-
-        }
-
-        else if (!$("#ayah_perusahaan_edit").val()) {
-            $.toast({
-                text: 'PERUSAHAAN AYAH MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ayah_perusahaan_edit").focus();
-            return false;
-
-        } 
-        
-        else if (!$("#ayah_hp_edit").val()) {
-            $.toast({
-                text: 'HP AYAH MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ayah_hp_edit").focus();
-            return false;
-
-        } 
-
-        else if (!$("#ayah_wa_edit").val()) {
-            $.toast({
-                text: 'WA AYAH MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ayah_wa_edit").focus();
-            return false;
-
-        } 
-
-        else if (!$("#ayah_pdk_edit").val()) {
-            $.toast({
-                text: 'PENDIDIKAN AYAH MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ayah_pdk_edit").focus();
-            return false;
-
-        } 
-
-      
-        // IBU 
-        
-        else if (!$("#ibu_nama_edit").val()) {
-            $.toast({
-                text: 'HP IBU MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ibu_nama_edit").focus();
-            return false;
-
-        } 
-        
-        else if (!$("#ibu_nik_edit").val()) {
-            $.toast({
-                text: 'NIK IBU MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ibu_nik_edit").focus();
-            return false;
-
-        } 
-
-        else if (!$("#ibu_tmp_lahir_edit").val()) {
-            $.toast({
-                text: 'TEMPAT LAHIR IBU MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ibu_tmp_lahir_edit").focus();
-            return false;
-
-        } 
-
-        else if (!$("#ibu_lahir_edit").val()) {
-            $.toast({
-                text: 'TANGGAL LAHIR IBU KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ibu_lahir_edit").focus();
-            return false;
-
-        } 
-
-        else if (!$("#ibu_agama_edit").val()) {
-            $.toast({
-                text: 'AGAMA IBU KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ibu_agama_edit").focus();
-            return false;
-
-        } 
-
-        else if (!$("#ibu_kerja_edit").val()) {
-            $.toast({
-                text: 'JENIS KERJA IBU MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ibu_kerja_edit").focus();
-            return false;
-
-        } 
-
-        else if (!$("#ibu_perusahaan_edit").val()) {
-            $.toast({
-                text: 'PERUSAHAAN IBU MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ibu_perusahaan_edit").focus();
-            return false;
-
-        } 
-        
-        else if (!$("#ibu_hp_edit").val()) {
-            $.toast({
-                text: 'HP IBU MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ibu_hp_edit").focus();
-            return false;
-
-        }
-
-        else if (!$("#ibu_wa_edit").val()) {
-            $.toast({
-                text: 'WA IBU MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ibu_wa_edit").focus();
-            return false;
-
-        }
-
-        else if (!$("#ibu_pdk_edit").val()) {
-            $.toast({
-                text: 'PENDIDIKAN IBU MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ibu_pdk_edit").focus();
-            return false;
-
-        }
-
-        else if (!$("#provinsi_edit").val()) {
-            $.toast({
-                text: 'PROVINSI AYAH MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#provinsi_edit").focus();
-            return false;
-
-        } 
-
-        else if (!$("#kota_edit").val()) {
-            $.toast({
-                text: 'KOTA AYAH MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#kota_edit").focus();
-            return false;
-
-        } 
-
-        else if (!$("#kecamatan_edit").val()) {
-            $.toast({
-                text: 'KECAMATAN AYAH MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#kecamatan_edit").focus();
-            return false;
-
-        } 
-        
-        else if (!$("#ortu_lamat_edit").val()) {
-            $.toast({
-                text: 'ALAMAT AYAH MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ortu_lamat_edit").focus();
-            return false;
-
-        }
-
-
-        var id              = $('#id_edit_ortu').val();
-        var ayah_nama       = $('#ayah_nama_edit').val();
-        var ayah_nik        = $('#ayah_nik_edit').val();
-        var ayah_tmp_lahir  = $('#ayah_tmp_lahir_edit').val();
-        var ayah_lahir      = $('#ayah_lahir_edit').val();
-        var ayah_kerja      = $('#ayah_kerja_edit').val();
-        var ayah_perusahaan = $('#ayah_perusahaan_edit').val();
-        var ayah_hp         = $('#ayah_hp_edit').val();
-        var ayah_wa         = $('#ayah_wa_edit').val();
-        var ayah_pdk        = $('#ayah_pdk_edit').val();
-        var ayah_agama      = $('#ayah_agama_edit').val();
-
-        var ibu_nama        = $('#ibu_nama_edit').val();
-        var ibu_nik         = $('#ibu_nik_edit').val();
-        var ibu_lahir       = $('#ibu_lahir_edit').val();
-        var ibu_tmp_lahir   = $('#ibu_tmp_lahir_edit').val();
-        var ibu_kerja       = $('#ibu_kerja_edit').val();
-        var ibu_perusahaan  = $('#ibu_perusahaan_edit').val();
-        var ibu_hp          = $('#ibu_hp_edit').val();
-        var ibu_wa          = $('#ibu_wa_edit').val();
-        var ibu_pdk         = $('#ibu_pdk_edit').val();
-        var ibu_agama       = $('#ibu_agama_edit').val();
-
-        var provinsi        = $('#provinsi_edit').val();
-        var kota            = $('#kota_edit').val();
-        var kecamatan       = $('#kecamatan_edit').val();
-        var alamat          = $('#ortu_lamat_edit').val(); 
-
-        console.log(alamat);
-
-        var token = $('[name=_token]').val();
-        var formData = new FormData();
-    
-        formData.append('id', id);
-        formData.append('ayah_nama', ayah_nama);
-        formData.append('ayah_nik', ayah_nik);
-        formData.append('ayah_lahir', ayah_lahir);
-        formData.append('ayah_tmp_lahir', ayah_tmp_lahir);
-        formData.append('ayah_kerja', ayah_kerja);
-        formData.append('ayah_perusahaan', ayah_perusahaan);
-        formData.append('ayah_hp', ayah_hp);
-        formData.append('ayah_wa', ayah_wa);
-        formData.append('ayah_agama', ayah_agama);
-        formData.append('ayah_pdk', ayah_pdk);
-
-        formData.append('ibu_nama', ibu_nama);
-        formData.append('ibu_nik', ibu_nik);
-        formData.append('ibu_tmp_lahir', ibu_tmp_lahir);
-        formData.append('ibu_lahir', ibu_lahir);
-        formData.append('ibu_kerja', ibu_kerja);
-        formData.append('ibu_perusahaan', ibu_perusahaan);
-        formData.append('ibu_hp', ibu_hp);
-        formData.append('ibu_wa', ibu_wa);
-        formData.append('ibu_agama', ibu_agama);
-        formData.append('ibu_pdk', ibu_pdk);
-
-        formData.append('provinsi', provinsi);
-        formData.append('kota', kota);
-        formData.append('kecamatan', kecamatan);
-        formData.append('alamat', alamat);
-
-        formData.append('_token', token);
-
-        $.ajax({
-            type: "POST",
-            url: "{{ route('dapok.ortu.update') }}",
-            dataType: "JSON",
-            data: formData,
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function(data) {
-
-                swal("Berhasil!", "Data Berhasil Di Simpan", "success");
-                $('#formModalEditOrtu').modal('hide');
-                view_ortu();    
-                
-            }
-        });
-    
-        return false;
-
-    });
-
-
-    // PENJEMPUT
-
-
-    $('#show_data_anak').on('click','.btn_edit_anak',function(){
-
-        var id = $(this).attr('data');
-
-        $.ajax({
-            type: "GET",
-            url: "{{ route('anak.edit') }}",
-            dataType: "JSON",
-            data: {
-                id: id
-            },
-            success: function(r) {
-                data = r.data;
-
-                console.log(data);
-
-                $('[name="id_edit_anak"]').val(data.anak_nis);
-                $('[name="ortu"]').val(data.ortu_id).trigger("change");
-                $('[name="anak_nama"]').val(data.anak_nama).trigger("change");
-                $('[name="anak_agama"]').val(data.agama_id).trigger("change");
-                $('[name="anak_jekel"]').val(data.anak_jekel).trigger("change");
-                $('[name="anak_tmp_lahir"]').val(data.anak_tmp_lahir).trigger("change");
-                $('[name="anak_tgl_lahir"]').val(data.anak_tgl_lahir).trigger("change");
-                $('[name="anak_ke"]').val(data.anak_ke).trigger("change");
-                $('[name="anak_saudara"]').val(data.anak_jml_saudara).trigger("change");
-                $('[name="anak_berat"]').val(data.anak_berat).trigger("change");
-                $('[name="anak_tinggi"]').val(data.anak_tinggi).trigger("change");
-
-                $('#formModalAnak').modal('hide');
-            }
-        });
-
-        return false;
-
-    });
-
-    $('#btn_simpan_anak').on('click', function(){
-        
-        if (!$("#ortu").val()) {
-            $.toast({
-                text: 'ORANG TUA MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ortu").focus();
-            return false;
-
-        } else if (!$("#anak_nama").val()) {
-            $.toast({
-                text: 'NAMA ANAK MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#anak_nama").focus();
-            return false;
-
-        } else if (!$("#anak_jekel").val()) {
-            $.toast({
-                text: 'JENIS KELAMIN MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#anak_jekel").focus();
-            return false;
-
-        } else if (!$("#anak_tgl_lahir").val()) {
-            $.toast({
-                text: 'TANGGAL LAHIR MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#anak_tgl_lahir").focus();
-            return false;
-
-        } else if (!$("#anak_tmp_lahir").val()) {
-            $.toast({
-                text: 'TEMPAT LAHIR MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#anak_tmp_lahir").focus();
-            return false;
-
-        } else if (!$("#anak_agama").val()) {
-            $.toast({
-                text: 'AGAMA MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#anak_agama").focus();
-            return false;
-
-        } else if (!$("#anak_ke").val()) {
-            $.toast({
-                text: 'ANAK KE MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#anak_ke").focus();
-            return false;
-
-        } else if (!$("#anak_berat").val()) {
-            $.toast({
-                text: 'BERAT MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#anak_berat").focus();
-            return false;
-
-        } else if (!$("#anak_tinggi").val()) {
-            $.toast({
-                text: 'TINGGI MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#anak_tinggi").focus();
-            return false;
-        }
-        
-        var nis             = $('#id_edit_anak').val();
-        var ortu            = $('#ortu').val();
-        var anak_nama       = $('#anak_nama').val();
-        var anak_tmp_lahir  = $('#anak_tmp_lahir').val();
-        var anak_tgl_lahir  = $('#anak_tgl_lahir').val();
-        var anak_jekel      = $('#anak_jekel').val();
-        var anak_ke         = $('#anak_ke').val();
-        var anak_saudara    = $('#anak_saudara').val();
-        var anak_agama      = $('#anak_agama').val();
-        var anak_alamat     = $('#anak_alamat').val();
-        var anak_berat      = $('#anak_berat').val();
-        var anak_tinggi     = $('#anak_tinggi').val();
-        var token           = $('[name=_token]').val();
-
-        var formData = new FormData();
-    
-        formData.append('nis', nis);
-        formData.append('ortu', ortu);
-        formData.append('anak_nama', anak_nama);
-        formData.append('anak_tmp_lahir', anak_tmp_lahir);
-        formData.append('anak_tgl_lahir', anak_tgl_lahir);
-        formData.append('anak_jekel', anak_jekel);
-        formData.append('anak_ke', anak_ke);
-        formData.append('anak_saudara', anak_saudara);
-        formData.append('anak_agama', anak_agama);
-        formData.append('anak_alamat', anak_alamat);
-        formData.append('anak_berat', anak_berat);
-        formData.append('anak_tinggi', anak_tinggi);
-
-        formData.append('_token', token);
-
-        $.ajax({
-            type: "POST",
-            url: "{{ route('anak.save') }}",
-            dataType: "JSON",
-            data: formData,
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function(r) {
-
-                if (r.status == '1') {
-                    swal("Berhasil!", "Data Berhasil Update", "success");
-                    reset();
-                    combo_ortu();
-
-                } else if (r.status == '2'){
-                    swal("Berhasil!", "Data Berhasil Simpan", "success");
-                    reset();
-                    combo_ortu();
-
-                }
-                
-            }
-        });
-    
-        return false;
-
-    });
-
-
-    
 
     $('#btn_simpan_penjemput').on('click', function(){
         
@@ -2726,55 +2420,347 @@
     $('#btn_proses').on('click', function(){
     
     
-        var daftar_tanggal   = $('#daftar_tanggal').val();
-        var daftar_nis       = $('#daftar_nis').val();
-        var daftar_anak      = $('#daftar_anak').val();
-        var perusahaan       = $('#perusahaan').val();
-        var jenis      = $('#jenis').val();
+    var daftar_tanggal   = $('#daftar_tanggal').val();
+    var daftar_nis       = $('#daftar_nis').val();
+    var daftar_anak      = $('#daftar_anak').val();
+    var perusahaan       = $('#perusahaan').val();
+    var jenis      = $('#jenis').val();
 
-        console.log(daftar_anak);
-        
-        var token = $('[name=_token]').val();
+    console.log(daftar_anak);
+    
+    var token = $('[name=_token]').val();
 
-        var formData = new FormData();
+    var formData = new FormData();
 
-            formData.append('daftar_nis', daftar_nis);
-            formData.append('daftar_anak', daftar_anak);
-            formData.append('perusahaan', perusahaan);
-            formData.append('jenis', jenis);
+        formData.append('daftar_nis', daftar_nis);
+        formData.append('daftar_anak', daftar_anak);
+        formData.append('perusahaan', perusahaan);
+        formData.append('jenis', jenis);
 
-            formData.append('_token', token);
+        formData.append('_token', token);
 
-            $.ajax({
-                type: "POST",
-                url: "{{ route('pendaftaran.save') }}",
-                dataType: "JSON",
-                    data: formData,
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        $.toast({
-                            text: 'BERHASIL',
-                            position: 'top-right',
-                            loaderBg: '#2bc155',
-                            icon: 'success',
-                            hideAfter: 3000
-                        });
-                        reset();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('pendaftaran.save') }}",
+            dataType: "JSON",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    $.toast({
+                        text: 'BERHASIL',
+                        position: 'top-right',
+                        loaderBg: '#2bc155',
+                        icon: 'success',
+                        hideAfter: 3000
+                    });
+                    reset();
 
-                    }
-                });
+                }
+            });
 
-            return false;
+        return false;
 
     });
-  
 
-   
+    $('#btn_simpan_kerja').on('click', function(){
+        
+        if (!$("#kerja_nama").val()) {
+            $.toast({
+                text: 'NAMA PEKERJAAN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#kerja_nama").focus();
+            return false;
+        } 
+        
+       
+        var id             = $('#id_kerja').val();
+        var kerja_nama     = $('#kerja_nama').val();
+        var token          = $('[name=_token]').val();
+
+        var formData = new FormData();
+    
+        formData.append('id', id);
+        formData.append('kerja_nama', kerja_nama);
+        formData.append('_token', token);
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('jenis_kerja.save') }}",
+            dataType: "JSON",
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(r) {
+
+                if (r.status == '1') {
+                    swal("Berhasil!", "Data Berhasil Update", "success");
+                    reset_jenis_kerja();
+                    view_jenis_kerja();
+                    combo_kerja_ayah();
+                    combo_kerja_ibu();
+
+                } else if (r.status == '2'){
+                    swal("Berhasil!", "Data Berhasil Simpan", "success");
+                    reset_jenis_kerja();
+                    view_jenis_kerja();
+                    combo_kerja_ayah();
+                    combo_kerja_ibu();
+
+                }
+                $('#formModalPekerjaan').modal('hide')
+            }
+        });
+    
+        return false;
+
+    });
+
+    $('#show_data_pekerjaan').on('click','.btn_kerja_edit',function(){
+
+        var id = $(this).attr('data');
+
+        $.ajax({
+            type: "GET",
+            url: "{{ route('jenis_kerja.edit') }}",
+            dataType: "JSON",
+            data: {
+                id: id
+            },
+            success: function(r) {
+                data = r.data;
+
+                console.log(data);
+
+                $('#formModalPekerjaan').find('[name="id_kerja"]').val(r.kerja_id);
+                $('#formModalPekerjaan').find('[name="kerja_nama"]').val(r.kerja_nama);
+
+            }
+        });
+
+        return false;
+
+    });
+
+    $('#show_data_pekerjaan').on('click','.btn_kerja_aktif',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Non-Aktifkan Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Non-Aktifkan !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('jenis_kerja.aktif') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
+                        $('#formModalPekerjaan').modal('hide');
+                        reset_jenis_kerja();
+                        view_jenis_kerja();
+                        combo_kerja_ayah();
+                        combo_kerja_ibu();
+                    }
+                });  
+            }
+        });
+    });
+
+    $('#show_data_pekerjaan').on('click','.btn_kerja_nonaktif',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Non-Aktifkan Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Non-Aktifkan !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('jenis_kerja.nonaktif') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
+                        $('#formModalPekerjaan').modal('hide')
+                        reset_jenis_kerja();
+                        view_jenis_kerja();
+                        combo_kerja_ayah();
+                        combo_kerja_ibu();
+                    }
+                });  
+            }
+        });
+    });
+
+    $('#btn_simpan_perusahaan').on('click', function(){
+        
+        if (!$("#perusahaan_nama").val()) {
+            $.toast({
+                text: 'NAMA PERUSAHAAN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#perusahaan_nama").focus();
+            return false;
+
+        } else if (!$("#perusahaan_grup").val()) {
+            $.toast({
+                text: 'GRUP PERUSAHAAN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#perusahaan_grup").focus();
+            return false;
+
+        } else if (!$("#perusahaan_alamat").val()) {
+            $.toast({
+                text: 'ALAMAT PERUSAHAAN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#perusahaan_alamat").focus();
+            return false;
+        }
+        
+       
+        var id                  = $('#id_perusahaan').val();
+        var perusahaan_nama     = $('#perusahaan_nama').val();
+        var perusahaan_grup     = $('#perusahaan_grup').val();
+        var perusahaan_alamat   = $('#perusahaan_alamat').val();
+        var token               = $('[name=_token]').val();
+
+        var formData = new FormData();
+    
+        formData.append('id', id);
+        formData.append('perusahaan_nama', perusahaan_nama);
+        formData.append('perusahaan_grup', perusahaan_grup);
+        formData.append('perusahaan_alamat', perusahaan_alamat);
+        formData.append('_token', token);
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('perusahaan.save') }}",
+            dataType: "JSON",
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(r) {
+
+                if (r.status == '1') {
+                    swal("Berhasil!", "Data Berhasil Update", "success");
+                    reset_perusahaan();
+                    view_perusahaan();
+                    combo_perusahaan();
+                    combo_perusahaan_ibu();
+
+                } else if (r.status == '2'){
+                    swal("Berhasil!", "Data Berhasil Simpan", "success");
+                    reset_perusahaan();
+                    view_perusahaan();
+                    combo_perusahaan();
+                    combo_perusahaan_ibu();
+
+                }
+                $('#formModalPerusahaan').modal('hide')
+            }
+        });
+    
+        return false;
+
+    });
 
 
-    /*-- ORANG TUA --*/
+
+    $('#show_data_perusahaan').on('click','.btn_perusahaan_aktif',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Non-Aktifkan Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Non-Aktifkan !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('perusahaan.aktif') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
+                        $('#formModalPerusahaan').modal('hide');
+                        reset_perusahaan();
+                        view_perusahaan();
+                        combo_perusahaan();
+                        combo_perusahaan_ibu();
+                    }
+                });  
+            }
+        });
+    });
+
+    $('#show_data_perusahaan').on('click','.btn_perusahaan_nonaktif',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Non-Aktifkan Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Non-Aktifkan !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('perusahaan.nonaktif') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
+                        $('#formModalPerusahaan').modal('hide')
+                        reset_perusahaan();
+                        view_perusahaan();
+                        combo_perusahaan();
+                        combo_perusahaan_ibu();
+                    }
+                });  
+            }
+        });
+    });
+
+
+
+    /*-- AYAH --*/
 
     function combo_kecamatan(kota){
         $.ajax({
@@ -2852,7 +2838,7 @@
         });
     }
 
-    /*-- PENJEMPUT --*/
+    /*-- IBU --*/
 
     function combo_kecamatan_penjemput(kota){
         $.ajax({

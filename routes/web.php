@@ -70,8 +70,8 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 		Route::post('/save', [DapokOrtuController::class, 'save'])->name('save');
 		Route::get('/edit', [DapokOrtuController::class, 'edit'])->name('edit');
 		Route::post('/update', [DapokOrtuController::class, 'update'])->name('update');
-		Route::post('/aktif', [DapokOrtuController::class, 'aktif'])->name('aktif');
-		Route::post('/nonaktif', [DapokOrtuController::class, 'nonaktif'])->name('nonaktif');
+		Route::get('/aktif', [DapokOrtuController::class, 'aktif'])->name('aktif');
+		Route::get('/nonaktif', [DapokOrtuController::class, 'nonaktif'])->name('nonaktif');
 		
 	});
 
