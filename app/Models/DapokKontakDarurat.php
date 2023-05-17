@@ -7,11 +7,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KontakDarurat extends Model
+class DapokKontakDarurat extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'daftar_tb_korat';
-    protected $primaryKey = 'korat_id';
+    protected $table = 'dapok_tb_kontak';
+    protected $primaryKey = 'kontak_id';
 
 }
 

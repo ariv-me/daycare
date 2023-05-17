@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use DB;
 
 use App\Models\Pendaftaran;
-use App\Models\DapokPenjemput;
+use App\Models\DapokKontakDarurat;
 use App\Models\Perusahaan;
 use App\Models\SistemProvinsi;
 use App\Models\SistemKota;
@@ -18,7 +18,7 @@ use App\Models\SistemKecamatan;
 use App\Models\SistemAgama;
 use App\Models\SistemHubungan;
 
-class DapokPenjemputController extends Controller
+class DapokKontakDaruratController extends Controller
 {
     
     public function __construct()
@@ -38,29 +38,22 @@ class DapokPenjemputController extends Controller
         $transaction = DB::connection('daycare')->transaction(function() use($r){
 
             $app = SistemApp::sistem();
-            $tmp = new DapokPenjemput();
-            $tmp->pnj_nama              = $r->penjemput_nama;
-            $tmp->pnj_nik               = $r->penjemput_nik;
-            $tmp->pnj_tgl_lahir         = date('Y-m-d', strtotime($r->penjemput_lahir));
-            $tmp->pnj_tmp_lahir         = $r->penjemput_tmp_lahir;
-            $tmp->pnj_kerja_id          = $r->penjemput_kerja;
-            $tmp->pnj_peru_id           = $r->penjemput_perusahaan;
-            $tmp->pnj_hp                = $r->penjemput_hp;
-            $tmp->pnj_wa                = $r->penjemput_wa;
-            $tmp->pnj_agama_id          = $r->penjemput_agama;
-            $tmp->pnj_pdk_id            = $r->penjemput_pdk;
-            $tmp->pnj_jekel             = $r->penjemput_jekel;
-            $tmp->pnj_hub_id            = $r->penjemput_hubungan;
+            $tmp = new DapokKontakDarurat();
+            $tmp->kontak_nama       = $r->kontak_nama;
+            $tmp->kontak_nik        = $r->kontak_nik;
+            $tmp->kontak_hp         = $r->kontak_hp;
+            $tmp->kontak_jekel      = $r->kontak_jekel;
+
             $tmp->provinsi_id       = $r->provinsi;
             $tmp->kecamatan_id      = $r->kecamatan;
             $tmp->kota_id           = $r->kota;
-            $tmp->pnj_alamat            = $r->alamat;
+            $tmp->kontak_alamat     = $r->alamat;
 
-            $tmp->created_nip           = $app['kar_nip'];
-            $tmp->created_nama          = $app['kar_nama_awal'];
-            $tmp->created_ip            = $r->ip();
+            $tmp->created_nip       = $app['kar_nip'];
+            $tmp->created_nama      = $app['kar_nama_awal'];
+            $tmp->created_ip        = $r->ip();
 
-            //dd($tmp);
+            dd($tmp);
             $tmp->save();
 
         });
@@ -78,21 +71,18 @@ class DapokPenjemputController extends Controller
 
             
             $data = DB::connection('daycare')
-                            ->table('dapok_tb_penjemput AS aa')                        
-                            ->orderby('aa.pnj_id','desc')
+                            ->table('dapok_tb_kontak AS aa')                        
+                            ->orderby('aa.kontak_id','desc')
                             ->get();
                 //dd($data);
 
                 $data = $data->map(function($value) {
 
-                    $value->provinsi    = ucwords(strtolower(SistemProvinsi::getNamaProvinsi($value->provinsi_id)));
-                    $value->kota        = ucwords(strtolower(SistemKota::getNamaKota($value->kota_id)));
-                    $value->kecamatan   = ucwords(strtolower(SistemKecamatan::getNamaKecamatan($value->kecamatan_id)));
-
-                    $value->pnj_usia    = Carbon::parse($value->pnj_tgl_lahir)->age;
-                    $value->pnj_peru    = Perusahaan::where('peru_id',$value->pnj_peru_id)->first()->peru_nama;
-                    $value->pnj_agama   = SistemAgama::where('agama_id',$value->pnj_agama_id)->first()->agama_nama;
-                    $value->pnj_hubungan= SistemHubungan::where('hub_id',$value->pnj_hub_id)->first()->hub_nama;
+                    if ($value->kontak_jekel == 'L'){
+                        $value->kontak_jekel = 'Laki-Laki';
+                    } else {
+                        $value->kontak_jekel = 'Perempuan';
+                    }
                     
                 return $value;
 
@@ -116,7 +106,7 @@ class DapokPenjemputController extends Controller
     {
         $id = $r->get('id');
        
-        $data = DapokPenjemput::where('pnj_id',$id)->first();
+        $data = DapokKontakDarurat::where('kontak_id',$id)->first();
 
         $result = array();
         $result['data']    = $data;
@@ -132,7 +122,7 @@ class DapokPenjemputController extends Controller
   
               $id = $r->get('id');
               //dd($id);
-              $tmp = DapokPenjemput::where('pnj_id',$id)->first();
+              $tmp = DapokKontakDarurat::where('kontak_id',$id)->first();
 
               $tmp->pnj_nama              = $r->penjemput_nama;
               $tmp->pnj_nik               = $r->penjemput_nik;
@@ -170,8 +160,8 @@ class DapokPenjemputController extends Controller
         $transaction = DB::connection('daycare')->transaction(function() use($r){
             $app = SistemApp::sistem();
             $id  = $r->get('id');
-            $tmp = DapokPenjemput::where('pnj_id',$id)->first();
-            $tmp->pnj_aktif  = 'Y';
+            $tmp = DapokKontakDarurat::where('kontak_id',$id)->first();
+            $tmp->kontak_aktif  = 'Y';
 
             $tmp->updated_nip           = $app['kar_nip'];
             $tmp->updated_nama          = $app['kar_nama_awal'];
@@ -189,9 +179,9 @@ class DapokPenjemputController extends Controller
     {
         $transaction = DB::connection('daycare')->transaction(function() use($r){
             $app = SistemApp::sistem();
-            $id = $r->get('id');
-            $tmp = DapokPenjemput::where('pnj_id',$id)->first();
-            $tmp->pnj_aktif  = 'T';
+            $id  = $r->get('id');
+            $tmp = DapokKontakDarurat::where('kontak_id',$id)->first();
+            $tmp->kontak_aktif  = 'T';
 
             $tmp->updated_nip           = $app['kar_nip'];
             $tmp->updated_nama          = $app['kar_nama_awal'];
