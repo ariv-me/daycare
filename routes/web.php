@@ -94,8 +94,8 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 		Route::post('/save', [DapokPenjemputController::class, 'save'])->name('save');
 		Route::get('/edit', [DapokPenjemputController::class, 'edit'])->name('edit');
 		Route::post('/update', [DapokPenjemputController::class, 'update'])->name('update');
-		Route::post('/aktif', [DapokPenjemputController::class, 'aktif'])->name('aktif');
-		Route::post('/nonaktif', [DapokPenjemputController::class, 'nonaktif'])->name('nonaktif');
+		Route::get('/aktif', [DapokPenjemputController::class, 'aktif'])->name('aktif');
+		Route::get('/nonaktif', [DapokPenjemputController::class, 'nonaktif'])->name('nonaktif');
 		
 	});
 
@@ -106,8 +106,8 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 		Route::post('/save', [DapokKontakDaruratController::class, 'save'])->name('save');
 		Route::get('/edit', [DapokKontakDaruratController::class, 'edit'])->name('edit');
 		Route::post('/update', [DapokKontakDaruratController::class, 'update'])->name('update');
-		Route::post('/aktif', [DapokKontakDaruratController::class, 'aktif'])->name('aktif');
-		Route::post('/nonaktif', [DapokKontakDaruratController::class, 'nonaktif'])->name('nonaktif');
+		Route::get('/aktif', [DapokKontakDaruratController::class, 'aktif'])->name('aktif');
+		Route::get('/nonaktif', [DapokKontakDaruratController::class, 'nonaktif'])->name('nonaktif');
 		
 	});
 
