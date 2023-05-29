@@ -66,7 +66,7 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 	Route::group(['prefix' => 'ortu', 'as' => 'ortu.'], function () {
 
 		Route::get('/', [DapokOrtuController::class, 'index'])->name('index');
-		Route::get('/view', [DapokOrtuController::class, 'view'])->name('view');
+		Route::get('/view_ortu', [DapokOrtuController::class, 'view_ortu'])->name('view_ortu');
 		Route::post('/save', [DapokOrtuController::class, 'save'])->name('save');
 		Route::get('/edit', [DapokOrtuController::class, 'edit'])->name('edit');
 		Route::post('/update', [DapokOrtuController::class, 'update'])->name('update');
@@ -78,19 +78,19 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 	Route::group(['prefix' => 'anak', 'as' => 'anak.'], function () {
 
 		Route::get('/', [DapokAnakController::class, 'index'])->name('index');
-		Route::get('/view', [DapokAnakController::class, 'view'])->name('view');
+		Route::get('/view_anak', [DapokAnakController::class, 'view_anak'])->name('view_anak');
 		Route::post('/save', [DapokAnakController::class, 'save'])->name('save');
 		Route::get('/edit', [DapokAnakController::class, 'edit'])->name('edit');
 		Route::post('/update', [DapokAnakController::class, 'update'])->name('update');
-		Route::post('/aktif', [DapokAnakController::class, 'aktif'])->name('aktif');
-		Route::post('/nonaktif', [DapokAnakController::class, 'nonaktif'])->name('nonaktif');
+		Route::get('/aktif', [DapokAnakController::class, 'aktif'])->name('aktif');
+		Route::get('/nonaktif', [DapokAnakController::class, 'nonaktif'])->name('nonaktif');
 		
 	});
 
 	Route::group(['prefix' => 'penjemput', 'as' => 'penjemput.'], function () {
 
 		Route::get('/', [DapokPenjemputController::class, 'index'])->name('index');
-		Route::get('/view', [DapokPenjemputController::class, 'view'])->name('view');
+		Route::get('/view_pnj', [DapokPenjemputController::class, 'view_pnj'])->name('view_pnj');
 		Route::post('/save', [DapokPenjemputController::class, 'save'])->name('save');
 		Route::get('/edit', [DapokPenjemputController::class, 'edit'])->name('edit');
 		Route::post('/update', [DapokPenjemputController::class, 'update'])->name('update');
@@ -102,7 +102,7 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 	Route::group(['prefix' => 'kontak_darurat', 'as' => 'kontak_darurat.'], function () {
 
 		Route::get('/', [DapokKontakDaruratController::class, 'index'])->name('index');
-		Route::get('/view', [DapokKontakDaruratController::class, 'view'])->name('view');
+		Route::get('/view_kontak', [DapokKontakDaruratController::class, 'view_kontak'])->name('view_kontak');
 		Route::post('/save', [DapokKontakDaruratController::class, 'save'])->name('save');
 		Route::get('/edit', [DapokKontakDaruratController::class, 'edit'])->name('edit');
 		Route::post('/update', [DapokKontakDaruratController::class, 'update'])->name('update');
@@ -355,6 +355,8 @@ Route::group(['prefix' => 'combo_sistem', 'as' => 'combo_sistem.'], function () 
 
 	Route::get('/combo_anak', [ComboSistemController::class, 'combo_anak'])->name('combo_anak');
 	Route::get('/combo_ortu', [ComboSistemController::class, 'combo_ortu'])->name('combo_ortu');
+	Route::get('/combo_penjemput', [ComboSistemController::class, 'combo_penjemput'])->name('combo_penjemput');
+	Route::get('/combo_kontak', [ComboSistemController::class, 'combo_kontak'])->name('combo_kontak');
 	Route::get('/combo_pekerjaan', [ComboSistemController::class, 'combo_pekerjaan'])->name('combo_pekerjaan');
 	Route::get('/combo_jenis_pekerjaan', [ComboSistemController::class, 'combo_jenis_pekerjaan'])->name('combo_jenis_pekerjaan');
 	Route::get('/combo_hubungan', [ComboSistemController::class, 'combo_hubungan'])->name('combo_hubungan');

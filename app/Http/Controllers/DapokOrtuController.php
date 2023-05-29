@@ -116,7 +116,7 @@ class DapokOrtuController extends Controller
 
     }
 
-    public function view(Request $r){
+    public function view_ortu(Request $r){
 
         $result = array('success'=>false);
 

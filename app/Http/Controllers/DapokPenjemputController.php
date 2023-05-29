@@ -70,7 +70,7 @@ class DapokPenjemputController extends Controller
     }
 
 
-    public function view(Request $r){
+    public function view_pnj(Request $r){
 
         $result = array('success'=>false);
 

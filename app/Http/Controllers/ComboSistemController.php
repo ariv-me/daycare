@@ -14,8 +14,10 @@ use App\Models\Grup;
 use App\Models\Perusahaan;
 use App\Models\JenisPendaftaran;
 use App\Models\JenisPekerjaan;
-use App\Models\Anak;
-use App\Models\Ortu;
+use App\Models\DapokAnak;
+use App\Models\DapokOrtu;
+use App\Models\DapokKontakDarurat;
+use App\Models\DapokPenjemput;
 use App\Models\SistemAgama;
 use App\Models\CateringKategori;
 use App\Models\TarifJenis;
@@ -148,17 +150,27 @@ class ComboSistemController extends Controller
     }
 
     public function combo_anak(){
-        $data = Anak::orderby('anak_nis')->get();
+        $data = Anak::orderby('anak_nis')->where('anak_aktif','Y')->get();
         return response()->json($data); 
     }
 
     public function combo_ortu(){
-        $data = Ortu::orderby('ortu_id','desc')->get();
+        $data = DapokOrtu::orderby('ortu_id','desc')->where('ortu_aktif','Y')->get();
+        return response()->json($data); 
+    }
+
+    public function combo_penjemput(){
+        $data = DapokPenjemput::orderby('pnj_id','desc')->where('pnj_aktif','Y')->get();
+        return response()->json($data); 
+    }
+
+    public function combo_kontak(){
+        $data = DapokKontakDarurat::orderby('kontak_id','desc')->where('kontak_aktif','Y')->get();
         return response()->json($data); 
     }
 
     public function combo_agama(){
-        $data = SistemAgama::orderby('agama_id')->get();
+        $data = SistemAgama::orderby('agama_id')->where('agama_aktif','Y')->get();
         return response()->json($data); 
     }
 
