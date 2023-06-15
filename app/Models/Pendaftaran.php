@@ -23,7 +23,7 @@ class Pendaftaran extends Model
                      ->select(DB::raw("MAX(RIGHT(daftar_kode,4)) as kd_max"));
                    
         
-        $kode_depan = date('Ymd');    
+        $kode_depan = date('Y');    
         
         // dd($data);
 

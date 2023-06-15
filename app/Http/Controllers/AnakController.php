@@ -74,7 +74,7 @@ class AnakController extends Controller
             
             if ($anak != null) {
     
-                $data = DB::connection('mysql')->transaction(function() use($r,$app,$anak){  
+                $data = DB::connection('daycare')->transaction(function() use($r,$app,$anak){  
 
                     $nis = $anak->anak_nis;
                     $tmp = Anak::where('anak_nis',$nis)->first();
@@ -105,7 +105,7 @@ class AnakController extends Controller
 
             } else {
 
-                $data = DB::connection('mysql')->transaction(function() use($r,$app,$anak){
+                $data = DB::connection('daycare')->transaction(function() use($r,$app,$anak){
 
                     $tmp = new Anak();
                     $nis = Anak::autonumber();

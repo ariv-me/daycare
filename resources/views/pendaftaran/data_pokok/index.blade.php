@@ -60,10 +60,10 @@
 <div class="row mt-3">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-success ">
                 <div class="row">
                     <div class="col-md-9">
-                        <h4 class="card-title"><i class="fas fa-clipboard-list"></i>  PENDAFTARAN</h4>
+                        <h4 class="card-title text-white"><i class="fas fa-clipboard-list"></i>  PENDAFTARAN</h4>
                     </div>
                 </div>
             </div>
@@ -78,9 +78,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-center" data-toggle="tab" href="#pejemput" role="tab"><i class="fas fa-taxi d-block"></i>Penjemput</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-center" data-toggle="tab" href="#kontak_darurat" role="tab"><i class="fas fa-phone-square d-block"></i>Kontak Darurat</a>
-                        </li>
+ 
                         <li class="nav-item">
                             <a class="nav-link text-center" data-toggle="tab" href="#cu_anak" role="tab"><i class="fas fa-child d-block"></i>&nbsp;&nbsp;&nbsp;&nbsp;Anak&nbsp;&nbsp;&nbsp;&nbsp; </a>
                         </li>                                                
@@ -93,6 +91,9 @@
                 <hr>
                 <!-- Tab panes -->
                 <div class="tab-content">
+
+                     {{-- ORTU --}}
+
                     <div class="tab-pane active" id="orang_tua" role="tabpanel">
                         <div class="row">
                             <div class="col-md-9">  
@@ -123,6 +124,8 @@
                         </div>
                     </div>
 
+                    {{-- PENJEMPUT --}}
+
                     <div class="tab-pane" id="pejemput" role="tabpanel">
                         <div class="row">
                             <div class="col-md-9">  
@@ -151,145 +154,139 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="kontak_darurat" role="tabpanel">
+                    {{-- ANAK --}}
+
+                    <div class="tab-pane" id="cu_anak" role="tabpanel">
                         <div class="row">
                             <div class="col-md-9">  
-                                <h5>Kontak Darurat</h5>
+                                <h5>Data Anak</h5></h5>
                             </div>
                             <div class="col-md-3 mb-2" style="text-align: right">
-                                <button type="submit" class="btn btn-primary btn-round btn-xs waves-effect waves-light" id="btn_add_kontak">
+                                <button type="submit" class="btn btn-primary btn-round btn-xs waves-effect waves-light" id="btn_add_anak">
                                     <i class="fas fa-plus"></i> TAMBAH DATA
                                 </button>
                             </div>
                         </div>
-                        
-                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                <thead class="thead-light">
+
+                        <div class="table-responsive">
+                            <table id="datatable_anak" class="table table-bordered dt-responsive wrap" 
+                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
                                     <tr>
-                                        <th style="text-align: center">NO</th>
-                                        <th style="text-align: center">NAMA</th>
-                                        <th style ="text-align: center">JEKEL</th>
-                                        <th style="text-align: center">NIK</th>
-                                        <th style ="text-align: center">HP</th>
-                                        <th style ="text-align: center">ALAMAT</th>
-                                        <th style ="text-align: center">AKSI</th>
+                                        <th style="text-align: center; width:3%">#</th>
+                                        <th style="text-align: center; width:25%">NAMA</th>
+                                        <th style="text-align: center; width:7%">JEKEL</th>
+                                        <th style="text-align: center; width:7%">TGL LAHIR</th>
+                                        <th style="text-align: center; width:25%">ORANG TUA</th>
+                                        <th style ="text-align: center; width:5%">AKSI</th>
                                     </tr>
                                 </thead>
-                               
-                                <tbody id="show_data_kontak"></tbody>
+                                <tbody id="show_data_anak"></tbody>
                             </table>
-                       
-                    </div>
-
-                    <div class="tab-pane" id="cu_anak" role="tabpanel">
-                        <div class="lg-12">
-                            <h4 class="card-title">ANAK</h4>
-                            <p class="text-muted mb-3">Form Input Data Anak</p>
-                        </div> 
-                        <div class="row">
-                            {!! csrf_field() !!} 
-                            <input type="hidden" id="id_edit_anak" name="id_edit_anak" class="form-control">
-        
-                            <div class="col-lg-6">
-        
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label for="example-url-input" class="">Nama</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="anak_nama" name="anak_nama">
-                                            <span class="input-group-append">
-                                                <button type="button" class="btn btn-success btn-sm" id="btn_anak"> <i class="fa fa-search"></i> </button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div> 
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label for="example-date-input" class="">Jenis Kelamin</label>
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="anak_jekel" id="anak_jekel"></select>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="example-month-input" class="">Tanggal Lahir</label>
-                                        <input type="date" class="form-control" id="anak_tgl_lahir" name="anak_tgl_lahir">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label for="example-time-input" class="">Anak Ke</label>
-                                        <input type="text" class="form-control" id="anak_ke" name="anak_ke" onkeypress="return angka(this, event)">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="example-time-input" class="">Jumlah Saudara</label>
-                                        <input type="text" class="form-control" id="anak_saudara" name="anak_saudara" value="0" onkeypress="return angka(this, event)">
-                                    </div>
-                                </div>
-                            </div>
-        
-        
-                          <div class="col-lg-6">
-        
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label for="example-search-input" class="">Orang Tua</label>
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="ortu" id="ortu"></select>
-                                    </div>
-                                </div> 
-        
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label for="example-week-input" class="">Tempat Lahir</label>
-                                        <input type="text" class="form-control" id="anak_tmp_lahir" name="anak_tmp_lahir">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="example-time-input" class="">Agama</label>
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="anak_agama" id="anak_agama"></select>
-                                    </div>
-                                </div>
-                             
-                                <div class="form-group row">
-                                
-                                    <div class="col-sm-6">
-                                        <label for="example-time-input" class="">Berat</label>
-                                        <div class="input-group">  
-                                            <input type="text" class="form-control" id="anak_berat" name="anak_berat" onkeypress="return angka(this, event)">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Kg</span>
-                                            </div>
-                                        </div>
-                                    </div>
-        
-                                    <div class="col-sm-6">
-                                        <label for="example-time-input" class="">Tinggi</label>
-                                        <div class="input-group">  
-                                            <input type="text" class="form-control" id="anak_tinggi" name="anak_tinggi" onkeypress="return angka(this, event)">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Cm</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
-                          </div>
-        
-                        <hr class="hr-dashed">
-                        <div class="row">
-                            <div class="col-md-9">  
-                            </div>
-                            <div class="col-md-3" style="text-align: right">
-                                <button type="button" class="btn btn-danger btn-sm me-1" id="btn_reset_anak" >
-                                    <i class="fas fa-times"></i> BATAL
-                                </button>
-                                <button type="submit" class="btn btn-info btn-sm" id="btn_simpan_anak">
-                                    <i class="fas fa-save"></i> SIMPAN
-                                </button>
-                            </div>
                         </div>
-                    </div>                                                
+
+                    </div>     
+                    
+                    {{-- TRANSAKSI --}}
                    
                     <div class="tab-pane" id="cu_transaksi" role="tabpanel">
-                        <p class="text-muted mb-0">
-                            Trust fund seitan letterpress, keytar raw denim keffiyeh etsy.
-                        </p>
+                        <div class="row">
+                            <div class="col-xl-3">
+                                <div class="row">
+                                    <div class="col-md-12 mt-1">
+                                        <label for="state"><strong>Keterangan</strong> <span class="text-danger">*</span> </label>
+                                        <div class="input-group mb-1">
+                                            <textarea id="keterangan" name="keterangan" class="form-control" maxlength="225" rows="4" placeholder="Keterangan......"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-9">
+                                <div class="form-validation">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                            
+                                            {!! csrf_field() !!}
+                                                <input type="hidden" class="form-control" id="id_edit_detail" name="id_edit_detail" disabled="disabled">
+                                                <input type="hidden" class="form-control" id="nis" name="nis" disabled="disabled">
+                                                <input type="hidden" class="form-control" id="tarif_kode" name="tarif_kode">
+
+                                                <div class="row">
+
+                                                    <div class="col-md-4">
+                                                        <label for="state"><strong>Anak</strong> <span class="text-danger">*</span> </label>
+                                                        <div class="input-group mb-1">
+                                                            <select class="form-control custom-select select2" style="width: 100%;" name="trs_anak" id="trs_anak"></select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label for="state"><strong>Grup</strong> <span class="text-danger">*</span> </label>
+                                                        <div class="input-group mb-1">
+                                                            <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"  onchange="showFilterGrub(this)"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="state"><strong>Paket</strong> <span class="text-danger">*</span> </label>
+                                                        <div class="input-group mb-1">
+                                                            <select class="form-control custom-select select2" style="width:100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </div>
+                                             
+                                                <div class="table-responsive mb-2 mt-2">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered mb-0 table-centered">
+                                                            <thead class="thead-light">
+                                                                <tr>
+                                                                    <th width="5%" style="text-align: center; vertical-align: middle;">NO</th>
+                                                                    <th width="10%" style="text-align: center">REGISTRASI</th>
+                                                                    <th width="10%" style="text-align: center">SPP</th>
+                                                                    <th width="10%" style="text-align: center">BULAN</th>
+                                                                    <th width="10%" style="text-align: center">TOTAL SPP</th>
+                                                                    <th width="10%" style="text-align: center">PEMBANGUNAN</th>
+                                                                    <th width="10%" style="text-align: center">TOTAL</th>
+                                                                </tr>
+                                                                
+                                                            </thead>
+                                                            <tbody id="show_data_tarif">
+                                                            
+                                                            </tbody>
+                                                        </table><!--end /table-->
+                                                    </div>
+                                                </div>
+                                                <hr class="hr-dashed">
+                                                <div class="float-right d-print-none">
+                                                    <button type="submit" class="btn btn-success btn-sm" id="btn_simpan_detail">
+                                                        <i class="fas fa-save"></i> DAFTAR
+                                                    </button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <hr>
+                       
+                        <table class="table table-bordered mb-0 table-centered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th width="5%" style="text-align: center; vertical-align: middle;">NO</th>
+                                    <th width="10%" style="text-align: center">ANAK</th>
+                                    <th width="10%" style="text-align: center">ORTU</th>
+                                    <th width="10%" style="text-align: center">REG</th>
+                                    <th width="10%" style="text-align: center">SPP</th>
+                                    <th width="10%" style="text-align: center">PEMBANGUNAN</th>
+                                    <th width="10%" style="text-align: center">TOTAL</th>
+                                </tr>
+                                
+                            </thead>
+                            <tbody id="show_data_trs_detail">
+                            
+                            </tbody>
+                        </table><!--end /table-->                       
+                      
                     </div>
                 </div> <!--end tab-content-->   
             </div><!--end card-body-->
@@ -337,14 +334,15 @@
                                 <label for="example-tel-input" class=""> Agama</label>
                                 <select class="form-control custom-select select2" style="width: 100%;" name="ayah_agama" id="ayah_agama"></select>
                             </div>
+
                             <div class="col-sm-3  mt-2">
                                 <label for="example-tel-input" class=""> Jenis Pekerjaan</label>
                                 <select class="form-control custom-select select2" style="width: 100%;" name="ayah_kerja" id="ayah_kerja"></select>
                             </div>
 
                             <div class="col-sm-3 mt-2">
-                                <label for="example-tel-input" class=""> Perusahaan</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="ayah_perusahaan" id="ayah_perusahaan"></select>
+                                <label for="example-tel-input" class=""> Pekerjaan</label>
+                                <input type="text" class="form-control" id="ayah_perusahaan" name="ayah_perusahaan">
                             </div>
                             <div class="col-sm-3 mt-2">
                                 <label for="example-number-input" class="">Nomor HP</label>
@@ -393,8 +391,8 @@
                                 <select class="form-control custom-select select2" style="width: 100%;" name="ibu_kerja" id="ibu_kerja"></select>
                             </div>
                             <div class="col-sm-3 mt-2">
-                                <label for="example-tel-input" class=""> Perusahaan</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="ibu_perusahaan" id="ibu_perusahaan"></select>
+                                <label for="example-tel-input" class=""> Pekerjaan</label>
+                                <input type="text" class="form-control" id="ibu_perusahaan" name="ibu_perusahaan">
                             </div>
                             <div class="col-sm-3 mt-2">
                                 <label for="example-number-input" class="">Nomor HP</label>
@@ -489,8 +487,8 @@
                             </div>
 
                             <div class="col-sm-3 mt-2">
-                                <label for="example-tel-input" class=""> Perusahaan</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="ayah_perusahaan" id="ayah_perusahaan_edit"></select>
+                                <label for="example-tel-input" class=""> Pekerjaan</label>
+                                <input type="text" class="form-control" id="ayah_perusahaan_edit" name="ayah_perusahaan">
                             </div>
                             <div class="col-sm-3 mt-2">
                                 <label for="example-number-input" class="">Nomor HP</label>
@@ -539,8 +537,8 @@
                                 <select class="form-control custom-select select2" style="width: 100%;" name="ibu_kerja" id="ibu_kerja_edit"></select>
                             </div>
                             <div class="col-sm-3 mt-2">
-                                <label for="example-tel-input" class=""> Perusahaan</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="ibu_perusahaan" id="ibu_perusahaan_edit"></select>
+                                <label for="example-tel-input" class=""> Pekerjaan</label>
+                                <input type="text" class="form-control" id="ibu_perusahaan_edit" name="ibu_perusahaan">
                             </div>
                             <div class="col-sm-3 mt-2">
                                 <label for="example-number-input" class="">Nomor HP</label>
@@ -655,8 +653,8 @@
                             </div>
 
                             <div class="col-sm-3 mt-2">
-                                <label for="example-tel-input" class=""> Perusahaan</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_perusahaan" id="penjemput_perusahaan"></select>
+                                <label for="example-tel-input" class=""> Pekerjaan</label>
+                                <input type="text" class="form-control" id="penjemput_perusahaan" name="penjemput_perusahaan">
                             </div>
                             <div class="col-sm-3 mt-2">
                                 <label for="example-tel-input" class=""> Tingkat Pendidikan</label>
@@ -767,8 +765,8 @@
                             </div>
 
                             <div class="col-sm-3 mt-2">
-                                <label for="example-tel-input" class=""> Perusahaan</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_perusahaan" id="penjemput_perusahaan_edit"></select>
+                                <label for="example-tel-input" class=""> Pekerjaan</label>
+                                <input type="text" class="form-control" id="penjemput_perusahaan_edit" name="penjemput_perusahaan">
                             </div>
                             <div class="col-sm-3 mt-2">
                                 <label for="example-tel-input" class=""> Tingkat Pendidikan</label>
@@ -822,71 +820,101 @@
     </div>
 </div>
 
-{{-- KONTAK DARURAT --}}
-<div class="modal modal-default-modal-lg fade" id="formModalAddKontak">
+{{-- ANAK --}}
+<div class="modal modal-default-modal-lg fade" id="formModalAddAnak">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content" style="background-color: #ffffff">
             <div class="modal-header">
-                <h5 class="modal-title"> <strong>Data Kontak Darurat</strong> </h5>
+                <h5 class="modal-title"> <strong>Data Anak</strong> </h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
 
             <div class="modal-body">
-
+                <div class="row">
+                    {!! csrf_field() !!} 
+                  
                     <div class="col-lg-12">
+
                         <div class="row">
-                            <div class="col-sm-6">
-                                <label for="example-text-input" class="">Nama</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="kontak_nama" name="kontak_nama">
+                            <div class="col-sm-6 mb-2">
+                                <label for="example-search-input" class="">Orang Tua</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="trs_ortu" id="trs_ortu"></select>
+                            </div>
+                           
+                            <div class="col-sm-6 mb-2">
+                                <label for="example-search-input" class="">Penjemput</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput" id="penjemput"></select>
+                            </div>
+    
+                            <div class="col-sm-4 mb-2">
+                                <label for="example-url-input" class="">Nama</label>
+                                <input type="text" class="form-control" id="anak_nama" name="anak_nama">
+                            </div>
+                           
+                            <div class="col-sm-2 mb-2">
+                                <label for="example-date-input" class="">Jenis Kelamin</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="anak_jekel" id="anak_jekel"></select>
+                            </div>
+
+                            <div class="col-sm-2 mb-2">
+                                <label for="example-month-input" class="">Tanggal Lahir</label>
+                                <div class="input-group">  
+                                    <input type="text" class="form-control datepicker" id="anak_tgl_lahir" name="anak_tgl_lahir">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"> <i class="fas fa-calendar-check"></i></span>
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="col-sm-4 mb-2" >
+                                <label for="example-week-input" class="">Tempat Lahir</label>
+                                <input type="text" class="form-control" id="anak_tmp_lahir" name="anak_tmp_lahir">
+                            </div>
+                    
+                            <div class="col-sm-2 mb-2" >
+                                <label for="example-time-input" class="">Anak Ke</label>
+                                <input type="text" class="form-control" id="anak_ke" name="anak_ke" onkeypress="return angka(this, event)">
+                            </div>
+
+                            <div class="col-sm-2 mb-2" >
+                                <label for="example-time-input" class="">Jumlah Saudara</label>
+                                <input type="text" class="form-control" id="anak_saudara" name="anak_saudara" value="0" onkeypress="return angka(this, event)">
+                            </div>
+                        
+                            <div class="col-sm-2 mb-2" >
+                                <label for="example-time-input" class="">Berat</label>
+                                <div class="input-group">  
+                                    <input type="text" class="form-control" id="anak_berat" name="anak_berat" onkeypress="return angka(this, event)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-sm-2 mb-2" >
+                                <label for="example-time-input" class="">Tinggi</label>
+                                <div class="input-group">  
+                                    <input type="text" class="form-control" id="anak_tinggi" name="anak_tinggi" onkeypress="return angka(this, event)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Cm</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-3">
-                                <label for="example-email-input" class=""> NIK</label>
-                                <input type="text" class="form-control" id="kontak_nik" name="kontak_nik" onkeypress="return angka(this, event)">
+                            <div class="col-sm-4 mb-2" >
+                                <label for="example-time-input" class="">Agama</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="anak_agama" id="anak_agama"></select>
                             </div>
 
-                            <div class="col-sm-3">
-                                <label for="example-tel-input" class=""> Jenis Kelamin</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="kontak_jekel" id="kontak_jekel"></select>
-                            </div>
-
-                            <div class="col-sm-3 mt-2">
-                                <label for="example-number-input" class="">Nomor HP</label>
-                                <input type="text" class="form-control" id="kontak_hp" name="kontak_hp" onkeypress="return angka(this, event)">
-                            </div>                       
                         </div>
+
                     </div>
-
-                    <hr>
-
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Provinsi <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="kontak_provinsi" id="kontak_provinsi" onchange="showKontakProvinsi(this)"></select>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Kabupaten/Kota <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="kontak_kota" id="kontak_kota" onchange="showKontakKota(this)"></select>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Kecamatan <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="kontak_kecamatan" id="kontak_kecamatan"></select>
-                            </div>
-                            <div class="col-sm-12 mt-2">
-                                <label for="example-datetime-local-input" class="">Alamat</label>
-                                <input type="text" class="form-control" id="kontak_alamat" name="kontak_alamat">
-                            </div>
-                        </div>
-                    </div>
-
+                </div>
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-info btn-sm" id="btn_simpan_kontak">
+                <button type="submit" class="btn btn-info btn-sm" id="btn_simpan_anak">
                     <i class="fas fa-save"></i> SIMPAN
                 </button>
             </div>
@@ -894,72 +922,101 @@
     </div>
 </div>
 
-<div class="modal modal-default-modal-lg fade" id="formModalEditKontak">
+<div class="modal modal-default-modal-lg fade" id="formModalEditAnak">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content" style="background-color: #ffffff">
             <div class="modal-header">
-                <h5 class="modal-title"> <strong>Data Kontak Darurat</strong> </h5>
+                <h5 class="modal-title"> <strong>Edit Data Anak</strong> </h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
 
             <div class="modal-body">
+                <div class="row">
+                    {!! csrf_field() !!} 
+                    <input type="hidden" id="id_edit_anak" name="id_edit_anak" class="form-control">
 
                     <div class="col-lg-12">
-                        <input type="hidden" class="form-control" id="id_kontak_edit" name="id_kontak_edit">
+
                         <div class="row">
-                            <div class="col-sm-6">
-                                <label for="example-text-input" class="">Nama</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="kontak_nama_edit" name="kontak_nama">
+                            <div class="col-sm-4 mb-2">
+                                <label for="example-search-input" class="">Orang Tua</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="trs_ortu" id="trs_ortu_edit"></select>
+                            </div>
+                           
+                            <div class="col-sm-4 mb-2">
+                                <label for="example-search-input" class="">Penjemput</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput" id="penjemput_edit"></select>
+                            </div>
+    
+                            <div class="col-sm-4 mb-2">
+                                <label for="example-url-input" class="">Nama</label>
+                                <input type="text" class="form-control" id="anak_nama_edit" name="anak_nama">
+                            </div>
+                           
+                            <div class="col-sm-2 mb-2">
+                                <label for="example-date-input" class="">Jenis Kelamin</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="anak_jekel" id="anak_jekel_edit"></select>
+                            </div>
+
+                            <div class="col-sm-2 mb-2">
+                                <label for="example-month-input" class="">Tanggal Lahir</label>
+                                <div class="input-group">  
+                                    <input type="text" class="form-control datepicker" id="anak_tgl_lahir_edit" name="anak_tgl_lahir">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"> <i class="fas fa-calendar-check"></i></span>
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="col-sm-4 mb-2" >
+                                <label for="example-week-input" class="">Tempat Lahir</label>
+                                <input type="text" class="form-control" id="anak_tmp_lahir_edit" name="anak_tmp_lahir">
+                            </div>
+                    
+                            <div class="col-sm-2 mb-2" >
+                                <label for="example-time-input" class="">Anak Ke</label>
+                                <input type="text" class="form-control" id="anak_ke_edit" name="anak_ke" onkeypress="return angka(this, event)">
+                            </div>
+
+                            <div class="col-sm-2 mb-2" >
+                                <label for="example-time-input" class="">Jumlah Saudara</label>
+                                <input type="text" class="form-control" id="anak_saudara_edit" name="anak_saudara" value="0" onkeypress="return angka(this, event)">
+                            </div>
+                        
+                            <div class="col-sm-2 mb-2" >
+                                <label for="example-time-input" class="">Berat</label>
+                                <div class="input-group">  
+                                    <input type="text" class="form-control" id="anak_berat_edit" name="anak_berat" onkeypress="return angka(this, event)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-sm-2 mb-2" >
+                                <label for="example-time-input" class="">Tinggi</label>
+                                <div class="input-group">  
+                                    <input type="text" class="form-control" id="anak_tinggi_edit" name="anak_tinggi" onkeypress="return angka(this, event)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Cm</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-3">
-                                <label for="example-email-input" class=""> NIK</label>
-                                <input type="text" class="form-control" id="kontak_nik_edit" name="kontak_nik" onkeypress="return angka(this, event)">
+                            <div class="col-sm-4 mb-2" >
+                                <label for="example-time-input" class="">Agama</label>
+                                <select class="form-control custom-select select2" style="width: 100%;" name="anak_agama" id="anak_agama_edit"></select>
                             </div>
 
-                            <div class="col-sm-3">
-                                <label for="example-tel-input" class=""> Jenis Kelamin</label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="kontak_jekel" id="kontak_jekel_edit"></select>
-                            </div>
-
-                            <div class="col-sm-3 mt-2">
-                                <label for="example-number-input" class="">Nomor HP</label>
-                                <input type="text" class="form-control" id="kontak_hp_edit" name="kontak_hp" onkeypress="return angka(this, event)">
-                            </div>
-                        
                         </div>
+
                     </div>
-
-                    <hr>
-
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Provinsi <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="kontak_provinsi" id="kontak_provinsi_edit" onchange="showKontakProvinsiEdit(this)"></select>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Kabupaten/Kota <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="kontak_kota" id="kontak_kota_edit" onchange="showKontakKotaEdit(this)"></select>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Kecamatan <small class="red">*</small></label>
-                                <select class="form-control custom-select select2" style="width: 100%;" name="kontak_kecamatan" id="kontak_kecamatan_edit"></select>
-                            </div>
-                            <div class="col-sm-12 mt-2">
-                                <label for="example-datetime-local-input" class="">Alamat</label>
-                                <input type="text" class="form-control" id="kontak_alamat_edit" name="kontak_alamat">
-                            </div>
-                        </div>
-                    </div>
-
+                </div>
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-warning btn-sm" id="btn_update_kontak">
+                <button type="submit" class="btn btn-warning btn-sm" id="btn_update_anak">
                     <i class="fas fa-save"></i> UPDATE
                 </button>
             </div>
@@ -967,29 +1024,6 @@
     </div>
 </div>
 
-
-<div class="modal modal-default-modal-lg fade" id="formModalAnak">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content" style="background-color: #ffffff">
-
-            <div class="modal-body">
-                <table id="datatable2" class="table table-bordered mb-0 table-centered">
-                    <thead>
-                        <tr>
-                            <th width ="2%" style="text-align: center">NO</th>
-                            <th width ="15%" style="text-align: center">NIS</th>
-                            <th width ="48%" style ="text-align: center">ANAK</th>
-                            <th width ="10%" style ="text-align: center">USIA</th>
-                            <th width ="20%" style ="text-align: center">TGL LAHIR</th>
-
-                        </tr>
-                    </thead>
-                    <tbody id="show_data_anak"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -1005,6 +1039,7 @@
         $('.select2').select2();
 
         $('.datepicker[name=tanggal]').val(moment().format('DD-MM-YYYY'));
+        $('.datepicker[name=anak_tgl_lahir]').val(moment().format('DD-MM-YYYY'));
         $('.datepicker[name=ibu_lahir]').val(moment().format('DD-MM-YYYY'));
         $('.datepicker[name=ayah_lahir]').val(moment().format('DD-MM-YYYY'));
 
@@ -1013,18 +1048,14 @@
             format:'dd-mm-yyyy',
         });
 
-       
-        combo_ortu();
-        combo_anak();
-        combo_jenis();
-        combo_wali_jekel();
-        combo_anak_jekel(),
-      
-       // view();
         view_ortu();
         view_penjemput();
-        view_kontak_darurat();
-        reset();
+        view_anak();
+        view_detail();
+
+        combo_grup();
+        combo_paket();
+        combo_anak();
 
     });
 
@@ -1086,33 +1117,6 @@
         combo_kecamatan_penjemput(kota);
     }
 
-    // KONTAK DARURAT
-
-    function showKontakProvinsi(select){
-        var provinsi=$('#kontak_provinsi').val();
-        combo_kota_kontak(provinsi);
-
-        var kota=$('#kontak_kota').val();
-        combo_kecamatan_kontak(kota);
-    }
-
-    function showKontakKota(select){
-        var kota=$('#kontak_kota').val();
-        combo_kecamatan_kontak(kota);
-    }
-
-    function showKontakProvinsiEdit(select){
-        var provinsi=$('#kontak_provinsi_edit').val();
-        combo_kota_kontak(provinsi);
-
-        var kota=$('#kontak_kota_edit').val();
-        combo_kecamatan_kontak(kota);
-    }
-
-    function showKontakKotaEdit(select){
-        var kota=$('#kontak_kota_edit').val();
-        combo_kecamatan_kontak(kota);
-    }
 
    
 
@@ -1155,8 +1159,7 @@
         $('#kerja_nama').val(""); 
 
     }
-
-
+    
     $('#btn_add').on('click',function(){
 
         $('#formModalAdd').modal('show');
@@ -1164,20 +1167,79 @@
 
     });
 
+    $('#btn_add_anak').on('click',function(){
+
+        $.when(
+            
+            combo_anak_jekel(),
+            combo_ortu(),
+            combo_penjemput(),
+            combo_anak_agama(),
 
 
-    $('#btn_reset_anak').on('click',function(){
-        reset();
+        )
+        .done(function(){
+            $('.select2').select2();
+            $('#formModalAddAnak').modal('show');
+        })
+
     });
 
-    $('#btn_reset_ortu').on('click',function(){
-        reset();
-    });
+    function combo_ortu(){
 
-    $('#btn_cari').on('click', function() {
-        $('#formModalAnak').modal('show');
-        view_anak();
-    });
+        $('select[name=trs_ortu]').empty()
+            $.ajax({
+                type  : 'GET',
+                url   : "{{ route('combo_sistem.combo_ortu') }}",
+                async : false,
+                dataType : 'JSON',
+                success : function(data){
+                    var html = '';
+                    var i;
+                    $('select[name=trs_ortu]').empty()
+                    var x = document.getElementById("trs_ortu");
+                            var option = document.createElement("option");
+                            option.text = "--Pilih--";
+                            option.value = '';
+                            x.add(option);
+                    for(i=0; i<data.length; i++){
+                        var html = '';
+                        html = '<option value='+(data[i].ortu_id)+'>'+(data[i].ortu_ayah)+' - '+(data[i].ortu_ibu)+'</option>';
+                        $('select[name=trs_ortu]').append(html)
+                    }
+                }
+            });
+
+    }
+
+    function combo_penjemput(){
+
+        $('select[name=penjemput]').empty()
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_penjemput') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=penjemput]').empty()
+                var x = document.getElementById("penjemput");
+                        var option = document.createElement("option");
+                        option.text = "--Pilih--";
+                        option.value = '';
+                        x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].pnj_id)+'>'+(data[i].pnj_nama)+'</option>';
+                    $('select[name=penjemput]').append(html)
+                }
+            }
+        });
+
+    }
+
+
 
     $('#btn_add_ortu').on('click',function(){
 
@@ -1186,8 +1248,6 @@
             combo_kerja_ayah(),
             combo_perusahaan(),
             combo_ibu_agama(),
-            combo_anak_agama(),
-            combo_perusahaan_ibu(),
             combo_kerja_ibu(),
             combo_kecamatan(),
             combo_kota(),
@@ -1203,72 +1263,7 @@
     });
 
    
-
-    $('#btn_add_anak').on('click',function(){
-        $('#formModalAddAnak').modal('show');
-    });
-
-    $('#btn_cari_ortu').on('click', function() {
-        $('#formModalAnak').modal('show');
-        view_anak();
-    });
-
- 
-
-    
-
-    function view_anak() {
-
-       $.ajax({
-            type: 'GET',
-            url: "{{ route('anak.view') }}",
-            async: true,
-            dataType: 'JSON',
-            success: function(r) {
-                var i;
-                $('#datatable2').DataTable().destroy(); 
-                $('#show_data_anak').empty();
-                data = r.data;
-
-                if (data.length) {
-                    for (i = 0; i < data.length; i++) {
-                   
-                            var tr = $('<tr>').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="15%" align="left">'),
-                                $('<td class= width="15%" align="left">'),
-                                $('<td class= width="15%" align="center">'),
-                                $('<td class= width="15%" align="center">')
-                            ]);
-
-
-                        tr.find('td:nth-child(1)').html((i + 1));
-
-                        tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_nis+'">'+(data[i].anak_nis)+'</a>')); 
-                        
-                        tr.find('td:nth-child(3)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_nis+'">'+(data[i].anak_nama)+'</a>')); 
-                        
-                        tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<strong></strong>' +(data[i].anak_usia)));     
-
-                        tr.find('td:nth-child(5)').append($('<div>')
-                            .html((moment(data[i].anak_tgl_lahir).format('DD-MM-YYYY'))));   
-                     
-                        tr.appendTo($('#show_data_anak'));
-                    }
-
-                } //else {
-
-                //       $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
-
-                //  }
-                $('#datatable2').DataTable('refresh'); 
-            }
-        });
-    }
-
+   
     // ORANG TUA
 
     $('#show_data_ortu').on('click', '.item_edit_ortu', function() {
@@ -1282,8 +1277,6 @@
             combo_kerja_ayah(),
             combo_perusahaan(),
             combo_ibu_agama(),
-            combo_anak_agama(),
-            combo_perusahaan_ibu(),
             combo_kerja_ibu(),
             combo_kecamatan(),
             combo_kota(),
@@ -1313,7 +1306,7 @@
                     $('#formModalEditOrtu').find('[name="ayah_tmp_lahir"]').val(data.ortu_ayah_tmp_lahir);
                     $('#formModalEditOrtu').find('[name="ayah_lahir"]').datepicker('setDate',moment(data.ortu_ayah_tgl_lahir).format('DD-MM-YYYY'));
                     $('#formModalEditOrtu').find('[name="ayah_agama"]').val(data.ortu_ayah_agama_id).trigger("change");
-                    $('#formModalEditOrtu').find('[name="ayah_perusahaan"]').val(data.ortu_ayah_peru_id).trigger("change");
+                    $('#formModalEditOrtu').find('[name="ayah_perusahaan"]').val(data.ortu_ayah_peru);
                     $('#formModalEditOrtu').find('[name="ayah_pdk"]').val(data.ortu_ayah_pdk_id).trigger("change");
                     $('#formModalEditOrtu').find('[name="ayah_kerja"]').val(data.ortu_ayah_kerja).trigger("change");
                     $('#formModalEditOrtu').find('[name="ayah_hp"]').val(data.ortu_ayah_hp).trigger("change");
@@ -1325,7 +1318,7 @@
                     $('#formModalEditOrtu').find('[name="ibu_tmp_lahir"]').val(data.ortu_ibu_tmp_lahir);
                     $('#formModalEditOrtu').find('[name="ibu_lahir"]').datepicker('setDate',moment(data.ortu_ibu_tgl_lahir).format('DD-MM-YYYY'));
                     $('#formModalEditOrtu').find('[name="ibu_agama"]').val(data.ortu_ibu_agama_id).trigger("change");
-                    $('#formModalEditOrtu').find('[name="ibu_perusahaan"]').val(data.ortu_ibu_peru_id).trigger("change");
+                    $('#formModalEditOrtu').find('[name="ibu_perusahaan"]').val(data.ortu_ibu_peru);
                     $('#formModalEditOrtu').find('[name="ibu_pdk"]').val(data.ortu_ibu_pdk_id).trigger("change");
                     $('#formModalEditOrtu').find('[name="ibu_kerja"]').val(data.ortu_ibu_kerja).trigger("change");
                     $('#formModalEditOrtu').find('[name="ibu_hp"]').val(data.ortu_ibu_hp).trigger("change");
@@ -2250,7 +2243,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('dapok.ortu.view') }}",
+            url: "{{ route('dapok.ortu.view_ortu') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -2265,23 +2258,23 @@
                         if((data[i].ortu_aktif) == 'Y'){
 
                             var tr = $('<tr>').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="60%" align="left">'),
-                                $('<td class= width="60%" align="left">'),
-                                $('<td class= width="5%" align="center">')
+                                $('<td width="1%" align="center">'),
+                                $('<td width="20%" align="left">'),
+                                $('<td width="20%" align="left">'),
+                                $('<td width="20%" align="left">'),
+                                $('<td width="50%" align="left">'),
+                                $('<td width="5%" align="center">')
                             ]);
 
                         } else {
 
                             var tr = $('<tr style="background-color:#fee6ec;">').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="60%" align="left">'),
-                                $('<td class= width="60%" align="left">'),
-                                $('<td class= width="5%" align="center">')
+                                $('<td width="1%" align="center">'),
+                                $('<td width="20%" align="left">'),
+                                $('<td width="20%" align="left">'),
+                                $('<td width="20%" align="left">'),
+                                $('<td width="50%" align="left">'),
+                                $('<td width="5%" align="center">')
                             ]);
 
                         }
@@ -2302,10 +2295,10 @@
                             .html('<small class="text-muted"><i class="mdi mdi-calendar"></i> '+(moment(data[i].ortu_ibu_tgl_lahir).format('DD-MM-YYYY'))+' - '+(data[i].ibu_usia)+' Tahun </small>'));
                         
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<b>Ayah :</b> <small> '+(data[i].peru_ayah)+'</small>')); 
+                            .html('<b>Ayah :</b> <small> '+(data[i].ortu_ayah_peru)+'</small>')); 
                         
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<b>Ibu</b> <small> '+(data[i].peru_ibu)+'</small>')); 
+                            .html('<b>Ibu &nbsp&nbsp :</b> <small> '+(data[i].ortu_ibu_peru)+'</small>')); 
                         
                         tr.find('td:nth-child(5)').append($('<div>')
                             .html((data[i].ortu_alamat))); 
@@ -2330,51 +2323,87 @@
         });
     }
 
-    
-
 
     // ANAK
 
-
-    $('#show_data_anak').on('click','.btn_edit_anak',function(){
-
-        var id = $(this).attr('data');
+    function view_anak() {
 
         $.ajax({
-            type: "GET",
-            url: "{{ route('anak.edit') }}",
-            dataType: "JSON",
-            data: {
-                id: id
-            },
+            type: 'GET',
+            url: "{{ route('dapok.anak.view_anak') }}",
+            async: true,
+            dataType: 'JSON',
             success: function(r) {
+                var i;
+                $('#datatable_anak').DataTable().destroy(); 
+                $('#show_data_anak').empty();
                 data = r.data;
 
-                console.log(data);
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
 
-                $('[name="id_edit_anak"]').val(data.anak_nis);
-                $('[name="ortu"]').val(data.ortu_id).trigger("change");
-                $('[name="anak_nama"]').val(data.anak_nama).trigger("change");
-                $('[name="anak_agama"]').val(data.agama_id).trigger("change");
-                $('[name="anak_jekel"]').val(data.anak_jekel).trigger("change");
-                $('[name="anak_tmp_lahir"]').val(data.anak_tmp_lahir).trigger("change");
-                $('[name="anak_tgl_lahir"]').val(data.anak_tgl_lahir).trigger("change");
-                $('[name="anak_ke"]').val(data.anak_ke).trigger("change");
-                $('[name="anak_saudara"]').val(data.anak_jml_saudara).trigger("change");
-                $('[name="anak_berat"]').val(data.anak_berat).trigger("change");
-                $('[name="anak_tinggi"]').val(data.anak_tinggi).trigger("change");
+                        if((data[i].anak_aktif) == 'Y'){
 
-                $('#formModalAnak').modal('hide');
+                            var tr = $('<tr>').append([
+                                $('<td width="1%" align="center">'),
+                                $('<td width="20%" align="left">'),
+                                $('<td width="7%" align="center">'),
+                                $('<td width="8%" align="center">'),
+                                $('<td width="20%" align="left">'),
+                                $('<td width="1%" align="center">')
+                            ]);
+
+                        } else {
+
+                            var tr = $('<tr style="background-color:#fee6ec;">').append([
+                                $('<td width="1%" align="center">'),
+                                $('<td width="20%" align="left">'),
+                                $('<td width="20%" align="left">'),
+                                $('<td width="30%" align="left">'),
+                                $('<td width="10%" align="left">'),
+                                $('<td width="1%" align="center">')
+                            ]);
+
+                        }
+                    
+
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html((data[i].anak_nama)));
+                            
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html((data[i].anak_jekel))); 
+                        
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html((moment(data[i].anak_tgl_lahir).format('DD-MM-YYYY'))));   
+                     
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html((data[i].ortu_ayah)+' - '+(data[i].ortu_ibu))); 
+                            
+
+                        tr.find('td:nth-child(6)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit_anak" data="'+data[i].anak_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-info btn-xs item_anak_aktif" data="'+data[i].anak_id+'"><i class="mdi mdi-check"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_anak_nonaktif" data="'+data[i].anak_id+'"><i class="mdi mdi-window-close"></i></a></div>');   
+
+                        
+                        tr.appendTo($('#show_data_anak'));
+                    }
+
+                } 
+                else {
+
+                    $('#show_data_anak').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
+                }
+                $('#datatable_anak').DataTable('refresh'); 
             }
         });
+    }
 
-        return false;
 
-    });
 
     $('#btn_simpan_anak').on('click', function(){
         
-        if (!$("#ortu").val()) {
+        if (!$("#trs_ortu").val()) {
             $.toast({
                 text: 'ORANG TUA MASIH KOSONG',
                 position: 'top-right',
@@ -2383,10 +2412,27 @@
                 hideAfter: 3000
             });
 
-            $("#ortu").focus();
+            $("#trs_ortu").focus();
             return false;
 
-        } else if (!$("#anak_nama").val()) {
+        }
+
+        if (!$("#penjemput").val()) {
+            $.toast({
+                text: 'PENJEMPUT MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#penjemput").focus();
+            return false;
+
+        } 
+
+        
+        else if (!$("#anak_nama").val()) {
             $.toast({
                 text: 'NAMA ANAK MASIH KOSONG',
                 position: 'top-right',
@@ -2398,7 +2444,9 @@
             $("#anak_nama").focus();
             return false;
 
-        } else if (!$("#anak_jekel").val()) {
+        } 
+        
+        else if (!$("#anak_jekel").val()) {
             $.toast({
                 text: 'JENIS KELAMIN MASIH KOSONG',
                 position: 'top-right',
@@ -2410,7 +2458,9 @@
             $("#anak_jekel").focus();
             return false;
 
-        } else if (!$("#anak_tgl_lahir").val()) {
+        } 
+        
+        else if (!$("#anak_tgl_lahir").val()) {
             $.toast({
                 text: 'TANGGAL LAHIR MASIH KOSONG',
                 position: 'top-right',
@@ -2422,7 +2472,9 @@
             $("#anak_tgl_lahir").focus();
             return false;
 
-        } else if (!$("#anak_tmp_lahir").val()) {
+        } 
+        
+        else if (!$("#anak_tmp_lahir").val()) {
             $.toast({
                 text: 'TEMPAT LAHIR MASIH KOSONG',
                 position: 'top-right',
@@ -2434,19 +2486,9 @@
             $("#anak_tmp_lahir").focus();
             return false;
 
-        } else if (!$("#anak_agama").val()) {
-            $.toast({
-                text: 'AGAMA MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
+        } 
 
-            $("#anak_agama").focus();
-            return false;
-
-        } else if (!$("#anak_ke").val()) {
+        else if (!$("#anak_ke").val()) {
             $.toast({
                 text: 'ANAK KE MASIH KOSONG',
                 position: 'top-right',
@@ -2458,7 +2500,9 @@
             $("#anak_ke").focus();
             return false;
 
-        } else if (!$("#anak_berat").val()) {
+        } 
+        
+        else if (!$("#anak_berat").val()) {
             $.toast({
                 text: 'BERAT MASIH KOSONG',
                 position: 'top-right',
@@ -2470,7 +2514,9 @@
             $("#anak_berat").focus();
             return false;
 
-        } else if (!$("#anak_tinggi").val()) {
+        } 
+        
+        else if (!$("#anak_tinggi").val()) {
             $.toast({
                 text: 'TINGGI MASIH KOSONG',
                 position: 'top-right',
@@ -2483,8 +2529,25 @@
             return false;
         }
         
-        var nis             = $('#id_edit_anak').val();
-        var ortu            = $('#ortu').val();
+        else if (!$("#anak_agama").val()) {
+            $.toast({
+                text: 'AGAMA MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_agama").focus();
+            return false;
+
+        } 
+        
+       
+        
+        // var nis             = $('#id_edit_anak').val();
+        var ortu            = $('#trs_ortu').val();
+        var penjemput       = $('#penjemput').val();
         var anak_nama       = $('#anak_nama').val();
         var anak_tmp_lahir  = $('#anak_tmp_lahir').val();
         var anak_tgl_lahir  = $('#anak_tgl_lahir').val();
@@ -2499,8 +2562,9 @@
 
         var formData = new FormData();
     
-        formData.append('nis', nis);
+        // formData.append('nis', nis);
         formData.append('ortu', ortu);
+        formData.append('penjemput', penjemput);
         formData.append('anak_nama', anak_nama);
         formData.append('anak_tmp_lahir', anak_tmp_lahir);
         formData.append('anak_tgl_lahir', anak_tgl_lahir);
@@ -2516,25 +2580,266 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('anak.save') }}",
+            url: "{{ route('dapok.anak.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
             processData: false,
             contentType: false,
-            success: function(r) {
+            success: function(data) {
 
-                if (r.status == '1') {
-                    swal("Berhasil!", "Data Berhasil Update", "success");
-                    reset();
-                    combo_ortu();
+                swal("Berhasil!", "Data Berhasil Disimpan", "success");
+                $('#formModalAddAnak').modal('hide');       
+                view_anak();
+                combo_anak();
+                
+            }
+        });
+    
+        return false;
 
-                } else if (r.status == '2'){
-                    swal("Berhasil!", "Data Berhasil Simpan", "success");
-                    reset();
-                    combo_ortu();
+    });
+ 
+    $('#show_data_anak').on('click','.item_edit_anak',function(){
+
+        var id = $(this).attr('data');
+
+        $.when(
+            
+            combo_ortu(),
+            combo_penjemput(),
+            combo_anak_jekel(),
+            combo_anak_agama(),
+         
+        )
+        .done(function() {
+
+            $.ajax({
+                type: "GET",
+                url: "{{ route('dapok.anak.edit') }}",
+                dataType: "JSON",
+                data: {
+                    id: id
+                },
+                success: function(r) {
+                    data = r.data;
+
+                    console.log(data);
+
+                    $('#formModalEditAnak').modal('show');
+                    $('[name="id_edit_anak"]').val(data.anak_id);
+                    $('[name="trs_ortu"]').val(data.ortu_id).trigger("change");
+                    $('[name="penjemput"]').val(data.pnj_id).trigger("change");
+                    $('[name="anak_nama"]').val(data.anak_nama);
+                    $('[name="anak_agama"]').val(data.agama_id).trigger("change");
+                    $('[name="anak_jekel"]').val(data.anak_jekel).trigger("change");
+                    $('[name="anak_tmp_lahir"]').val(data.anak_tmp_lahir).trigger("change");
+                    $('[name="anak_tgl_lahir"]').datepicker('setDate',moment(data.anak_tgl_lahir).format('DD-MM-YYYY'));
+                    $('[name="anak_ke"]').val(data.anak_ke);
+                    $('[name="anak_saudara"]').val(data.anak_jml_saudara);
+                    $('[name="anak_berat"]').val(data.anak_berat);
+                    $('[name="anak_tinggi"]').val(data.anak_tinggi);
 
                 }
+            });
+        
+        });
+
+        return false;
+
+    });
+
+    $('#btn_update_anak').on('click', function(){
+        
+        if (!$("#trs_ortu_edit").val()) {
+            $.toast({
+                text: 'ORANG TUA MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#trs_ortu_edit").focus();
+            return false;
+
+        }
+
+        if (!$("#penjemput_edit").val()) {
+            $.toast({
+                text: 'PENJEMPUT MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#penjemput_edit").focus();
+            return false;
+
+        } 
+
+
+        
+        else if (!$("#anak_nama_edit").val()) {
+            $.toast({
+                text: 'NAMA ANAK MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_nama_edit").focus();
+            return false;
+
+        } 
+        
+        else if (!$("#anak_jekel_edit").val()) {
+            $.toast({
+                text: 'JENIS KELAMIN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_jekel_edit").focus();
+            return false;
+
+        } 
+        
+        else if (!$("#anak_tgl_lahir_edit").val()) {
+            $.toast({
+                text: 'TANGGAL LAHIR MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_tgl_lahir_edit").focus();
+            return false;
+
+        } 
+        
+        else if (!$("#anak_tmp_lahir_edit").val()) {
+            $.toast({
+                text: 'TEMPAT LAHIR MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_tmp_lahir_edit").focus();
+            return false;
+
+        } 
+
+        else if (!$("#anak_ke_edit").val()) {
+            $.toast({
+                text: 'ANAK KE MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_ke_edit").focus();
+            return false;
+
+        } 
+        
+        else if (!$("#anak_berat_edit").val()) {
+            $.toast({
+                text: 'BERAT MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_berat_edit").focus();
+            return false;
+
+        } 
+        
+        else if (!$("#anak_tinggi_edit").val()) {
+            $.toast({
+                text: 'TINGGI MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_tinggi_edit").focus();
+            return false;
+        }
+        
+        else if (!$("#anak_agama_edit").val()) {
+            $.toast({
+                text: 'AGAMA MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#anak_agama_edit").focus();
+            return false;
+
+        } 
+        
+       
+        
+        var id              = $('#id_edit_anak').val();
+        var ortu            = $('#trs_ortu_edit').val();
+        var penjemput       = $('#penjemput_edit').val();
+        var anak_nama       = $('#anak_nama_edit').val();
+        var anak_tmp_lahir  = $('#anak_tmp_lahir_edit').val();
+        var anak_tgl_lahir  = $('#anak_tgl_lahir_edit').val();
+        var anak_jekel      = $('#anak_jekel_edit').val();
+        var anak_ke         = $('#anak_ke_edit').val();
+        var anak_saudara    = $('#anak_saudara_edit').val();
+        var anak_agama      = $('#anak_agama_edit').val();
+        var anak_alamat     = $('#anak_alamat_edit').val();
+        var anak_berat      = $('#anak_berat_edit').val();
+        var anak_tinggi     = $('#anak_tinggi_edit').val();
+        var token           = $('[name=_token]').val();
+
+        var formData = new FormData();
+    
+        formData.append('id', id);
+        formData.append('ortu', ortu);
+        formData.append('penjemput', penjemput);
+        formData.append('anak_nama', anak_nama);
+        formData.append('anak_tmp_lahir', anak_tmp_lahir);
+        formData.append('anak_tgl_lahir', anak_tgl_lahir);
+        formData.append('anak_jekel', anak_jekel);
+        formData.append('anak_ke', anak_ke);
+        formData.append('anak_saudara', anak_saudara);
+        formData.append('anak_agama', anak_agama);
+        formData.append('anak_alamat', anak_alamat);
+        formData.append('anak_berat', anak_berat);
+        formData.append('anak_tinggi', anak_tinggi);
+
+        formData.append('_token', token);
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('dapok.anak.update') }}",
+            dataType: "JSON",
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(data) {
+
+                swal("Berhasil!", "Data Berhasil Disimpan", "success");
+                $('#formModalEditAnak').modal('hide');
+                view_anak();            
                 
             }
         });
@@ -2544,13 +2849,66 @@
     });
 
 
+    $('#show_data_anak').on('click','.item_anak_aktif',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Aktifkan Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Non-Aktifkan !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('dapok.anak.aktif') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        swal("Non-Aktif !", "Data Sudah Aktifk !!.", "success");
+                        view_anak();
+                    }
+                });  
+            }
+        });
+    });
+
+    $('#show_data_anak').on('click','.item_anak_nonaktif',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Non-Aktifkan Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Non-Aktifkan !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('dapok.anak.nonaktif') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
+                        view_anak();
+                    }
+                });  
+            }
+        });
+    });
+
+
     // PENJEMPUT
 
     function view_penjemput() {
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('dapok.penjemput.view') }}",
+            url: "{{ route('dapok.penjemput.view_pnj') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -3254,572 +3612,7 @@
 
     });
 
-    // Kontak Darurat
-
-    $('#btn_add_kontak').on('click',function(){
-
-        $.when(
-            combo_jekel_kontak(),
-            combo_kecamatan_kontak(),
-            combo_kota_kontak(),
-            combo_provinsi_kontak(),
-
-
-        )
-        .done(function(){
-            $('.select2').select2();
-            $('#formModalAddKontak').modal('show');
-        })
-    });
-
-
-    function view_kontak_darurat() {
-
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('dapok.kontak_darurat.view') }}",
-            async: true,
-            dataType: 'JSON',
-            success: function(r) {
-                var i;
-                $('#datatable_kontak').DataTable().destroy(); 
-                $('#show_data_kontak').empty();
-                data = r.data;
-
-                if (data.length) {
-                    for (i = 0; i < data.length; i++) {
-
-                        if((data[i].kontak_aktif) == 'Y'){
-
-                            var tr = $('<tr>').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="6%" align="center">'),
-                                $('<td class= width="8%" align="left">'),
-                                $('<td class= width="7%" align="left">'),
-                                $('<td class= width="15%" align="left">'),
-                                $('<td class= width="1%" align="center">')
-                            ]);
-
-                        } else {
-
-                            var tr = $('<tr style="background-color:#fee6ec;">').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="6%" align="center">'),
-                                $('<td class= width="8%" align="left">'),
-                                $('<td class= width="7%" align="left">'),
-                                $('<td class= width="15%" align="left">'),
-                                $('<td class= width="1%" align="center">')
-                            ]);
-
-                        }
-                    
-
-                        tr.find('td:nth-child(1)').html((i + 1));
-
-                        tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<a href="javascript:;" class="item_detail_kontak" data="'+data[i].kontak_id+'"> '+(data[i].kontak_nama)+'</a>')); 
-                        
-                        tr.find('td:nth-child(3)').append($('<div>')
-                            .html((data[i].kontak_jekel))); 
-
-                        tr.find('td:nth-child(4)').append($('<div>')
-                            .html((data[i].kontak_nik))); 
-
-                        tr.find('td:nth-child(5)').append($('<div>')
-                            .html((data[i].kontak_hp))); 
-
-                        tr.find('td:nth-child(6)').append($('<div>')
-                            .html((data[i].kontak_alamat))); 
-                        
-                        tr.find('td:nth-child(7)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit_kontak" data="'+data[i].kontak_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-info btn-xs item_kontak_aktif" data="'+data[i].kontak_id+'"><i class="mdi mdi-check"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_kontak_nonaktif" data="'+data[i].kontak_id+'"><i class="mdi mdi-window-close"></i></a></div>');   
-
-                        
-                        tr.appendTo($('#show_data_kontak'));
-                    }
-
-                } 
-                else {
-
-                    $('#show_data_kontak').append('<tr><td colspan="10">Data Kosong</td></tr>');
-
-                }
-                $('#datatable_kontak').DataTable('refresh'); 
-            }
-        });
-    }
-
-    $('#show_data_penjemput').on('click', '.item_edit_pnj', function() {
-
-var id = $(this).attr('data');
-
-console.log(id);
-
-$.when(
-    combo_hubungan_penjemput(),
-    combo_jekel_penjemput(),
-    combo_kerja_penjemput(),
-    combo_perusahaan_penjemput(),
-    combo_pendidikan_penjemput(),
-    combo_agama_penjemput(),
-    combo_kecamatan_penjemput(),
-    combo_kota_penjemput(),
-    combo_provinsi_penjemput(),
-)
-.done(function() {
-
-    $('.select2').select2();
-
-    $.ajax({
-        type: "GET",
-        url: "{{ route('dapok.penjemput.edit') }}",
-        dataType: "JSON",
-        data: {
-            id: id
-        },
-        success: function(r) {
-
-            data = r.data;
-
-            $('#formModalEditPenjemput').modal('show');
-            $('#formModalEditPenjemput').find('[name="id_edit_penjemput"]').val(data.pnj_id);
-            $('#formModalEditPenjemput').find('[name="penjemput_nama"]').val(data.pnj_nama);
-            $('#formModalEditPenjemput').find('[name="penjemput_nik"]').val(data.pnj_nik);
-            $('#formModalEditPenjemput').find('[name="penjemput_tmp_lahir"]').val(data.pnj_tmp_lahir);
-            $('#formModalEditPenjemput').find('[name="penjemput_lahir"]').datepicker('setDate',moment(data.pnj_tgl_lahir).format('DD-MM-YYYY'));
-            $('#formModalEditPenjemput').find('[name="penjemput_agama"]').val(data.pnj_agama_id).trigger("change");
-            $('#formModalEditPenjemput').find('[name="penjemput_hubungan"]').val(data.pnj_hub_id).trigger("change");
-            $('#formModalEditPenjemput').find('[name="penjemput_kerja"]').val(data.pnj_kerja_id).trigger("change");
-            $('#formModalEditPenjemput').find('[name="penjemput_perusahaan"]').val(data.pnj_peru_id).trigger("change");
-            $('#formModalEditPenjemput').find('[name="penjemput_pdk"]').val(data.pnj_pdk_id).trigger("change");
-            $('#formModalEditPenjemput').find('[name="penjemput_jekel"]').val(data.pnj_jekel).trigger("change");
-            $('#formModalEditPenjemput').find('[name="penjemput_hp"]').val(data.pnj_hp);
-            $('#formModalEditPenjemput').find('[name="penjemput_wa"]').val(data.pnj_wa);
-
-            $('#formModalEditPenjemput').find('[name="penjemput_provinsi"]').val(data.provinsi_id).trigger("change");
-            $('#formModalEditPenjemput').find('[name="penjemput_kota"]').val(data.kota_id).trigger("change");
-            $('#formModalEditPenjemput').find('[name="penjemput_kecamatan"]').val(data.kecamatan_id).trigger("change");
-            $('#formModalEditPenjemput').find('[name="penjemput_alamat"]').val(data.pnj_alamat).trigger("change");
-
-        }
-    });
-})
-
-return false;
-});
-
-$('#btn_simpan_penjemput').on('click', function(){
-
-    if (!$("#kontak_nama").val()) {
-        $.toast({
-            text: 'NAMA MASIH KOSONG',
-            position: 'top-right',
-            loaderBg: '#fff716',
-            icon: 'error',
-            hideAfter: 3000
-        });
-
-        $("#kontak_nama").focus();
-        return false;
-
-    } 
-
-    else if (!$("#kontak_nik").val()) {
-        $.toast({
-            text: 'NIK MASIH KOSONG',
-            position: 'top-right',
-            loaderBg: '#fff716',
-            icon: 'error',
-            hideAfter: 3000
-        });
-
-        $("#kontak_nik").focus();
-        return false;
-
-    } 
-
-    else if (!$("#kontak_jekel").val()) {
-        $.toast({
-            text: 'JENIS KELAMIN MASIH KOSONG',
-            position: 'top-right',
-            loaderBg: '#fff716',
-            icon: 'error',
-            hideAfter: 3000
-        });
-
-        $("#kontak_jekel").focus();
-        return false;
-
-    } 
-
-    else if (!$("#kontak_provinsi").val()) {
-        $.toast({
-            text: 'PROVINSI MASIH KOSONG',
-            position: 'top-right',
-            loaderBg: '#fff716',
-            icon: 'error',
-            hideAfter: 3000
-        });
-
-        $("#kontak_provinsi").focus();
-        return false;
-
-    } 
-
-    else if (!$("#kontak_kota").val()) {
-        $.toast({
-            text: 'KOTA MASIH KOSONG',
-            position: 'top-right',
-            loaderBg: '#fff716',
-            icon: 'error',
-            hideAfter: 3000
-        });
-
-        $("#kontak_kota").focus();
-        return false;
-
-    } 
-
-    else if (!$("#kontak_kecamatan").val()) {
-        $.toast({
-            text: 'KECAMATAN MASIH KOSONG',
-            position: 'top-right',
-            loaderBg: '#fff716',
-            icon: 'error',
-            hideAfter: 3000
-        });
-
-        $("#kontak_kecamatan").focus();
-        return false;
-
-    } 
-
-
-    var kontak_nama     = $('#kontak_nama').val();
-    var kontak_nik      = $('#kontak_nik').val();
-    var kontak_jekel    = $('#kontak_jekel').val();
-    var kontak_hp       = $('#kontak_hp').val();
-
-    var provinsi        = $('#kontak_provinsi').val();
-    var kota            = $('#kontak_kota').val();
-    var kecamatan       = $('#kontak_kecamatan').val();
-    var alamat          = $('#kontak_alamat').val(); 
-
-    var token = $('[name=_token]').val();
-    var formData = new FormData();
-
-    formData.append('kontak_nama', kontak_nama);
-    formData.append('kontak_nik', kontak_nik);
-    formData.append('kontak_jekel', kontak_jekel);
-    formData.append('kontak_hp', kontak_hp);
-    formData.append('provinsi', provinsi);
-    formData.append('kota', kota);
-    formData.append('kecamatan', kecamatan);
-    formData.append('alamat', alamat);
-
-    formData.append('_token', token);
-
-    $.ajax({
-        type: "POST",
-        url: "{{ route('dapok.kontak_darurat.save') }}",
-        dataType: "JSON",
-        data: formData,
-        cache: false,
-        processData: false,
-        contentType: false,
-        success: function(data) {
-
-            swal("Berhasil!", "Data Berhasil Di Simpan", "success");
-            $('#formModalAddPenjemput').modal('hide');
-            view_ortu();    
-            view_penjemput();    
-            view_kontak_darurat();    
-            
-        }
-    });
-
-    return false;
-
-});
-
-    $('#btn_update_penjemput').on('click', function(){
-
-            if (!$("#penjemput_nama_edit").val()) {
-                $.toast({
-                    text: 'NAMA PENJEMPUT MASIH KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_nama_edit").focus();
-                return false;
-
-            } 
-
-            else if (!$("#penjemput_nik_edit").val()) {
-                $.toast({
-                    text: 'NIK PENJEMPUT MASIH KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_nik_edit").focus();
-                return false;
-
-            }
-
-            else if (!$("#penjemput_tmp_lahir_edit").val()) {
-                $.toast({
-                    text: 'TANGGAL LAHIR PENJEMPUT KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_tmp_lahir_edit").focus();
-                return false;
-
-            }
-
-            else if (!$("#penjemput_lahir_edit").val()) {
-                $.toast({
-                    text: 'TANGGAL LAHIR PENJEMPUT  KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_lahir_edit").focus();
-                return false;
-
-            }
-
-            else if (!$("#penjemput_agama_edit").val()) {
-                $.toast({
-                    text: 'AGAMA PENJEMPUT KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_agama_edit").focus();
-                return false;
-
-            }
-
-            else if (!$("#penjemput_hubungan_edit").val()) {
-                $.toast({
-                    text: 'HUBUNGAN PENJEMPUT KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_hubungan_edit").focus();
-                return false;
-
-            }
-
-            else if (!$("#penjemput_kerja_edit").val()) {
-                $.toast({
-                    text: 'KERJA PENJEMPUT KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_kerja_edit").focus();
-                return false;
-
-            }
-
-            else if (!$("#penjemput_perusahaan_edit").val()) {
-                $.toast({
-                    text: 'PERUSAHAAN PENJEMPUT MASIH KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_perusahaan_edit").focus();
-                return false;
-
-            } 
-
-            else if (!$("#penjemput_pdk_edit").val()) {
-                $.toast({
-                    text: 'PENDIDIKAN PENJEMPUT MASIH KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_pdk_edit").focus();
-                return false;
-
-            } 
-
-            else if (!$("#penjemput_hp_edit").val()) {
-                $.toast({
-                    text: 'HP penjemput MASIH KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_hp_edit").focus();
-                return false;
-
-            } 
-
-            else if (!$("#penjemput_wa_edit").val()) {
-                $.toast({
-                    text: 'WA PENJEMPUT MASIH KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_wa_edit").focus();
-                return false;
-
-            } 
-
-            else if (!$("#penjemput_provinsi_edit").val()) {
-                $.toast({
-                    text: 'PROVINSI MASIH KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_provinsi_edit").focus();
-                return false;
-
-            } 
-
-            else if (!$("#penjemput_kota_edit").val()) {
-                $.toast({
-                    text: 'KOTA MASIH KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_kota_edit").focus();
-                return false;
-
-            } 
-
-            else if (!$("#penjemput_kecamatan_edit").val()) {
-                $.toast({
-                    text: 'KECAMATAN MASIH KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_kecamatan_edit").focus();
-                return false;
-
-            } 
-
-            else if (!$("#penjemput_alamat_edit").val()) {
-                $.toast({
-                    text: 'ALAMAT MASIH KOSONG',
-                    position: 'top-right',
-                    loaderBg: '#fff716',
-                    icon: 'error',
-                    hideAfter: 3000
-                });
-
-                $("#penjemput_alamat_edit").focus();
-                return false;
-
-            }
-
-
-            var id                   = $('#id_edit_penjemput').val();
-            var penjemput_nama       = $('#penjemput_nama_edit').val();
-            var penjemput_nik        = $('#penjemput_nik_edit').val();
-            var penjemput_tmp_lahir  = $('#penjemput_tmp_lahir_edit').val();
-            var penjemput_lahir      = $('#penjemput_lahir_edit').val();
-            var penjemput_kerja      = $('#penjemput_kerja_edit').val();
-            var penjemput_perusahaan = $('#penjemput_perusahaan_edit').val();
-            var penjemput_hp         = $('#penjemput_hp_edit').val();
-            var penjemput_wa         = $('#penjemput_wa_edit').val();
-            var penjemput_pdk        = $('#penjemput_pdk_edit').val();
-            var penjemput_agama      = $('#penjemput_agama_edit').val();
-            var penjemput_jekel      = $('#penjemput_jekel_edit').val();
-            var penjemput_hubungan   = $('#penjemput_hubungan_edit').val();
-
-            var provinsi        = $('#penjemput_provinsi_edit').val();
-            var kota            = $('#penjemput_kota_edit').val();
-            var kecamatan       = $('#penjemput_kecamatan_edit').val();
-            var alamat          = $('#penjemput_alamat_edit').val(); 
-
-            var token = $('[name=_token]').val();
-            var formData = new FormData();
-
-            formData.append('id', id);
-            formData.append('penjemput_nama', penjemput_nama);
-            formData.append('penjemput_nik', penjemput_nik);
-            formData.append('penjemput_lahir', penjemput_lahir);
-            formData.append('penjemput_tmp_lahir', penjemput_tmp_lahir);
-            formData.append('penjemput_kerja', penjemput_kerja);
-            formData.append('penjemput_perusahaan', penjemput_perusahaan);
-            formData.append('penjemput_hp', penjemput_hp);
-            formData.append('penjemput_wa', penjemput_wa);
-            formData.append('penjemput_agama', penjemput_agama);
-            formData.append('penjemput_pdk', penjemput_pdk);
-            formData.append('penjemput_jekel', penjemput_jekel);
-            formData.append('penjemput_hubungan', penjemput_hubungan);
-            formData.append('provinsi', provinsi);
-            formData.append('kota', kota);
-            formData.append('kecamatan', kecamatan);
-            formData.append('alamat', alamat);
-            formData.append('_token', token);
-
-
-            $.ajax({
-                type: "POST",
-                url: "{{ route('dapok.penjemput.update') }}",
-                dataType: "JSON",
-                data: formData,
-                cache: false,
-                processData: false,
-                contentType: false,
-                success: function(data) {
-
-                    swal("Berhasil!", "Data Berhasil Di Simpan", "success");
-                    $('#formModalEditPenjemput').modal('hide');
-                    view_penjemput();    
-                    
-                }
-            });
-
-        return false;
-
-    });
-
-    $('#show_data_kontak').on('click','.item_kontak_aktif',function(){
+    $('#show_data_penjemput').on('click','.item_pnj_aktif',function(){
         var id=$(this).attr('data');
         swal({
                 title: "Anda Yakin Aktifkan Data Ini ?",
@@ -3833,21 +3626,21 @@ $('#btn_simpan_penjemput').on('click', function(){
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('dapok.kontak_darurat.aktif') }}",
+                    url   : "{{ route('dapok.penjemput.aktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
                         swal("Non-Aktif !", "Data Sudah Aktifk !!.", "success");
                         view_ortu();
                         view_penjemput();
-                        view_kontak_darurat();
+                        view_penjemput();
                     }
                 });  
             }
         });
     });
 
-    $('#show_data_kontak').on('click','.item_kontak_nonaktif',function(){
+    $('#show_data_penjemput').on('click','.item_pnj_nonaktif',function(){
         var id=$(this).attr('data');
         swal({
                 title: "Anda Yakin Non-Aktifkan Data Ini ?",
@@ -3861,24 +3654,235 @@ $('#btn_simpan_penjemput').on('click', function(){
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('dapok.kontak_darurat.nonaktif') }}",
+                    url   : "{{ route('dapok.penjemput.nonaktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
                         swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
                         view_ortu();
                         view_penjemput();
-                        view_kontak_darurat();
+                        view_penjemput();
                     }
                 });  
             }
         });
     });
 
-    
-  
 
-   
+     // TRANSAKSI
+
+    function view_detail() {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('pendaftaran.view_detail') }}",
+            async: true,
+            dataType: 'JSON',
+            success: function(r) {
+                var i;
+                $('#datatable_penjemput').DataTable().destroy(); 
+                $('#show_data_trs_detail').empty();
+                data = r.data;
+
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+
+                        var tr = $('<tr>').append([
+                            $('<td class= width="1%" align="center">'),
+                            $('<td class= width="10%" align="left">'),
+                            $('<td class= width="10%" align="left">'),
+                            $('<td class= width="60%" align="right">'),
+                            $('<td class= width="60%" align="right">'),
+                            $('<td class= width="60%" align="right">'),
+                            $('<td class= width="1%" align="right">')
+                        ]);
+
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html((data[i].anak_nama))); 
+                        
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html((data[i].anak_nama))); 
+                        
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html((data[i].tarif_reg))); 
+
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html((data[i].tarif_spp))); 
+
+                        tr.find('td:nth-child(6)').append($('<div>')
+                            .html((data[i].tarif_pembg))); 
+
+                        tr.find('td:nth-child(7)').append($('<div>')
+                            .html((data[i].total))); 
+
+                        tr.appendTo($('#show_data_trs_detail'));
+                    }
+
+                } 
+                else {
+
+                    $('#show_data_trs_detail').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
+                }
+                $('#datatable_penjemput').DataTable('refresh'); 
+            }
+        });
+    }
+
+
+
+    $('#show_data_transaksi').on('click', '.item_edit_pnj', function() {
+
+        var id = $(this).attr('data');
+
+        console.log(id);
+
+        $.when(
+            combo_hubungan_penjemput(),
+            combo_jekel_penjemput(),
+            combo_kerja_penjemput(),
+            combo_perusahaan_penjemput(),
+            combo_pendidikan_penjemput(),
+            combo_agama_penjemput(),
+            combo_kecamatan_penjemput(),
+            combo_kota_penjemput(),
+            combo_provinsi_penjemput(),
+        )
+        .done(function() {
+
+            $('.select2').select2();
+
+            $.ajax({
+                type: "GET",
+                url: "{{ route('dapok.penjemput.edit') }}",
+                dataType: "JSON",
+                data: {
+                    id: id
+                },
+                success: function(r) {
+
+                    data = r.data;
+
+                    $('#formModalEditPenjemput').modal('show');
+                    $('#formModalEditPenjemput').find('[name="id_edit_penjemput"]').val(data.pnj_id);
+                    $('#formModalEditPenjemput').find('[name="penjemput_nama"]').val(data.pnj_nama);
+                    $('#formModalEditPenjemput').find('[name="penjemput_nik"]').val(data.pnj_nik);
+                    $('#formModalEditPenjemput').find('[name="penjemput_tmp_lahir"]').val(data.pnj_tmp_lahir);
+                    $('#formModalEditPenjemput').find('[name="penjemput_lahir"]').datepicker('setDate',moment(data.pnj_tgl_lahir).format('DD-MM-YYYY'));
+                    $('#formModalEditPenjemput').find('[name="penjemput_agama"]').val(data.pnj_agama_id).trigger("change");
+                    $('#formModalEditPenjemput').find('[name="penjemput_hubungan"]').val(data.pnj_hub_id).trigger("change");
+                    $('#formModalEditPenjemput').find('[name="penjemput_kerja"]').val(data.pnj_kerja_id).trigger("change");
+                    $('#formModalEditPenjemput').find('[name="penjemput_perusahaan"]').val(data.pnj_peru_id).trigger("change");
+                    $('#formModalEditPenjemput').find('[name="penjemput_pdk"]').val(data.pnj_pdk_id).trigger("change");
+                    $('#formModalEditPenjemput').find('[name="penjemput_jekel"]').val(data.pnj_jekel).trigger("change");
+                    $('#formModalEditPenjemput').find('[name="penjemput_hp"]').val(data.pnj_hp);
+                    $('#formModalEditPenjemput').find('[name="penjemput_wa"]').val(data.pnj_wa);
+
+                    $('#formModalEditPenjemput').find('[name="penjemput_provinsi"]').val(data.provinsi_id).trigger("change");
+                    $('#formModalEditPenjemput').find('[name="penjemput_kota"]').val(data.kota_id).trigger("change");
+                    $('#formModalEditPenjemput').find('[name="penjemput_kecamatan"]').val(data.kecamatan_id).trigger("change");
+                    $('#formModalEditPenjemput').find('[name="penjemput_alamat"]').val(data.pnj_alamat).trigger("change");
+
+                }
+            });
+        })
+
+        return false;
+    });
+
+    $('#btn_simpan_detail ').on('click', function(){
+
+        if (!$("#trs_anak").val()) {
+            $.toast({
+                text: 'ANAK HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#trs_anak").focus();
+            return false;
+
+        }
+
+        else if (!$("#grup").val()) {
+            $.toast({
+                text: 'GRUP HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#grup").focus();
+            return false;
+        }
+
+        else if (!$("#paket").val()) {
+            $.toast({
+                text: 'PAKET HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#paket").focus();
+            return false;
+        }
+
+
+        var trs_anak             = $('#trs_anak').val();
+        var grup                 = $('#grup').val();
+        var paket                = $('#paket').val();
+        var keterangan           = $('#keterangan').val();
+        var tarif_kode           = $('#tarif_kode').val();
+
+        var token = $('[name=_token]').val();
+        var formData = new FormData();
+
+        formData.append('trs_anak', trs_anak);
+        formData.append('grup', grup);
+        formData.append('paket', paket);
+        formData.append('keterangan', keterangan);
+        formData.append('tarif_kode', tarif_kode);
+
+        formData.append('_token', token);
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('pendaftaran.save_detail') }}",
+            dataType: "JSON",
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(r) {
+
+                if(r.success == true){
+                    $.toast({
+                        text: 'DATA BERHASIL DITAMBAHKAN',
+                        position: 'top-right',
+                        loaderBg: '#fff716',
+                        icon: 'success',
+                        hideAfter: 3000
+                    });
+                }
+                view_detail();
+            }
+        });
+
+        return false;
+
+    });
+
+
+
+
 
 
     /*-- ORANG TUA --*/
@@ -3908,6 +3912,7 @@ $('#btn_simpan_penjemput').on('click', function(){
             }
         });
     }
+
     function combo_kota(provinsi){
         $.ajax({
             type  : 'GET',
@@ -3986,6 +3991,7 @@ $('#btn_simpan_penjemput').on('click', function(){
             }
         });
     }
+
     function combo_kota_penjemput(provinsi){
         $.ajax({
             type  : 'GET',
@@ -4037,110 +4043,6 @@ $('#btn_simpan_penjemput').on('click', function(){
         });
     }
 
-
-    /*-- KONTAK DARURAT --*/
-
-    function combo_kecamatan_kontak(kota){
-        $.ajax({
-            type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_kecamatan') }}",
-            async : false,
-            data : {kota:kota},
-            dataType : 'JSON',
-            success : function(data){
-                var html = '';
-                var i;
-                $('select[name=kontak_kecamatan]').empty()
-                    var x = document.getElementById("kontak_kecamatan");
-                    var option = document.createElement("option");
-                    option.text = "--Pilih--";
-                    option.value = '';
-                    x.add(option);
-
-                for(i=0; i<data.length; i++){
-                    var html = '';
-                    html = '<option value='+(data[i].kec_id)+'>'+(data[i].kec_nama)+'</option>';
-                    $('select[name=kontak_kecamatan]').append(html)
-                }
-            }
-        });
-    }
-    function combo_kota_kontak(provinsi){
-        $.ajax({
-            type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_kota') }}",
-            async : false,
-            data : {provinsi:provinsi},
-            dataType : 'JSON',
-            success : function(data){
-                var html = '';
-                var i;
-                $('select[name=kontak_kota]').empty()
-                    var x = document.getElementById("kontak_kota");
-                    var option = document.createElement("option");
-                    option.text = "--Pilih--";
-                    option.value = '';
-                    x.add(option);
-
-                for(i=0; i<data.length; i++){
-                    var html = '';
-                    html = '<option value='+(data[i].kota_id)+'>'+(data[i].kota_nama)+'</option>';
-                    $('select[name=kontak_kota]').append(html)
-                }
-            }
-        });
-    }
-
-    function combo_provinsi_kontak(){
-        $.ajax({
-            type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_provinsi') }}",
-            async : false,
-            dataType : 'JSON',
-            success : function(data){
-                var html = '';
-                var i;
-                $('select[name=kontak_provinsi]').empty()
-                    var x = document.getElementById("kontak_provinsi");
-                    var option = document.createElement("option");
-                    option.text = "--Pilih--";
-                    option.value = '';
-                    x.add(option);
-
-                for(i=0; i<data.length; i++){
-                    var html = '';
-                    html = '<option value='+(data[i].pro_id)+'>'+(data[i].pro_nama)+'</option>';
-                    $('select[name=kontak_provinsi]').append(html)
-                }
-            }
-        });
-    }
-
-
-    function combo_anak(){
-
-    $('select[name=jenis]').empty()
-        $.ajax({
-                type  : 'GET',
-                url   : "{{ route('combo_sistem.combo_anak') }}",
-                async : false,
-                dataType : 'JSON',
-                success : function(data){
-                    var html = '';
-                    var i;
-                    $('select[name=jenis]').empty()
-                    for(i=0; i<data.length; i++){
-                        var html = '';
-                        html = '<option value='+(data[i].anak_id)+'>'+(data[i].anak_nama)+'</option>';
-                        $('select[name=jenis]').append(html)
-                    }
-                }
-            });
-
-    }
-
-
-
     function combo_jenis(){
 
     $('select[name=jenis]').empty()
@@ -4173,16 +4075,6 @@ $('#btn_simpan_penjemput').on('click', function(){
 
     }
 
-    function combo_jekel_kontak(){
-
-        $('select[name=kontak_jekel]').empty()
-            var html = '';
-            html = '<option value="">--Pilih--</option>'+
-                    '<option value="L">Laki-Laki</option>'+
-                   '<option value="P">Perempuan</option>';
-        $('select[name=kontak_jekel]').append(html)
-
-    }
 
     function combo_jekel_penjemput(){
 
@@ -4615,32 +4507,34 @@ $('#btn_simpan_penjemput').on('click', function(){
 
     }
 
-    function combo_ortu(){
 
-         $('select[name=ortu]').empty()
+    function combo_penjemput(){
+
+         $('select[name=penjemput]').empty()
         $.ajax({
                 type  : 'GET',
-                url   : "{{ route('combo_sistem.combo_ortu') }}",
+                url   : "{{ route('combo_sistem.combo_penjemput') }}",
                 async : false,
                 dataType : 'JSON',
                 success : function(data){
                     var html = '';
                     var i;
-                    $('select[name=ortu]').empty()
-                        var x = document.getElementById("ortu");
+                    $('select[name=penjemput]').empty()
+                        var x = document.getElementById("penjemput");
                         var option = document.createElement("option");
                         option.text = "--Pilih--";
                         option.value = '';
                         x.add(option);
                     for(i=0; i<data.length; i++){
                         var html = '';
-                        html = '<option value='+(data[i].ortu_id)+'>'+(data[i].ortu_ayah)+' - '+(data[i].ortu_ibu)+'</option>';
-                        $('select[name=ortu]').append(html)
+                        html = '<option value='+(data[i].pnj_id)+'>'+(data[i].pnj_nama)+'</option>';
+                        $('select[name=penjemput]').append(html)
                     }
                 }
             });
 
     }
+
 
     function combo_grup(){
 
@@ -4668,6 +4562,340 @@ $('#btn_simpan_penjemput').on('click', function(){
             });
 
     }
+
+    // TRANSAKSI
+
+    // $('#btn_simpan_anak').on('click', function(){
+        
+    //     if (!$("#trs_ortu").val()) {
+    //         $.toast({
+    //             text: 'ORANG TUA MASIH KOSONG',
+    //             position: 'top-right',
+    //             loaderBg: '#fff716',
+    //             icon: 'error',
+    //             hideAfter: 3000
+    //         });
+
+    //         $("#trs_ortu").focus();
+    //         return false;
+
+    //     }
+
+    //     if (!$("#penjemput").val()) {
+    //         $.toast({
+    //             text: 'PENJEMPUT MASIH KOSONG',
+    //             position: 'top-right',
+    //             loaderBg: '#fff716',
+    //             icon: 'error',
+    //             hideAfter: 3000
+    //         });
+
+    //         $("#penjemput").focus();
+    //         return false;
+
+    //     } 
+
+      
+        
+      
+    //     // var nis             = $('#id_edit_anak').val();
+    //     var ortu            = $('#trs_ortu').val();
+    //     var penjemput       = $('#penjemput').val();
+    //     var anak_nama       = $('#anak_nama').val();
+    //     var anak_tmp_lahir  = $('#anak_tmp_lahir').val();
+    //     var anak_tgl_lahir  = $('#anak_tgl_lahir').val();
+    //     var anak_jekel      = $('#anak_jekel').val();
+    //     var anak_ke         = $('#anak_ke').val();
+    //     var anak_saudara    = $('#anak_saudara').val();
+    //     var anak_agama      = $('#anak_agama').val();
+    //     var anak_alamat     = $('#anak_alamat').val();
+    //     var anak_berat      = $('#anak_berat').val();
+    //     var anak_tinggi     = $('#anak_tinggi').val();
+    //     var token           = $('[name=_token]').val();
+
+    //     var formData = new FormData();
+    
+    //     // formData.append('nis', nis);
+    //     formData.append('ortu', ortu);
+    //     formData.append('penjemput', penjemput);
+    //     formData.append('anak_nama', anak_nama);
+    //     formData.append('anak_tmp_lahir', anak_tmp_lahir);
+    //     formData.append('anak_tgl_lahir', anak_tgl_lahir);
+    //     formData.append('anak_jekel', anak_jekel);
+    //     formData.append('anak_ke', anak_ke);
+    //     formData.append('anak_saudara', anak_saudara);
+    //     formData.append('anak_agama', anak_agama);
+    //     formData.append('anak_alamat', anak_alamat);
+    //     formData.append('anak_berat', anak_berat);
+    //     formData.append('anak_tinggi', anak_tinggi);
+
+    //     formData.append('_token', token);
+
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "{{ route('dapok.anak.save') }}",
+    //         dataType: "JSON",
+    //         data: formData,
+    //         cache: false,
+    //         processData: false,
+    //         contentType: false,
+    //         success: function(data) {
+
+    //             swal("Berhasil!", "Data Berhasil Disimpan", "success");
+    //             $('#formModalAddAnak').modal('hide');       
+    //             view_anak();
+    //             combo_anak();
+                
+    //         }
+    //     });
+    
+    //     return false;
+
+    // });
+ 
+
+    function showFilterGrub(select){
+
+        var grup  = $('#grup').val();
+        var paket  = $('#paket').val();
+        combo_paket(grup);
+        view_tarif(grup,paket);
+
+    }
+
+    function showFilterPaket(select){
+
+        var grup  = $('#grup').val();
+        var paket  = $('#paket').val();
+        view_tarif(grup,paket);
+        get_tarif(paket);
+
+    }
+
+    function get_tarif(paket){
+        $.ajax({
+            type: "GET",
+            url: "{{ route('tarif.harga.get_tarif') }}",
+            dataType: "JSON",
+            data: {id:paket},
+            success: function(data) {
+
+                $('[name="tarif_kode"]').val(data.tarif_kode);
+               
+            }
+        });
+    }
+
+
+    function combo_paket(grup){
+
+        $('select[name=paket]').empty()
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_paket') }}",
+            async : false,
+            data : {grup:grup},
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=paket]').empty()
+                var x = document.getElementById("paket");
+                        var option = document.createElement("option");
+                        option.text = "--Pilih--";
+                        option.value = '';
+                        x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].jenis_id)+'>'+(data[i].jenis_nama)+'</option>';
+                    $('select[name=paket]').append(html)
+                }
+            }
+        });
+
+    }
+
+    // TRANSAKSI
+
+    function view_tarif(grup,paket) {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('tarif.harga.view_transaksi') }}",
+            async: true,
+            data : {grup:grup,paket:paket},
+            dataType: 'JSON',
+            success: function(r) {
+                var i;
+
+                $('#show_data_tarif').empty();
+                data = r.data;
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        var tr = $('<tr>').append([
+                            $('<td width="5%" align="center">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="center">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="right">')
+                        ]);
+
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html((data[i].reg_tampil)));   
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html((data[i].spp_tampil)));  
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html((data[i].tahun)));
+
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html((data[i].total_spp_tampil)));
+
+                        tr.find('td:nth-child(6)').append($('<div>')
+                            .html((data[i].pembangunan_tampil)));  
+
+                        tr.find('td:nth-child(7)').append($('<div>')
+                            .html('<b class="text-danger">'+(data[i].total_bayar)+'</b>'));   
+
+                        // tr.find('td:nth-child(5)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-rounded btn-info btn-xs item_pilih" data="'+data[i].tarif_nis+'">PILIH</a></div>'); 
+
+                        tr.appendTo($('#show_data_tarif'));
+                    }
+
+                } else {
+
+                    $('#show_data_tarif').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
+                }
+
+            }
+        });
+    }
+
+
+    function view_transaksi_detail() {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('tarif.harga.view_transaksi') }}",
+            async: true,
+            data : {grup:grup,paket:paket},
+            dataType: 'JSON',
+            success: function(r) {
+                var i;
+
+                $('#show_data_tarif').empty();
+                data = r.data;
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        var tr = $('<tr>').append([
+                            $('<td width="5%" align="center">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="center">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="right">')
+                        ]);
+
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html((data[i].reg_tampil)));   
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html((data[i].spp_tampil)));  
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html((data[i].tahun)));
+
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html((data[i].total_spp_tampil)));
+
+                        tr.find('td:nth-child(6)').append($('<div>')
+                            .html((data[i].pembangunan_tampil)));  
+
+                        tr.find('td:nth-child(7)').append($('<div>')
+                            .html('<b class="text-danger">'+(data[i].total_bayar)+'</b>'));   
+
+                        // tr.find('td:nth-child(5)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-rounded btn-info btn-xs item_pilih" data="'+data[i].tarif_nis+'">PILIH</a></div>'); 
+
+                        tr.appendTo($('#show_data_tarif'));
+                    }
+
+                } else {
+
+                    $('#show_data_tarif').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
+                }
+
+            }
+        });
+    }
+
+
+    function combo_anak(){
+
+        $('select[name=trs_anak]').empty()
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_anak') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=trs_anak]').empty()
+                var x = document.getElementById("trs_anak");
+                        var option = document.createElement("option");
+                        option.text = "--Pilih--";
+                        option.value = '';
+                        x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].anak_nis)+'>'+(data[i].anak_nama)+' - '+(data[i].ortu_ayah)+'</option>';
+                    $('select[name=trs_anak]').append(html)
+                }
+            }
+        });
+
+    }
+
+    function combo_grup(){
+
+        $('select[name=grup]').empty()
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_grup') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=grup]').empty()
+                var x = document.getElementById("grup");
+                        var option = document.createElement("option");
+                        option.text = "--Pilih--";
+                        option.value = '';
+                        x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].grup_id)+'>'+(data[i].grup_nama)+'</option>';
+                    $('select[name=grup]').append(html)
+                }
+            }
+        });
+
+    }
+
+    
 
 
 

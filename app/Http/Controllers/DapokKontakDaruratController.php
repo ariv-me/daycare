@@ -53,7 +53,6 @@ class DapokKontakDaruratController extends Controller
             $tmp->created_nama      = $app['kar_nama_awal'];
             $tmp->created_ip        = $r->ip();
 
-            dd($tmp);
             $tmp->save();
 
         });
@@ -63,7 +62,7 @@ class DapokKontakDaruratController extends Controller
     }
 
 
-    public function view(Request $r){
+    public function view_kontak(Request $r){
 
         $result = array('success'=>false);
 
@@ -77,6 +76,10 @@ class DapokKontakDaruratController extends Controller
                 //dd($data);
 
                 $data = $data->map(function($value) {
+
+                    $value->provinsi = ucwords(strtolower(SistemProvinsi::getNamaProvinsi($value->provinsi_id)));
+                    $value->kota = ucwords(strtolower(SistemKota::getNamaKota($value->kota_id)));
+                    $value->kecamatan = ucwords(strtolower(SistemKecamatan::getNamaKecamatan($value->kecamatan_id)));
 
                     if ($value->kontak_jekel == 'L'){
                         $value->kontak_jekel = 'Laki-Laki';
@@ -107,6 +110,7 @@ class DapokKontakDaruratController extends Controller
         $id = $r->get('id');
        
         $data = DapokKontakDarurat::where('kontak_id',$id)->first();
+        //dd($data);
 
         $result = array();
         $result['data']    = $data;
@@ -124,28 +128,20 @@ class DapokKontakDaruratController extends Controller
               //dd($id);
               $tmp = DapokKontakDarurat::where('kontak_id',$id)->first();
 
-              $tmp->pnj_nama              = $r->penjemput_nama;
-              $tmp->pnj_nik               = $r->penjemput_nik;
-              $tmp->pnj_tgl_lahir         = date('Y-m-d', strtotime($r->penjemput_lahir));
-              $tmp->pnj_tmp_lahir         = $r->penjemput_tmp_lahir;
-              $tmp->pnj_kerja_id          = $r->penjemput_kerja;
-              $tmp->pnj_peru_id           = $r->penjemput_perusahaan;
-              $tmp->pnj_hp                = $r->penjemput_hp;
-              $tmp->pnj_wa                = $r->penjemput_wa;
-              $tmp->pnj_agama_id          = $r->penjemput_agama;
-              $tmp->pnj_pdk_id            = $r->penjemput_pdk;
-              $tmp->pnj_jekel             = $r->penjemput_jekel;
-              $tmp->pnj_hub_id            = $r->penjemput_hubungan;
-              $tmp->provinsi_id           = $r->provinsi;
-              $tmp->kecamatan_id          = $r->kecamatan;
-              $tmp->kota_id               = $r->kota;
-              $tmp->pnj_alamat            = $r->alamat;
+              $tmp->kontak_nama       = $r->kontak_nama;
+              $tmp->kontak_nik        = $r->kontak_nik;
+              $tmp->kontak_hp         = $r->kontak_hp;
+              $tmp->kontak_jekel      = $r->kontak_jekel;
+  
+              $tmp->provinsi_id       = $r->provinsi;
+              $tmp->kecamatan_id      = $r->kecamatan;
+              $tmp->kota_id           = $r->kota;
+              $tmp->kontak_alamat     = $r->alamat;
+  
 
               $tmp->updated_nip           = $app['kar_nip'];
               $tmp->updated_nama          = $app['kar_nama_awal'];
               $tmp->updated_ip            = $r->ip();
-
-              //dd($tmp);
 
               $tmp->save();
   

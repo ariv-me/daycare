@@ -335,6 +335,10 @@
         <script src="{{ asset('resources/templates3/view/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
         <script src="{{ asset('resources/templates3/plugins/input-mask/jquery.inputmask.js') }}"></script>
         <script src="{{ asset('resources/templates3/plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+
+        <script src="{{ asset('resources/sources/assets/js_input_mask/dist/jquery.mask') }}"></script>
+        <script src="{{ asset('resources/sources/assets/js_input_mask/dist/jquery.mask.min') }}"></script>
+
         <!-- App js -->
         <script src="{{ asset('resources/templates3/view/assets/js/app.js') }}"></script>
         <script src="{{ asset('resources/templates3/view/assets/my.js')}}"></script>

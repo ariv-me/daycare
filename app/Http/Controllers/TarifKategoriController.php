@@ -73,7 +73,7 @@ class TarifKategoriController extends Controller
 
     public function aktif(Request $r)
     {
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
 
             $id = $r->get('id');
             $tmp = TarifKategori::where('kat_id',$id)->first();
@@ -88,7 +88,7 @@ class TarifKategoriController extends Controller
     
     public function nonaktif(Request $r)
     {
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
 
             $id = $r->get('id');
             $tmp = TarifKategori::where('kat_id',$id)->first();

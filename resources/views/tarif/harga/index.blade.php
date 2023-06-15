@@ -61,10 +61,16 @@
                             <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"></select>
                         </div>
                     </div>  
-                    <div class="col-md-12 mb-0">
+                    <div class="col-md-6 mb-0">
                         <div class="form-group">
                             <label> <strong>Jenis</strong>  <small class="text-danger">*</small></label>
                             <select class="form-control custom-select select2" style="width: 100%;" name="jenis" id="jenis"></select>
+                        </div>
+                    </div>    
+                    <div class="col-md-6 mb-0">
+                        <div class="form-group">
+                            <label> <strong>Hari</strong>  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="hari" id="hari"></select>
                         </div>
                     </div>    
                     <div class="col-md-12 mb-3">
@@ -73,7 +79,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp.</span>
                             </div>
-                            <input type="text" name="registrasi" id="registrasi" class="form-control col-md-12">
+                            <input type="text" name="registrasi" id="registrasi" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
                         </div>
                     </div>  
                     <div class="col-md-12 mb-3">
@@ -82,7 +88,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp.</span>
                             </div>
-                            <input type="text" name="bulanan" id="bulanan" class="form-control col-md-12">
+                            <input type="text" name="bulanan" id="bulanan" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
                         </div>
                     </div>  
                     <div class="col-md-12 mb-3">
@@ -91,7 +97,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp.</span>
                             </div>
-                            <input type="text" name="pembangunan" id="pembangunan" class="form-control col-md-12">
+                            <input type="text" name="pembangunan" id="pembangunan" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
                         </div>
                     </div>  
                 </div>
@@ -117,13 +123,13 @@
                 <input type="hidden" name="id_edit" id="id_edit" class="form-control">
 
                 <div class="row">
-                    <div class="col-md-12 mb-0">
+                    <div class="col-md-6 mb-0">
                         <div class="form-group">
                             <label> <strong>Grup</strong>  <small class="text-danger">*</small></label>
                             <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup_edit"></select>
                         </div>
                     </div>  
-                    <div class="col-md-12 mb-0">
+                    <div class="col-md-6 mb-0">
                         <div class="form-group">
                             <label> <strong>Jenis</strong>  <small class="text-danger">*</small></label>
                             <select class="form-control custom-select select2" style="width: 100%;" name="jenis" id="jenis_edit"></select>
@@ -135,7 +141,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp.</span>
                             </div>
-                            <input type="text" name="registrasi" id="registrasi_edit" class="form-control col-md-12">
+                            <input type="text" name="registrasi" id="registrasi_edit" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
                         </div>
                     </div>  
                     <div class="col-md-12 mb-3">
@@ -144,7 +150,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp.</span>
                             </div>
-                            <input type="text" name="bulanan" id="bulanan_edit" class="form-control col-md-12">
+                            <input type="text" name="bulanan" id="bulanan_edit" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
                         </div>
                     </div>  
                     <div class="col-md-12 mb-3">
@@ -153,7 +159,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp.</span>
                             </div>
-                            <input type="text" name="pembangunan" id="pembangunan_edit" class="form-control col-md-12">
+                            <input type="text" name="pembangunan" id="pembangunan_edit" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
                         </div>
                     </div>  
                 </div>
@@ -277,7 +283,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('tarif.harga_save') }}",
+            url: "{{ route('tarif.harga.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -301,7 +307,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('tarif.harga_view') }}",
+            url: "{{ route('tarif.harga.view') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -315,30 +321,30 @@
 
                         if((data[i].void) == 'T'){
                             var tr = $('<tr>').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="10%">'),
-                                $('<td class= width="50%">'),
-                                $('<td class= width="50%">'),
-                                $('<td class= width="50%" align="right">'),
-                                $('<td class= width="50%" align="right">'),
-                                $('<td class= width="50%" align="right">'),
-                                $('<td class= width="5%" align="right">'),
-                                $('<td class= width="5%" align="center">')
+                                $('<td width="1%" align="center">'),
+                                $('<td width="5%">'),
+                                $('<td width="15%">'),
+                                $('<td width="20%">'),
+                                $('<td width="10%" align="right">'),
+                                $('<td width="10%" align="right">'),
+                                $('<td width="10%" align="right">'),
+                                $('<td width="10%" align="right">'),
+                                $('<td width="5%" align="center">')
 
                             ]);
 
                         } else {
 
                             var tr = $('<tr style="background-color:#fee6ec;">').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="10%">'),
-                                $('<td class= width="50%">'),
-                                $('<td class= width="50%">'),
-                                $('<td class= width="50%" align="right">'),
-                                $('<td class= width="50%" align="right">'),
-                                $('<td class= width="50%" align="right">'),
-                                $('<td class= width="5%" align="right">'),
-                                $('<td class= width="5%" align="center">')
+                                $('<td width="1%" align="center">'),
+                                $('<td width="5%">'),
+                                $('<td width="15%">'),
+                                $('<td width="20%">'),
+                                $('<td width="10%" align="right">'),
+                                $('<td width="10%" align="right">'),
+                                $('<td width="10%" align="right">'),
+                                $('<td width="10%" align="right">'),
+                                $('<td width="5%" align="center">')
                 
                             ]);
 
@@ -363,9 +369,9 @@
 
                         tr.find('td:nth-child(7)').append($('<div>')
                             .html((data[i].pembangunan_tampil)));   
-
+                            
                         tr.find('td:nth-child(8)').append($('<div>')
-                            .html((data[i].total_bayar)));   
+                            .html('<b class="text-danger">'+(data[i].total_bayar)+'</b>'));   
                         
                         
                         if((data[i].void) == 'T'){
@@ -394,7 +400,7 @@
 
         $.ajax({
             type : "GET",
-            url   : "{{ route('tarif.harga_edit') }}",
+            url   : "{{ route('tarif.harga.edit') }}",
             dataType : "JSON",
             data : {id:id},
             success: function(data){
@@ -497,7 +503,7 @@
 
         $.ajax({
             type : "POST",
-            url   : "{{ route('tarif.harga_update') }}",
+            url   : "{{ route('tarif.harga.update') }}",
             dataType : "JSON",
             data : formData,
             cache : false,
@@ -527,7 +533,7 @@
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('tarif.harga_aktif') }}",
+                    url   : "{{ route('tarif.harga.aktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
@@ -553,7 +559,7 @@
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('tarif.harga_nonaktif') }}",
+                    url   : "{{ route('tarif.harga.nonaktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
@@ -618,6 +624,66 @@
         });
 
     }
+
+    
+    /*-- FORMAT RUPIAH --*/
+
+    var registrasi_rupiah  = document.getElementById('registrasi');
+    var bulanan_rupiah     = document.getElementById('bulanan');
+    var pembangunan_rupiah = document.getElementById('pembangunan');
+    
+	registrasi_rupiah.addEventListener('keyup', function(e)
+	{
+		registrasi_rupiah.value = formatRupiah(this.value);
+	});
+
+	bulanan_rupiah.addEventListener('keyup', function(e)
+	{
+		bulanan_rupiah.value = formatRupiah(this.value);
+	});
+
+	pembangunan_rupiah.addEventListener('keyup', function(e)
+	{
+		pembangunan_rupiah.value = formatRupiah(this.value);
+	});
+
+    var registrasi_rupiah_edit  = document.getElementById('registrasi_edit');
+    var bulanan_rupiah_edit     = document.getElementById('bulanan_edit');
+    var pembangunan_rupiah_edit = document.getElementById('pembangunan_edit');
+    
+	registrasi_rupiah_edit.addEventListener('keyup', function(e)
+	{
+		registrasi_rupiah_edit.value = formatRupiah(this.value);
+	});
+
+	bulanan_rupiah_edit.addEventListener('keyup', function(e)
+	{
+		bulanan_rupiah_edit.value = formatRupiah(this.value);
+	});
+
+	pembangunan_rupiah_edit.addEventListener('keyup', function(e)
+	{
+		pembangunan_rupiah_edit.value = formatRupiah(this.value);
+	});
+
+
+    function formatRupiah(angka, prefix)
+	{
+
+		var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split	= number_string.split(','),
+			sisa 	= split[0].length % 3,
+			rupiah 	= split[0].substr(0, sisa),
+			ribuan 	= split[0].substr(sisa).match(/\d{3}/gi);
+			
+		if (ribuan) {
+			separator = sisa ? '.' : '';
+			rupiah += separator + ribuan.join('.');
+		}
+		
+		rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+		return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+	}
 
 
     

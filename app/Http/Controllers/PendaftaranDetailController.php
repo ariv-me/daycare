@@ -9,13 +9,14 @@ use Carbon\Carbon;
 
 use DB;
 
+use App\Models\Pendaftaran;
 use App\Models\PendaftaranDetail;
 use App\Models\Grup;
-use App\Models\Anak;
+use App\Models\DapokAnak;
 use App\Models\Perusahaan;
 use App\Models\Tarif;
 use App\Models\Agama;
-use App\Models\Ortu;
+use App\Models\DapokOrtu;
 use App\Models\JenisPekerjaan;
 use App\Models\HCISKaryawan;
 
@@ -28,16 +29,6 @@ class PendaftaranDetailController extends Controller
         $this->middleware('auth');
     }
 
-    // public function index()
-    // {
-        
-    //     $app = SistemApp::sistem();
-    //     $menu = SistemApp::OtoritasMenu($app['idu']);
-
-    //     $kosong      = PendaftaranDetail::where('kar_id',$app['kar_id'])->where('is_aktif','T')->delete();
-
-    //     return view('pendaftaran.baru.index',compact('app','menu'));
-    // }
 
     public function index()
     {
@@ -67,12 +58,11 @@ class PendaftaranDetailController extends Controller
                         ->orderby('aa.detail_id','desc')
                         ->get();
 
-
             $data = $data->map(function($value) {
 
-                $value->registrasi       = format_rupiah($value->tarif_reg);
-                $value->spp              = format_rupiah($value->tarif_spp);
-                $value->pembangunan      = format_rupiah($value->tarif_pembg);
+                $value->tarif_reg        = format_rupiah($value->tarif_reg);
+                $value->tarif_spp        = format_rupiah($value->tarif_spp);
+                $value->tarif_pembg      = format_rupiah($value->tarif_pembg);
                 $value->total            = format_rupiah($value->tarif_total);
                 
                 return $value;
@@ -104,38 +94,31 @@ class PendaftaranDetailController extends Controller
         try {
 
                 $app         = SistemApp::sistem();
-                $detail      = PendaftaranDetail::where('anak_nis',$r->daftar_nis)->where('kar_id',$app['kar_id'])->where('is_aktif','T')->first();
-
+                $detail      = PendaftaranDetail::where('anak_nis',$r->trs_anak)->where('kar_id',$app['kar_id'])->where('is_aktif','T')->first();
+                $anak        = DapokAnak::where('anak_nis',$r->trs_anak)->first();
+                $tarif       = Tarif::where('grup_id',$r->grup)->where('jenis_id',$r->paket)->first();
+              
+               
 
                 if($detail != null ){
 
-                    $data = DB::connection('daycare')->transaction(function() use($r,$app,$detail){
+                    $data = DB::connection('daycare')->transaction(function() use($r,$app,$detail,$tarif){
                         
-                        $perusahaan = $r->perusahaan;
-                        $jenis      = $r->jenis;
+                        $grup       = $r->grup;
+                        $paket      = $r->paket;
 
-                        $grup = Perusahaan::where('grup_id',$perusahaan)->first()->grup_id;
-                        $tarif = Tarif::where('jenis_id',$jenis)->where('grup_id',$grup)->first();
+                        $grup = Perusahaan::where('grup_id',$grup)->first()->grup_id;
                     
                         $id = $detail->detail_id;
                         $tmp = PendaftaranDetail::where('detail_id',$id)->first();
 
-                        $tmp->detail_blm              = $r->daftar_jenis;
+                        $tmp->detail_blm            = $r->daftar_paket;
                         $tmp->anak_nis              = $r->daftar_nis;
                         $tmp->anak_nama             = $r->daftar_anak;
                         $tmp->grup_id               = $grup;
-                        $tmp->jenis_id              = $jenis;
+                        $tmp->paket_id              = $paket;
 
-                        if ( $jenis == '3'){
-
-                            $tmp->anak_status       = 'C';
-                           
-                        } else {
-                            $tmp->anak_status       = 'O';
-                        }
-
-                       
-                        $tmp->tarif_kode            = $tarif->kode;
+                        $tmp->tarif_kode            = $r->tarif_kode;
                         $tmp->tarif_reg             = $tarif->tarif_reg;
                         $tmp->tarif_spp             = $tarif->tarif_spp;
                         $tmp->tarif_pembg           = $tarif->tarif_pembg;
@@ -158,33 +141,22 @@ class PendaftaranDetailController extends Controller
 
                 } else {
 
-                    $data = DB::connection('daycare')->transaction(function() use($r,$app,$detail){
-                        
-                        $perusahaan = $r->perusahaan;
-                        $jenis      = $r->jenis;
+                   
 
-                        $grup = Perusahaan::where('grup_id',$perusahaan)->first()->grup_id;
-                        $tarif = Tarif::where('jenis_id',$jenis)->where('grup_id',$grup)->first();
+                    $data = DB::connection('daycare')->transaction(function() use($r,$app,$anak,$tarif){ 
 
                         $tmp = new PendaftaranDetail();
+                        $daftar_kode = Pendaftaran::daftar_kode();
 
-                        $tmp->detail_blm          = $r->daftar_jenis;
-                        $tmp->anak_nis              = $r->daftar_nis;
-                        $tmp->anak_nama             = $r->daftar_anak;
-                        $tmp->grup_id               = $grup;
-                        $tmp->jenis_id              = $jenis;
+                        $tmp->daftar_kode            = $daftar_kode;
+                        $tmp->anak_nis              = $anak->anak_nis;
+                        $tmp->anak_nama             = $anak->anak_nama;
+                        $tmp->grup_id               = $r->grup;
+                        $tmp->jenis_id              = $r->paket;
 
+                       //dd($r->tarif_kode);
 
-                        if ( $jenis == '3'){
-
-                            $tmp->anak_status       = 'C';
-                           
-                        } else {
-                            $tmp->anak_status       = 'O';
-                        }
-
-
-                        $tmp->tarif_kode            = $tarif->kode;
+                        $tmp->tarif_kode            = $r->tarif_kode;
                         $tmp->tarif_reg             = $tarif->tarif_reg;
                         $tmp->tarif_spp             = $tarif->tarif_spp;
                         $tmp->tarif_pembg           = $tarif->tarif_pembg;
@@ -194,7 +166,7 @@ class PendaftaranDetailController extends Controller
                         $tmp->created_nip   = $app['kar_nip'];
                         $tmp->created_nama  = $app['kar_nama_awal'];
                         $tmp->created_ip    = $r->ip();
-            
+
                         $tmp->save();
 
                         return true;
@@ -213,6 +185,7 @@ class PendaftaranDetailController extends Controller
 
         $result['success'] = true;
         $result['status'] = $status;
+        //dd($result['status'] = $status);
 
         return response()->json($result);
            

@@ -22,7 +22,7 @@ class DapokAnak extends Model
                      ->select(DB::raw("MAX(RIGHT(anak_id,4)) as kd_max"));
                    
         
-        $kode_depan = date('Ymd');    
+        $kode_depan = date('Y');    
         
         // dd($data);
 
