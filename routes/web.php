@@ -141,36 +141,6 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 	
 });
 
-
-
-
-
-
-Route::group(['prefix' => 'penjemput', 'as' => 'penjemput.'], function () {
-
-	Route::get('/', [PenjemputController::class, 'index'])->name('index');
-	Route::get('/view', [PenjemputController::class, 'view'])->name('view');
-	Route::post('/save', [PenjemputController::class, 'save'])->name('save');
-	Route::get('/edit', [PenjemputController::class, 'edit'])->name('edit');
-	Route::post('/update', [PenjemputController::class, 'update'])->name('update');
-	Route::post('/void', [PenjemputController::class, 'void'])->name('void');
-
-
-});
-
-Route::group(['prefix' => 'anak', 'as' => 'anak.'], function () {
-
-	Route::get('/', [AnakController::class, 'index'])->name('index');
-	Route::get('/view', [AnakController::class, 'view'])->name('view');
-	Route::post('/save', [AnakController::class, 'save'])->name('save');
-	Route::get('/edit', [AnakController::class, 'edit'])->name('edit');
-	Route::post('/update', [AnakController::class, 'update'])->name('update');
-	Route::post('/void', [AnakController::class, 'void'])->name('void');
-
-	Route::post('/save_daftar', [AnakController::class, 'save_daftar'])->name('save_daftar');
-
-
-});
 	
 Route::group(['prefix' => 'biaya', 'as' => 'biaya.'], function () {
 
@@ -254,35 +224,50 @@ Route::group(['prefix' => 'jenis', 'as' => 'jenis.'], function () {
 
 Route::group(['prefix' => 'tarif', 'as' => 'tarif.'], function () {
 
-	// Tarif
+	// Jenis
 
-	Route::get('/jenis', [TarifJenisController::class, 'index'])->name('jenis');
-	Route::get('/jenis_view', [TarifJenisController::class, 'view'])->name('jenis_view');
-	Route::post('/jenis_save', [TarifJenisController::class, 'save'])->name('jenis_save');
-	Route::get('/jenis_edit', [TarifJenisController::class, 'edit'])->name('jenis_edit');
-	Route::post('/jenis_update', [TarifJenisController::class, 'update'])->name('jenis_update');
-	Route::get('/jenis_aktif', [TarifJenisController::class, 'aktif'])->name('jenis_aktif');
-	Route::get('/jenis_nonaktif', [TarifJenisController::class, 'nonaktif'])->name('jenis_nonaktif');
+	Route::group(['prefix' => 'jenis', 'as' => 'jenis.'], function () {
+
+		Route::get('/', [TarifJenisController::class, 'index'])->name('index');
+		Route::get('/view', [TarifJenisController::class, 'view'])->name('view');
+		Route::post('/save', [TarifJenisController::class, 'save'])->name('save');
+		Route::get('/edit', [TarifJenisController::class, 'edit'])->name('edit');
+		Route::post('/update', [TarifJenisController::class, 'update'])->name('update');
+		Route::get('/aktif', [TarifJenisController::class, 'aktif'])->name('aktif');
+		Route::get('/nonaktif', [TarifJenisController::class, 'nonaktif'])->name('nonaktif');	
+
+	});
 
 	// Kategori
 
-	Route::get('/kategori', [TarifKategoriController::class, 'index'])->name('kategori');
-	Route::get('/kategori_view', [TarifKategoriController::class, 'view'])->name('kategori_view');
-	Route::post('/kategori_save', [TarifKategoriController::class, 'save'])->name('kategori_save');
-	Route::get('/kategori_edit', [TarifKategoriController::class, 'edit'])->name('kategori_edit');
-	Route::post('/kategori_update', [TarifKategoriController::class, 'update'])->name('kategori_update');
-	Route::get('/kategori_aktif', [TarifKategoriController::class, 'aktif'])->name('kategori_aktif');
-	Route::get('/kategori_nonaktif', [TarifKategoriController::class, 'nonaktif'])->name('kategori_nonaktif');
+	Route::group(['prefix' => 'kategori', 'as' => 'kategori.'], function () {
+
+		Route::get('/', [TarifKategoriController::class, 'index'])->name('index');
+		Route::get('/view', [TarifKategoriController::class, 'view'])->name('view');
+		Route::post('/save', [TarifKategoriController::class, 'save'])->name('save');
+		Route::get('/edit', [TarifKategoriController::class, 'edit'])->name('edit');
+		Route::post('/update', [TarifKategoriController::class, 'update'])->name('update');
+		Route::get('/aktif', [TarifKategoriController::class, 'aktif'])->name('aktif');
+		Route::get('/nonaktif', [TarifKategoriController::class, 'nonaktif'])->name('nonaktif');
+
+	});
 
 	// Harga
+	
+	Route::group(['prefix' => 'harga', 'as' => 'harga.'], function () {
+		
+	Route::get('/', [TarifHargaController::class, 'index'])->name('index');
+	Route::get('/view', [TarifHargaController::class, 'view'])->name('view');
+	Route::get('/view_transaksi', [TarifHargaController::class, 'view_transaksi'])->name('view_transaksi');
+	Route::post('/save', [TarifHargaController::class, 'save'])->name('save');
+	Route::get('/edit', [TarifHargaController::class, 'edit'])->name('edit');
+	Route::get('/get_tarif', [TarifHargaController::class, 'get_tarif'])->name('get_tarif');
+	Route::post('/update', [TarifHargaController::class, 'update'])->name('update');
+	Route::get('/aktif', [TarifHargaController::class, 'aktif'])->name('aktif');
+	Route::get('/nonaktif', [TarifHargaController::class, 'nonaktif'])->name('nonaktif');
 
-	Route::get('/harga', [TarifHargaController::class, 'index'])->name('harga');
-	Route::get('/harga_view', [TarifHargaController::class, 'view'])->name('harga_view');
-	Route::post('/harga_save', [TarifHargaController::class, 'save'])->name('harga_save');
-	Route::get('/harga_edit', [TarifHargaController::class, 'edit'])->name('harga_edit');
-	Route::post('/harga_update', [TarifHargaController::class, 'update'])->name('harga_update');
-	Route::get('/harga_aktif', [TarifHargaController::class, 'aktif'])->name('harga_aktif');
-	Route::get('/harga_nonaktif', [TarifHargaController::class, 'nonaktif'])->name('harga_nonaktif');
+	});
+
 
 });
 
@@ -372,5 +357,6 @@ Route::group(['prefix' => 'combo_sistem', 'as' => 'combo_sistem.'], function () 
 	Route::get('/combo_kecamatan', [ComboSistemController::class, 'combo_kecamatan'])->name('combo_kecamatan');
 	Route::get('/combo_pendidikan', [ComboSistemController::class, 'combo_pendidikan'])->name('combo_pendidikan');
 	Route::get('/combo_hubungan', [ComboSistemController::class, 'combo_hubungan'])->name('combo_hubungan');
+	Route::get('/combo_paket', [ComboSistemController::class, 'combo_paket'])->name('combo_paket');
 	
 });

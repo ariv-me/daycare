@@ -50,7 +50,7 @@ class DapokOrtuController extends Controller
                 $tmp->ortu_ayah_tmp_lahir     = $r->ayah_tmp_lahir;
                 $tmp->ortu_ayah_kerja         = $r->ayah_kerja;
                 $tmp->ortu_ayah_pdk_id        = $r->ayah_pdk;
-                $tmp->ortu_ayah_peru_id       = $r->ayah_perusahaan;
+                $tmp->ortu_ayah_peru          = $r->ayah_perusahaan;
                 $tmp->ortu_ayah_hp            = $r->ayah_hp;
                 $tmp->ortu_ayah_wa            = $r->ayah_wa;
                 $tmp->ortu_ayah_agama_id      = $r->ayah_agama;
@@ -61,7 +61,7 @@ class DapokOrtuController extends Controller
                 $tmp->ortu_ibu_tgl_lahir     = date('Y-m-d', strtotime($r->ibu_lahir));
                 $tmp->ortu_ibu_kerja         = $r->ibu_kerja;
                 $tmp->ortu_ibu_pdk_id        = $r->ibu_pdk;
-                $tmp->ortu_ibu_peru_id       = $r->ibu_perusahaan;
+                $tmp->ortu_ibu_peru          = $r->ibu_perusahaan;
                 $tmp->ortu_ibu_hp            = $r->ibu_hp;
                 $tmp->ortu_ibu_wa            = $r->ibu_wa;
                 $tmp->ortu_ibu_agama_id      = $r->ibu_agama;
@@ -137,11 +137,7 @@ class DapokOrtuController extends Controller
 
                 $value->ayah_usia = Carbon::parse($value->ortu_ayah_tgl_lahir)->age;
                 $value->ibu_usia = Carbon::parse($value->ortu_ibu_tgl_lahir)->age;
-                
-                $value->peru_ayah = Perusahaan::where('peru_id',$value->ortu_ayah_peru_id)->first()->peru_nama;
-                $value->peru_ibu = Perusahaan::where('peru_id',$value->ortu_ibu_peru_id)->first()->peru_nama;
-
-                
+                                
                 if ($value->ortu_ibu_agama_id == null){
 
                     $value->ibu_agama   =  strtoupper('-') ;
@@ -158,23 +154,7 @@ class DapokOrtuController extends Controller
 
                     $value->ayah_agama   = SistemAgama::where('agama_id',$value->ortu_ayah_agama_id)->first()->agama_nama;
 
-                } else if ($value->ortu_ayah_peru_id == null){
-
-                    $value->ayah_kerja   =  strtoupper('-') ;
-
-                } else if ($value->ortu_ayah_peru_id != null){
-
-                    $value->ayah_kerja   = Perusahaan::where('peru_id',$value->ortu_ayah_peru_id)->first()->peru_nama;
-
-                } else if ($value->ortu_ibu_peru_id == null){
-
-                    $value->ayah_kerja   =  strtoupper('-') ;
-
-                } else if ($value->ortu_ibu_peru_id != null){
-
-                    $value->ibu_kerja   = Perusahaan::where('peru_id',$value->ortu_ibu_peru_id)->first()->peru_nama;
-
-                }
+                } 
 
                 
 

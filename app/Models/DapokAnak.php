@@ -19,10 +19,10 @@ class DapokAnak extends Model
 
         $data = DB::connection('daycare')
                      ->table('dapok_tb_anak')
-                     ->select(DB::raw("MAX(RIGHT(anak_id,2)) as kd_max"));
+                     ->select(DB::raw("MAX(RIGHT(anak_id,4)) as kd_max"));
                    
         
-        $kode_depan = date('Ymd');    
+        $kode_depan = date('Y');    
         
         // dd($data);
 
@@ -32,12 +32,12 @@ class DapokAnak extends Model
             foreach($data->get() as $k)
             {
                 $tmp = ((int)$k->kd_max)+1;
-                $kd = $kode_depan.sprintf("%02s", $tmp);
+                $kd = $kode_depan.sprintf("%04s", $tmp);
             }
         }
         else
         {
-            $kd = $kode_depan."01";
+            $kd = $kode_depan."0001";
         }
 
         return ($kd);

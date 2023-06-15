@@ -43,7 +43,7 @@ class JenisPekerjaanController extends Controller
      
             if ($kerja != null) {
     
-                $data = DB::connection('mysql')->transaction(function() use($r,$kerja){  
+                $data = DB::connection('daycare')->transaction(function() use($r,$kerja){  
 
                     $kerja_id   = $kerja->kerja_id;
                     $tmp        = JenisPekerjaan::where('kerja_id',$kerja_id)->first();
@@ -58,7 +58,7 @@ class JenisPekerjaanController extends Controller
 
             } else {
 
-                $data = DB::connection('mysql')->transaction(function() use($r,$kerja){
+                $data = DB::connection('daycare')->transaction(function() use($r,$kerja){
 
                     $tmp = new JenisPekerjaan();
                     $tmp->kerja_nama  = $r->kerja_nama;
@@ -116,7 +116,7 @@ class JenisPekerjaanController extends Controller
 
     public function aktif(Request $r)
     {
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
             $id = $r->get('id');
             $tmp = JenisPekerjaan::where('kerja_id',$id)->first();
             $tmp->aktif  = 'Y';
@@ -133,7 +133,7 @@ class JenisPekerjaanController extends Controller
 
     public function nonaktif(Request $r)
     {
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
             $id = $r->get('id');
             $tmp = JenisPekerjaan::where('kerja_id',$id)->first();
             $tmp->aktif  = 'T';

@@ -41,13 +41,13 @@ class TarifHargaController extends Controller
             $tmp->tarif_kode   = $tarif_kode;
             $tmp->grup_id      = $r->grup;
             $tmp->jenis_id     = $r->jenis;
-            $tmp->tarif_reg    = $r->registrasi;
-            $tmp->tarif_spp    = $r->bulanan;
-            $tmp->tarif_pembg  = $r->pembangunan;
+            $tmp->tarif_reg    = str_replace(".", "", $r->registrasi);
+            $tmp->tarif_spp    = str_replace(".", "", $r->bulanan);
+            $tmp->tarif_pembg  = str_replace(".", "", $r->pembangunan);
 
-            $tmp->created_nip          = $app['kar_nip'];
-            $tmp->created_nama         = $app['kar_nama_awal'];;
-            $tmp->created_ip           = $r->ip();
+            $tmp->created_nip  = $app['kar_nip'];
+            $tmp->created_nama = $app['kar_nama_awal'];;
+            $tmp->created_ip   = $r->ip();
 
             $tmp->save();
 
@@ -111,17 +111,14 @@ class TarifHargaController extends Controller
 
         try{
             
-            $perusahaan = $r->perusahaan;
-            $jenis      = $r->jenis;
-            $grup = Perusahaan::where('grup_id',$perusahaan)->first()->grup_id;
-
-
-            $data = TarifHarga::where('jenis_id',$jenis)->where('grup_id',$grup)->get();
+            $grup = $r->grup;
+            $paket = $r->paket;
+            $grup = Perusahaan::where('grup_id',$grup)->first()->grup_id;
+            $data = TarifHarga::where('jenis_id',$paket)->where('grup_id',$grup)->get();
+    
 
             $data = $data->map(function($value) {
                 
-
-
                 $value->registrasi        = $value->tarif_reg;
                 $value->spp               = $value->tarif_spp;
                 $value->tahun             = 12;
@@ -157,24 +154,33 @@ class TarifHargaController extends Controller
     {
         $id = strtolower($r->get('id'));
         $data = TarifHarga::where('tarif_kode',$id)->first();
+        //dd($data);
         
+        return response()->json($data);
+    }
+
+    public function get_tarif(Request $r)
+    {
+        $id = strtolower($r->get('id'));
+        $data = TarifHarga::where('jenis_id',$id)->first();
+               
         return response()->json($data);
     }
 
     public function update(Request $r){
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
   
               $app = SistemApp::sistem();
   
               $id = $r->get('id');
               $tmp = TarifHarga::where('tarif_kode',$id)->first();
 
-              $tmp->grup_id             = $r->grup;
-              $tmp->jenis_id            = $r->jenis;
-              $tmp->tarif_reg           = $r->registrasi;
-              $tmp->tarif_spp           = $r->bulanan;
-              $tmp->tarif_pembg         = $r->pembangunan;
+              $tmp->grup_id      = $r->grup;
+              $tmp->jenis_id     = $r->jenis;
+              $tmp->tarif_reg    = str_replace(".", "", $r->registrasi);
+              $tmp->tarif_spp    = str_replace(".", "", $r->bulanan);
+              $tmp->tarif_pembg  = str_replace(".", "", $r->pembangunan);
 
               $tmp->updated_nip         = $app['kar_nip'];
               $tmp->updated_nama        = $app['kar_nama_awal'];;
@@ -190,7 +196,7 @@ class TarifHargaController extends Controller
 
     public function aktif(Request $r)
     {
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
 
             $app        = SistemApp::sistem();
 
@@ -211,7 +217,7 @@ class TarifHargaController extends Controller
     
     public function nonaktif(Request $r)
     {
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
 
             $app        = SistemApp::sistem();
             $id         = $r->get('id');

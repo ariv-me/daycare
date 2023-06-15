@@ -44,7 +44,7 @@ class DapokPenjemputController extends Controller
             $tmp->pnj_tgl_lahir         = date('Y-m-d', strtotime($r->penjemput_lahir));
             $tmp->pnj_tmp_lahir         = $r->penjemput_tmp_lahir;
             $tmp->pnj_kerja_id          = $r->penjemput_kerja;
-            $tmp->pnj_peru_id           = $r->penjemput_perusahaan;
+            $tmp->pnj_peru           = $r->penjemput_perusahaan;
             $tmp->pnj_hp                = $r->penjemput_hp;
             $tmp->pnj_wa                = $r->penjemput_wa;
             $tmp->pnj_agama_id          = $r->penjemput_agama;
@@ -90,7 +90,6 @@ class DapokPenjemputController extends Controller
                     $value->kecamatan   = ucwords(strtolower(SistemKecamatan::getNamaKecamatan($value->kecamatan_id)));
 
                     $value->pnj_usia    = Carbon::parse($value->pnj_tgl_lahir)->age;
-                    $value->pnj_peru    = Perusahaan::where('peru_id',$value->pnj_peru_id)->first()->peru_nama;
                     $value->pnj_agama   = SistemAgama::where('agama_id',$value->pnj_agama_id)->first()->agama_nama;
                     $value->pnj_hubungan= SistemHubungan::where('hub_id',$value->pnj_hub_id)->first()->hub_nama;
                     
@@ -139,7 +138,7 @@ class DapokPenjemputController extends Controller
               $tmp->pnj_tgl_lahir         = date('Y-m-d', strtotime($r->penjemput_lahir));
               $tmp->pnj_tmp_lahir         = $r->penjemput_tmp_lahir;
               $tmp->pnj_kerja_id          = $r->penjemput_kerja;
-              $tmp->pnj_peru_id           = $r->penjemput_perusahaan;
+              $tmp->pnj_peru           = $r->penjemput_perusahaan;
               $tmp->pnj_hp                = $r->penjemput_hp;
               $tmp->pnj_wa                = $r->penjemput_wa;
               $tmp->pnj_agama_id          = $r->penjemput_agama;

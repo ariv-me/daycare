@@ -36,7 +36,7 @@ class DataAppController extends Controller
 
         try {
 
-            $data = DB::connection('mysql')
+            $data = DB::connection('daycare')
                         ->table('sistem_ta_apps AS aa')
                         ->orderby('aa.apps_level')
                         ->orderby('aa.apps_jenis')
@@ -73,7 +73,7 @@ class DataAppController extends Controller
         $app = SistemApp::sistem();
         $idu = $app['idu'];
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
 
             $tmp = new SistemApps();
 
@@ -111,7 +111,7 @@ class DataAppController extends Controller
 
     public function update(Request $r){
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){  
+        $transaction = DB::connection('daycare')->transaction(function() use($r){  
             $id = $r->get('id');
             $tmp = SistemApps::where('apps_id',$id)->first();
 
@@ -149,7 +149,7 @@ class DataAppController extends Controller
 
     public function aktif(Request $r){
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){  
+        $transaction = DB::connection('daycare')->transaction(function() use($r){  
             $id = $r->get('id');
             $tmp = SistemApps::where('apps_id',$id)->first();
             $tmp->apps_aktif = 'Y';
@@ -163,7 +163,7 @@ class DataAppController extends Controller
 
     public function nonaktif(Request $r){
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){  
+        $transaction = DB::connection('daycare')->transaction(function() use($r){  
             $id = $r->get('id');
             $tmp = SistemApps::where('apps_id',$id)->first();
             $tmp->apps_aktif = 'T';
@@ -189,7 +189,7 @@ class DataAppController extends Controller
 
         try {
 
-            $data = DB::connection('mysql')
+            $data = DB::connection('daycare')
                         ->table('sistem_ta_menu_apps AS aa')
                         ->leftjoin('sistem_ta_apps AS bb','bb.apps_id','=','aa.apps_id')
                         ->leftjoin('sistem_tc_unit AS cc','cc.unit_id','=','aa.unit_id')
@@ -213,7 +213,7 @@ class DataAppController extends Controller
         $app = SistemApp::sistem();
         $idu = $app['idu'];
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
             $tmp = new SistemMenuApps();
             $tmp->unit_id = $r->unit;
             $tmp->apps_id = $r->aplikasi;
@@ -234,7 +234,7 @@ class DataAppController extends Controller
 
     public function menu_update(Request $r){
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){  
+        $transaction = DB::connection('daycare')->transaction(function() use($r){  
             $id = $r->get('id');
             $tmp = SistemMenuApps::where('menu_id',$id)->first();
             $tmp->unit_id = $r->unit;

@@ -79,7 +79,7 @@ class CateringKategoriController extends Controller
 
     public function update(Request $r){
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
   
               $app = SistemApp::sistem();
   
@@ -98,7 +98,7 @@ class CateringKategoriController extends Controller
   
     public function aktif(Request $r){
   
-          $transaction = DB::connection('mysql')->transaction(function() use($r){  
+          $transaction = DB::connection('daycare')->transaction(function() use($r){  
   
               $app = SistemApp::sistem();
   
@@ -116,7 +116,7 @@ class CateringKategoriController extends Controller
   
     public function nonaktif(Request $r){
   
-          $transaction = DB::connection('mysql')->transaction(function() use($r){ 
+          $transaction = DB::connection('daycare')->transaction(function() use($r){ 
               
               $app = SistemApp::sistem();
   

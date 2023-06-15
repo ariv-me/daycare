@@ -42,7 +42,7 @@ class DapokAnakController extends Controller
                 $tmp = new DapokAnak();
 
                 $tmp->anak_nis           = $nis;
-                $tmp->anak_id            = $r->ortu;
+                $tmp->ortu_id            = $r->ortu;
                 $tmp->pnj_id             = $r->penjemput;
                 $tmp->kontak_id          = $r->kontak;
                 $tmp->anak_nama          = $r->anak_nama;
@@ -59,8 +59,6 @@ class DapokAnakController extends Controller
                 $tmp->created_nip        = $app['kar_nip'];
                 $tmp->created_nama       = $app['kar_nama_awal'];
                 $tmp->created_ip         = $r->ip();
-
-                //dd($tmp);
 
                 $tmp->save();
     
@@ -140,7 +138,7 @@ class DapokAnakController extends Controller
               $tmp = DapokAnak::where('anak_id',$id)->first();
 
 
-              $tmp->anak_id            = $r->ortu;
+              $tmp->ortu_id            = $r->ortu;
               $tmp->pnj_id             = $r->penjemput;
               $tmp->kontak_id          = $r->kontak;
               $tmp->anak_nama          = $r->anak_nama;

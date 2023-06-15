@@ -21,6 +21,8 @@ use App\Models\DapokPenjemput;
 use App\Models\SistemAgama;
 use App\Models\CateringKategori;
 use App\Models\TarifJenis;
+use App\Models\TarifHarga;
+
 
 
 
@@ -100,6 +102,18 @@ class ComboSistemController extends Controller
         return response()->json($data); 
     }
 
+    public function combo_paket(Request $r){
+       
+        $data = DB::connection('daycare')
+                        ->table('tarif_tb_harga AS aa')
+                        ->leftjoin('tarif_ta_jenis AS bb','bb.jenis_id','=','aa.jenis_id')
+                        ->leftjoin('sistem_tb_grup AS cc','cc.grup_id','=','aa.grup_id')
+                        ->where('aa.grup_id',$r->grup)
+                        ->orderby('tarif_kode','desc')
+                        ->get();
+        return response()->json($data); 
+    }
+
     public function combo_perusahaan(){
         $data = DB::connection('daycare')
                     ->table('sistem_tb_perusahaan AS aa')
@@ -145,12 +159,17 @@ class ComboSistemController extends Controller
     }
 
     public function combo_jenis_pekerjaan(){
-        $data = JenisPekerjaan::orderby('kerja_id','desc')->where('aktif','Y')->get();
+        $data = JenisPekerjaan::orderby('kerja_nama','asc')->where('aktif','Y')->get();
         return response()->json($data); 
     }
 
     public function combo_anak(){
-        $data = Anak::orderby('anak_nis')->where('anak_aktif','Y')->get();
+        $data = DB::connection('daycare')
+                    ->table('dapok_tb_anak AS aa')
+                    ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_id','=','aa.ortu_id')
+                    ->where('anak_aktif','Y')
+                    ->orderby('anak_id','desc')
+                    ->get();
         return response()->json($data); 
     }
 

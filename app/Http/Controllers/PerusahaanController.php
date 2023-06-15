@@ -43,7 +43,7 @@ class PerusahaanController extends Controller
      
             if ($peru != null) {
     
-                $data = DB::connection('mysql')->transaction(function() use($r,$peru){  
+                $data = DB::connection('daycare')->transaction(function() use($r,$peru){  
 
                     $peru_id    = $peru->peru_id;
                     $tmp        = Perusahaan::where('peru_id',$peru_id)->first();
@@ -60,7 +60,7 @@ class PerusahaanController extends Controller
 
             } else {
 
-                $data = DB::connection('mysql')->transaction(function() use($r,$peru){
+                $data = DB::connection('daycare')->transaction(function() use($r,$peru){
 
                     $tmp = new Perusahaan();
                     $tmp->peru_nama            = $r->perusahaan_nama;
@@ -124,7 +124,7 @@ class PerusahaanController extends Controller
 
     public function aktif(Request $r)
     {
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
             $id = $r->get('id');
             $tmp = Perusahaan::where('peru_id',$id)->first();
             $tmp->peru_aktif  = 'Y';
@@ -139,7 +139,7 @@ class PerusahaanController extends Controller
     
     public function nonaktif(Request $r)
     {
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
             $id = $r->get('id');
             $tmp = Perusahaan::where('peru_id',$id)->first();
             $tmp->peru_aktif  = 'T';

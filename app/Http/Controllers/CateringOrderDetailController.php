@@ -157,7 +157,7 @@ class CateringOrderDetailController extends Controller
 
     public function update(Request $r){
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
   
               $app = SistemApp::sistem();
               $id = $r->get('kode');
@@ -180,7 +180,7 @@ class CateringOrderDetailController extends Controller
 
     public function update_detail(Request $r){
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
   
               $app = SistemApp::sistem();
               $id = $r->get('kode');

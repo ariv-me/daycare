@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SistemApp;
+use App\Models\TarifJenis;
 use App\Helpers;
 use Carbon\Carbon;
 
 use DB;
 
-
-use App\Models\TarifJenis;
 
 class TarifJenisController extends Controller
 {
@@ -72,7 +71,7 @@ class TarifJenisController extends Controller
 
     public function update(Request $r){
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
   
               $id = $r->get('id');
               $tmp = TarifJenis::where('jenis_id',$id)->first();
@@ -88,7 +87,7 @@ class TarifJenisController extends Controller
 
     public function aktif(Request $r)
     {
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
             $id = $r->get('id');
             $tmp = TarifJenis::where('jenis_id',$id)->first();
             $tmp->jenis_aktif  = 'Y';
@@ -103,7 +102,7 @@ class TarifJenisController extends Controller
     
     public function nonaktif(Request $r)
     {
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
             $id = $r->get('id');
             $tmp = TarifJenis::where('jenis_id',$id)->first();
             $tmp->jenis_aktif  = 'T';
