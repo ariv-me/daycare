@@ -14,11 +14,16 @@ use App\Models\Grup;
 use App\Models\Perusahaan;
 use App\Models\JenisPendaftaran;
 use App\Models\JenisPekerjaan;
-use App\Models\Anak;
-use App\Models\Ortu;
+use App\Models\DapokAnak;
+use App\Models\DapokOrtu;
+use App\Models\DapokKontakDarurat;
+use App\Models\DapokPenjemput;
 use App\Models\SistemAgama;
 use App\Models\CateringKategori;
 use App\Models\TarifJenis;
+use App\Models\TarifHarga;
+use App\Models\Periode;
+
 
 
 
@@ -98,6 +103,18 @@ class ComboSistemController extends Controller
         return response()->json($data); 
     }
 
+    public function combo_paket(Request $r){
+       
+        $data = DB::connection('daycare')
+                        ->table('tarif_tb_harga AS aa')
+                        ->leftjoin('tarif_ta_jenis AS bb','bb.jenis_id','=','aa.jenis_id')
+                        ->leftjoin('sistem_tb_grup AS cc','cc.grup_id','=','aa.grup_id')
+                        ->where('aa.grup_id',$r->grup)
+                        ->orderby('tarif_kode','desc')
+                        ->get();
+        return response()->json($data); 
+    }
+
     public function combo_perusahaan(){
         $data = DB::connection('daycare')
                     ->table('sistem_tb_perusahaan AS aa')
@@ -143,27 +160,47 @@ class ComboSistemController extends Controller
     }
 
     public function combo_jenis_pekerjaan(){
-        $data = JenisPekerjaan::orderby('kerja_id','desc')->where('aktif','Y')->get();
+        $data = JenisPekerjaan::orderby('kerja_nama','asc')->where('aktif','Y')->get();
         return response()->json($data); 
     }
 
     public function combo_anak(){
-        $data = Anak::orderby('anak_nis')->get();
+        $data = DB::connection('daycare')
+                    ->table('dapok_tb_anak AS aa')
+                    ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_id','=','aa.ortu_id')
+                    ->where('anak_aktif','Y')
+                    ->orderby('anak_id','desc')
+                    ->get();
         return response()->json($data); 
     }
 
     public function combo_ortu(){
-        $data = Ortu::orderby('ortu_id','desc')->get();
+        $data = DapokOrtu::orderby('ortu_id','desc')->where('ortu_aktif','Y')->get();
+        return response()->json($data); 
+    }
+
+    public function combo_penjemput(){
+        $data = DapokPenjemput::orderby('pnj_id','desc')->where('pnj_aktif','Y')->get();
+        return response()->json($data); 
+    }
+
+    public function combo_kontak(){
+        $data = DapokKontakDarurat::orderby('kontak_id','desc')->where('kontak_aktif','Y')->get();
         return response()->json($data); 
     }
 
     public function combo_agama(){
-        $data = SistemAgama::orderby('agama_id')->get();
+        $data = SistemAgama::orderby('agama_id')->where('agama_aktif','Y')->get();
         return response()->json($data); 
     }
 
     public function combo_kategori(){
         $data = CateringKategori::orderby('kat_id')->where('kat_aktif','Y')->get();
+        return response()->json($data); 
+    }
+
+    public function combo_periode(){
+        $data = Periode::orderby('periode_id')->where('periode_aktif','Y')->get();
         return response()->json($data); 
     }
 

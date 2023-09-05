@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class DapokOrtu extends Model
 {
@@ -10,7 +11,7 @@ class DapokOrtu extends Model
     protected $table = 'dapok_tb_ortu';
     protected $primaryKey = 'ortu_id';
 
-    public static function ortu_kode()
+    public static function autonumber()
 
     {
 
@@ -19,7 +20,7 @@ class DapokOrtu extends Model
                      ->select(DB::raw("MAX(RIGHT(ortu_id,4)) as kd_max"));
                    
         
-        $kode_depan = date('Ymd');    
+        $kode_depan = date('Y');    
         
         // dd($data);
 
@@ -29,12 +30,12 @@ class DapokOrtu extends Model
             foreach($data->get() as $k)
             {
                 $tmp = ((int)$k->kd_max)+1;
-                $kd = "DFTR".$kode_depan.sprintf("%04s", $tmp);
+                $kd = "ORTU".$kode_depan.sprintf("%04s", $tmp);
             }
         }
         else
         {
-            $kd = "DFTR".$kode_depan."0001";
+            $kd = "ORTU".$kode_depan."0001";
         }
 
         return ($kd);

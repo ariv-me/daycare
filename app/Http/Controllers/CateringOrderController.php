@@ -249,7 +249,7 @@ class CateringOrderController extends Controller
 
     public function piutang_bayar(Request $r){
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
   
               $app = SistemApp::sistem();
   

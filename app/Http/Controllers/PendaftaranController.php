@@ -20,9 +20,16 @@ use App\Models\Ortu;
 use App\Models\JenisPekerjaan;
 use App\Models\HCISKaryawan;
 
+use App\Models\Pendaftaran;
+use App\Models\Tagihan;
+
+use App\Models\DapokAnak;
+use App\Models\DapokOrtu;
+use App\Models\DapokPenjemput;
 
 
-class CateringOrderController extends Controller
+
+class PendaftaranController extends Controller
 {
     
     public function __construct()
@@ -35,7 +42,7 @@ class CateringOrderController extends Controller
         
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('catering.order.index',compact('app','menu'));
+        return view('pendaftaran.transaksi.index',compact('app','menu'));
     }
 
 
@@ -49,48 +56,138 @@ class CateringOrderController extends Controller
 
         try {
 
-            $daftar_kode  = Pendaftaran::daftar_kode();
-
-            $transaction = DB::connection('daycare')->transaction(function() use($r,$daftar_kode){
+          
+            $transaction = DB::connection('daycare')->transaction(function() use($r){
     
                 $app        = SistemApp::sistem();
-                
-                /*-- SAVE --*/
-    
-                $tmp = new Pendaftaran();  
-                
-                $tmp->daftar_kode = $daftar_kode;
-                $tmp->order_tgl = Carbon::now()->toDateString();
-                $tmp->order_jam = Carbon::now()->toTimeString();    
-                $tmp->order_status = 'U';
-                $tmp->order_total = str_replace(".", "", $r->total);
-       
-                $tmp->kar_id            = $app['kar_id'];
-                $tmp->kar_nama          = $app['kar_nama_awal'];
-                $tmp->usaha_id          = $app['usaha_id'];
-                $tmp->usaha_nama        = $app['usaha_nama'];
-                $tmp->created_ip        = $r->ip();
-                
-                $tmp->save();
-    
-                $detail = PendaftaranDetail::where('kar_id',$app['kar_id'])->where('is_aktif','T')->get();
 
-                //dd($detail);
+                /*-- DAFTAR --*/
     
-                foreach ($detail as $key => $value) {
-    
-                    /*-- DETAIL UPDATE --*/
-    
-                    $sql = DB::connection('daycare')
-                                ->table('ctrg_order_detail')
-                                ->where('kar_id',$app['kar_id'])
-                                ->where('is_aktif','T')
-                                ->update([
-                                    'order_kode' => $order_kode,
-                                    'is_aktif' => 'Y'
-                                ]);
-                }
-    
+                $daftar = new Pendaftaran();  
+
+                $daftar_kode = Pendaftaran::autonumber();
+                $anak_kode   = DapokAnak::autonumber();
+                $ortu_kode   = DapokOrtu::autonumber();
+                $pnj_kode    = DapokPenjemput::autonumber();
+                $tag_kode    = Tagihan::autonumber();
+                $tarif       = Tarif::where('grup_id',$r->grup)->where('jenis_id',$r->paket)->first();
+
+                
+
+                $daftar->daftar_tgl     = date('Y-m-d', strtotime($r->tgl_daftar));
+                $daftar->periode_id     = $r->periode;
+                $daftar->daftar_kode    = $daftar_kode;
+                $daftar->anak_kode      = $anak_kode;
+                $daftar->grup_id        = $r->grup;
+                $daftar->jenis_id       = $r->paket;
+                $daftar->daftar_ket     = $r->keterangan;
+                $daftar->tarif_kode     = $tarif->tarif_kode;     
+                $daftar->tarif_id       = $tarif->tarif_id;     
+                $daftar->tarif_reg      = $tarif->tarif_reg;     
+                $daftar->tarif_spp      = $tarif->tarif_spp;     
+                $daftar->tarif_pembg    = $tarif->tarif_pembg;     
+                $daftar->tarif_total    = $tarif->tarif_reg + $tarif->tarif_spp + $tarif->tarif_pembg;     
+                $daftar->kar_id         = $app['kar_id'];
+
+                /*-- TAGIHAN --*/
+
+                $tag = new Tagihan();  
+
+                $tag->tag_kode       = $tag_kode;
+                $tag->daftar_kode    = $daftar_kode;
+                $tag->tag_total      = $tarif->tarif_reg + $tarif->tarif_spp + $tarif->tarif_pembg;
+                $tag->kar_id         = $app['kar_id'];
+
+                /*-- ANAK --*/
+
+                $anak = new DapokAnak();
+
+                $anak->anak_nis           = $anak_kode;
+                $anak->ortu_kode            = $ortu_kode;
+                $anak->pnj_kode             = $pnj_kode;
+                $anak->anak_nama          = $r->anak_nama;
+                $anak->anak_tmp_lahir     = $r->anak_tmp_lahir;
+                $anak->anak_tgl_lahir     = date('Y-m-d', strtotime($r->anak_tgl_lahir));
+                $anak->anak_jekel         = $r->anak_jekel;
+                $anak->anak_ke            = $r->anak_ke;
+                $anak->anak_jml_saudara   = $r->anak_saudara;
+                $anak->agama_id           = $r->anak_agama;
+                $anak->anak_berat         = $r->anak_berat;
+                $anak->anak_tinggi        = $r->anak_tinggi;                
+                $anak->created_nip           = $app['kar_nip'];
+                $anak->created_nama          = $app['kar_nama_awal'];
+                $anak->created_ip            = $r->ip();
+
+                /*-- ORTU --*/
+
+                $ortu = new DapokOrtu();
+
+                $ortu->ortu_kode               = $ortu_kode;
+                $ortu->ortu_ayah               = $r->ayah_nama;
+                $ortu->ortu_ayah_nik           = $r->ayah_nik;
+                $ortu->ortu_ayah_tgl_lahir     = date('Y-m-d', strtotime($r->ayah_lahir));
+                $ortu->ortu_ayah_tmp_lahir     = $r->ayah_tmp_lahir;
+                $ortu->ortu_ayah_kerja         = $r->ayah_kerja;
+                $ortu->ortu_ayah_pdk_id        = $r->ayah_pdk;
+                $ortu->ortu_ayah_peru          = $r->ayah_perusahaan;
+                $ortu->ortu_ayah_hp            = $r->ayah_hp;
+                $ortu->ortu_ayah_wa            = $r->ayah_wa;
+                $ortu->ortu_ayah_agama_id      = $r->ayah_agama;
+
+                $ortu->ortu_ibu               = $r->ibu_nama;
+                $ortu->ortu_ibu_nik           = $r->ibu_nik;
+                $ortu->ortu_ibu_tmp_lahir     = $r->ibu_tmp_lahir;
+                $ortu->ortu_ibu_tgl_lahir     = date('Y-m-d', strtotime($r->ibu_lahir));
+                $ortu->ortu_ibu_kerja         = $r->ibu_kerja;
+                $ortu->ortu_ibu_pdk_id        = $r->ibu_pdk;
+                $ortu->ortu_ibu_peru          = $r->ibu_perusahaan;
+                $ortu->ortu_ibu_hp            = $r->ibu_hp;
+                $ortu->ortu_ibu_wa            = $r->ibu_wa;
+                $ortu->ortu_ibu_agama_id      = $r->ibu_agama;
+
+                $ortu->provinsi_id            = $r->provinsi;
+                $ortu->kota_id                = $r->kota;
+                $ortu->kecamatan_id           = $r->kecamatan;
+                $ortu->ortu_alamat            = $r->alamat;
+
+                $ortu->created_nip           = $app['kar_nip'];
+                $ortu->created_nama          = $app['kar_nama_awal'];
+                $ortu->created_ip            = $r->ip();
+
+               
+
+                /*-- PENJEMPUT --*/
+
+                $pnj = new DapokPenjemput();
+
+                $pnj->pnj_kode              = $pnj_kode;
+                $pnj->pnj_nama              = $r->penjemput_nama;
+                $pnj->pnj_nik               = $r->penjemput_nik;
+                $pnj->pnj_tgl_lahir         = date('Y-m-d', strtotime($r->penjemput_lahir));
+                $pnj->pnj_tmp_lahir         = $r->penjemput_tmp_lahir;
+                $pnj->pnj_kerja_id          = $r->penjemput_kerja;
+                $pnj->pnj_peru              = $r->penjemput_perusahaan;
+                $pnj->pnj_hp                = $r->penjemput_hp;
+                $pnj->pnj_wa                = $r->penjemput_wa;
+                $pnj->pnj_agama_id          = $r->penjemput_agama;
+                $pnj->pnj_pdk_id            = $r->penjemput_pdk;
+                // $pnj->pnj_jekel             = $r->penjemput_jekel;
+                $pnj->pnj_hub_id            = $r->penjemput_hubungan;
+                $pnj->provinsi_id           = $r->provinsi;
+                $pnj->kecamatan_id          = $r->kecamatan;
+                $pnj->kota_id               = $r->kota;
+                $pnj->pnj_alamat            = $r->alamat;
+
+                $pnj->created_nip           = $app['kar_nip'];
+                $pnj->created_nama          = $app['kar_nama_awal'];
+                $pnj->created_ip            = $r->ip();
+
+                $tag->save();
+                $daftar->save();
+                $anak->save();
+                $ortu->save();
+                $pnj->save();
+
                 return true;
     
             });
@@ -102,7 +199,6 @@ class CateringOrderController extends Controller
         }
         
         $result['success'] = true;
-        $result['invoice'] = $order_kode;
 
         return response()->json($result);   
 
@@ -253,7 +349,7 @@ class CateringOrderController extends Controller
 
     public function piutang_bayar(Request $r){
 
-        $transaction = DB::connection('mysql')->transaction(function() use($r){
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
   
               $app = SistemApp::sistem();
   
