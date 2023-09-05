@@ -15,6 +15,8 @@ use App\Http\Controllers\JenisPekerjaanController;
 use App\Http\Controllers\TarifJenisController;
 use App\Http\Controllers\TarifKategoriController;
 use App\Http\Controllers\TarifHargaController;
+
+use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PendaftaranDetailController;
 use App\Http\Controllers\BayarController;
 
@@ -121,15 +123,19 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 
 
 	
-	Route::get('/', [PendaftaranDetailController::class, 'index'])->name('index');	
+	Route::get('/', [PendaftaranController::class, 'index'])->name('index');	
 
 	// Pendaftaran Transaksi
 
-	Route::get('/view', [PendaftaranController::class, 'view'])->name('view');
-	Route::post('/save', [PendaftaranController::class, 'save'])->name('save');
-	Route::get('/edit', [PendaftaranController::class, 'edit'])->name('edit');
-	Route::post('/update', [PendaftaranController::class, 'update'])->name('update');
-	Route::post('/void', [PendaftaranController::class, 'void'])->name('void');
+	Route::group(['prefix' => 'transaksi', 'as' => 'transaksi.'], function () {
+
+		Route::get('/view', [PendaftaranController::class, 'view'])->name('view');
+		Route::post('/save', [PendaftaranController::class, 'save'])->name('save');
+		Route::get('/edit', [PendaftaranController::class, 'edit'])->name('edit');
+		Route::post('/update', [PendaftaranController::class, 'update'])->name('update');
+		Route::post('/void', [PendaftaranController::class, 'void'])->name('void');
+
+	});
 
 	// Pendaftaran Detail
 
@@ -138,6 +144,8 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 	Route::get('/edit_detail', [PendaftaranDetailController::class, 'edit_detail'])->name('edit_detail');
 	Route::post('/update_detail', [PendaftaranDetailController::class, 'update_detail'])->name('update_detail');
 	Route::get('/delete_detail', [PendaftaranDetailController::class, 'delete_detail'])->name('delete_detail');
+
+
 	
 });
 
@@ -358,5 +366,6 @@ Route::group(['prefix' => 'combo_sistem', 'as' => 'combo_sistem.'], function () 
 	Route::get('/combo_pendidikan', [ComboSistemController::class, 'combo_pendidikan'])->name('combo_pendidikan');
 	Route::get('/combo_hubungan', [ComboSistemController::class, 'combo_hubungan'])->name('combo_hubungan');
 	Route::get('/combo_paket', [ComboSistemController::class, 'combo_paket'])->name('combo_paket');
+	Route::get('/combo_periode', [ComboSistemController::class, 'combo_periode'])->name('combo_periode');
 	
 });

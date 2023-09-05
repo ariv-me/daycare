@@ -2,40 +2,40 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use DB;
 
-class DapokOrtu extends Model
+use DB;
+use Carbon\Carbon;
+
+class Tagihan extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'dapok_tb_ortu';
-    protected $primaryKey = 'ortu_id';
+    protected $table = 'daftar_tc_tagihan';
+    protected $primaryKey = 'daftar_id';
 
     public static function autonumber()
 
     {
 
         $data = DB::connection('daycare')
-                     ->table('dapok_tb_ortu')
-                     ->select(DB::raw("MAX(RIGHT(ortu_id,4)) as kd_max"));
+                     ->table('daftar_tc_tagihan')
+                     ->select(DB::raw("MAX(RIGHT(tag_kode,4)) as kd_max"));
                    
         
         $kode_depan = date('Y');    
         
-        // dd($data);
-
-
         if($data->count() > 0)
         {
             foreach($data->get() as $k)
             {
                 $tmp = ((int)$k->kd_max)+1;
-                $kd = "ORTU".$kode_depan.sprintf("%04s", $tmp);
+                $kd = "TAG".$kode_depan.sprintf("%04s", $tmp);
             }
         }
         else
         {
-            $kd = "ORTU".$kode_depan."0001";
+            $kd = "TAG".$kode_depan."0001";
         }
 
         return ($kd);
