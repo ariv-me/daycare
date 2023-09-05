@@ -46,6 +46,67 @@
 
         <style>
 
+        .scrollspy-example {
+                    position: relative;
+                    height: 500px;
+                    margin-top: 0.1rem;
+                    overflow: auto;
+        }
+
+            .total-payment .table tbody td, .total-payment table tbody td, .shopping-cart .table tbody td, .shopping-cart table tbody td {
+                padding: 8px 10px;
+                border-top: 0;
+                border-bottom: 1px solid #f1f5fa;
+            }
+
+            .total-payment .table thead tr th, .total-payment table thead tr th, .shopping-cart .table thead tr th, .shopping-cart table thead tr th {
+                font-size: 11px;
+            }
+
+            .form-group {
+                margin-bottom: 8px;
+            }
+
+            .input-group-text {
+                font-size: 0.7125rem;
+                background-color: #f1f5fa;
+                border: 1px solid #e3ebf6;
+                padding-bottom: 2px;
+            }
+
+            .col-form-label {
+                padding-top: calc(0.375rem + 1px);
+                padding-bottom: calc(0.375rem + 1px);
+                margin-bottom: 0;
+                font-size: 12px;
+                line-height: 1.8;
+            }
+
+            .select2-container--default .select2-selection--single {
+                border: 1px solid #e3ebf6;
+                height: 33px;
+                background-color: #fff;
+            }
+
+            .form-control {
+                display: block;
+                width: 100%;
+                height: calc(1.8em + 0.5rem + 2px);
+                padding: 0.375rem 0.75rem;
+                font-size: 0.7400rem;
+                font-weight: 300;
+                line-height: 1.8;
+                color: #303e67;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid #e3ebf6;
+                border-radius: 0.25rem;
+                -webkit-transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+            }
+
             hr {
                 margin-top: 1rem;
                 margin-bottom: 1rem;

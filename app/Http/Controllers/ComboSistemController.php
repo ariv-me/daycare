@@ -22,6 +22,7 @@ use App\Models\SistemAgama;
 use App\Models\CateringKategori;
 use App\Models\TarifJenis;
 use App\Models\TarifHarga;
+use App\Models\Periode;
 
 
 
@@ -195,6 +196,11 @@ class ComboSistemController extends Controller
 
     public function combo_kategori(){
         $data = CateringKategori::orderby('kat_id')->where('kat_aktif','Y')->get();
+        return response()->json($data); 
+    }
+
+    public function combo_periode(){
+        $data = Periode::orderby('periode_id')->where('periode_aktif','Y')->get();
         return response()->json($data); 
     }
 

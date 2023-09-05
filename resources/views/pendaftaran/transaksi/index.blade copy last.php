@@ -1055,7 +1055,33 @@
 
         combo_grup();
         combo_paket();
-        combo_anak();
+
+        combo_ayah_agama();
+        combo_kerja_ayah();
+        combo_perusahaan();
+        combo_ibu_agama();
+        combo_kerja_ibu();
+        combo_kecamatan();
+        combo_kota();
+        combo_provinsi();
+        combo_ayah_pendidikan();
+        combo_ibu_pendidikan(); 
+
+        combo_hubungan_penjemput();
+        combo_jekel_penjemput();
+        combo_kerja_penjemput();
+        combo_perusahaan_penjemput();
+        combo_pendidikan_penjemput();
+        combo_agama_penjemput();
+        combo_kecamatan_penjemput();
+        combo_kota_penjemput();
+        combo_provinsi_penjemput();
+
+        combo_anak_jekel();
+        combo_ortu();
+        combo_penjemput();
+        combo_anak_agama();
+
 
     });
 
@@ -2591,7 +2617,7 @@
                 swal("Berhasil!", "Data Berhasil Disimpan", "success");
                 $('#formModalAddAnak').modal('hide');       
                 view_anak();
-                combo_anak();
+                
                 
             }
         });
@@ -4841,32 +4867,7 @@
     }
 
 
-    function combo_anak(){
-
-        $('select[name=trs_anak]').empty()
-        $.ajax({
-            type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_anak') }}",
-            async : false,
-            dataType : 'JSON',
-            success : function(data){
-                var html = '';
-                var i;
-                $('select[name=trs_anak]').empty()
-                var x = document.getElementById("trs_anak");
-                        var option = document.createElement("option");
-                        option.text = "--Pilih--";
-                        option.value = '';
-                        x.add(option);
-                for(i=0; i<data.length; i++){
-                    var html = '';
-                    html = '<option value='+(data[i].anak_nis)+'>'+(data[i].anak_nama)+' - '+(data[i].ortu_ayah)+'</option>';
-                    $('select[name=trs_anak]').append(html)
-                }
-            }
-        });
-
-    }
+    // 
 
     function combo_grup(){
 

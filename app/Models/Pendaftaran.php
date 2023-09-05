@@ -14,7 +14,7 @@ class Pendaftaran extends Model
     protected $table = 'daftar_tc_transaksi';
     protected $primaryKey = 'daftar_id';
 
-    public static function daftar_kode()
+    public static function autonumber()
 
     {
 
@@ -25,9 +25,6 @@ class Pendaftaran extends Model
         
         $kode_depan = date('Y');    
         
-        // dd($data);
-
-
         if($data->count() > 0)
         {
             foreach($data->get() as $k)
