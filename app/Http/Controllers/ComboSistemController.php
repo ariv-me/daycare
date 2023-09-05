@@ -114,7 +114,7 @@ class ComboSistemController extends Controller
      public function combo_pendidikan(){
 
         $data = DB::connection('spf')
-                    ->table('sistem_ta_pendidikan AS aa')
+                    ->table('hcm_ta_pendidikan AS aa')
                     ->where('pdk_aktif','Y')
                     ->get();
 
@@ -125,7 +125,7 @@ class ComboSistemController extends Controller
     /*-- HUBUNGAN  --*/
     public function combo_hubungan(){
         $data = DB::connection('spf')
-                    ->table('sistem_ta_hubungan AS aa')
+                    ->table('hcm_ta_hubungan AS aa')
                     ->where('hub_aktif','Y')
                     ->orderby('hub_level','asc')
                     ->get();

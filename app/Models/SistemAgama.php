@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SistemAgama extends Model
 {
     protected $connection = 'spf';
-    protected $table = 'sistem_ta_agama';
+    protected $table = 'hcm_ta_agama';
     protected $primaryKey = 'agama_id';
 
     public static function getNamaAgama($param) {

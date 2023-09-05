@@ -8,16 +8,16 @@ use DB;
 class HCISKaryawan extends Model
 {
     protected $connection = 'spf';
-    protected $table = 'hris_ta_karyawan';
+    protected $table = 'hcm_tb_karyawan';
     protected $primaryKey = 'kar_id';
 
     public function getKarid($param)
     {
         $data = DB::connection('spf')
-                        ->table('hris_ta_karyawan AS aa')
-                        ->leftjoin('sistem_tc_unit AS bb', 'bb.unit_id', '=', 'aa.unit_id')
-                        ->leftjoin('sistem_tc_jabatan AS cc', 'cc.jab_id', '=', 'aa.jab_id')
-                        ->leftjoin('sistem_tc_golongan AS dd', 'dd.gol_id', '=', 'aa.gol_id')
+                        ->table('hcm_tb_karyawan AS aa')
+                        ->leftjoin('hcm_ta_unit AS bb', 'bb.unit_id', '=', 'aa.unit_id')
+                        ->leftjoin('hcm_ta_jabatan AS cc', 'cc.jab_id', '=', 'aa.jab_id')
+                        ->leftjoin('hcm_ta_golongan AS dd', 'dd.gol_id', '=', 'aa.gol_id')
                         ->where('kar_id',$param)
                         ->first();
 
@@ -54,8 +54,8 @@ class HCISKaryawan extends Model
     public static function getKaru($unit) {
 
         $query = DB::connection('spf')
-                    ->table('hris_ta_karyawan AS aa')
-                    ->leftjoin('sistem_tc_unit AS bb','bb.unit_id','=','aa.unit_id')
+                    ->table('hcm_tb_karyawan AS aa')
+                    ->leftjoin('hcm_ta_unit AS bb','bb.unit_id','=','aa.unit_id')
                     ->where('aa.jab_id','9')
                     ->where('bb.unit_id',$unit)
                     ->first();
@@ -72,8 +72,8 @@ class HCISKaryawan extends Model
     public static function getKasi($unit) {
 
         $query = DB::connection('spf')
-                    ->table('hris_ta_karyawan AS aa')
-                    ->leftjoin('sistem_tc_unit AS bb','bb.unit_id','=','aa.unit_id')
+                    ->table('hcm_tb_karyawan AS aa')
+                    ->leftjoin('hcm_ta_unit AS bb','bb.unit_id','=','aa.unit_id')
                     ->where('aa.jab_id','7')
                     ->where('bb.unit_id',$unit)
                     ->first();
@@ -92,8 +92,8 @@ class HCISKaryawan extends Model
         $tmp = SistemUnit::where('unit_id',$unit)->first()->unit_parent;
 
         $query = DB::connection('spf')
-                    ->table('hris_ta_karyawan AS aa')
-                    ->leftjoin('sistem_tc_unit AS bb','bb.unit_id','=','aa.unit_id')
+                    ->table('hcm_tb_karyawan AS aa')
+                    ->leftjoin('hcm_ta_unit AS bb','bb.unit_id','=','aa.unit_id')
                     ->where('aa.jab_id','5')
                     ->where('bb.unit_id',$tmp)
                     ->first();
@@ -125,8 +125,8 @@ class HCISKaryawan extends Model
     public static function getAtasanKaru($unit) {
 
         $query = DB::connection('spf')
-                        ->table('hris_ta_karyawan AS aa')
-                        ->leftjoin('sistem_tc_unit AS bb','bb.unit_id','=','aa.unit_id')
+                        ->table('hcm_tb_karyawan AS aa')
+                        ->leftjoin('hcm_ta_unit AS bb','bb.unit_id','=','aa.unit_id')
                         ->where('aa.jab_id','9')
                         ->where('bb.unit_id',$unit)
                         ->first();
@@ -143,8 +143,8 @@ class HCISKaryawan extends Model
     public static function getAtasanKasi($unit) {
 
         $query = DB::connection('spf')
-                    ->table('hris_ta_karyawan AS aa')
-                    ->leftjoin('sistem_tc_unit AS bb','bb.unit_id','=','aa.unit_id')
+                    ->table('hcm_tb_karyawan AS aa')
+                    ->leftjoin('hcm_ta_unit AS bb','bb.unit_id','=','aa.unit_id')
                     ->where('aa.jab_id','7')
                     ->where('bb.unit_id',$unit)
                     ->first();
@@ -163,8 +163,8 @@ class HCISKaryawan extends Model
         $tmp = SistemUnit::where('unit_id',$unit)->first()->unit_parent;
 
         $query = DB::connection('spf')
-                    ->table('hris_ta_karyawan AS aa')
-                    ->leftjoin('sistem_tc_unit AS bb','bb.unit_id','=','aa.unit_id')
+                    ->table('hcm_tb_karyawan AS aa')
+                    ->leftjoin('hcm_ta_unit AS bb','bb.unit_id','=','aa.unit_id')
                     ->where('aa.jab_id','5')
                     ->where('bb.unit_id',$tmp)
                     ->first();

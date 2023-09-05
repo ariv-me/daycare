@@ -26,10 +26,10 @@ class SistemApp extends Model
         $idu = \Auth::guard()->user()->idu;
         
         $kar = DB::connection('spf')
-                        ->table('hris_ta_karyawan AS aa')
-                        ->leftjoin('sistem_tc_unit AS bb','bb.unit_id','=','aa.unit_id')
-                        ->leftjoin('sistem_tc_bagian AS cc','cc.bag_id','=','bb.bag_id')
-                        ->leftjoin('sistem_tc_jabatan AS dd','dd.jab_id','=','aa.jab_id')
+                        ->table('hcm_tb_karyawan AS aa')
+                        ->leftjoin('hcm_ta_unit AS bb','bb.unit_id','=','aa.unit_id')
+                        ->leftjoin('hcm_ta_bagian AS cc','cc.bag_id','=','bb.bag_id')
+                        ->leftjoin('hcm_ta_jabatan AS dd','dd.jab_id','=','aa.jab_id')
                         ->leftjoin('sistem_tc_usaha AS ee','ee.usaha_id','=','cc.usaha_id')
                         ->where('aa.kar_id',$idu)
                         ->first();

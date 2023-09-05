@@ -9,6 +9,6 @@ use Carbon\Carbon;
 class SistemHubungan extends Model
 {
     protected $connection = 'spf';
-    protected $table = 'sistem_ta_hubungan';
+    protected $table = 'hcm_ta_hubungan';
     protected $primaryKey = 'hub_id';
 }

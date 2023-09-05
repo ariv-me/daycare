@@ -192,7 +192,7 @@ class DataAppController extends Controller
             $data = DB::connection('mysql')
                         ->table('sistem_ta_menu_apps AS aa')
                         ->leftjoin('sistem_ta_apps AS bb','bb.apps_id','=','aa.apps_id')
-                        ->leftjoin('sistem_tc_unit AS cc','cc.unit_id','=','aa.unit_id')
+                        ->leftjoin('hcm_ta_unit AS cc','cc.unit_id','=','aa.unit_id')
                         ->orderby('cc.unit_nama')
                         ->get();        
             
