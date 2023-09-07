@@ -17,7 +17,7 @@ use App\Http\Controllers\TarifKategoriController;
 use App\Http\Controllers\TarifHargaController;
 
 use App\Http\Controllers\PendaftaranController;
-use App\Http\Controllers\PendaftaranDataController;
+use App\Http\Controllers\PendaftaranTagihanController;
 use App\Http\Controllers\PendaftaranDetailController;
 use App\Http\Controllers\BayarController;
 
@@ -126,6 +126,7 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 	Route::group(['prefix' => 'transaksi', 'as' => 'transaksi.'], function () {
 		Route::get('/', [PendaftaranController::class, 'index'])->name('index');	
 		Route::post('/save', [PendaftaranController::class, 'save'])->name('save');
+		Route::get('/get', [PendaftaranController::class, 'get'])->name('get');
 		Route::get('/edit_get/{id}', [PendaftaranController::class, 'edit_get'])->name('edit_get');
 		Route::get('/edit_view/{id}', [PendaftaranController::class, 'edit_view'])->name('edit_view');
 		Route::post('/update', [PendaftaranController::class, 'update'])->name('update');
@@ -133,13 +134,13 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 
 	});
 
-	Route::group(['prefix' => 'data', 'as' => 'data.'], function () {
-		Route::get('/', [PendaftaranDataController::class, 'index'])->name('index');	
-		Route::get('/view', [PendaftaranDataController::class, 'view'])->name('view');
-		Route::post('/save', [PendaftaranDataController::class, 'save'])->name('save');
-		Route::get('/edit', [PendaftaranDataController::class, 'edit'])->name('edit');
-		Route::post('/update', [PendaftaranDataController::class, 'update'])->name('update');
-		Route::post('/void', [PendaftaranDataController::class, 'void'])->name('void');
+	Route::group(['prefix' => 'tagihan', 'as' => 'tagihan.'], function () {
+		Route::get('/', [PendaftaranTagihanController::class, 'index'])->name('index');	
+		Route::get('/view', [PendaftaranTagihanController::class, 'view'])->name('view');
+		Route::post('/save', [PendaftaranTagihanController::class, 'save'])->name('save');
+		Route::get('/edit', [PendaftaranTagihanController::class, 'edit'])->name('edit');
+		Route::post('/update', [PendaftaranTagihanController::class, 'update'])->name('update');
+		Route::post('/void', [PendaftaranTagihanController::class, 'void'])->name('void');
 
 	});
 

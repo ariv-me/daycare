@@ -12,7 +12,7 @@ class Tagihan extends Model
 {
     protected $connection = 'daycare';
     protected $table = 'daftar_tc_tagihan';
-    protected $primaryKey = 'daftar_id';
+    protected $primaryKey = 'tag_id';
 
     public static function autonumber()
 

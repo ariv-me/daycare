@@ -29,7 +29,7 @@ use App\Models\DapokPenjemput;
 
 
 
-class PendaftaranDataController extends Controller
+class PendaftaranTagihanController extends Controller
 {
     
     public function __construct()
@@ -42,7 +42,7 @@ class PendaftaranDataController extends Controller
         
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('pendaftaran.data.index',compact('app','menu'));
+        return view('pendaftaran.tagihan.index',compact('app','menu'));
     }
 
    
@@ -59,13 +59,13 @@ class PendaftaranDataController extends Controller
                             ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_kode','aa.ortu_kode')              
                             ->leftjoin('dapok_tb_penjemput AS cc','cc.pnj_kode','aa.pnj_kode')              
                             ->leftjoin('daftar_tc_transaksi AS dd','dd.anak_kode','aa.anak_kode')              
-                            ->leftjoin('tarif_ta_jenis AS ee','ee.jenis_id','dd.jenis_id')              
+                            ->leftjoin('tarif_tb_harga AS ee','ee.tarif_kode','dd.tarif_kode')              
                             ->orderby('aa.anak_id','desc')
                             ->get();
 
                 $data = $data->map(function($value) {
 
-                    $value->edit = route('pendaftaran.transaksi.edit_view', $value->daftar_kode); 
+                    $value->edit = route('pendaftaran.transaksi.edit_view', $value->anak_kode); 
 
                     $value->anak_tgl_lahir = format_indo($value->anak_tgl_lahir);
                     $value->tarif_total    = format_rupiah($value->tarif_total);

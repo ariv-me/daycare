@@ -9,7 +9,7 @@
         <a href="javascript: void(0);"> <i class="mdi mdi-playlist-edit" class="align-self-center menu-icon"></i><span>Pendaftaran</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
         <ul class="nav-second-level" aria-expanded="false">
             <li class="nav-item"><a class="nav-link" href="{{ route('pendaftaran.transaksi.index') }}"><i class="ti-control-record"></i>Transaksi</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('pendaftaran.data.index') }}"><i class="ti-control-record"></i>Data</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('pendaftaran.tagihan.index') }}"><i class="ti-control-record"></i>Tagihan</a></li>
         </ul>
     </li>
     <li>
