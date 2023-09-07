@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 use DB;
 
-use App\Models\Grup;
+use App\Models\TarifKategori;
 use App\Models\TarifHarga;
 use App\Models\Perusahaan;
 
@@ -39,9 +39,10 @@ class TarifHargaController extends Controller
             $tarif_kode = TarifHarga::autonumber();
 
             $tmp->tarif_kode   = $tarif_kode;
-            $tmp->grup_id      = $r->grup;
-            $tmp->jenis_id     = $r->jenis;
+            $tmp->kat_id       = $r->kategori;
+            $tmp->tarif_nama   = $r->nama;
             $tmp->tarif_reg    = str_replace(".", "", $r->registrasi);
+            $tmp->tarif_gizi   = str_replace(".", "", $r->gizi);
             $tmp->tarif_spp    = str_replace(".", "", $r->bulanan);
             $tmp->tarif_pembg  = str_replace(".", "", $r->pembangunan);
 
@@ -65,9 +66,8 @@ class TarifHargaController extends Controller
             
             $data = DB::connection('daycare')
                             ->table('tarif_tb_harga AS aa')
-                            ->leftjoin('tarif_ta_jenis AS bb','bb.jenis_id','=','aa.jenis_id')
-                            ->leftjoin('sistem_tb_grup AS cc','cc.grup_id','=','aa.grup_id')
-                            ->orderby('tarif_kode','desc')
+                            ->leftjoin('tarif_ta_kategori AS bb','bb.kat_id','=','aa.kat_id')
+                            ->orderby('aa.tarif_kode','desc')
                             ->get();
 
             $data = $data->map(function($value) {
@@ -111,10 +111,9 @@ class TarifHargaController extends Controller
 
         try{
             
-            $grup = $r->grup;
+            $kategori = $r->kategori;
             $paket = $r->paket;
-            $grup = Perusahaan::where('grup_id',$grup)->first()->grup_id;
-            $data = TarifHarga::where('jenis_id',$paket)->where('grup_id',$grup)->get();
+            $data = TarifHarga::where('kat_id',$kategori)->where('tarif_kode',$paket)->get();
     
 
             $data = $data->map(function($value) {
@@ -126,13 +125,14 @@ class TarifHargaController extends Controller
                 $value->total_spp           = round($value->spp*$value->tahun);
 
                 $value->reg_tampil          = format_rupiah($value->tarif_reg);
+                $value->gizi_tampil         = format_rupiah($value->tarif_gizi);
                 $value->spp_tampil          = format_rupiah($value->tarif_spp);
                 $value->pembangunan_tampil  = format_rupiah($value->tarif_pembg);
                 $value->total_spp_tampil    = format_rupiah(round($value->spp*$value->tahun),2);
                 
-                $value->total_bayar         = format_rupiah(round($value->registrasi+$value->total_spp+$value->pembangunan),2);
+                $value->total_bayar         = format_rupiah(round($value->registrasi+$value->tarif_gizi+$value->tarif_spp+$value->pembangunan),2);
 
-                //dd($value->total_bayar);
+               
                 
                 return $value;
            
@@ -176,9 +176,10 @@ class TarifHargaController extends Controller
               $id = $r->get('id');
               $tmp = TarifHarga::where('tarif_kode',$id)->first();
 
-              $tmp->grup_id      = $r->grup;
-              $tmp->jenis_id     = $r->jenis;
+              $tmp->kat_id       = $r->kategori;
+              $tmp->tarif_nama   = $r->nama;
               $tmp->tarif_reg    = str_replace(".", "", $r->registrasi);
+              $tmp->tarif_gizi   = str_replace(".", "", $r->gizi);
               $tmp->tarif_spp    = str_replace(".", "", $r->bulanan);
               $tmp->tarif_pembg  = str_replace(".", "", $r->pembangunan);
 

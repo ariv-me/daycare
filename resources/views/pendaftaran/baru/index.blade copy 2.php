@@ -255,7 +255,7 @@
                         // tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(1)').append($('<div>')
-                            .html((data[i].anak_nis)));   
+                            .html((data[i].anak_kode)));   
 
                         tr.find('td:nth-child(2)').append($('<div>')
                             .html((data[i].anak_nama)));   
@@ -305,12 +305,12 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].anak_nis)));   
+                            .html((data[i].anak_kode)));   
 
                         tr.find('td:nth-child(3)').append($('<div>')
                             .html((data[i].anak_nama)));   
 
-                        tr.find('td:nth-child(4)').append('<div class="d-flex"><small><a href="javascript:;" class="btn btn-success btn-xs shadow  sharp mr-2 item_pilih" data="'+data[i].anak_nis+'"><i class="fa fa-check"></i>  Pilih</a></small></div>'); 
+                        tr.find('td:nth-child(4)').append('<div class="d-flex"><small><a href="javascript:;" class="btn btn-success btn-xs shadow  sharp mr-2 item_pilih" data="'+data[i].anak_kode+'"><i class="fa fa-check"></i>  Pilih</a></small></div>'); 
 
                         tr.appendTo($('#show_data_anak'));
                     }
@@ -396,7 +396,7 @@
                 id: id
             },
             success: function(data) {
-                $('[name="daftar_nis"]').val(data.anak_nis);
+                $('[name="daftar_nis"]').val(data.anak_kode);
                 $('[name="daftar_anak"]').val(data.anak_nama);
                 $('[name="perusahaan"]').val(data.ortu_ayah_peru_id);
 
@@ -420,7 +420,7 @@
                 id: id
             },
             success: function(data) {
-                $('[name="daftar_nis2"]').val(data.anak_nis);
+                $('[name="daftar_nis2"]').val(data.anak_kode);
             }
         });
 
@@ -433,7 +433,7 @@
     $('#btn_simpan').on('click', function(){
     
         
-        var anak_nis       = $('#anak_nis').val();
+        var anak_kode       = $('#anak_kode').val();
         var anak_nama       = $('#anak_nama').val();
         var anak_tmp_lahir  = $('#anak_tmp_lahir').val();
         var anak_tgl_lahir  = $('#anak_tgl_lahir').val();
@@ -452,7 +452,7 @@
 
         var formData = new FormData();
     
-        formData.append('anak_nis', anak_nis);
+        formData.append('anak_kode', anak_kode);
         formData.append('anak_nama', anak_nama);
         formData.append('anak_tmp_lahir', anak_tmp_lahir);
         formData.append('anak_tgl_lahir', anak_tgl_lahir);

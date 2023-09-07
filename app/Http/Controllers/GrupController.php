@@ -50,7 +50,7 @@ class GrupController extends Controller
             $nis = Anak::autonumber();
 
             $tmp->anak_nama             = $r->anak_nama;
-            $tmp->anak_nis              = $nis;
+            $tmp->anak_kode              = $nis;
             $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
             $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
             $tmp->anak_jekel            = $r->anak_jekel;
@@ -95,7 +95,7 @@ class GrupController extends Controller
     public function edit(Request $r)
     {
         $id = strtolower($r->get('id'));
-        $data = Anak::where('anak_nis',$id)->first();
+        $data = Anak::where('anak_kode',$id)->first();
         return response()->json($data);
     }
 

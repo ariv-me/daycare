@@ -94,8 +94,8 @@ class PendaftaranDetailController extends Controller
         try {
 
                 $app         = SistemApp::sistem();
-                $detail      = PendaftaranDetail::where('anak_nis',$r->trs_anak)->where('kar_id',$app['kar_id'])->where('is_aktif','T')->first();
-                $anak        = DapokAnak::where('anak_nis',$r->trs_anak)->first();
+                $detail      = PendaftaranDetail::where('anak_kode',$r->trs_anak)->where('kar_id',$app['kar_id'])->where('is_aktif','T')->first();
+                $anak        = DapokAnak::where('anak_kode',$r->trs_anak)->first();
                 $tarif       = Tarif::where('grup_id',$r->grup)->where('jenis_id',$r->paket)->first();
               
                
@@ -113,7 +113,7 @@ class PendaftaranDetailController extends Controller
                         $tmp = PendaftaranDetail::where('detail_id',$id)->first();
 
                         $tmp->detail_blm            = $r->daftar_paket;
-                        $tmp->anak_nis              = $r->daftar_nis;
+                        $tmp->anak_kode              = $r->daftar_nis;
                         $tmp->anak_nama             = $r->daftar_anak;
                         $tmp->grup_id               = $grup;
                         $tmp->paket_id              = $paket;
@@ -149,7 +149,7 @@ class PendaftaranDetailController extends Controller
                         $daftar_kode = Pendaftaran::daftar_kode();
 
                         $tmp->daftar_kode            = $daftar_kode;
-                        $tmp->anak_nis              = $anak->anak_nis;
+                        $tmp->anak_kode              = $anak->anak_kode;
                         $tmp->anak_nama             = $anak->anak_nama;
                         $tmp->grup_id               = $r->grup;
                         $tmp->jenis_id              = $r->paket;
@@ -200,7 +200,7 @@ class PendaftaranDetailController extends Controller
             $id = $r->get('id');
             $data = DB::connection('daycare')
                             ->table('daftar_tc_transaksi_detail AS aa')
-                            ->leftjoin('dapok_tb_anak AS bb','bb.anak_nis','=','aa.anak_nis')
+                            ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','=','aa.anak_kode')
                             ->leftjoin('daftar_tb_ortu AS cc','cc.ortu_id','=','bb.ortu_id')
                             ->where('aa.detail_id',$id)
                             ->first();
@@ -240,7 +240,7 @@ class PendaftaranDetailController extends Controller
             $nis = Anak::autonumber();
 
             $tmp->anak_nama             = $r->anak_nama;
-            $tmp->anak_nis              = $nis;
+            $tmp->anak_kode              = $nis;
             $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
             $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
             $tmp->anak_jekel            = $r->anak_jekel;
