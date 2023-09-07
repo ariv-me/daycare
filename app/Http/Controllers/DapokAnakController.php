@@ -41,7 +41,7 @@ class DapokAnakController extends Controller
                 
                 $tmp = new DapokAnak();
 
-                $tmp->anak_nis           = $nis;
+                $tmp->anak_kode           = $nis;
                 $tmp->ortu_id            = $r->ortu;
                 $tmp->pnj_id             = $r->penjemput;
                 $tmp->kontak_id          = $r->kontak;

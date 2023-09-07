@@ -44,7 +44,7 @@ class TarifController extends Controller
             $nis = Anak::autonumber();
 
             $tmp->anak_nama             = $r->anak_nama;
-            $tmp->anak_nis              = $nis;
+            $tmp->anak_kode              = $nis;
             $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
             $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
             $tmp->anak_jekel            = $r->anak_jekel;

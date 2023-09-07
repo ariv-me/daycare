@@ -5,39 +5,29 @@
         <a href="{{ route('home') }}"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span></a>
     </li>
 
-    @foreach($menu['menu_utama'] as $menu_utama)
-
     <li>
-        <a href="#"><i class="{{ $menu_utama->fitur_icon }}"></i><span>  {{ $menu_utama->fitur_nama }}</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+        <a href="javascript: void(0);"> <i class="mdi mdi-playlist-edit" class="align-self-center menu-icon"></i><span>Pendaftaran</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
         <ul class="nav-second-level" aria-expanded="false">
-
-            @foreach($menu['menu_sub'] as $menu_sub)
-                 @if($menu_sub->fitur_parent == $menu_utama->fitur_id) 
-
-                    @if($menu_sub->fitur_link == '#') 
-                        <li>
-                            <a href="#"><i class="ti-control-record"></i>{{ $menu_sub->fitur_nama }}<span class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
-                            <ul class="nav-second-level" aria-expanded="false">
-                                @foreach($menu['menu_anak'] as $menu_anak)
-                                    @if($menu_anak->fitur_parent == $menu_sub->fitur_id) 
-                                        <li><a href="{{ route($menu_anak->fitur_link) }}">  {{ $menu_anak->fitur_nama }}</a></li>
-                                    @endif
-                                @endforeach
-                            </ul>
-                        </li>  
-                    @else
-                        <li><a href="{{ route($menu_sub->fitur_link) }}"><span>{{ $menu_sub->fitur_nama }}</span></a></li>
-                    @endif
-
-                 @endif
-            @endforeach
-
-           
-           
+            <li class="nav-item"><a class="nav-link" href="{{ route('pendaftaran.transaksi.index') }}"><i class="ti-control-record"></i>Transaksi</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('pendaftaran.data.index') }}"><i class="ti-control-record"></i>Data</a></li>
         </ul>
     </li>
-
-    @endforeach
+    <li>
+        <a href="javascript: void(0);"> <i class="mdi mdi-cash-multiple" class="align-self-center menu-icon"></i><span>Tarif</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+        <ul class="nav-second-level" aria-expanded="false">
+            <li class="nav-item"><a class="nav-link" href="{{ route('tarif.jenis.index') }}"><i class="ti-control-record"></i>Jenis</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('tarif.kategori.index') }}"><i class="ti-control-record"></i>Kategori</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('tarif.harga.index') }}"><i class="ti-control-record"></i>Harga</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="javascript: void(0);"> <i class="mdi mdi-food-fork-drink" class="align-self-center menu-icon"></i><span>Catering</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+        <ul class="nav-second-level" aria-expanded="false">
+            <li class="nav-item"><a class="nav-link" href="{{ route('catering.kategori.index') }}"><i class="ti-control-record"></i>Kategori</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('catering.menu.index') }}"><i class="ti-control-record"></i>Menu</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('catering.order.index') }}"><i class="ti-control-record"></i>Order</a></li>
+        </ul>
+    </li>
         
 </ul>
 

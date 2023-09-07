@@ -236,7 +236,7 @@
                 id: id
             },
             success: function(data) {
-                $('[name="daftar_nis2"]').val(data.anak_nis);
+                $('[name="daftar_nis2"]').val(data.anak_kode);
             }
         });
 

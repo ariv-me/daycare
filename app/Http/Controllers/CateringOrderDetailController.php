@@ -60,7 +60,7 @@ class CateringOrderDetailController extends Controller
             $diskon = 0;
             $qty   = 1;
 
-            $tmp->anak_nis          = $r->anak;
+            $tmp->anak_kode          = $r->anak;
             $tmp->menu_kode         = $menu->menu_kode;
             $tmp->detail_tgl        = Carbon::now()->toDateString();
             $tmp->detail_jam        = Carbon::now()->toTimeString();
@@ -105,7 +105,7 @@ class CateringOrderDetailController extends Controller
 
             $data = DB::connection('daycare')
                     ->table('ctrg_order_detail AS aa')
-                    ->leftjoin('dapok_tb_anak AS cc','cc.anak_nis','=','aa.anak_nis')
+                    ->leftjoin('dapok_tb_anak AS cc','cc.anak_kode','=','aa.anak_kode')
                     ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
                     ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
                     ->where('aa.is_aktif','T')

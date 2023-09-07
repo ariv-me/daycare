@@ -412,7 +412,7 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].anak_nis)));   
+                            .html((data[i].anak_kode)));   
 
                         tr.find('td:nth-child(3)').append($('<div>')
                             .html((data[i].anak_nama)));   
@@ -519,10 +519,10 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_nis+'">'+(data[i].anak_nis)+'</a>')); 
+                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_kode+'">'+(data[i].anak_kode)+'</a>')); 
                         
                         tr.find('td:nth-child(3)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_nis+'">'+(data[i].anak_nama)+'</a>')); 
+                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_kode+'">'+(data[i].anak_nama)+'</a>')); 
                         
                         tr.find('td:nth-child(4)').append($('<div>')
                             .html('<strong></strong>' +(data[i].anak_usia) + ' Tahun'));   
@@ -640,7 +640,7 @@
                 console.log(data);
 
                 $('[name="id_edit_detail"]').val(data.detail_id);
-                $('[name="nis"]').val(data.anak_nis);
+                $('[name="nis"]').val(data.anak_kode);
                 $('[name="ortu"]').val(data.ortu_id);
                 $('[name="daftar_anak"]').val(data.anak_nama);
                 $('[name="daftar_ortu"]').val(data.ortu_ayah);
@@ -729,7 +729,7 @@
 
                 console.log(data);
 
-                $('[name="nis"]').val(data.anak_nis);
+                $('[name="nis"]').val(data.anak_kode);
                 $('[name="daftar_anak"]').val(data.anak_nama);
                 $('[name="ortu"]').val(data.ortu_id);
                 $('[name="daftar_ortu"]').val(data.ortu_ayah);
@@ -757,7 +757,7 @@
             },
             success: function(data) {
 
-                $('[name="daftar_nis"]').val(data.anak_nis);
+                $('[name="daftar_nis"]').val(data.anak_kode);
                 $('[name="daftar_anak"]').val(data.anak_nama);
 
                 $('#formModalAnak').modal('hide');

@@ -597,7 +597,7 @@
                 $('[name="kode"]').val(r.menu_kode);
                 $('[name="nama"]').val(r.menu_nama);
                 $('[name="harga"]').val(r.menu_harga);
-                $('[name="anak"]').val(r.anak_nis).trigger("change");
+                $('[name="anak"]').val(r.anak_kode).trigger("change");
                 $('[name="jadwal"]').val(r.detail_jadwal).trigger("change");
 
 
@@ -755,7 +755,7 @@
                         x.add(option);
                         for(i=0; i<data.length; i++){
                             var html = '';
-                            html = '<option value='+(data[i].anak_nis)+'>'+(data[i].anak_nama)+'</option>';
+                            html = '<option value='+(data[i].anak_kode)+'>'+(data[i].anak_nama)+'</option>';
                             $('select[name=anak]').append(html)
                         }
                     }

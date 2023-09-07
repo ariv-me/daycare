@@ -45,6 +45,13 @@ class PendaftaranController extends Controller
         return view('pendaftaran.transaksi.index',compact('app','menu'));
     }
 
+    public function edit_view($id)
+    {
+        $app    = SistemApp::sistem();
+        $menu = SistemApp::OtoritasMenu($app['idu']);
+        return view('pendaftaran.transaksi.edit',compact('app','menu'));
+    }
+
 
     //------------------------------- ORDER SAVE --------------------------------
 
@@ -70,7 +77,7 @@ class PendaftaranController extends Controller
                 $ortu_kode   = DapokOrtu::autonumber();
                 $pnj_kode    = DapokPenjemput::autonumber();
                 $tag_kode    = Tagihan::autonumber();
-                $tarif       = Tarif::where('grup_id',$r->grup)->where('jenis_id',$r->paket)->first();
+                $tarif       = Tarif::where('tarif_kode',$r->paket)->first();
 
                 
 
@@ -79,15 +86,17 @@ class PendaftaranController extends Controller
                 $daftar->daftar_kode    = $daftar_kode;
                 $daftar->anak_kode      = $anak_kode;
                 $daftar->grup_id        = $r->grup;
-                $daftar->jenis_id       = $r->paket;
+                $daftar->kat_id         = $r->kategori;
                 $daftar->daftar_ket     = $r->keterangan;
-                $daftar->tarif_kode     = $tarif->tarif_kode;     
+                $daftar->tarif_kode     = $r->paket;     
                 $daftar->tarif_id       = $tarif->tarif_id;     
                 $daftar->tarif_reg      = $tarif->tarif_reg;     
                 $daftar->tarif_spp      = $tarif->tarif_spp;     
                 $daftar->tarif_pembg    = $tarif->tarif_pembg;     
                 $daftar->tarif_total    = $tarif->tarif_reg + $tarif->tarif_spp + $tarif->tarif_pembg;     
                 $daftar->kar_id         = $app['kar_id'];
+
+                dd($daftar);
 
                 /*-- TAGIHAN --*/
 
@@ -102,7 +111,7 @@ class PendaftaranController extends Controller
 
                 $anak = new DapokAnak();
 
-                $anak->anak_nis           = $anak_kode;
+                $anak->anak_kode           = $anak_kode;
                 $anak->ortu_kode            = $ortu_kode;
                 $anak->pnj_kode             = $pnj_kode;
                 $anak->anak_nama          = $r->anak_nama;
@@ -223,156 +232,23 @@ class PendaftaranController extends Controller
 
     }
 
-    public function edit(Request $r)
-    {
-        $id = $r->get('id');
-        
-        $data = CateringOrder::where('order_kode',$id)->first();
+    public function edit_get(Request $r){
+
+        $id  = $r->id;
+
+        $data = DB::connection('daycare')
+                    ->table('dapok_tb_anak AS aa')          
+                    ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_kode','aa.ortu_kode')              
+                    ->leftjoin('dapok_tb_penjemput AS cc','cc.pnj_kode','aa.pnj_kode')              
+                    ->leftjoin('daftar_tc_transaksi AS dd','dd.anak_kode','aa.anak_kode')              
+                    ->leftjoin('tarif_ta_jenis AS ee','ee.jenis_id','dd.jenis_id')              
+                    ->orderby('aa.anak_id','desc')
+                    ->where('dd.daftar_kode',$id)
+                    ->first();
+
+
         return response()->json($data);
-        
-    }
 
-
-    //------------------------------- PIUTANG VIEW --------------------------------
-
-
-    public function view_piutang(Request $r){
-
-        $result = array('success'=>false);
-
-        try{
-
-            $tgl_mulai  = $r->get('tgl_mulai');
-            $tgl_akhir  = $r->get('tgl_akhir');
-            $status     = $r->get('status');
-
-
-            $tanggal_mulai = $tgl_mulai ? date('Y-m-d', strtotime($tgl_mulai)) : date('Y-m-d');
-            $tanggal_akhir = $tgl_akhir ? date('Y-m-d', strtotime($tgl_akhir)) : date('Y-m-d');
-
-            $order_kode = CateringOrder::order_kode();
-
-            $data = DB::connection('daycare')
-                        ->table('ctrg_order AS aa')
-                        ->where('aa.order_tgl', '>=', $tanggal_mulai)
-                        ->where('aa.order_tgl', '<=', $tanggal_akhir)
-                        ->where('aa.is_aktif','Y')
-                        ->orderby('aa.order_kode','desc')
-                        ->get();
-
-            $data2 = DB::connection('daycare')
-                        ->table('ctrg_order_detail AS aa')
-                        ->leftjoin('ctrg_order AS bb','bb.order_kode','=','aa.order_kode')
-                        ->leftjoin('dapok_tb_anak AS cc','cc.anak_nis','=','aa.anak_nis')
-                        ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
-                        ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
-                        ->where('aa.is_aktif','Y')
-                        ->orderby('aa.order_kode','desc')
-                        ->get();
-        
-            $data = $data->map(function($value) use($data2) {
- 
-                $value->total_tampil        = format_rupiah($value->order_total);
-                $value->total_piutang       = $value->order_total;
-                
-                return $value;
-
-            });
-
-            // dd($order_kode);
-
-        } catch (\Exception $e) {
-            $result['message'] = $e->getMessage();  
-            return response()->json($result);
-        }
-
-        $result['success'] = true;
-        $result['data'] = $data;
-        $result['detail'] = $data2;
-        $result['total'] = format_rupiah($data->where('order_status','U')->sum('total_piutang'));
-
-        return response()->json($result);
-
-    }
-
-    public function piutang_detail(Request $r){
-
-        $result = array('success'=>false);
-
-        try{
-            
-            $id = $r->get('id');
-
-            $order       = CateringOrder::where('order_kode',$id)->first();
-
-            $data = DB::connection('daycare')
-                            ->table('ctrg_order_detail AS aa')
-                            ->leftjoin('ctrg_order AS bb','bb.order_kode','=','aa.order_kode')
-                            ->leftjoin('dapok_tb_anak AS cc','cc.anak_nis','=','aa.anak_nis')
-                            ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
-                            ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
-                            ->where('aa.is_aktif','Y')
-                            ->where('aa.order_kode',$id)
-                            ->get();
-            //dd($data);
-
-            $data = $data->map(function($value) {
- 
-                $value->harga_tampil        = format_rupiah($value->menu_harga_jual);
-                $value->order_kode          = $value->order_kode;
-                $value->total_tampil        = terbilang($value->order_total);
-                
-                return $value;
-
-            });
-
-        } catch (\Exception $e) {
-            $result['message'] = $e->getMessage();  
-            return response()->json($result);
-        }
-
-        $result['success'] = true;
-        $result['data'] = $data;
-
-        $result['order_tgl'] = helpers_tgl_indo_panjang($order->order_tgl);
-        $result['kode'] = $order->order_kode;
-        $result['nama'] = $order->kar_nama;
-        $result['usaha'] = $order->usaha_nama;
-        $result['terbilang'] = terbilang($order->order_total).' Rupiah';
-       
-
-        return response()->json($result);
-
-    }
-
-    //------------------------------- PIUTANG BAYAR PER KODE ORDER --------------------------------
-
-    public function piutang_bayar(Request $r){
-
-        $transaction = DB::connection('daycare')->transaction(function() use($r){
-  
-              $app = SistemApp::sistem();
-  
-              $id = $r->get('id');
- 
-              $tmp = CateringOrder::where('order_kode',$id)->first();
-
-            //   $tmp->menu_kode = $r->kode;
-              $tmp->order_total         = $r->total;
-              $tmp->order_bayar         = $r->bayar;
-              $tmp->order_status         = 'L';
-
-
-              $tmp->updated_nip   = $app['kar_id'];
-              $tmp->updated_nama  = $app['kar_nama_awal'];
-              $tmp->updated_ip    = $r->ip();
-            
-              $tmp->save();
-  
-              return true;
-          });
-  
-          return response()->json($transaction);   
     }
 
 

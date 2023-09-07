@@ -193,12 +193,12 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].anak_nis)));   
+                            .html((data[i].anak_kode)));   
 
                         tr.find('td:nth-child(3)').append($('<div>')
                             .html((data[i].anak_nama)));   
 
-                        tr.find('td:nth-child(4)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-rounded btn-info btn-xs item_pilih" data="'+data[i].anak_nis+'">PILIH</a></div>'); 
+                        tr.find('td:nth-child(4)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-rounded btn-info btn-xs item_pilih" data="'+data[i].anak_kode+'">PILIH</a></div>'); 
 
                         tr.appendTo($('#show_data_anak'));
                     }
@@ -286,7 +286,7 @@
                 id: id
             },
             success: function(data) {
-                $('[name="daftar_nis"]').val(data.anak_nis);
+                $('[name="daftar_nis"]').val(data.anak_kode);
                 $('[name="daftar_anak"]').val(data.anak_nama);
 
                 $('#formModalAnak').modal('hide');

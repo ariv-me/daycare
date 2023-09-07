@@ -22,6 +22,7 @@ use App\Models\SistemAgama;
 use App\Models\CateringKategori;
 use App\Models\TarifJenis;
 use App\Models\TarifHarga;
+use App\Models\TarifKategori;
 use App\Models\Periode;
 
 
@@ -90,9 +91,7 @@ class ComboSistemController extends Controller
         return response()->json($data); 
     }
 
- 
 
-    /*-- BULAN --*/
     public function combo_bulan(){
         $data = SistemBulan::orderby('bulan_id')->get();
         return response()->json($data); 
@@ -103,13 +102,17 @@ class ComboSistemController extends Controller
         return response()->json($data); 
     }
 
+    public function combo_tarif_kategori(){
+        $data = TarifKategori::orderby('kat_id','desc')->where('kat_aktif','Y')->get();
+        return response()->json($data); 
+    }
+
     public function combo_paket(Request $r){
        
         $data = DB::connection('daycare')
                         ->table('tarif_tb_harga AS aa')
-                        ->leftjoin('tarif_ta_jenis AS bb','bb.jenis_id','=','aa.jenis_id')
-                        ->leftjoin('sistem_tb_grup AS cc','cc.grup_id','=','aa.grup_id')
-                        ->where('aa.grup_id',$r->grup)
+                        ->leftjoin('tarif_ta_kategori AS bb','bb.kat_id','=','aa.kat_id')
+                        ->where('aa.kat_id',$r->kategori)
                         ->orderby('tarif_kode','desc')
                         ->get();
         return response()->json($data); 

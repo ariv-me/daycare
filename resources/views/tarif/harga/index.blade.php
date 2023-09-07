@@ -6,13 +6,13 @@
     <div class="col-12">
 
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-success">
                 <div class="row">
                     <div class="col-md-9">
-                        <h4 class="card-title"><i class="mdi mdi-cash-multiple"></i> TARIF - HARGA</h4>
+                        <h4 class="card-title text-white"><i class="mdi mdi-cash-multiple"></i> TARIF - HARGA</h4>
                     </div>
                     <div class="col-md-3" style="text-align: right">
-                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" id="btn_add"><i class="fas fa-plus-circle"></i> TAMBAH DATA </button>
+                        <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" id="btn_add"><i class="fas fa-plus-circle"></i> TAMBAH DATA </button>
                     </div>
                 </div>
 
@@ -24,13 +24,14 @@
                             <tr>
                                 <th width="1%" style="text-align: center; vertical-align: middle;" rowspan="2"  >NO</th>
                                 <th width="6%" style="text-align: center; vertical-align: middle;" rowspan="2"  >KODE</th>
-                                <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2"  >GRUP</th>
+                                <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2"  >NAMA</th>
                                 <th width="10%" style="text-align: center; vertical-align: middle;" rowspan="2"  >JENIS</th>
-                                <th style="text-align: center" colspan="4">BIAYA</th>
+                                <th style="text-align: center" colspan="5">BIAYA</th>
                                 <th width="5%" style="text-align: center; vertical-align: middle;" rowspan="2"  >AKSI</th>
                             </tr>
                             <tr>
                                 <th width="10%" style="text-align: center">REG</th>
+                                <th width="10%" style="text-align: center">GIZI</th>
                                 <th width="10%" style="text-align: center">SPP</th>
                                 <th width="10%" style="text-align: center">PEMBANGUNAN</th>
                                 <th width="10%" style="text-align: center">TOTAL</th>
@@ -55,24 +56,21 @@
             <div class="modal-body">
                 {!! csrf_field() !!}
                 <div class="row">
+
                     <div class="col-md-12 mb-0">
                         <div class="form-group">
-                            <label> <strong>Grup</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"></select>
+                            <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
+                            <input type="text" name="nama" id="nama" class="form-control col-md-12">
                         </div>
                     </div>  
-                    <div class="col-md-6 mb-0">
+
+                    <div class="col-md-12 mb-0">
                         <div class="form-group">
-                            <label> <strong>Jenis</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="jenis" id="jenis"></select>
+                            <label> <strong>Kategori</strong>  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"></select>
                         </div>
-                    </div>    
-                    <div class="col-md-6 mb-0">
-                        <div class="form-group">
-                            <label> <strong>Hari</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="hari" id="hari"></select>
-                        </div>
-                    </div>    
+                    </div>   
+  
                     <div class="col-md-12 mb-3">
                         <label> <strong>Registrasi</strong>  <small class="text-danger">*</small></label>
                         <div class="input-group">
@@ -82,6 +80,17 @@
                             <input type="text" name="registrasi" id="registrasi" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
                         </div>
                     </div>  
+
+                    <div class="col-md-12 mb-3">
+                        <label> <strong>Gizi</strong>  <small class="text-danger">*</small></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rp.</span>
+                            </div>
+                            <input type="text" name="gizi" id="gizi" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
+                        </div>
+                    </div>  
+
                     <div class="col-md-12 mb-3">
                         <label> <strong>Bulanan</strong>  <small class="text-danger">*</small></label>
                         <div class="input-group">
@@ -123,18 +132,21 @@
                 <input type="hidden" name="id_edit" id="id_edit" class="form-control">
 
                 <div class="row">
-                    <div class="col-md-6 mb-0">
+
+                    <div class="col-md-12 mb-0">
                         <div class="form-group">
-                            <label> <strong>Grup</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup_edit"></select>
+                            <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
+                            <input type="text" name="nama" id="nama_edit" class="form-control col-md-12">
+                        </div>
+                    </div> 
+
+                    <div class="col-md-12 mb-0">
+                        <div class="form-group">
+                            <label> <strong>kategori</strong>  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori_edit"></select>
                         </div>
                     </div>  
-                    <div class="col-md-6 mb-0">
-                        <div class="form-group">
-                            <label> <strong>Jenis</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="jenis" id="jenis_edit"></select>
-                        </div>
-                    </div>    
+                 
                     <div class="col-md-12 mb-3">
                         <label> <strong>Registrasi</strong>  <small class="text-danger">*</small></label>
                         <div class="input-group">
@@ -142,6 +154,15 @@
                                 <span class="input-group-text">Rp.</span>
                             </div>
                             <input type="text" name="registrasi" id="registrasi_edit" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
+                        </div>
+                    </div>  
+                    <div class="col-md-12 mb-3">
+                        <label> <strong>Gizi</strong>  <small class="text-danger">*</small></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rp.</span>
+                            </div>
+                            <input type="text" name="gizi" id="gizi_edit" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
                         </div>
                     </div>  
                     <div class="col-md-12 mb-3">
@@ -183,8 +204,9 @@
 
         $('.select2').select2();
 
-        combo_grup();
+        combo_kategori();
         combo_jenis_tarif();
+
         view();
         reset();
 
@@ -192,7 +214,7 @@
     });
 
     function reset() {
-        $('#grup').val("").trigger("change");;
+        $('#kategori').val("").trigger("change");;
         $('#jenis').val("").trigger("change");;
         $('#registrasi').val("");
         $('#bulanan').val("");
@@ -208,29 +230,31 @@
 
     $('#btn_save').on('click', function(){
 
-        if (!$("#grup").val()) {
+        if (!$("#nama").val()) {
             $.toast({
-                text: 'GRUP HARUS DI ISI',
+                text: 'NAMA HARUS DI ISI',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
-            $("#grup").focus();
+            $("#nama").focus();
             return false;
 
-        } else if (!$("#jenis").val()) {
+        }
+
+        else if (!$("#kategori").val()) {
             $.toast({
-                text: 'JENIS HARUS DI ISI',
+                text: 'kategori HARUS DI ISI',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
-            $("#jenis").focus();
+            $("#kategori").focus();
             return false;
 
-        } else if (!$("#registrasi").val()) {
+        }  else if (!$("#registrasi").val()) {
             $.toast({
                 text: 'REGISTRASI HARUS DI ISI',
                 position: 'top-right',
@@ -239,6 +263,17 @@
                 hideAfter: 3000
             });
             $("#registrasi").focus();
+            return false;
+
+        } else if (!$("#gizi").val()) {
+            $.toast({
+                text: 'GIZI HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#gizi").focus();
             return false;
 
         } else if (!$("#bulanan").val()) {
@@ -265,8 +300,9 @@
 
         } 
 
-        var grup        = $('#grup').val();
-        var jenis       = $('#jenis').val();
+        var nama    = $('#nama').val();
+        var kategori    = $('#kategori').val();
+        var gizi       = $('#gizi').val();
         var registrasi  = $('#registrasi').val();
         var bulanan     = $('#bulanan').val();
         var pembangunan = $('#pembangunan').val();
@@ -274,8 +310,9 @@
         var token = $('[name=_token]').val();
         var formData = new FormData();
     
-        formData.append('grup', grup);
-        formData.append('jenis', jenis);
+        formData.append('nama', nama);
+        formData.append('kategori', kategori);
+        formData.append('gizi', gizi);
         formData.append('registrasi', registrasi);
         formData.append('bulanan', bulanan);
         formData.append('pembangunan', pembangunan);
@@ -322,14 +359,15 @@
                         if((data[i].void) == 'T'){
                             var tr = $('<tr>').append([
                                 $('<td width="1%" align="center">'),
-                                $('<td width="5%">'),
-                                $('<td width="15%">'),
+                                $('<td width="3%">'),
                                 $('<td width="20%">'),
-                                $('<td width="10%" align="right">'),
-                                $('<td width="10%" align="right">'),
-                                $('<td width="10%" align="right">'),
-                                $('<td width="10%" align="right">'),
-                                $('<td width="5%" align="center">')
+                                $('<td width="5%">'),
+                                $('<td width="7%" align="right">'),
+                                $('<td width="7%" align="right">'),
+                                $('<td width="7%" align="right">'),
+                                $('<td width="7%" align="right">'),
+                                $('<td width="7%" align="right">'),
+                                $('<td width="1%" align="center">')
 
                             ]);
 
@@ -337,14 +375,14 @@
 
                             var tr = $('<tr style="background-color:#fee6ec;">').append([
                                 $('<td width="1%" align="center">'),
-                                $('<td width="5%">'),
+                                $('<td width="3%">'),
                                 $('<td width="15%">'),
-                                $('<td width="20%">'),
-                                $('<td width="10%" align="right">'),
-                                $('<td width="10%" align="right">'),
-                                $('<td width="10%" align="right">'),
-                                $('<td width="10%" align="right">'),
-                                $('<td width="5%" align="center">')
+                                $('<td width="5%">'),
+                                $('<td width="7%" align="right">'),
+                                $('<td width="7%" align="right">'),
+                                $('<td width="7%" align="right">'),
+                                $('<td width="7%" align="right">'),
+                                $('<td width="1%" align="center">')
                 
                             ]);
 
@@ -356,30 +394,33 @@
                             .html((data[i].tarif_kode))); 
                             
                         tr.find('td:nth-child(3)').append($('<div>')
-                           .html((data[i].grup_nama)));   
+                           .html('<b>'+(data[i].tarif_nama)+'</b>'));   
 
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html((data[i].jenis_nama)));  
+                            .html((data[i].kat_nama)));  
 
                         tr.find('td:nth-child(5)').append($('<div>')
                             .html((data[i].reg_tampil)));
 
                         tr.find('td:nth-child(6)').append($('<div>')
-                            .html((data[i].spp_tampil)));   
+                            .html((data[i].tarif_gizi)));
 
                         tr.find('td:nth-child(7)').append($('<div>')
+                            .html((data[i].spp_tampil)));   
+
+                        tr.find('td:nth-child(8)').append($('<div>')
                             .html((data[i].pembangunan_tampil)));   
                             
-                        tr.find('td:nth-child(8)').append($('<div>')
+                        tr.find('td:nth-child(9)').append($('<div>')
                             .html('<b class="text-danger">'+(data[i].total_bayar)+'</b>'));   
                         
                         
                         if((data[i].void) == 'T'){
 
-                            tr.find('td:nth-child(9)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].tarif_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-window-close"></i></a></div>');   
+                            tr.find('td:nth-child(10)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].tarif_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-window-close"></i></a></div>');   
 
                         } else {
-                            tr.find('td:nth-child(9)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-check"></i></a></div>');   
+                            tr.find('td:nth-child(10)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-check"></i></a></div>');   
                         }
 
                         
@@ -407,8 +448,9 @@
 
                 $('#formModalEdit').modal('show');
                 $('#formModalEdit').find('[name="id_edit"]').val(data.tarif_kode);
-                $('#formModalEdit').find('[name="grup"]').val(data.grup_id).trigger("change");
-                $('#formModalEdit').find('[name="jenis"]').val(data.jenis_id).trigger("change");
+                $('#formModalEdit').find('[name="kategori"]').val(data.kat_id).trigger("change");
+                $('#formModalEdit').find('[name="nama"]').val(data.tarif_nama);
+                $('#formModalEdit').find('[name="gizi"]').val(data.tarif_gizi);
                 $('#formModalEdit').find('[name="registrasi"]').val(data.tarif_reg);
                 $('#formModalEdit').find('[name="bulanan"]').val(data.tarif_spp);
                 $('#formModalEdit').find('[name="pembangunan"]').val(data.tarif_pembg);
@@ -426,26 +468,28 @@
 
     $('#btn_update').on('click',function(){
 
-        if (!$("#grup_edit").val()) {
+        if (!$("#nama_edit").val()) {
             $.toast({
-                text: 'GRUP HARUS DI ISI',
+                text: 'NAMA HARUS DI ISI',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
-            $("#grup_edit").focus();
+            $("#nama_edit").focus();
             return false;
 
-        } else if (!$("#jenis_edit").val()) {
+        } 
+
+        else if (!$("#kategori_edit").val()) {
             $.toast({
-                text: 'JENIS HARUS DI ISI',
+                text: 'kategori HARUS DI ISI',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
-            $("#jenis_edit").focus();
+            $("#kategori_edit").focus();
             return false;
 
         } else if (!$("#registrasi_edit").val()) {
@@ -457,6 +501,17 @@
                 hideAfter: 3000
             });
             $("#registrasi_edit").focus();
+            return false;
+
+        } else if (!$("#gizi_edit").val()) {
+            $.toast({
+                text: 'REGISTRASI HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#gizi_edit").focus();
             return false;
 
         } else if (!$("#bulanan_edit").val()) {
@@ -484,8 +539,9 @@
         } 
       
         var id          = $('#id_edit').val();
-        var grup        = $('#grup_edit').val();
-        var jenis       = $('#jenis_edit').val();
+        var nama        = $('#nama_edit').val();
+        var kategori    = $('#kategori_edit').val();
+        var gizi        = $('#gizi_edit').val();
         var registrasi  = $('#registrasi_edit').val();
         var bulanan     = $('#bulanan_edit').val();
         var pembangunan = $('#pembangunan_edit').val();
@@ -494,8 +550,9 @@
         var formData = new FormData();
 
         formData.append('id', id);
-        formData.append('grup', grup);
-        formData.append('jenis', jenis);
+        formData.append('nama', nama);
+        formData.append('kategori', kategori);
+        formData.append('gizi', gizi);
         formData.append('registrasi', registrasi);
         formData.append('bulanan', bulanan);
         formData.append('pembangunan', pembangunan);
@@ -571,18 +628,18 @@
         });
     });
 
-    function combo_grup(){
+    function combo_kategori(){
 
         $.ajax({
             type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_grup') }}",
+            url   : "{{ route('combo_sistem.combo_tarif_kategori') }}",
             async : false,
             dataType : 'JSON',
             success : function(data){
                 var html = '';
                 var i;
-                $('select[name=grup]').empty()
-                var x = document.getElementById("grup");
+                $('select[name=kategori]').empty()
+                var x = document.getElementById("kategori");
                     var option = document.createElement("option");
                     option.text = "--Pilih--";
                     option.value = '';
@@ -590,8 +647,8 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].grup_id)+'>'+(data[i].grup_nama)+'</option>';
-                    $('select[name=grup]').append(html)
+                    html = '<option value='+(data[i].kat_id)+'>'+(data[i].kat_nama)+'</option>';
+                    $('select[name=kategori]').append(html)
                 }
             }
         });

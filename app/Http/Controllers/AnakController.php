@@ -42,7 +42,7 @@ class AnakController extends Controller
         
 
             $tmp->ortu_id         = $r->ortu;
-            $tmp->anak_nis        = $nis;
+            $tmp->anak_kode        = $nis;
             $tmp->anak_nama       = $r->anak;
             $tmp->anak_tgl_lahir  = $r->anak_lahir;
             $tmp->anak_jekel      = $r->anak_jekel;
@@ -69,15 +69,15 @@ class AnakController extends Controller
         try {
 
             $app       = SistemApp::sistem();
-            $anak      = Anak::where('anak_nis',$r->nis)->where('anak_tgl_lahir',$r->anak_tgl_lahir)->where('void','T')->first();
+            $anak      = Anak::where('anak_kode',$r->nis)->where('anak_tgl_lahir',$r->anak_tgl_lahir)->where('void','T')->first();
 
             
             if ($anak != null) {
     
                 $data = DB::connection('daycare')->transaction(function() use($r,$app,$anak){  
 
-                    $nis = $anak->anak_nis;
-                    $tmp = Anak::where('anak_nis',$nis)->first();
+                    $nis = $anak->anak_kode;
+                    $tmp = Anak::where('anak_kode',$nis)->first();
     
                     $tmp->ortu_id               = $r->ortu;
                     $tmp->anak_nama             = $r->anak_nama;
@@ -112,7 +112,7 @@ class AnakController extends Controller
                     
                     $tmp->ortu_id               = $r->ortu;
                     $tmp->anak_nama             = $r->anak_nama;
-                    $tmp->anak_nis              = $nis;
+                    $tmp->anak_kode              = $nis;
                     $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
                     $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
                     $tmp->anak_jekel            = $r->anak_jekel;
@@ -192,7 +192,7 @@ class AnakController extends Controller
                             ->table('dapok_tb_anak AS aa')
                             ->leftjoin('daftar_tb_ortu AS bb','bb.ortu_id','=','aa.ortu_id')
                             ->leftjoin('hcm_ta_agama AS cc','cc.agama_id','=','aa.agama_id')
-                            ->where('anak_nis',$id)
+                            ->where('anak_kode',$id)
                             ->first();
 
 

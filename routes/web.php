@@ -17,6 +17,7 @@ use App\Http\Controllers\TarifKategoriController;
 use App\Http\Controllers\TarifHargaController;
 
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\PendaftaranDataController;
 use App\Http\Controllers\PendaftaranDetailController;
 use App\Http\Controllers\BayarController;
 
@@ -118,22 +119,27 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 
 /**-- PENDAFTARAN --**/
 
-Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
-
-
-
+Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {	
 	
-	Route::get('/', [PendaftaranController::class, 'index'])->name('index');	
-
 	// Pendaftaran Transaksi
-
+	
 	Route::group(['prefix' => 'transaksi', 'as' => 'transaksi.'], function () {
-
-		Route::get('/view', [PendaftaranController::class, 'view'])->name('view');
+		Route::get('/', [PendaftaranController::class, 'index'])->name('index');	
 		Route::post('/save', [PendaftaranController::class, 'save'])->name('save');
-		Route::get('/edit', [PendaftaranController::class, 'edit'])->name('edit');
+		Route::get('/edit_get/{id}', [PendaftaranController::class, 'edit_get'])->name('edit_get');
+		Route::get('/edit_view/{id}', [PendaftaranController::class, 'edit_view'])->name('edit_view');
 		Route::post('/update', [PendaftaranController::class, 'update'])->name('update');
 		Route::post('/void', [PendaftaranController::class, 'void'])->name('void');
+
+	});
+
+	Route::group(['prefix' => 'data', 'as' => 'data.'], function () {
+		Route::get('/', [PendaftaranDataController::class, 'index'])->name('index');	
+		Route::get('/view', [PendaftaranDataController::class, 'view'])->name('view');
+		Route::post('/save', [PendaftaranDataController::class, 'save'])->name('save');
+		Route::get('/edit', [PendaftaranDataController::class, 'edit'])->name('edit');
+		Route::post('/update', [PendaftaranDataController::class, 'update'])->name('update');
+		Route::post('/void', [PendaftaranDataController::class, 'void'])->name('void');
 
 	});
 
@@ -279,66 +285,81 @@ Route::group(['prefix' => 'tarif', 'as' => 'tarif.'], function () {
 
 });
 
-// Order 
 
-Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
-
-	// ORDER
-
-	Route::get('/index', [CateringOrderController::class, 'index'])->name('index');
-	Route::get('/view', [CateringOrderController::class, 'view'])->name('view');
-	Route::post('/save', [CateringOrderController::class, 'save'])->name('save');
-	Route::get('/edit', [CateringOrderController::class, 'edit'])->name('edit');
-	Route::post('/void', [CateringOrderController::class, 'void'])->name('void');
-	
-	// PIUTANG BAYAR
-	Route::post('/piutang_bayar', [CateringOrderController::class, 'piutang_bayar'])->name('piutang_bayar');
-
-	// PIUTANG VIEW
-	Route::get('/piutang_view', [CateringOrderController::class, 'view_piutang'])->name('piutang_view');
-	Route::get('/piutang_detail', [CateringOrderController::class, 'piutang_detail'])->name('piutang_detail');
-
-	// DATA
-	Route::get('/data', [CateringOrderDataController::class, 'index'])->name('data');
-	Route::get('/data_view', [CateringOrderDataController::class, 'view'])->name('data_view');
-	
-
-	// DETAIL
-	Route::get('/', [CateringOrderDetailController::class, 'index'])->name('index');
-	Route::get('/detail_view', [CateringOrderDetailController::class, 'view'])->name('detail_view');
-	Route::post('/detail_save', [CateringOrderDetailController::class, 'save'])->name('detail_save');
-	Route::get('/detail_edit', [CateringOrderDetailController::class, 'edit'])->name('detail_edit');
-	Route::post('/detail_update', [CateringOrderDetailController::class, 'update'])->name('detail_update');
-	Route::get('/detail_void', [CateringOrderDetailController::class, 'void'])->name('detail_void');
-
-});
 
 // Catering
 
 Route::group(['prefix' => 'catering', 'as' => 'catering.'], function () {
 	
-
-	Route::get('/menu', [CateringMenuController::class, 'index'])->name('menu');
-	Route::get('/menu_view', [CateringMenuController::class, 'view'])->name('menu_view');
-	Route::post('/menu_save', [CateringMenuController::class, 'save'])->name('menu_save');
-	Route::get('/menu_edit', [CateringMenuController::class, 'edit'])->name('menu_edit');
-	Route::post('/menu_update', [CateringMenuController::class, 'update'])->name('menu_update');
-	Route::post('/menu_void', [CateringMenuController::class, 'void'])->name('menu_void');
-	Route::get('/menu_aktif', [CateringMenuController::class, 'aktif'])->name('menu_aktif');
-	Route::get('/menu_nonaktif', [CateringMenuController::class, 'nonaktif'])->name('menu_nonaktif');
-	
 	Route::get('/item_menu_view', [CateringMenuController::class, 'item_menu_view'])->name('item_menu_view');
 	Route::get('/item_view', [CateringMenuController::class, 'item_view'])->name('item_view');
 	Route::post('/item_save', [CateringMenuController::class, 'item_save'])->name('item_save');
 	Route::get('/item_delete', [CateringMenuController::class, 'item_delete'])->name('item_delete');
+
+
+	Route::group(['prefix' => 'kategori', 'as' => 'kategori.'], function () {
+		
+		Route::get('/', [CateringKategoriController::class, 'index'])->name('index');
+		Route::get('/view', [CateringKategoriController::class, 'view'])->name('view');
+		Route::post('/save', [CateringKategoriController::class, 'save'])->name('save');
+		Route::get('/edit', [CateringKategoriController::class, 'edit'])->name('edit');
+		Route::post('/update', [CateringKategoriController::class, 'update'])->name('update');
+		Route::get('/aktif', [CateringKategoriController::class, 'aktif'])->name('aktif');
+		Route::get('/nonaktif', [CateringKategoriController::class, 'nonaktif'])->name('nonaktif');
 	
-	Route::get('/kategori', [CateringKategoriController::class, 'index'])->name('kategori');
-	Route::get('/kategori_view', [CateringKategoriController::class, 'view'])->name('kategori_view');
-	Route::post('/kategori_save', [CateringKategoriController::class, 'save'])->name('kategori_save');
-	Route::get('/kategori_edit', [CateringKategoriController::class, 'edit'])->name('kategori_edit');
-	Route::post('/kategori_update', [CateringKategoriController::class, 'update'])->name('kategori_update');
-	Route::get('/kategori_aktif', [CateringKategoriController::class, 'aktif'])->name('kategori_aktif');
-	Route::get('/kategori_nonaktif', [CateringKategoriController::class, 'nonaktif'])->name('kategori_nonaktif');
+	});
+
+	Route::group(['prefix' => 'menu', 'as' => 'menu.'], function () {
+		
+		Route::get('/', [CateringMenuController::class, 'index'])->name('index');
+		Route::get('/view', [CateringMenuController::class, 'view'])->name('view');
+		Route::post('/save', [CateringMenuController::class, 'save'])->name('save');
+		Route::get('/edit', [CateringMenuController::class, 'edit'])->name('edit');
+		Route::post('/update', [CateringMenuController::class, 'update'])->name('update');
+		Route::post('/void', [CateringMenuController::class, 'void'])->name('void');
+		Route::get('/aktif', [CateringMenuController::class, 'aktif'])->name('aktif');
+		Route::get('/nonaktif', [CateringMenuController::class, 'nonaktif'])->name('nonaktif');
+		
+	
+	});
+
+	// Order 
+
+	Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
+
+		// ORDER
+
+		Route::get('/', [CateringOrderController::class, 'index'])->name('index');
+		Route::get('/view', [CateringOrderController::class, 'view'])->name('view');
+		Route::post('/save', [CateringOrderController::class, 'save'])->name('save');
+		Route::get('/edit', [CateringOrderController::class, 'edit'])->name('edit');
+		Route::post('/void', [CateringOrderController::class, 'void'])->name('void');
+		
+		// PIUTANG BAYAR
+		Route::post('/piutang_bayar', [CateringOrderController::class, 'piutang_bayar'])->name('piutang_bayar');
+
+		// PIUTANG VIEW
+		Route::get('/piutang_view', [CateringOrderController::class, 'view_piutang'])->name('piutang_view');
+		Route::get('/piutang_detail', [CateringOrderController::class, 'piutang_detail'])->name('piutang_detail');
+
+		// DATA
+		Route::get('/data', [CateringOrderDataController::class, 'index'])->name('data');
+		Route::get('/data_view', [CateringOrderDataController::class, 'view'])->name('data_view');
+		
+
+		// DETAIL
+		Route::get('/', [CateringOrderDetailController::class, 'index'])->name('index');
+		Route::get('/detail_view', [CateringOrderDetailController::class, 'view'])->name('detail_view');
+		Route::post('/detail_save', [CateringOrderDetailController::class, 'save'])->name('detail_save');
+		Route::get('/detail_edit', [CateringOrderDetailController::class, 'edit'])->name('detail_edit');
+		Route::post('/detail_update', [CateringOrderDetailController::class, 'update'])->name('detail_update');
+		Route::get('/detail_void', [CateringOrderDetailController::class, 'void'])->name('detail_void');
+
+	});
+
+
+
+	
 
 });
 
@@ -367,5 +388,6 @@ Route::group(['prefix' => 'combo_sistem', 'as' => 'combo_sistem.'], function () 
 	Route::get('/combo_hubungan', [ComboSistemController::class, 'combo_hubungan'])->name('combo_hubungan');
 	Route::get('/combo_paket', [ComboSistemController::class, 'combo_paket'])->name('combo_paket');
 	Route::get('/combo_periode', [ComboSistemController::class, 'combo_periode'])->name('combo_periode');
+	Route::get('/combo_tarif_kategori', [ComboSistemController::class, 'combo_tarif_kategori'])->name('combo_tarif_kategori');
 	
 });

@@ -1234,10 +1234,10 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_nis+'">'+(data[i].anak_nis)+'</a>')); 
+                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_kode+'">'+(data[i].anak_kode)+'</a>')); 
                         
                         tr.find('td:nth-child(3)').append($('<div>')
-                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_nis+'">'+(data[i].anak_nama)+'</a>')); 
+                            .html('<a href="javascript:;" class="btn_edit_anak" data="'+data[i].anak_kode+'">'+(data[i].anak_nama)+'</a>')); 
                         
                         tr.find('td:nth-child(4)').append($('<div>')
                             .html('<strong></strong>' +(data[i].anak_usia)));     
@@ -1525,7 +1525,7 @@
 
                 console.log(data);
 
-                $('[name="id_edit_anak"]').val(data.anak_nis);
+                $('[name="id_edit_anak"]').val(data.anak_kode);
                 $('[name="ortu"]').val(data.ortu_id).trigger("change");
                 $('[name="anak_nama"]').val(data.anak_nama).trigger("change");
                 $('[name="anak_agama"]').val(data.agama_id).trigger("change");

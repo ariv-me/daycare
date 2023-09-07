@@ -70,7 +70,7 @@
             <div class="card-header bg-success ">
                 <div class="row">
                     <div class="col-md-9">
-                        <h4 class="card-title text-white"><i class="fas fa-clipboard-list"></i>  PENDAFTARAN</h4>
+                        <h4 class="card-title text-white"><i class="fas fa-clipboard-list"></i>  EDIT PENDAFTARAN</h4>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 <div class="row justify-content-center">
                    
                     
-                    <div class="col-lg-12 total-payment p-3">
+                    <div class="col-lg-12 total-payment p-3 scrollspy-example">
 
                         <h4 class="card-title"><i class="fas fa-edit"></i>  PENDAFTARAN</h4>
                         <hr>
@@ -100,32 +100,26 @@
 
                                 <div class="form-group row">
                                     <label for="example-password-input" class="col-sm-3 col-form-label text-left">Periode<small class="text-danger">*</small></label>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-9">
                                         <select class="form-control custom-select select2" style="width: 100%;" name="periode" id="periode"></select>
                                     </div>
-                                    <label for="example-number-input" class="col-sm-3 col-form-label text-left">Grup <small class="text-danger">*</small></label>
-                                    <div class="col-sm-3">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"></select>
-                                    </div>
                                 </div>  
-                                
                                 
                             </div>
                             <div class="col-sm-6">
                                 
-                                
                                 <div class="form-group row">
-                                    <label for="example-number-input" class="col-sm-3 col-form-label text-left">Kategori <small class="text-danger">*</small></label>
+                                    <label for="example-number-input" class="col-sm-3 col-form-label text-left">Grup <small class="text-danger">*</small></label>
                                     <div class="col-sm-9">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"  onchange="showFilterKategori(this)"></select>
+                                        <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"  onchange="showFilterGrub(this)"></select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="example-number-input" class="col-sm-3 col-form-label text-left">Paket <small class="text-danger">*</small></label>
+                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Paket</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
+                                        <select class="form-control custom-select select2" style="width:100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
                                     </div>
-                                </div>
+                                </div>    
                             </div>
                            
                         </div>
@@ -133,19 +127,17 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-bordered mb-0 table-centered">
-                                    <thead>
+                                    <thead class="thead-light">
                                         <tr>
-                                            <th width="1%" style="text-align: center; vertical-align: middle;" rowspan="2"  >NO</th>
-                                            <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2"  >NAMA</th>
-                                            <th style="text-align: center" colspan="5">BIAYA</th>
-                                        </tr>
-                                        <tr>
-                                            <th width="10%" style="text-align: center">REG</th>
-                                            <th width="10%" style="text-align: center">GIZI</th>
+                                            <th width="5%" style="text-align: center; vertical-align: middle;">NO</th>
+                                            <th width="10%" style="text-align: center">REGISTRASI</th>
                                             <th width="10%" style="text-align: center">SPP</th>
-                                            <th width="10%" style="text-align: center">PMEBANGUNAN</th>
+                                            <th width="10%" style="text-align: center">BULAN</th>
+                                            <th width="10%" style="text-align: center">TOTAL SPP</th>
+                                            <th width="10%" style="text-align: center">PEMBANGUNAN</th>
                                             <th width="10%" style="text-align: center">TOTAL</th>
                                         </tr>
+                                        
                                     </thead>
                                     <tbody id="show_data_tarif">
                                     
@@ -205,20 +197,11 @@
                                 </div> 
                                 <div class="form-group row">
                                     <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Berat</label>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-9">
                                         <div class="input-group">  
                                             <input type="text" class="form-control" id="anak_berat" name="anak_berat" onkeypress="return angka(this, event)">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">Kg</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Tinggi</label>
-                                    <div class="col-sm-3">
-                                        <div class="input-group">  
-                                            <input type="text" class="form-control" id="anak_tinggi" name="anak_tinggi" onkeypress="return angka(this, event)">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Cm</span>
                                             </div>
                                         </div>
                                     </div>
@@ -262,9 +245,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Jenis Pekerjaan</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control custom-select select2" style="width: 100%;" name="ayah_kerja" id="ayah_kerja"></select>
+                                    </div>
+                                </div> 
+                                <div class="form-group row">
                                     <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Pekerjaan</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="ayah_kerja" name="ayah_kerja">
+                                        <input type="text" class="form-control" id="ayah_perusahaan" name="ayah_perusahaan">
                                     </div>
                                 </div> 
                                 <div class="form-group row">
@@ -272,7 +261,7 @@
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" id="ayah_hp" name="ayah_hp" onkeypress="return angka(this, event)">
                                     </div>
-                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">NO WA</label>
+                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">NO WA</label>
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" id="ayah_wa" name="ayah_wa" onkeypress="return angka(this, event)">
                                     </div>
@@ -316,9 +305,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Jenis Pekerjaan</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control custom-select select2" style="width: 100%;" name="ibu_kerja" id="ibu_kerja"></select>
+                                    </div>
+                                </div> 
+                                <div class="form-group row">
                                     <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Pekerjaan</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="ibu_kerja" name="ibu_kerja">
+                                        <input type="text" class="form-control" id="ibu_perusahaan" name="ibu_perusahaan">
                                     </div>
                                 </div> 
 
@@ -327,7 +322,7 @@
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" id="ibu_hp" name="ibu_hp" onkeypress="return angka(this, event)">
                                     </div>
-                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor WA</label>
+                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor WA</label>
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" id="ibu_wa" name="ibu_wa" onkeypress="return angka(this, event)">
                                     </div>
@@ -421,7 +416,12 @@
                                     </div>
                                 </div>
 
-                                
+                                <div class="form-group row">
+                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Tingkat Pendidikan</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_pdk" id="penjemput_pdk"></select>
+                                    </div>
+                                </div> 
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group row">
@@ -431,15 +431,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Pekerjaan</label>
+                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Jenis Pekerjaan</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="penjemput_kerja" name="penjemput_kerja">
+                                        <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_kerja" id="penjemput_kerja"></select>
                                     </div>
                                 </div> 
                                 <div class="form-group row">
-                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Tingkat Pendidikan</label>
+                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Pekerjaan</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_pdk" id="penjemput_pdk"></select>
+                                        <input type="text" class="form-control" id="penjemput_perusahaan" name="penjemput_perusahaan">
                                     </div>
                                 </div> 
                                 <div class="form-group row">
@@ -447,7 +447,7 @@
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" id="penjemput_hp" name="penjemput_hp" onkeypress="return angka(this, event)">
                                     </div>
-                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor WA</label>
+                                    <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor WA</label>
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" id="penjemput_wa" name="penjemput_wa" onkeypress="return angka(this, event)">
                                     </div>
@@ -531,12 +531,13 @@
         });
 
         combo_grup();
-        combo_kategori();
         combo_paket();
-        combo_periode();
         
         combo_ayah_agama();
+        combo_kerja_ayah();
+        combo_perusahaan();
         combo_ibu_agama();
+        combo_kerja_ibu();
         combo_kecamatan();
         combo_kota();
         combo_provinsi();
@@ -545,6 +546,8 @@
 
         combo_hubungan_penjemput();
         combo_jekel_penjemput();
+        combo_kerja_penjemput();
+        combo_perusahaan_penjemput();
         combo_pendidikan_penjemput();
         combo_agama_penjemput();
         combo_kecamatan_penjemput();
@@ -555,7 +558,7 @@
         combo_penjemput();
         combo_anak_agama();
 
-
+        combo_periode();
 
     });
 
@@ -625,6 +628,7 @@
         $('#ayah_nik').val("");
         $('#ayah_lahir').val("").trigger("change");
         $('#ayah_kerja').val("").trigger("change");
+        $('#ayah_perusahaan').val("").trigger("change");
         $('#ayah_agama').val("").trigger("change");
         $('#ayah_hp').val("");
         $('#ayah_wa').val("");
@@ -633,7 +637,7 @@
         $('#ibu_nik').val("");
         $('#ibu_lahir').val("").val("").trigger("change");
         $('#ibu_kerja').val("").trigger("change");
-        $('#ibu_kerja').val("").trigger("change");
+        $('#ibu_perusahaan').val("").trigger("change");
         $('#ibu_agama').val("").trigger("change");
         $('#ibu_hp').val("");
         $('#ibu_wa').val("");
@@ -800,20 +804,6 @@
             return false;
 
         } 
-
-        else if (!$("#anak_tinggi").val()) {
-            $.toast({
-                text: 'BERAT MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#anak_tinggi").focus();
-            return false;
-
-        } 
         
     
         
@@ -901,6 +891,19 @@
 
         }
 
+        else if (!$("#ayah_perusahaan").val()) {
+            $.toast({
+                text: 'PERUSAHAAN AYAH MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#ayah_perusahaan").focus();
+            return false;
+
+        } 
         
         else if (!$("#ayah_hp").val()) {
             $.toast({
@@ -1019,7 +1022,7 @@
 
         else if (!$("#ibu_kerja").val()) {
             $.toast({
-                text: 'KERJA IBU MASIH KOSONG',
+                text: 'JENIS KERJA IBU MASIH KOSONG',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
@@ -1031,7 +1034,19 @@
 
         } 
 
-      
+        else if (!$("#ibu_perusahaan").val()) {
+            $.toast({
+                text: 'PERUSAHAAN IBU MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#ibu_perusahaan").focus();
+            return false;
+
+        } 
         
         else if (!$("#ibu_hp").val()) {
             $.toast({
@@ -1229,7 +1244,7 @@
 
         // }
 
-        // else if (!$("#penjempu_kerja").val()) {
+        // else if (!$("#penjemput_perusahaan").val()) {
         //     $.toast({
         //         text: 'PERUSAHAAN PENJEMPUT MASIH KOSONG',
         //         position: 'top-right',
@@ -1238,11 +1253,24 @@
         //         hideAfter: 3000
         //     });
 
-        //     $("#penjempu_kerja").focus();
+        //     $("#penjemput_perusahaan").focus();
         //     return false;
 
         // } 
 
+        // else if (!$("#penjemput_pdk").val()) {
+        //     $.toast({
+        //         text: 'PENDIDIKAN PENJEMPUT MASIH KOSONG',
+        //         position: 'top-right',
+        //         loaderBg: '#fff716',
+        //         icon: 'error',
+        //         hideAfter: 3000
+        //     });
+
+        //     $("#penjemput_perusahaan").focus();
+        //     return false;
+
+        // } 
         
         // else if (!$("#penjemput_hp").val()) {
         //     $.toast({
@@ -1355,6 +1383,7 @@
         var ayah_tmp_lahir  = $('#ayah_tmp_lahir').val();
         var ayah_lahir      = $('#ayah_lahir').val();
         var ayah_kerja      = $('#ayah_kerja').val();
+        var ayah_perusahaan = $('#ayah_perusahaan').val();
         var ayah_hp         = $('#ayah_hp').val();
         var ayah_wa         = $('#ayah_wa').val();
         var ayah_pdk        = $('#ayah_pdk').val();
@@ -1365,6 +1394,7 @@
         var ibu_lahir       = $('#ibu_lahir').val();
         var ibu_tmp_lahir   = $('#ibu_tmp_lahir').val();
         var ibu_kerja       = $('#ibu_kerja').val();
+        var ibu_perusahaan  = $('#ibu_perusahaan').val();
         var ibu_hp          = $('#ibu_hp').val();
         var ibu_wa          = $('#ibu_wa').val();
         var ibu_pdk         = $('#ibu_pdk').val();
@@ -1380,6 +1410,7 @@
         var penjemput_tmp_lahir  = $('#penjemput_tmp_lahir').val();
         var penjemput_lahir      = $('#penjemput_lahir').val();
         var penjemput_kerja      = $('#penjemput_kerja').val();
+        var penjemput_perusahaan = $('#penjemput_perusahaan').val();
         var penjemput_hp         = $('#penjemput_hp').val();
         var penjemput_wa         = $('#penjemput_wa').val();
         var penjemput_pdk        = $('#penjemput_pdk').val();
@@ -1422,6 +1453,7 @@
         formData.append('ayah_lahir', ayah_lahir);
         formData.append('ayah_tmp_lahir', ayah_tmp_lahir);
         formData.append('ayah_kerja', ayah_kerja);
+        formData.append('ayah_perusahaan', ayah_perusahaan);
         formData.append('ayah_hp', ayah_hp);
         formData.append('ayah_wa', ayah_wa);
         formData.append('ayah_agama', ayah_agama);
@@ -1432,6 +1464,7 @@
         formData.append('ibu_tmp_lahir', ibu_tmp_lahir);
         formData.append('ibu_lahir', ibu_lahir);
         formData.append('ibu_kerja', ibu_kerja);
+        formData.append('ibu_perusahaan', ibu_perusahaan);
         formData.append('ibu_hp', ibu_hp);
         formData.append('ibu_wa', ibu_wa);
         formData.append('ibu_agama', ibu_agama);
@@ -1447,6 +1480,7 @@
         formData.append('penjemput_lahir', penjemput_lahir);
         formData.append('penjemput_tmp_lahir', penjemput_tmp_lahir);
         formData.append('penjemput_kerja', penjemput_kerja);
+        formData.append('penjemput_perusahaan', penjemput_perusahaan);
         formData.append('penjemput_hp', penjemput_hp);
         formData.append('penjemput_wa', penjemput_wa);
         formData.append('penjemput_agama', penjemput_agama);
@@ -1639,32 +1673,39 @@
         });
     }
 
-    function combo_kategori(){
+    function combo_jenis(){
 
-    $('select[name=kategori]').empty()
+    $('select[name=jenis]').empty()
         $.ajax({
                 type  : 'GET',
-                url   : "{{ route('combo_sistem.combo_tarif_kategori') }}",
+                url   : "{{ route('combo_sistem.combo_jenis_pendaftaran') }}",
                 async : false,
                 dataType : 'JSON',
                 success : function(data){
                     var html = '';
                     var i;
-                    $('select[name=kategori]').empty()
-                    var x = document.getElementById("kategori");
-                    var option = document.createElement("option");
-                    option.text = "--Pilih--";
-                    option.value = '';
-                    x.add(option);
+                    $('select[name=jenis]').empty()
                     for(i=0; i<data.length; i++){
                         var html = '';
-                        html = '<option value='+(data[i].kat_id)+'>'+(data[i].kat_nama)+'</option>';
-                        $('select[name=kategori]').append(html)
+                        html = '<option value='+(data[i].jenis_id)+'>'+(data[i].jenis_nama)+'</option>';
+                        $('select[name=jenis]').append(html)
                     }
                 }
             });
 
     }
+
+    // function combo_jenis_daftar(){
+
+    //     $('select[name=jenis_daftar]').empty()
+    //         var html = '';
+    //         html = '<option value="">Pilih</option>'+
+    //                '<option value="B">Baru</option>'+
+    //                '<option value="L">Lama</option>';
+    //     $('select[name=jenis_daftar]').append(html)
+
+    // }
+
 
     function combo_jekel_penjemput(){
 
@@ -1890,8 +1931,86 @@
 
     }
 
-  
-   
+    function combo_kerja_ayah(){
+
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_jenis_pekerjaan') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=ayah_kerja]').empty()
+                var x = document.getElementById("ayah_kerja");
+                    var option = document.createElement("option");
+                    option.text = "--Pilih--";
+                    option.value = '';
+                    x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html =  
+                            '<option value='+(data[i].kerja_id)+'>'+(data[i].kerja_nama)+'</option>';
+                    $('select[name=ayah_kerja]').append(html)
+                }
+            }
+        });
+
+    }
+
+    function combo_kerja_ibu(){
+
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_jenis_pekerjaan') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=ibu_kerja]').empty()
+                var x = document.getElementById("ibu_kerja");
+                    var option = document.createElement("option");
+                    option.text = "--Pilih--";
+                    option.value = '';
+                    x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = 
+                            '<option value='+(data[i].kerja_id)+'>'+(data[i].kerja_nama)+'</option>';
+                    $('select[name=ibu_kerja]').append(html)
+                }
+            }
+        });
+
+    }
+
+    function combo_kerja_penjemput(){
+
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_jenis_pekerjaan') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=penjemput_kerja]').empty()
+                var x = document.getElementById("penjemput_kerja");
+                    var option = document.createElement("option");
+                    option.text = "--Pilih--";
+                    option.value = '';
+                    x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = 
+                            '<option value='+(data[i].kerja_id)+'>'+(data[i].kerja_nama)+'</option>';
+                    $('select[name=penjemput_kerja]').append(html)
+                }
+            }
+        });
+
+    }
 
     function combo_hubungan_penjemput(){
 
@@ -1935,6 +2054,84 @@
                     var html = '';
                     html = '<option value='+(data[i].grup_id)+'>'+(data[i].grup_nama)+'</option>';
                     $('select[name=grup]').append(html)
+                }
+            }
+        });
+
+    }
+
+    function combo_perusahaan(){
+
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_perusahaan') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=ayah_perusahaan]').empty()
+                var x = document.getElementById("ayah_perusahaan");
+                    var option = document.createElement("option");
+                    option.text = "--Pilih--";
+                    option.value = '';
+                    x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].peru_id)+'>'+(data[i].grup_kode)+' - '+(data[i].peru_nama)+'</option>';
+                    $('select[name=ayah_perusahaan]').append(html)
+                }
+            }
+        });
+
+    }
+
+    function combo_perusahaan_ibu(){
+
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_perusahaan') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=ibu_perusahaan]').empty()
+                var x = document.getElementById("ibu_perusahaan");
+                    var option = document.createElement("option");
+                    option.text = "--Pilih--";
+                    option.value = '';
+                    x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].peru_id)+'>'+(data[i].grup_kode)+' - '+(data[i].peru_nama)+'</option>';
+                    $('select[name=ibu_perusahaan]').append(html)
+                }
+            }
+        });
+
+    }
+
+    function combo_perusahaan_penjemput(){
+
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_perusahaan') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=penjemput_perusahaan]').empty()
+                var x = document.getElementById("penjemput_perusahaan");
+                    var option = document.createElement("option");
+                    option.text = "--Pilih--";
+                    option.value = '';
+                    x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].peru_id)+'>'+(data[i].grup_kode)+' - '+(data[i].peru_nama)+'</option>';
+                    $('select[name=penjemput_perusahaan]').append(html)
                 }
             }
         });
@@ -2001,19 +2198,20 @@
         
       
 
-    function showFilterKategori(select){
+    function showFilterGrub(select){
 
-        var kategori  = $('#kategori').val();
+        var grup  = $('#grup').val();
         var paket  = $('#paket').val();
-        combo_paket(kategori);
-        view_tarif(kategori,paket);
+        combo_paket(grup);
+        view_tarif(grup,paket);
 
     }
+
     function showFilterPaket(select){
 
-        var kategori  = $('#kategori').val();
+        var grup  = $('#grup').val();
         var paket  = $('#paket').val();
-        view_tarif(kategori,paket);
+        view_tarif(grup,paket);
         get_tarif(paket);
 
     }
@@ -2032,14 +2230,15 @@
         });
     }
 
-    function combo_paket(kategori){
 
-    $('select[name=paket]').empty()
+    function combo_paket(grup){
+
+        $('select[name=paket]').empty()
         $.ajax({
             type  : 'GET',
             url   : "{{ route('combo_sistem.combo_paket') }}",
             async : false,
-            data : {kategori:kategori},
+            data : {grup:grup},
             dataType : 'JSON',
             success : function(data){
                 var html = '';
@@ -2052,7 +2251,7 @@
                         x.add(option);
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].tarif_kode)+'>'+(data[i].tarif_nama)+'</option>';
+                    html = '<option value='+(data[i].jenis_id)+'>'+(data[i].jenis_nama)+'</option>';
                     $('select[name=paket]').append(html)
                 }
             }
@@ -2060,17 +2259,15 @@
 
     }
 
-
-
     // TRANSAKSI
 
-    function view_tarif(kategori,paket) {
+    function view_tarif(grup,paket) {
 
         $.ajax({
             type: 'GET',
             url: "{{ route('tarif.harga.view_transaksi') }}",
             async: true,
-            data : {kategori:kategori,paket:paket},
+            data : {grup:grup,paket:paket},
             dataType: 'JSON',
             success: function(r) {
                 var i;
@@ -2081,10 +2278,10 @@
                     for (i = 0; i < data.length; i++) {
 
                         var tr = $('<tr>').append([
-                            $('<td width="1%" align="center">'),
-                            $('<td width="20%" align="left">'),
+                            $('<td width="5%" align="center">'),
                             $('<td width="10%" align="right">'),
                             $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="center">'),
                             $('<td width="10%" align="right">'),
                             $('<td width="10%" align="right">'),
                             $('<td width="10%" align="right">')
@@ -2093,22 +2290,23 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<span class="text-success">'+(data[i].tarif_nama)+'</span>')); 
+                            .html((data[i].reg_tampil)));   
 
                         tr.find('td:nth-child(3)').append($('<div>')
-                            .html('<b>'+(data[i].reg_tampil)+'</b>'));   
+                            .html((data[i].spp_tampil)));  
 
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<b>'+(data[i].tarif_gizi)+'</b>')); 
+                            .html((data[i].tahun)));
 
                         tr.find('td:nth-child(5)').append($('<div>')
-                            .html('<b>'+(data[i].spp_tampil)+'</b>'));  
+                            .html((data[i].total_spp_tampil)));
 
                         tr.find('td:nth-child(6)').append($('<div>')
-                            .html('<b>'+(data[i].pembangunan_tampil)));  
+                            .html((data[i].pembangunan_tampil)));  
 
                         tr.find('td:nth-child(7)').append($('<div>')
-                            .html('<b class="text-danger">'+(data[i].total_bayar)));  
+                            .html('<b class="text-danger">'+(data[i].total_bayar)+'</b>'));   
+
                         // tr.find('td:nth-child(5)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-rounded btn-info btn-xs item_pilih" data="'+data[i].tarif_nis+'">PILIH</a></div>'); 
 
                         tr.appendTo($('#show_data_tarif'));
@@ -2126,6 +2324,66 @@
     }
 
 
+    function view_transaksi_detail() {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('tarif.harga.view_transaksi') }}",
+            async: true,
+            data : {grup:grup,paket:paket},
+            dataType: 'JSON',
+            success: function(r) {
+                var i;
+
+                $('#show_data_tarif').empty();
+                data = r.data;
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        var tr = $('<tr>').append([
+                            $('<td width="5%" align="center">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="center">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="right">')
+                        ]);
+
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html((data[i].reg_tampil)));   
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html((data[i].spp_tampil)));  
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html((data[i].tahun)));
+
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html((data[i].total_spp_tampil)));
+
+                        tr.find('td:nth-child(6)').append($('<div>')
+                            .html((data[i].pembangunan_tampil)));  
+
+                        tr.find('td:nth-child(7)').append($('<div>')
+                            .html('<b class="text-danger">'+(data[i].total_bayar)+'</b>'));   
+
+                        // tr.find('td:nth-child(5)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-rounded btn-info btn-xs item_pilih" data="'+data[i].tarif_nis+'">PILIH</a></div>'); 
+
+                        tr.appendTo($('#show_data_tarif'));
+                    }
+
+                } else {
+
+                    $('#show_data_tarif').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
+                }
+
+            }
+        });
+    }
 
     function combo_grup(){
 
