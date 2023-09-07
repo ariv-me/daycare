@@ -84,7 +84,8 @@
 
             .select2-container--default .select2-selection--single {
                 border: 1px solid #e3ebf6;
-                height: 33px;
+                height: 32px;
+                font-size: 0.7400rem;
                 background-color: #fff;
             }
 
@@ -94,7 +95,7 @@
                 height: calc(1.8em + 0.5rem + 2px);
                 padding: 0.375rem 0.75rem;
                 font-size: 0.7400rem;
-                font-weight: 300;
+                font-weight: 400;
                 line-height: 1.8;
                 color: #303e67;
                 background-color: #fff;

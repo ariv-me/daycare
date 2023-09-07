@@ -372,7 +372,7 @@
                                 <div class="form-group row">
                                     <label for="example-password-input" class="col-sm-3 col-form-label text-left">Alamat<small class="text-danger">*</small></label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="ayah_alamat" name="ayah_alamat">
+                                        <input type="text" class="form-control" id="alamat" name="alamat">
                                     </div>
                                 </div>                        
                             </div>
@@ -628,7 +628,7 @@
         $('#ayah_agama').val("").trigger("change");
         $('#ayah_hp').val("");
         $('#ayah_wa').val("");
-        $('#ayah_alamat').val("");
+        $('#alamat').val("");
         $('#ibu_nama').val("");
         $('#ibu_nik').val("");
         $('#ibu_lahir').val("").val("").trigger("change");
@@ -1117,7 +1117,7 @@
 
         } 
         
-        else if (!$("#ayah_alamat").val()) {
+        else if (!$("#alamat").val()) {
             $.toast({
                 text: 'ALAMAT AYAH MASIH KOSONG',
                 position: 'top-right',
@@ -1126,7 +1126,7 @@
                 hideAfter: 3000
             });
 
-            $("#ayah_alamat").focus();
+            $("#alamat").focus();
             return false;
 
         }
@@ -1336,6 +1336,7 @@
         var periode         = $('#periode').val();
         var grup            = $('#grup').val();
         var paket           = $('#paket').val();
+        var kategori        = $('#kategori').val();
         var keterangan      = $('#keterangan').val();
         var tarif_kode      = $('#tarif_kode').val();
 
@@ -1373,7 +1374,7 @@
         var provinsi        = $('#provinsi').val();
         var kota            = $('#kota').val();
         var kecamatan       = $('#kecamatan').val();
-        var alamat          = $('#ayah_alamat').val(); 
+        var alamat          = $('#alamat').val(); 
 
         var penjemput_nama       = $('#penjemput_nama').val();
         var penjemput_nik        = $('#penjemput_nik').val();
@@ -1387,10 +1388,10 @@
         var penjemput_jekel      = $('#penjemput_jekel').val();
         var penjemput_hubungan   = $('#penjemput_hubungan').val();
 
-        var provinsi        = $('#penjemput_provinsi').val();
-        var kota            = $('#penjemput_kota').val();
-        var kecamatan       = $('#penjemput_kecamatan').val();
-        var alamat          = $('#penjemput_alamat').val(); 
+        var penjemput_provinsi        = $('#penjemput_provinsi').val();
+        var penjemput_kota            = $('#penjemput_kota').val();
+        var penjemput_kecamatan       = $('#penjemput_kecamatan').val();
+        var penjemput_alamat          = $('#penjemput_alamat').val(); 
 
         console.log(alamat);
 
@@ -1403,6 +1404,7 @@
         formData.append('periode', periode);
         formData.append('grup', grup);
         formData.append('paket', paket);
+        formData.append('kategori', kategori);
         formData.append('keterangan', keterangan);
         formData.append('tarif_kode', tarif_kode);
 
@@ -1453,10 +1455,10 @@
         formData.append('penjemput_pdk', penjemput_pdk);
         formData.append('penjemput_jekel', penjemput_jekel);
         formData.append('penjemput_hubungan', penjemput_hubungan);
-        formData.append('provinsi', provinsi);
-        formData.append('kota', kota);
-        formData.append('kecamatan', kecamatan);
-        formData.append('alamat', alamat);
+        formData.append('penjemput_provinsi', penjemput_provinsi);
+        formData.append('penjemput_kota', penjemput_kota);
+        formData.append('penjemput_kecamatan', penjemput_kecamatan);
+        formData.append('penjemput_alamat', penjemput_alamat);
 
         formData.append('_token', token);
 

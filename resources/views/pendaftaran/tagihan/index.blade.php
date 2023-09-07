@@ -25,8 +25,6 @@
                             <tr>
                                 <th style="text-align: center">NO</th>
                                 <th style="text-align: center">ANAK</th>
-                                <th style="text-align: center">TGL LAHIR</th>
-                                <th  style="text-align: center">JEKEL</th>
                                 <th style="text-align: center">ORTU</th>
                                 <th  style="text-align: center">PAKET</th>
                                 <th  style ="text-align: center">AKSI</th>
@@ -120,7 +118,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('pendaftaran.data.view') }}",
+            url: "{{ route('pendaftaran.tagihan.view') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -136,11 +134,9 @@
                             var tr = $('<tr>').append([
                                 $('<td width="1%" align="center">'),
                                 $('<td width="15%">'),
-                                $('<td width="5%" align="center">'),
-                                $('<td width="3%" align="center">'),
                                 $('<td width="15%">'),
-                                $('<td width="15%">'),
-                                $('<td width="1%" align="center">')
+                                $('<td width="9%">'),
+                                $('<td width="1%" align="left">')
                             ]);
 
                         } else {
@@ -152,7 +148,7 @@
                                 $('<td width="5%">'),
                                 $('<td width="10%">'),
                                 $('<td width="10%">'),
-                                $('<td width="5%" align="center">')
+                                $('<td width="5%" align="left">')
                             ]);
 
                         }
@@ -162,26 +158,29 @@
                         tr.find('td:nth-child(2)').append($('<div>')
                             .html('<b>'+(data[i].anak_nama)+'</b>')); 
 
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html('<small class="text-muted">'+(data[i].anak_jekel)+'</small>'));  
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html('<small class="text-muted">'+(data[i].anak_tgl_lahir)+'</small>'));   
+
+                     
+
                         tr.find('td:nth-child(3)').append($('<div>')
-                            .html((data[i].anak_tgl_lahir)));   
-
-                        tr.find('td:nth-child(4)').append($('<div>')
-                            .html((data[i].anak_jekel)));   
-
-                        tr.find('td:nth-child(5)').append($('<div>')
                             .html('<b>Ayah : </b>'+(data[i].ortu_ayah)));   
 
-                        tr.find('td:nth-child(5)').append($('<div>')
+                        tr.find('td:nth-child(3)').append($('<div>')
                             .html('<b>Ibu&nbsp;&nbsp;&nbsp; : </b>'+(data[i].ortu_ibu)));   
 
-                        tr.find('td:nth-child(6)').append($('<div>')
-                            .html('<b>'+(data[i].jenis_nama)+'</b>')); 
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html('<b>'+(data[i].tarif_nama)+'</b>')); 
 
-                        tr.find('td:nth-child(6)').append($('<div>')
-                            .html('<b class="text-danger">'+(data[i].tarif_total)+'</b>'));
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html('<b class="text-danger font-20">'+(data[i].tarif_total)+'</b>'));
 
                     
-                        tr.find('td:nth-child(7)').append('<div class="btn-group"><a href="'+(data[i].edit)+'" class="btn btn-soft-warning btn-xs"><i class="fas fa-pencil-alt"></i> EDIT</a><a href="javascript:;" class="btn btn-soft-primary btn-xs item_nonaktif" data="'+data[i].daftar_kode+'"><i class="far fa-credit-card"></i> BAYAR</a></div>');   
+                        tr.find('td:nth-child(5)').append('<div class="mb-1"><a href="'+(data[i].edit)+'" class="btn btn-soft-warning btn-xs"><i class="fas fa-pencil-alt"></i> EDIT</a>');   
+                        tr.find('td:nth-child(5)').append('<div><a href="javascript:;" class="btn btn-soft-primary btn-xs item_nonaktif" data="'+data[i].daftar_kode+'"><i class="far fa-credit-card"></i> BAYAR</a></div>');   
 
                         tr.appendTo($('#show_data'));
                     }

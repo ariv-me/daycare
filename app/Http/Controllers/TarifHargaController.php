@@ -45,6 +45,8 @@ class TarifHargaController extends Controller
             $tmp->tarif_gizi   = str_replace(".", "", $r->gizi);
             $tmp->tarif_spp    = str_replace(".", "", $r->bulanan);
             $tmp->tarif_pembg  = str_replace(".", "", $r->pembangunan);
+            $tmp->tarif_total  = $tmp->tarif_reg + $tmp->tarif_gizi + $tmp->tarif_spp + $tmp->tarif_pembg;
+
 
             $tmp->created_nip  = $app['kar_nip'];
             $tmp->created_nama = $app['kar_nama_awal'];;
@@ -81,14 +83,11 @@ class TarifHargaController extends Controller
                 $value->total_spp           = round($value->spp*$value->tahun);
 
                 $value->reg_tampil          = format_rupiah($value->tarif_reg);
+                $value->gizi_tampil         = format_rupiah($value->tarif_gizi);
                 $value->spp_tampil          = format_rupiah($value->tarif_spp);
                 $value->pembangunan_tampil  = format_rupiah($value->tarif_pembg);
-                $value->total_spp_tampil    = format_rupiah(round($value->spp*$value->tahun),2);
-                
-                $value->total_bayar         = format_rupiah(round($value->registrasi+$value->spp+$value->pembangunan),2);
+                $value->total_bayar         = format_rupiah($value->tarif_total);
 
-                //dd($value->total_bayar);
-                
                 return $value;
            
             });
@@ -129,10 +128,8 @@ class TarifHargaController extends Controller
                 $value->spp_tampil          = format_rupiah($value->tarif_spp);
                 $value->pembangunan_tampil  = format_rupiah($value->tarif_pembg);
                 $value->total_spp_tampil    = format_rupiah(round($value->spp*$value->tahun),2);
-                
-                $value->total_bayar         = format_rupiah(round($value->registrasi+$value->tarif_gizi+$value->tarif_spp+$value->pembangunan),2);
+                $value->total_bayar         = format_rupiah($value->tarif_total);
 
-               
                 
                 return $value;
            
@@ -182,6 +179,7 @@ class TarifHargaController extends Controller
               $tmp->tarif_gizi   = str_replace(".", "", $r->gizi);
               $tmp->tarif_spp    = str_replace(".", "", $r->bulanan);
               $tmp->tarif_pembg  = str_replace(".", "", $r->pembangunan);
+              $tmp->tarif_total  = $tmp->tarif_reg + $tmp->tarif_gizi + $tmp->tarif_spp + $tmp->tarif_pembg;
 
               $tmp->updated_nip         = $app['kar_nip'];
               $tmp->updated_nama        = $app['kar_nama_awal'];;
