@@ -77,7 +77,7 @@ class PendaftaranController extends Controller
                 $ortu_kode   = DapokOrtu::autonumber();
                 $pnj_kode    = DapokPenjemput::autonumber();
                 $tag_kode    = Tagihan::autonumber();
-                $tarif       = Tarif::where('tarif_kode',$r->paket)->first();
+                $tarif       = Tarif::where('paket_kode',$r->paket)->first();
 
                 
 
@@ -87,8 +87,8 @@ class PendaftaranController extends Controller
                 $daftar->anak_kode      = $anak_kode;
                 $daftar->grup_id        = $r->grup;
                 $daftar->kat_id         = $r->kategori;
-                $daftar->tarif_kode     = $r->paket;     
-                $daftar->tarif_id       = $tarif->tarif_id;  
+                $daftar->paket_kode     = $r->paket;     
+                $daftar->paket_id       = $tarif->paket_id;  
                 $daftar->tarif_total    = $tarif->tarif_reg + $tarif->tarif_gizi + $tarif->tarif_spp + $tarif->tarif_pembg;     
                 $daftar->kar_id         = $app['kar_id'];
                 $daftar->created_nip    = $app['kar_nip'];
@@ -226,12 +226,12 @@ class PendaftaranController extends Controller
     
                 $daftar  = Pendaftaran::where('daftar_kode',$r->daftar_kode)->first();  
 
-                $tarif   = Tarif::where('tarif_kode',$r->paket)->first();
+                $tarif   = Tarif::where('paket_kode',$r->paket)->first();
                 $daftar->periode_id     = $r->periode;
                 $daftar->grup_id        = $r->grup;
                 $daftar->kat_id         = $r->kategori;
-                $daftar->tarif_kode     = $r->paket;     
-                $daftar->tarif_id       = $tarif->tarif_id;        
+                $daftar->paket_kode     = $r->paket;     
+                $daftar->paket_id       = $tarif->paket_id;        
                 $daftar->tarif_total    = $tarif->total;     
                 $daftar->kar_id         = $app['kar_id'];
                 $daftar->updated_nip    = $app['kar_nip'];

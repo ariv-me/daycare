@@ -5365,7 +5365,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('tarif.harga.view_transaksi') }}",
+            url: "{{ route('tarif.paket.view_transaksi') }}",
             async: true,
             data : {grup:grup,paket:paket},
             dataType: 'JSON',

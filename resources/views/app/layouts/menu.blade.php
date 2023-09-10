@@ -17,7 +17,8 @@
         <ul class="nav-second-level" aria-expanded="false">
             <li class="nav-item"><a class="nav-link" href="{{ route('tarif.jenis.index') }}"><i class="ti-control-record"></i>Jenis</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('tarif.kategori.index') }}"><i class="ti-control-record"></i>Kategori</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('tarif.harga.index') }}"><i class="ti-control-record"></i>Harga</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('tarif.item.index') }}"><i class="ti-control-record"></i>Item</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('tarif.paket.index') }}"><i class="ti-control-record"></i>Paket</a></li>
         </ul>
     </li>
     <li>

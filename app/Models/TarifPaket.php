@@ -7,11 +7,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TarifHarga extends Model
+class TarifPaket extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'tarif_tb_harga';
-    protected $primaryKey = 'tarif_id';
+    protected $table = 'tarif_tc_paket';
+    protected $primaryKey = 'paket_id';
 
 
     public static function autonumber()
@@ -19,26 +19,22 @@ class TarifHarga extends Model
     {
 
         $data = DB::connection('daycare')
-                     ->table('tarif_tb_harga')
-                     ->select(DB::raw("MAX(RIGHT(tarif_kode,4)) as kd_max"));
+                     ->table('tarif_tc_paket')
+                     ->select(DB::raw("MAX(RIGHT(paket_kode,4)) as kd_max"));
                    
-        
-        // $kode_depan = date('Ymd');    
-        
-        // dd($data);
 
         if($data->count() > 0)
         {
             foreach($data->get() as $k)
             {
                 $tmp = ((int)$k->kd_max)+1;
-                $kd = "TRF".sprintf("%04s", $tmp);
+                $kd = "PKT".sprintf("%04s", $tmp);
             }
         }
         
         else
         {
-            $kd = "TRF"."0001";
+            $kd = "PKT"."0001";
         }
 
         return ($kd);

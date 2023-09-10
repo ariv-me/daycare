@@ -46,6 +46,28 @@
 
         <style>
 
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #303e67;
+            line-height: 33px;
+            font-size: 11px;
+        }
+
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #5897fb;
+            color: white;
+            font-size: 12px;
+        }
+
+        .select2-results__option {
+            padding: 5px;
+            user-select: none;
+        }
+
+        .select2-results__option[aria-selected] {
+            cursor: pointer;
+            font-size: 12px;
+        }
+
         .scrollspy-example {
                     position: relative;
                     height: 500px;

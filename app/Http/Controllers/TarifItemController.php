@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SistemApp;
-use App\Models\TarifJenis;
+use App\Models\TarifItem;
 use App\Helpers;
 use Carbon\Carbon;
 
 use DB;
 
 
-class TarifJenisController extends Controller
+class TarifItemController extends Controller
 {
     
     public function __construct()
@@ -24,7 +24,7 @@ class TarifJenisController extends Controller
         
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('tarif.jenis.index',compact('app','menu'));
+        return view('tarif.item.index',compact('app','menu'));
     }
 
     public function save(Request $r){
@@ -32,8 +32,9 @@ class TarifJenisController extends Controller
         $transaction = DB::connection('daycare')->transaction(function() use($r){
 
             $app = SistemApp::sistem();
-            $tmp = new TarifJenis();
-            $tmp->jenis_nama    = $r->nama;
+            $tmp = new TarifItem();
+            $tmp->item_nama    = $r->nama;
+            $tmp->item_nominal = str_replace(".", "", $r->nominal);
 
             $tmp->created_nip         = $app['kar_nip'];
             $tmp->created_nama        = $app['kar_nama_awal'];;
@@ -53,7 +54,7 @@ class TarifJenisController extends Controller
 
         try{
             
-            $data = TarifJenis::orderby('jenis_id','desc')->get();
+            $data = TarifItem::orderby('item_id','desc')->get();
 
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  
@@ -70,7 +71,7 @@ class TarifJenisController extends Controller
     public function edit(Request $r)
     {
         $id = strtolower($r->get('id'));
-        $data = TarifJenis::where('jenis_id',$id)->first();
+        $data = TarifItem::where('item_id',$id)->first();
         return response()->json($data);
     }
 
@@ -79,10 +80,11 @@ class TarifJenisController extends Controller
         $transaction = DB::connection('daycare')->transaction(function() use($r){
   
               $id = $r->get('id');
-              $tmp = TarifJenis::where('jenis_id',$id)->first();
+              $tmp = TarifItem::where('item_id',$id)->first();
 
-              $tmp->jenis_nama = $r->nama;
-              
+              $tmp->item_nama = $r->nama;
+              $tmp->item_nominal = str_replace(".", "", $r->nominal);
+
               $tmp->updated_nip         = $app['kar_nip'];
               $tmp->updated_nama        = $app['kar_nama_awal'];;
               $tmp->updated_ip          = $r->ip();
@@ -99,8 +101,8 @@ class TarifJenisController extends Controller
     {
         $transaction = DB::connection('daycare')->transaction(function() use($r){
             $id = $r->get('id');
-            $tmp = TarifJenis::where('jenis_id',$id)->first();
-            $tmp->jenis_aktif  = 'Y';
+            $tmp = TarifItem::where('item_id',$id)->first();
+            $tmp->item_aktif  = 'Y';
 
             $tmp->updated_nip         = $app['kar_nip'];
             $tmp->updated_nama        = $app['kar_nama_awal'];;
@@ -118,8 +120,8 @@ class TarifJenisController extends Controller
     {
         $transaction = DB::connection('daycare')->transaction(function() use($r){
             $id = $r->get('id');
-            $tmp = TarifJenis::where('jenis_id',$id)->first();
-            $tmp->jenis_aktif  = 'T';
+            $tmp = TarifItem::where('item_id',$id)->first();
+            $tmp->item_aktif  = 'T';
 
             $tmp->updated_nip         = $app['kar_nip'];
             $tmp->updated_nama        = $app['kar_nama_awal'];;

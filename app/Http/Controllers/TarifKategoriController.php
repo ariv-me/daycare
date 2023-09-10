@@ -29,13 +29,16 @@ class TarifKategoriController extends Controller
 
     public function save(Request $r){
 
-        //dd($r);
-
         $transaction = DB::connection('daycare')->transaction(function() use($r){
 
             $app = SistemApp::sistem();
             $tmp = new TarifKategori();
             $tmp->kat_nama       = $r->kat_nama;
+
+            $tmp->created_nip         = $app['kar_nip'];
+            $tmp->created_nama        = $app['kar_nama_awal'];;
+            $tmp->created_ip          = $r->ip();
+
             $tmp->save();
 
         });
@@ -69,6 +72,27 @@ class TarifKategoriController extends Controller
         $id = strtolower($r->get('id'));
         $data = Tarifkategori::where('kat_id',$id)->first();
         return response()->json($data);
+    }
+
+    public function update(Request $r){
+
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
+  
+              $id = $r->get('id');
+              $tmp = Tarifkategori::where('kat_id',$id)->first();
+
+              $tmp->kat_nama       = $r->kat_nama;
+              
+              $tmp->updated_nip         = $app['kar_nip'];
+              $tmp->updated_nama        = $app['kar_nama_awal'];;
+              $tmp->updated_ip          = $r->ip();
+
+              $tmp->save();
+  
+              return true;
+          });
+  
+          return response()->json($transaction);   
     }
 
     public function aktif(Request $r)

@@ -76,62 +76,58 @@
             </div>
             <div class="card-body">    
                 
-                <div class="row justify-content-center">
-                   
-                    
-                    <div class="col-lg-12 total-payment p-3">
+                <div class="row justify-content-center scrollspy-example">
 
+                    <div class="col-lg-12 total-payment p-3">
                         <h4 class="card-title"><i class="fas fa-edit"></i>  PENDAFTARAN</h4>
                         <hr>
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                
-                                <div class="form-group row">
-                                    <label for="example-password-input" class="col-sm-3 col-form-label text-left">Petugas<small class="text-danger">*</small></label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="petugas" name="petugas" value="{{ Auth::user()->name }}" disabled>
-                                    </div>
-                                    <label for="example-password-input" class="col-sm-3 col-form-label text-left">Tgl Daftar<small class="text-danger">*</small></label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control datepicker" id="tgl_daftar" name="tgl_daftar">
-                                    </div>
-                                </div>  
-
-                                <div class="form-group row">
-                                    <label for="example-password-input" class="col-sm-3 col-form-label text-left">Periode<small class="text-danger">*</small></label>
-                                    <div class="col-sm-3">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="periode" id="periode"></select>
-                                    </div>
-                                    <label for="example-number-input" class="col-sm-3 col-form-label text-left">Grup <small class="text-danger">*</small></label>
-                                    <div class="col-sm-3">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"></select>
-                                    </div>
-                                </div>  
-                                
-                                
-                            </div>
-                            <div class="col-sm-6">
-                                
-                                
-                                <div class="form-group row">
-                                    <label for="example-number-input" class="col-sm-3 col-form-label text-left">Kategori <small class="text-danger">*</small></label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"  onchange="showFilterKategori(this)"></select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="example-number-input" class="col-sm-3 col-form-label text-left">Paket <small class="text-danger">*</small></label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                        </div>
-                        <hr class="hr-dashed">
                         <div class="row">
                             <div class="col-sm-12">
+                                <div class="row">
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Tgl Daftar<small class="text-danger">*</small></label>
+                                            <input type="text" class="form-control datepicker" id="tgl_daftar" name="tgl_daftar">
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Periode<small class="text-danger">*</small></label>
+                                            <select class="form-control custom-select select2" style="width: 100%;" name="periode" id="periode"></select>
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Grup <small class="text-danger">*</small></label>
+                                            <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"></select>
+                                        </div>
+                                    </div>   
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Kategori<small class="text-danger">*</small></label>
+                                            <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"  onchange="showFilterKategori(this)"></select>
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Paket <small class="text-danger">*</small></label>
+                                            <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
+                                        </div>
+                                    </div>   
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Biaya Tambahan <small class="text-danger">*</small></label>
+                                            <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
+                                        </div>
+                                    </div>   
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <hr class="hr-dashed">
+                        <div class="row">
+                            <div class="col-sm-6">
                                 <table class="table table-bordered mb-0 table-centered">
                                     <thead>
                                         <tr>
@@ -151,15 +147,29 @@
                                     
                                     </tbody>
                                 </table><!--end /table-->
-                                
                             </div>
-                        </div>
-                      
-
-                        <hr class="hr-dashed">
-
-                         
-
+                            <div class="col-sm-6">
+                                <table class="table table-bordered mb-0 table-centered">
+                                    <thead>
+                                        <tr>
+                                            <th width="1%" style="text-align: center; vertical-align: middle;" rowspan="2"  >NO</th>
+                                            <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2"  >NAMA</th>
+                                            <th style="text-align: center" colspan="5">BIAYA</th>
+                                        </tr>
+                                        <tr>
+                                            <th width="10%" style="text-align: center">REG</th>
+                                            <th width="10%" style="text-align: center">GIZI</th>
+                                            <th width="10%" style="text-align: center">SPP</th>
+                                            <th width="10%" style="text-align: center">PMEBANGUNAN</th>
+                                            <th width="10%" style="text-align: center">TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="show_data_tarif">
+                                    
+                                    </tbody>
+                                </table><!--end /table-->
+                            </div>
+                        </div>  
                          <h4 class="card-title"><i class="fas fa-child"></i>  DATA ANAK</h4>
                          <hr>
 
@@ -497,6 +507,28 @@
                            
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-lg-12 total-payment p-3">
+                   
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-lg-12 col-xl-4 ml-auto align-self-center">
+                                <div class="text-center"><small class="font-12">Thank you very much for doing business with us.</small></div>
+                            </div><!--end col-->
+                            <div class="col-lg-12 col-xl-4">
+                                <div class="float-right d-print-none">
+                                    <a href="javascript:window.print()" class="btn btn-info"><i class="fa fa-print"></i></a>
+                                    <a href="#" class="btn btn-primary">Submit</a>
+                                    <a href="#" class="btn btn-danger">Cancel</a>
+                                </div>
+                            </div><!--end col-->
+                        </div>
+                           
+                      
+
+                    </div>
+                </div>
+
             </div><!--end card-body-->
            
             <div class="card-footer float-right d-print-none">
@@ -1338,7 +1370,7 @@
         var paket           = $('#paket').val();
         var kategori        = $('#kategori').val();
         var keterangan      = $('#keterangan').val();
-        var tarif_kode      = $('#tarif_kode').val();
+        var paket_kode      = $('#paket_kode').val();
 
         var anak_nama       = $('#anak_nama').val();
         var anak_tmp_lahir  = $('#anak_tmp_lahir').val();
@@ -1406,7 +1438,7 @@
         formData.append('paket', paket);
         formData.append('kategori', kategori);
         formData.append('keterangan', keterangan);
-        formData.append('tarif_kode', tarif_kode);
+        formData.append('paket_kode', paket_kode);
 
         formData.append('anak_nama', anak_nama);
         formData.append('anak_tmp_lahir', anak_tmp_lahir);
@@ -2023,12 +2055,12 @@
     function get_tarif(paket){
         $.ajax({
             type: "GET",
-            url: "{{ route('tarif.harga.get_tarif') }}",
+            url: "{{ route('tarif.paket.get_tarif') }}",
             dataType: "JSON",
             data: {id:paket},
             success: function(data) {
 
-                $('[name="tarif_kode"]').val(data.tarif_kode);
+                $('[name="paket_kode"]').val(data.paket_kode);
                
             }
         });
@@ -2054,7 +2086,7 @@
                         x.add(option);
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].tarif_kode)+'>'+(data[i].tarif_nama)+'</option>';
+                    html = '<option value='+(data[i].paket_kode)+'>'+(data[i].tarif_nama)+'</option>';
                     $('select[name=paket]').append(html)
                 }
             }
@@ -2070,7 +2102,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('tarif.harga.view_transaksi') }}",
+            url: "{{ route('tarif.paket.view_transaksi') }}",
             async: true,
             data : {kategori:kategori,paket:paket},
             dataType: 'JSON',

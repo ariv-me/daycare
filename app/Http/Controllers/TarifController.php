@@ -117,7 +117,7 @@ class TarifController extends Controller
     public function edit(Request $r)
     {
         $id = strtolower($r->get('id'));
-        $data = Tarif::where('tarif_kode',$id)->first();
+        $data = Tarif::where('paket_kode',$id)->first();
         return response()->json($data);
     }
 
