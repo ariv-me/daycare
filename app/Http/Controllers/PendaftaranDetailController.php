@@ -118,7 +118,7 @@ class PendaftaranDetailController extends Controller
                         $tmp->grup_id               = $grup;
                         $tmp->paket_id              = $paket;
 
-                        $tmp->tarif_kode            = $r->tarif_kode;
+                        $tmp->paket_kode            = $r->paket_kode;
                         $tmp->tarif_reg             = $tarif->tarif_reg;
                         $tmp->tarif_spp             = $tarif->tarif_spp;
                         $tmp->tarif_pembg           = $tarif->tarif_pembg;
@@ -154,9 +154,9 @@ class PendaftaranDetailController extends Controller
                         $tmp->grup_id               = $r->grup;
                         $tmp->jenis_id              = $r->paket;
 
-                       //dd($r->tarif_kode);
+                       //dd($r->paket_kode);
 
-                        $tmp->tarif_kode            = $r->tarif_kode;
+                        $tmp->paket_kode            = $r->paket_kode;
                         $tmp->tarif_reg             = $tarif->tarif_reg;
                         $tmp->tarif_spp             = $tarif->tarif_spp;
                         $tmp->tarif_pembg           = $tarif->tarif_pembg;

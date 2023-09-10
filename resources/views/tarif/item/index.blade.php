@@ -9,7 +9,7 @@
             <div class="card-header bg-success">
                 <div class="row">
                     <div class="col-md-9">
-                        <h4 class="card-title text-white"><i class="mdi mdi-cash-multiple"></i> TARIF - HARGA</h4>
+                        <h4 class="card-title text-white"><i class="mdi mdi-cash-multiple"></i> TARIF - PAKET</h4>
                     </div>
                     <div class="col-md-3" style="text-align: right">
                         <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" id="btn_add"><i class="fas fa-plus-circle"></i> TAMBAH DATA </button>
@@ -22,20 +22,13 @@
                     <table id="datatable" class="table table-hover table-bordered mb-0 table-centered">
                         <thead>
                             <tr>
-                                <th width="1%" style="text-align: center; vertical-align: middle;" rowspan="2"  >NO</th>
-                                <th width="6%" style="text-align: center; vertical-align: middle;" rowspan="2"  >KODE</th>
-                                <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2"  >NAMA</th>
-                                <th width="10%" style="text-align: center; vertical-align: middle;" rowspan="2"  >JENIS</th>
-                                <th style="text-align: center" colspan="5">BIAYA</th>
-                                <th width="5%" style="text-align: center; vertical-align: middle;" rowspan="2"  >AKSI</th>
+                                <th width="1%" style="text-align: center; vertical-align: middle;" rowspan="2">NO</th>
+                                <th width="6%" style="text-align: center; vertical-align: middle;" rowspan="2">KODE</th>
+                                <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2">NAMA</th>
+                                <th width="10%" style="text-align: center; vertical-align: middle;" rowspan="2">JENIS</th>
+                                <th width="5%" style="text-align: center; vertical-align: middle;" rowspan="2">AKSI</th>
                             </tr>
-                            <tr>
-                                <th width="10%" style="text-align: center">REG</th>
-                                <th width="10%" style="text-align: center">GIZI</th>
-                                <th width="10%" style="text-align: center">SPP</th>
-                                <th width="10%" style="text-align: center">PEMBANGUNAN</th>
-                                <th width="10%" style="text-align: center">TOTAL</th>
-                            </tr>
+ 
                         </thead>
                         <tbody id="show_data"></tbody>
                     </table>

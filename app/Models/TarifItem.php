@@ -7,11 +7,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tarif extends Model
+class TarifItem extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'tarif_tc_paket';
-    protected $primaryKey = 'paket_kode';
+    protected $table = 'tarif_tb_item';
+    protected $primaryKey = 'item_id';
 
 }
 
