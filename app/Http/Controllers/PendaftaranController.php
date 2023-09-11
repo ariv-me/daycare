@@ -76,8 +76,8 @@ class PendaftaranController extends Controller
                 $anak_kode   = DapokAnak::autonumber();
                 $ortu_kode   = DapokOrtu::autonumber();
                 $pnj_kode    = DapokPenjemput::autonumber();
-                $tag_kode    = Tagihan::autonumber();
-                $tarif       = Tarif::where('paket_kode',$r->paket)->first();
+                $trs_kode    = Tagihan::autonumber();
+                $tarif       = Tarif::where('tarif_kode',$r->paket)->first();
 
                 
 
@@ -87,8 +87,8 @@ class PendaftaranController extends Controller
                 $daftar->anak_kode      = $anak_kode;
                 $daftar->grup_id        = $r->grup;
                 $daftar->kat_id         = $r->kategori;
-                $daftar->paket_kode     = $r->paket;     
-                $daftar->paket_id       = $tarif->paket_id;  
+                $daftar->tarif_kode     = $r->paket;     
+                $daftar->tarif_id       = $tarif->tarif_id;  
                 $daftar->tarif_total    = $tarif->tarif_reg + $tarif->tarif_gizi + $tarif->tarif_spp + $tarif->tarif_pembg;     
                 $daftar->kar_id         = $app['kar_id'];
                 $daftar->created_nip    = $app['kar_nip'];
@@ -100,9 +100,9 @@ class PendaftaranController extends Controller
 
                 $tag = new Tagihan();  
 
-                $tag->tag_kode       = $tag_kode;
+                $tag->trs_kode       = $trs_kode;
                 $tag->daftar_kode    = $daftar_kode;
-                $tag->tag_total      = $tarif->tarif_reg + $tarif->tarif_gizi + $tarif->tarif_spp + $tarif->tarif_pembg;
+                $tag->trs_total      = $tarif->tarif_reg + $tarif->tarif_gizi + $tarif->tarif_spp + $tarif->tarif_pembg;
                 $tag->kar_id         = $app['kar_id'];
                 $tag->created_nip    = $app['kar_nip'];
                 $tag->created_nama   = $app['kar_nama_awal'];
@@ -226,12 +226,12 @@ class PendaftaranController extends Controller
     
                 $daftar  = Pendaftaran::where('daftar_kode',$r->daftar_kode)->first();  
 
-                $tarif   = Tarif::where('paket_kode',$r->paket)->first();
+                $tarif   = Tarif::where('tarif_kode',$r->paket)->first();
                 $daftar->periode_id     = $r->periode;
                 $daftar->grup_id        = $r->grup;
                 $daftar->kat_id         = $r->kategori;
-                $daftar->paket_kode     = $r->paket;     
-                $daftar->paket_id       = $tarif->paket_id;        
+                $daftar->tarif_kode     = $r->paket;     
+                $daftar->tarif_id       = $tarif->tarif_id;        
                 $daftar->tarif_total    = $tarif->total;     
                 $daftar->kar_id         = $app['kar_id'];
                 $daftar->updated_nip    = $app['kar_nip'];
@@ -241,9 +241,9 @@ class PendaftaranController extends Controller
                 /*-- TAGIHAN --*/
                 
                 $tag = Tagihan::where('daftar_kode',$r->daftar_kode)->first();  
-                $tag_total_sum  = Pendaftaran::where('daftar_kode',$r->daftar_kode)->sum('tarif_total');
+                $trs_total_sum  = Pendaftaran::where('daftar_kode',$r->daftar_kode)->sum('tarif_total');
 
-                $tag->tag_total      =  $tag_total_sum;
+                $tag->trs_total      =  $trs_total_sum;
                 $tag->kar_id         = $app['kar_id'];
                 $tag->updated_nip    = $app['kar_nip'];
                 $tag->updated_nama   = $app['kar_nama_awal'];

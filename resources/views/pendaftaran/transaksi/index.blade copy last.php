@@ -209,7 +209,7 @@
                                             {!! csrf_field() !!}
                                                 <input type="hidden" class="form-control" id="id_edit_detail" name="id_edit_detail" disabled="disabled">
                                                 <input type="hidden" class="form-control" id="nis" name="nis" disabled="disabled">
-                                                <input type="hidden" class="form-control" id="paket_kode" name="paket_kode">
+                                                <input type="hidden" class="form-control" id="tarif_kode" name="tarif_kode">
 
                                                 <div class="row">
 
@@ -3866,7 +3866,7 @@
         var grup                 = $('#grup').val();
         var paket                = $('#paket').val();
         var keterangan           = $('#keterangan').val();
-        var paket_kode           = $('#paket_kode').val();
+        var tarif_kode           = $('#tarif_kode').val();
 
         var token = $('[name=_token]').val();
         var formData = new FormData();
@@ -3875,7 +3875,7 @@
         formData.append('grup', grup);
         formData.append('paket', paket);
         formData.append('keterangan', keterangan);
-        formData.append('paket_kode', paket_kode);
+        formData.append('tarif_kode', tarif_kode);
 
         formData.append('_token', token);
 
@@ -4706,7 +4706,7 @@
             data: {id:paket},
             success: function(data) {
 
-                $('[name="paket_kode"]').val(data.paket_kode);
+                $('[name="tarif_kode"]').val(data.tarif_kode);
                
             }
         });

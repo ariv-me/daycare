@@ -30,7 +30,7 @@ export default moment.defineLocale('de-at', {
         '_'
     ),
     monthsParseExact: true,
-    weekdays: 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split(
+    weekdays: 'Sonntrs_Montrs_Dienstrs_Mittwoch_Donnerstrs_Freitrs_Samstag'.split(
         '_'
     ),
     weekdaysShort: 'So._Mo._Di._Mi._Do._Fr._Sa.'.split('_'),

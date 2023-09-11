@@ -9,12 +9,10 @@ use Carbon\Carbon;
 
 use DB;
 
-use App\Models\Pendaftaran;
-use App\Models\Grup;
-use App\Models\Perusahaan;
-use App\Models\Anak;
-use App\Models\PendaftaranWali;
+use App\Models\TarifItem;
+use App\Models\TarifKategori;
 use App\Models\Tarif;
+use App\Models\TarifDetail;
 
 class TarifController extends Controller
 {
@@ -29,36 +27,46 @@ class TarifController extends Controller
         
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('pendaftaran.baru.index',compact('app','menu'));
+        return view('tarif.paket.index',compact('app','menu'));
     }
 
-    public function anak(Request $r){
-
-        //dd($r);
+    
+    public function save(Request $r){
 
         $transaction = DB::connection('daycare')->transaction(function() use($r){
 
             $app = SistemApp::sistem();
-            $tmp = new Anak();
+            $tmp = new Tarif();
+            $tarif_kode = Tarif::autonumber();
+            $tarif_total = TarifDetail::where('tarif_kode',null)->where('detail_aktif','Y')->sum('detail_total');
 
-            $nis = Anak::autonumber();
+            $tmp->tarif_kode   = $tarif_kode;
+            $tmp->kat_id       = $r->kategori;
+            $tmp->tarif_nama   = $r->nama;
+            $tmp->tarif_total  =  $tarif_total;
 
-            $tmp->anak_nama             = $r->anak_nama;
-            $tmp->anak_kode              = $nis;
-            $tmp->anak_tmp_lahir        = $r->anak_tmp_lahir;
-            $tmp->anak_tgl_lahir        = date('Y-m-d', strtotime($r->anak_tgl_lahir));
-            $tmp->anak_jekel            = $r->anak_jekel;
-            $tmp->anak_ke               = $r->anak_ke;
-            $tmp->anak_jml_saudara      = $r->jml_saudara;
-            $tmp->ortu_ayah            = $r->ortu_ayah;
-            $tmp->ortu_pekerjaan       = $r->ortu_pekerjaan;
-            $tmp->ortu_hp              = $r->ortu_hp;
-            $tmp->ortu_alamat          = $r->ortu_alamat;
 
-            //dd($tmp);
+            $tmp->created_nip  = $app['kar_nip'];
+            $tmp->created_nama = $app['kar_nama_awal'];;
+            $tmp->created_ip   = $r->ip();
 
             $tmp->save();
 
+            $detail = TarifDetail::where('tarif_kode',null)->where('detail_aktif','Y')->get();
+
+
+            foreach ($detail as $key => $value) {
+
+                $sql = DB::connection('daycare')
+                            ->table('tarif_tc_tarif_detail')
+                            ->where('detail_aktif','Y')
+                            ->where('tarif_kode',null)
+                            ->update([
+                                'tarif_kode' => $tarif_kode,
+                            ]);
+
+                
+            }
 
         });
 
@@ -72,32 +80,16 @@ class TarifController extends Controller
 
         try{
             
-            $perusahaan = $r->perusahaan;
-            $jenis      = $r->jenis;
-            $grup = Perusahaan::where('grup_id',$perusahaan)->first()->grup_id;
-
-
-            $data = Tarif::where('jenis_id',$jenis)->where('grup_id',$grup)->get();
+            $data = DB::connection('daycare')
+                            ->table('tarif_tc_tarif AS aa')
+                            ->leftjoin('tarif_ta_kategori AS bb','bb.kat_id','=','aa.kat_id')
+                            ->orderby('aa.tarif_kode','desc')
+                            ->get();
 
             $data = $data->map(function($value) {
                 
+                $value->total         = format_rupiah($value->tarif_total);
 
-
-                $value->registrasi        = $value->tarif_reg;
-                $value->spp               = $value->tarif_spp;
-                $value->tahun             = 12;
-                $value->pembangunan       = $value->tarif_pembg;
-                $value->total_spp           = round($value->spp*$value->tahun);
-
-                $value->reg_tampil          = format_rupiah($value->tarif_reg);
-                $value->spp_tampil          = format_rupiah($value->tarif_spp);
-                $value->pembangunan_tampil  = format_rupiah($value->tarif_pembg);
-                $value->total_spp_tampil    = format_rupiah(round($value->spp*$value->tahun),2);
-                
-                $value->total_bayar         = format_rupiah(round($value->registrasi+$value->total_spp+$value->pembangunan),2);
-
-                //dd($value->total_bayar);
-                
                 return $value;
            
             });
@@ -114,20 +106,181 @@ class TarifController extends Controller
 
     }
 
+    public function detail_save(Request $r){
+
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
+
+            $app = SistemApp::sistem();
+            $tmp = new TarifDetail();
+            $item = TarifItem::where('item_id',$r->item)->first();
+
+            $tmp->item_kode     = $item->item_kode;
+            $tmp->detail_nama   = $item->item_nama;
+            $tmp->detail_total  = $item->item_nominal;
+
+            $tmp->created_nip  = $app['kar_nip'];
+            $tmp->created_nama = $app['kar_nama_awal'];;
+            $tmp->created_ip   = $r->ip();
+
+
+            $tmp->save();
+
+        });
+
+        return response()->json($transaction);
+
+    }
+
+    public function detail_view(Request $r){
+
+        $result = array('success'=>false);
+
+        try{
+            
+            $data = DB::connection('daycare')
+                            ->table('tarif_tc_tarif_detail AS aa')
+                            ->leftjoin('tarif_tb_item AS bb','bb.item_kode','=','aa.item_kode')
+                            ->where('aa.detail_aktif','Y')
+                            ->where('aa.tarif_kode',null)
+                            ->orderby('aa.detail_id')
+                            ->get();
+
+            $data = $data->map(function($value) {
+            
+                $value->nominal  = format_rupiah($value->detail_total);
+
+                return $value;
+           
+            });
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['data'] = $data;
+
+        return response()->json($result);
+
+    }
+
+    public function detail_nonaktif(Request $r){
+  
+        $transaction = DB::connection('daycare')->transaction(function() use($r){ 
+            
+            $app = SistemApp::sistem();
+
+            $id = $r->get('id');
+            $tmp = TarifDetail::where('detail_id',$id)->first();
+            $tmp->detail_aktif = 'T';
+
+            $tmp->save();
+
+            return true;
+        });
+
+        return response()->json($transaction);
+  }
+
+    public function view_transaksi(Request $r){
+
+        $result = array('success'=>false);
+
+        try{
+            
+            $kategori = $r->kategori;
+            $paket = $r->paket;
+
+            $data = DB::connection('daycare')
+                            ->table('tarif_tc_tarif AS aa')
+                            ->leftjoin('tarif_tc_tarif_detail AS bb','bb.tarif_kode','=','aa.tarif_kode')
+                            ->leftjoin('tarif_tb_item AS cc','cc.item_kode','=','bb.item_kode')
+                            ->where('aa.kat_id',$kategori)
+                            ->where('aa.tarif_kode',$paket)
+                            ->get();    
+
+            $data = $data->map(function($value) {
+
+                $value->detail_total_tampil = format_rupiah($value->detail_total);
+                $value->tarif_total = format_rupiah($value->tarif_total);
+               
+                return $value;
+           
+            });
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['data'] = $data;
+        $result['total_tarif'] = format_rupiah($data->sum('detail_total'));
+
+        return response()->json($result);
+
+    }
+
     public function edit(Request $r)
     {
         $id = strtolower($r->get('id'));
-        $data = Tarif::where('paket_kode',$id)->first();
+        $data = Tarif::where('tarif_kode',$id)->first();
+        //dd($data);
+        
         return response()->json($data);
+    }
+
+    public function get_tarif(Request $r)
+    {
+        $id = strtolower($r->get('id'));
+        $data = Tarif::where('jenis_id',$id)->first();
+               
+        return response()->json($data);
+    }
+
+    public function update(Request $r){
+
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
+  
+              $app = SistemApp::sistem();
+  
+              $id = $r->get('id');
+              $tmp = Tarif::where('tarif_kode',$id)->first();
+
+              $tmp->kat_id       = $r->kategori;
+              $tmp->tarif_nama   = $r->nama;
+              $tmp->tarif_reg    = str_replace(".", "", $r->registrasi);
+              $tmp->tarif_gizi   = str_replace(".", "", $r->gizi);
+              $tmp->tarif_spp    = str_replace(".", "", $r->bulanan);
+              $tmp->tarif_pembg  = str_replace(".", "", $r->pembangunan);
+              $tmp->tarif_total  = $tmp->tarif_reg + $tmp->tarif_gizi + $tmp->tarif_spp + $tmp->tarif_pembg;
+
+              $tmp->updated_nip         = $app['kar_nip'];
+              $tmp->updated_nama        = $app['kar_nama_awal'];;
+              $tmp->updated_ip          = $r->ip();
+            
+              $tmp->save();
+  
+              return true;
+          });
+  
+          return response()->json($transaction);   
     }
 
     public function aktif(Request $r)
     {
         $transaction = DB::connection('daycare')->transaction(function() use($r){
 
+            $app        = SistemApp::sistem();
+
             $id = $r->get('id');
-            $tmp = TarifKategori::where('kat_id',$id)->first();
-            $tmp->kat_aktif  = 'Y';
+            
+            $tmp = Tarif::where('tarif_kode',$id)->first();
+            $tmp->void              = 'T';
+            $tmp->void_nip          = $app['kar_nip'];
+            $tmp->void_nama         = $app['kar_nama_awal'];;
+            $tmp->void_ip           = $r->ip();
             $tmp->save();
 
             return true;
@@ -140,9 +293,14 @@ class TarifController extends Controller
     {
         $transaction = DB::connection('daycare')->transaction(function() use($r){
 
-            $id = $r->get('id');
-            $tmp = TarifKategori::where('kat_id',$id)->first();
-            $tmp->kat_aktif  = 'T';
+            $app        = SistemApp::sistem();
+            $id         = $r->get('id');
+            $tmp        = Tarif::where('tarif_kode',$id)->first();
+                    
+            $tmp->void              = 'Y';
+            $tmp->void_nip          = $app['kar_nip'];
+            $tmp->void_nama         = $app['kar_nama_awal'];;
+            $tmp->void_ip           = $r->ip();
             $tmp->save();
 
             return true;

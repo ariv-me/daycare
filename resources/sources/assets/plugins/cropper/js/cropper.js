@@ -71,7 +71,7 @@ var EVENT_ZOOM = 'zoom';
 var REGEXP_ACTIONS = /^(e|w|s|n|se|sw|ne|nw|all|crop|move|zoom)$/;
 var REGEXP_DATA_URL = /^data:/;
 var REGEXP_DATA_URL_JPEG = /^data:image\/jpeg;base64,/;
-var REGEXP_TAG_NAME = /^(img|canvas)$/i;
+var REGEXP_trs_NAME = /^(img|canvas)$/i;
 
 var DEFAULTS = {
   // Define the view mode of the cropper
@@ -2794,7 +2794,7 @@ var Cropper = function () {
 
     _classCallCheck(this, Cropper);
 
-    if (!element || !REGEXP_TAG_NAME.test(element.tagName)) {
+    if (!element || !REGEXP_trs_NAME.test(element.tagName)) {
       throw new Error('The first argument is required and must be an <img> or <canvas> element.');
     }
 

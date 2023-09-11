@@ -30,12 +30,12 @@ class Pendaftaran extends Model
             foreach($data->get() as $k)
             {
                 $tmp = ((int)$k->kd_max)+1;
-                $kd = "DFTR".$kode_depan.sprintf("%04s", $tmp);
+                $kd = "DTL".$kode_depan.sprintf("%04s", $tmp);
             }
         }
         else
         {
-            $kd = "DFTR".$kode_depan."0001";
+            $kd = "DTL".$kode_depan."0001";
         }
 
         return ($kd);

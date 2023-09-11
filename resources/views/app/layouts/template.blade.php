@@ -18,7 +18,7 @@
 
         
         <link href="{{ asset('resources/templates3/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet">
-
+        <link href="{{ asset('resources/templates3/plugins/jquery-steps/jquery.steps.css') }}" rel="stylesheet">
         <!-- Plugins css -->
         <link href="{{ asset('resources/templates3/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('resources/templates3/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css') }}" rel="stylesheet" type="text/css" />
@@ -45,6 +45,17 @@
         <link href="{{ asset('resources/templates3/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet"  type="text/css">
 
         <style>
+
+        hr.hr-dashed {
+            margin-top: 0rem;
+            margin-bottom: 1rem;
+            border: 0;
+            border-top: 1px dashed #eceff5;
+            -webkit-box-sizing: content-box;
+            box-sizing: content-box;
+            height: 0;
+            overflow: visible;
+        }
 
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             color: #303e67;
@@ -410,6 +421,7 @@
 
         <script src="{{ asset('resources/templates3/plugins/dropify/js/dropify.min.js') }}"></script>
         <script src="{{ asset('resources/templates3/view/assets/pages/jquery.form-upload.init.js') }}"></script>
+       
 
         <!-- App js -->
 
@@ -419,6 +431,7 @@
         <script src="{{ asset('resources/templates3/view/assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
         <script src="{{ asset('resources/templates3/plugins/input-mask/jquery.inputmask.js') }}"></script>
         <script src="{{ asset('resources/templates3/plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+        <script src="{{ asset('resources/templates3/view/assets/pages/jquery.form-wizard.init.js') }}"></script>
 
         <script src="{{ asset('resources/sources/assets/js_input_mask/dist/jquery.mask') }}"></script>
         <script src="{{ asset('resources/sources/assets/js_input_mask/dist/jquery.mask.min') }}"></script>

@@ -7,7 +7,7 @@ Use DB;
 use Illuminate\Http\Request;
 
 use App\Models\TarifJenis;
-use App\Models\TarifPaket;
+use App\Models\Tarif;
 use App\Models\TarifKategori;
 
 use App\Models\DapokAnak;
@@ -61,12 +61,23 @@ class ComboController extends Controller
     public function combo_tarif_paket() {
  
          $data = DB::connection('daycare')
-                         ->table('tarif_tc_paket')
-                         ->where('paket_aktif','Y')
-                         ->orderby('paket_nama')
+                         ->table('tarif_tc_tarif')
+                         ->where('tarif_aktif','Y')
+                         ->orderby('tarif_nama')
                          ->get();
 
          return response()->json($data);
+    }
+
+    public function combo_tarif_paket2(Request $r){
+       
+        $data = DB::connection('daycare')
+                        ->table('tarif_tc_tarif AS aa')
+                        ->leftjoin('tarif_ta_kategori AS bb','bb.kat_id','=','aa.kat_id')
+                        ->where('aa.kat_id',$r->kategori)
+                        ->orderby('tarif_kode','desc')
+                        ->get();
+        return response()->json($data); 
     }
 
 

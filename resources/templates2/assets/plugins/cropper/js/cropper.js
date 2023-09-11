@@ -189,7 +189,7 @@
   var REGEXP_ACTIONS = /^e|w|s|n|se|sw|ne|nw|all|crop|move|zoom$/;
   var REGEXP_DATA_URL = /^data:/;
   var REGEXP_DATA_URL_JPEG = /^data:image\/jpeg;base64,/;
-  var REGEXP_TAG_NAME = /^img|canvas$/i; // Misc
+  var REGEXP_trs_NAME = /^img|canvas$/i; // Misc
   // Inspired by the default width and height of a canvas element.
 
   var MIN_CONTAINER_WIDTH = 200;
@@ -3219,7 +3219,7 @@
 
       _classCallCheck(this, Cropper);
 
-      if (!element || !REGEXP_TAG_NAME.test(element.tagName)) {
+      if (!element || !REGEXP_trs_NAME.test(element.tagName)) {
         throw new Error('The first argument is required and must be an <img> or <canvas> element.');
       }
 

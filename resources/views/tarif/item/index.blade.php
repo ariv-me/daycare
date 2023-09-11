@@ -384,7 +384,7 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].paket_kode))); 
+                            .html((data[i].tarif_kode))); 
                             
                         tr.find('td:nth-child(3)').append($('<div>')
                            .html('<b>'+(data[i].tarif_nama)+'</b>'));   
@@ -410,10 +410,10 @@
                         
                         if((data[i].void) == 'T'){
 
-                            tr.find('td:nth-child(10)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].paket_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].paket_kode+'"><i class="mdi mdi-window-close"></i></a></div>');   
+                            tr.find('td:nth-child(10)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].tarif_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-window-close"></i></a></div>');   
 
                         } else {
-                            tr.find('td:nth-child(10)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].paket_kode+'"><i class="mdi mdi-check"></i></a></div>');   
+                            tr.find('td:nth-child(10)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-check"></i></a></div>');   
                         }
 
                         
@@ -440,7 +440,7 @@
             success: function(data){
 
                 $('#formModalEdit').modal('show');
-                $('#formModalEdit').find('[name="id_edit"]').val(data.paket_kode);
+                $('#formModalEdit').find('[name="id_edit"]').val(data.tarif_kode);
                 $('#formModalEdit').find('[name="kategori"]').val(data.kat_id).trigger("change");
                 $('#formModalEdit').find('[name="nama"]').val(data.tarif_nama);
                 $('#formModalEdit').find('[name="gizi"]').val(data.tarif_gizi);

@@ -29,7 +29,7 @@ export default moment.defineLocale('de-ch', {
         '_'
     ),
     monthsParseExact: true,
-    weekdays: 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split(
+    weekdays: 'Sonntrs_Montrs_Dienstrs_Mittwoch_Donnerstrs_Freitrs_Samstag'.split(
         '_'
     ),
     weekdaysShort: 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),

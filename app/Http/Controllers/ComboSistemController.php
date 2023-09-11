@@ -21,7 +21,7 @@ use App\Models\DapokPenjemput;
 use App\Models\SistemAgama;
 use App\Models\CateringKategori;
 use App\Models\TarifJenis;
-use App\Models\TarifPaket;
+use App\Models\Tarif;
 use App\Models\TarifKategori;
 use App\Models\Periode;
 
@@ -110,10 +110,10 @@ class ComboSistemController extends Controller
     public function combo_paket(Request $r){
        
         $data = DB::connection('daycare')
-                        ->table('tarif_tc_paket AS aa')
+                        ->table('tarif_tc_tarif AS aa')
                         ->leftjoin('tarif_ta_kategori AS bb','bb.kat_id','=','aa.kat_id')
                         ->where('aa.kat_id',$r->kategori)
-                        ->orderby('paket_kode','desc')
+                        ->orderby('tarif_kode','desc')
                         ->get();
         return response()->json($data); 
     }

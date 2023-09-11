@@ -59,7 +59,7 @@ class PendaftaranTagihanController extends Controller
                             ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_kode','aa.ortu_kode')              
                             ->leftjoin('dapok_tb_penjemput AS cc','cc.pnj_kode','aa.pnj_kode')              
                             ->leftjoin('daftar_tc_transaksi AS dd','dd.anak_kode','aa.anak_kode')              
-                            ->leftjoin('tarif_tc_paket AS ee','ee.paket_kode','dd.paket_kode')              
+                            ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','dd.tarif_kode')              
                             ->orderby('aa.anak_id','desc')
                             ->get();
 

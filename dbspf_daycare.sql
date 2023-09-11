@@ -208,7 +208,7 @@ INSERT INTO `ctrg_order_detail` (`detail_id`, `order_kode`, `anak_nis`, `menu_ko
 CREATE TABLE IF NOT EXISTS `daftar_tc_bayar` (
   `bayar_id` int(11) NOT NULL AUTO_INCREMENT,
   `bayar_kode` varchar(50) DEFAULT NULL,
-  `tag_kode` varchar(50) DEFAULT NULL,
+  `trs_kode` varchar(50) DEFAULT NULL,
   `daftar_kode` varchar(50) DEFAULT NULL,
   `trs_kode` varchar(50) DEFAULT NULL,
   `bayar_diskon` double(14,0) DEFAULT '0',
@@ -238,25 +238,25 @@ CREATE TABLE IF NOT EXISTS `daftar_tc_bayar` (
 
 -- Dumping structure for table dbspf_daycare.daftar_tc_tagihan
 CREATE TABLE IF NOT EXISTS `daftar_tc_tagihan` (
-  `tag_id` int(11) NOT NULL AUTO_INCREMENT,
-  `tag_kode` varchar(50) DEFAULT NULL,
+  `trs_id` int(11) NOT NULL AUTO_INCREMENT,
+  `trs_kode` varchar(50) DEFAULT NULL,
   `daftar_kode` varchar(50) DEFAULT NULL,
-  `tag_diskon` double(14,0) DEFAULT '0',
-  `tag_sub_total` double(14,0) DEFAULT '0',
-  `tag_total` double(14,0) DEFAULT '0',
-  `tag_aktif` enum('Y','T') NOT NULL DEFAULT 'T',
+  `trs_diskon` double(14,0) DEFAULT '0',
+  `trs_sub_total` double(14,0) DEFAULT '0',
+  `trs_total` double(14,0) DEFAULT '0',
+  `trs_aktif` enum('Y','T') NOT NULL DEFAULT 'T',
   `kar_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `created_nip` int(11) DEFAULT NULL,
   `created_nama` varchar(100) DEFAULT NULL,
   `created_ip` varchar(50) DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`tag_id`) USING BTREE
+  PRIMARY KEY (`trs_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table dbspf_daycare.daftar_tc_tagihan: ~1 rows (approximately)
 /*!40000 ALTER TABLE `daftar_tc_tagihan` DISABLE KEYS */;
-INSERT INTO `daftar_tc_tagihan` (`tag_id`, `tag_kode`, `daftar_kode`, `tag_diskon`, `tag_sub_total`, `tag_total`, `tag_aktif`, `kar_id`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`) VALUES
+INSERT INTO `daftar_tc_tagihan` (`trs_id`, `trs_kode`, `daftar_kode`, `trs_diskon`, `trs_sub_total`, `trs_total`, `trs_aktif`, `kar_id`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`) VALUES
 	(1, 'TAG20230001', 'DFTR20230001', 0, 0, 4050000, 'T', 1080, '2023-09-01 15:30:01', NULL, NULL, NULL, '2023-09-01 15:30:01');
 /*!40000 ALTER TABLE `daftar_tc_tagihan` ENABLE KEYS */;
 
@@ -270,8 +270,8 @@ CREATE TABLE IF NOT EXISTS `daftar_tc_transaksi` (
   `grup_id` int(11) DEFAULT '0',
   `jenis_id` int(11) DEFAULT NULL,
   `periode_id` int(11) DEFAULT NULL,
-  `paket_kode` varchar(50) DEFAULT NULL,
-  `paket_id` int(11) DEFAULT NULL,
+  `tarif_kode` varchar(50) DEFAULT NULL,
+  `tarif_id` int(11) DEFAULT NULL,
   `tarif_reg` double(14,0) DEFAULT '0',
   `tarif_spp` double(14,0) DEFAULT '0',
   `tarif_pembg` double(14,0) DEFAULT '0',
@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `daftar_tc_transaksi` (
 
 -- Dumping data for table dbspf_daycare.daftar_tc_transaksi: ~0 rows (approximately)
 /*!40000 ALTER TABLE `daftar_tc_transaksi` DISABLE KEYS */;
-INSERT INTO `daftar_tc_transaksi` (`daftar_id`, `daftar_kode`, `daftar_ket`, `daftar_tgl`, `anak_kode`, `grup_id`, `jenis_id`, `periode_id`, `paket_kode`, `paket_id`, `tarif_reg`, `tarif_spp`, `tarif_pembg`, `tarif_total`, `daftar_aktif`, `kar_id`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`) VALUES
+INSERT INTO `daftar_tc_transaksi` (`daftar_id`, `daftar_kode`, `daftar_ket`, `daftar_tgl`, `anak_kode`, `grup_id`, `jenis_id`, `periode_id`, `tarif_kode`, `tarif_id`, `tarif_reg`, `tarif_spp`, `tarif_pembg`, `tarif_total`, `daftar_aktif`, `kar_id`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`) VALUES
 	(1, 'DFTR20230001', 'undefined', '2023-09-02', '20230001', 2, 2, 1, '0', 4, 250000, 800000, 3000000, 4050000, 'T', 1080, '2023-09-01 15:30:01', NULL, NULL, NULL, '2023-09-01 15:30:01');
 /*!40000 ALTER TABLE `daftar_tc_transaksi` ENABLE KEYS */;
 
@@ -621,10 +621,10 @@ INSERT INTO `tarif_ta_kategori` (`kat_id`, `kat_nama`, `kat_aktif`, `created_at`
 	(2, 'Harian', 'Y', '2022-07-16 20:31:36', '2023-09-06 12:42:55');
 /*!40000 ALTER TABLE `tarif_ta_kategori` ENABLE KEYS */;
 
--- Dumping structure for table dbspf_daycare.tarif_tc_paket
-CREATE TABLE IF NOT EXISTS `tarif_tc_paket` (
-  `paket_id` int(11) NOT NULL AUTO_INCREMENT,
-  `paket_kode` varchar(50) NOT NULL,
+-- Dumping structure for table dbspf_daycare.tarif_tc_tarif
+CREATE TABLE IF NOT EXISTS `tarif_tc_tarif` (
+  `tarif_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tarif_kode` varchar(50) NOT NULL,
   `kat_id` int(11) DEFAULT '0',
   `tarif_nama` varchar(255) DEFAULT NULL,
   `tarif_reg` double(14,0) DEFAULT '0',
@@ -644,17 +644,17 @@ CREATE TABLE IF NOT EXISTS `tarif_tc_paket` (
   `void_nip` int(11) DEFAULT NULL,
   `void_nama` varchar(50) DEFAULT NULL,
   `void_ip` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`paket_id`),
-  UNIQUE KEY `paket_kode` (`paket_kode`)
+  PRIMARY KEY (`tarif_id`),
+  UNIQUE KEY `tarif_kode` (`tarif_kode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table dbspf_daycare.tarif_tc_paket: ~3 rows (approximately)
-/*!40000 ALTER TABLE `tarif_tc_paket` DISABLE KEYS */;
-INSERT INTO `tarif_tc_paket` (`paket_id`, `paket_kode`, `kat_id`, `tarif_nama`, `tarif_reg`, `tarif_gizi`, `tarif_spp`, `tarif_pembg`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`, `void`, `void_at`, `void_nip`, `void_nama`, `void_ip`) VALUES
+-- Dumping data for table dbspf_daycare.tarif_tc_tarif: ~3 rows (approximately)
+/*!40000 ALTER TABLE `tarif_tc_tarif` DISABLE KEYS */;
+INSERT INTO `tarif_tc_tarif` (`tarif_id`, `tarif_kode`, `kat_id`, `tarif_nama`, `tarif_reg`, `tarif_gizi`, `tarif_spp`, `tarif_pembg`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`, `void`, `void_at`, `void_nip`, `void_nama`, `void_ip`) VALUES
 	(1, 'TRF0001', 1, 'Half Day - [ Senin s/d. Jum\'at ]', 250000, 0, 1300000, 2700000, '2023-05-29 15:25:05', 10000427, 'ARIF', '::1', '2023-09-06 15:29:05', 10000427, 'ARIF', '::1', 'T', '2023-05-29 15:25:05', 10000427, 'ARIF', '::1'),
 	(3, 'TRF0002', 1, 'Full Day - [ Senin s/d. Jum\'at]', 250000, 0, 1300000, 3000000, '2023-05-30 15:19:24', 10000427, 'ARIF', '::1', '2023-09-06 13:55:54', 10000427, 'ARIF', '::1', 'T', '2023-05-30 15:19:24', 10000427, 'ARIF', '::1'),
 	(6, 'TRF0003', 2, 'Harian - [ Senin s/d. Jum\'at ]', 100000, 0, 0, 0, '2023-06-05 10:36:47', 2087075, 'HAQQUL', '::1', '2023-09-06 13:41:07', NULL, NULL, NULL, 'T', '2023-06-05 10:36:47', 10000427, 'ARIF', '::1');
-/*!40000 ALTER TABLE `tarif_tc_paket` ENABLE KEYS */;
+/*!40000 ALTER TABLE `tarif_tc_tarif` ENABLE KEYS */;
 
 -- Dumping structure for table dbspf_daycare.ta_periode
 CREATE TABLE IF NOT EXISTS `ta_periode` (

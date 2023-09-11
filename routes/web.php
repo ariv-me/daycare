@@ -14,7 +14,7 @@ use App\Http\Controllers\JenisPekerjaanController;
 use App\Http\Controllers\TarifJenisController;
 use App\Http\Controllers\TarifKategoriController;
 use App\Http\Controllers\TarifItemController;
-use App\Http\Controllers\TarifPaketController;
+use App\Http\Controllers\TarifController;
 ;
 
 use App\Http\Controllers\PendaftaranController;
@@ -146,11 +146,18 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 
 	// Pendaftaran Detail
 
-	Route::get('/view_detail', [PendaftaranDetailController::class, 'view_detail'])->name('view_detail');
-	Route::post('/save_detail', [PendaftaranDetailController::class, 'save_detail'])->name('save_detail');
-	Route::get('/edit_detail', [PendaftaranDetailController::class, 'edit_detail'])->name('edit_detail');
-	Route::post('/update_detail', [PendaftaranDetailController::class, 'update_detail'])->name('update_detail');
-	Route::get('/delete_detail', [PendaftaranDetailController::class, 'delete_detail'])->name('delete_detail');
+	Route::group(['prefix' => 'detail', 'as' => 'detail.'], function () {
+
+		Route::post('/save', [PendaftaranDetailController::class, 'save'])->name('save');
+		Route::get('/view', [PendaftaranDetailController::class, 'view'])->name('view');
+		Route::get('/edit', [PendaftaranDetailController::class, 'edit'])->name('edit');
+		Route::post('/update', [PendaftaranDetailController::class, 'update'])->name('update');
+		Route::get('/delete', [PendaftaranDetailController::class, 'delete'])->name('delete');
+
+	});
+
+
+	
 
 
 	
@@ -245,26 +252,23 @@ Route::group(['prefix' => 'tarif', 'as' => 'tarif.'], function () {
 
 	});
 
-	// Paket
-	
-	Route::group(['prefix' => 'paket', 'as' => 'paket.'], function () {
+	// Tarif
 		
-	Route::get('/', [TarifPaketController::class, 'index'])->name('index');
-	Route::get('/view', [TarifPaketController::class, 'view'])->name('view');
-	Route::get('/view_transaksi', [TarifPaketController::class, 'view_transaksi'])->name('view_transaksi');
-	Route::post('/save', [TarifPaketController::class, 'save'])->name('save');
-	Route::get('/edit', [TarifPaketController::class, 'edit'])->name('edit');
-	Route::get('/get_tarif', [TarifPaketController::class, 'get_tarif'])->name('get_tarif');
-	Route::post('/update', [TarifPaketController::class, 'update'])->name('update');
-	Route::get('/aktif', [TarifPaketController::class, 'aktif'])->name('aktif');
-	Route::get('/nonaktif', [TarifPaketController::class, 'nonaktif'])->name('nonaktif');
+	Route::get('/', [TarifController::class, 'index'])->name('index');
+	Route::get('/view', [TarifController::class, 'view'])->name('view');
+	Route::get('/view_transaksi', [TarifController::class, 'view_transaksi'])->name('view_transaksi');
+	Route::post('/save', [TarifController::class, 'save'])->name('save');
+	Route::get('/edit', [TarifController::class, 'edit'])->name('edit');
+	Route::get('/get_tarif', [TarifController::class, 'get_tarif'])->name('get_tarif');
+	Route::post('/update', [TarifController::class, 'update'])->name('update');
+	Route::get('/aktif', [TarifController::class, 'aktif'])->name('aktif');
+	Route::get('/nonaktif', [TarifController::class, 'nonaktif'])->name('nonaktif');
 
-	Route::post('/detail_save', [TarifPaketController::class, 'detail_save'])->name('detail_save');
-	Route::get('/detail_view', [TarifPaketController::class, 'detail_view'])->name('detail_view');
-	Route::get('/detail_edit', [TarifPaketController::class, 'detail_edit'])->name('detail_edit');
-	Route::get('/detail_nonaktif', [TarifPaketController::class, 'detail_nonaktif'])->name('detail_nonaktif');
+	Route::post('/detail_save', [TarifController::class, 'detail_save'])->name('detail_save');
+	Route::get('/detail_view', [TarifController::class, 'detail_view'])->name('detail_view');
+	Route::get('/detail_edit', [TarifController::class, 'detail_edit'])->name('detail_edit');
+	Route::get('/detail_nonaktif', [TarifController::class, 'detail_nonaktif'])->name('detail_nonaktif');
 
-	});
 
 
 });
@@ -357,6 +361,7 @@ Route::group(['prefix' => 'combo', 'as' => 'combo.'], function () {
 		Route::get('/combo_tarif_kategori', [ComboController::class, 'combo_tarif_kategori'])->name('combo_tarif_kategori');
 		Route::get('/combo_tarif_item', [ComboController::class, 'combo_tarif_item'])->name('combo_tarif_item');
 		Route::get('/combo_tarif_paket', [ComboController::class, 'combo_tarif_paket'])->name('combo_tarif_paket');
+		Route::get('/combo_tarif_paket2', [ComboController::class, 'combo_tarif_paket2'])->name('combo_tarif_paket2');
 
 
 	// Combo Catering
@@ -364,7 +369,7 @@ Route::group(['prefix' => 'combo', 'as' => 'combo.'], function () {
 		Route::get('/combo_catering_jenis', [ComboController::class, 'combo_catering_jenis'])->name('combo_catering_jenis');
 		Route::get('/combo_catering_kategori', [ComboController::class, 'combo_catering_kategori'])->name('combo_catering_kategori');
 		Route::get('/combo_catering_item', [ComboController::class, 'combo_catering_item'])->name('combo_catering_item');
-		Route::get('/combo_catering_paket', [ComboController::class, 'combo_catering_paket'])->name('combo_paket');
+		Route::get('/combo_catering_paket', [ComboController::class, 'combo_catering_paket'])->name('combo_catering_paket');
 
 	// Combo Data Pokok
 
