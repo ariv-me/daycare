@@ -11,7 +11,7 @@ var POINTER_DOWN =   Browser.msPointer ? 'MSPointerDown'   : 'pointerdown';
 var POINTER_MOVE =   Browser.msPointer ? 'MSPointerMove'   : 'pointermove';
 var POINTER_UP =     Browser.msPointer ? 'MSPointerUp'     : 'pointerup';
 var POINTER_CANCEL = Browser.msPointer ? 'MSPointerCancel' : 'pointercancel';
-var TAG_WHITE_LIST = ['INPUT', 'SELECT', 'OPTION'];
+var trs_WHITE_LIST = ['INPUT', 'SELECT', 'OPTION'];
 
 var _pointers = {};
 var _pointerDocListener = false;
@@ -59,7 +59,7 @@ function _addPointerStart(obj, handler, id) {
 			// In IE11, some touch events needs to fire for form controls, or
 			// the controls will stop working. We keep a whitelist of tag names that
 			// need these events. For other target tags, we prevent default on the event.
-			if (TAG_WHITE_LIST.indexOf(e.target.tagName) < 0) {
+			if (trs_WHITE_LIST.indexOf(e.target.tagName) < 0) {
 				DomEvent.preventDefault(e);
 			} else {
 				return;

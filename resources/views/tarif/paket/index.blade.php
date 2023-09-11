@@ -11,7 +11,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-9">
-                        <h4 class="card-title">CATERING - MENU</h4>
+                     <h4 class="card-title"><i class="mdi mdi-cash-multiple"></i> TARIF - PAKET</h4>
                     </div>
                     <div class="col-md-3" style="text-align: right">
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" id="btn_add"><i class="fas fa-plus-circle"></i> TAMBAH DATA </button>
@@ -95,11 +95,11 @@
     </div>
 </div>
 
-<div class="modal fade  bd-example-modal" id="formModalEdit">
+<div class="modal fade  bd-example-modal" id="formModalAdd">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"> <strong>Edit Data MENU</strong> </h5>
+                <h5 class="modal-title"> <i class="fas fa-plus-circle"></i> <strong>Tarif - Paket</strong> </h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
@@ -107,41 +107,43 @@
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-md-12">
+
                         <div class="form-group">
                             <label> <strong>Kategori</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori_edit"></select>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"></select>
                         </div>
-                        <div class="form-group">
-                            <label> <strong>Kode</strong>  <small class="text-danger">*</small></label>
-                            <input class="form-control" name="kode" id="kode_edit" disabled="disabled">
-                        </div>
+                       
                         <div class="form-group">
                             <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
-                            <input class="form-control" name="nama" id="nama_edit">
+                            <input class="form-control" name="nama" id="nama">
                         </div>
                     </div>  
-                    <div class="col-md-6">
-                        <label> <strong>Harga Modal</strong>  <small class="text-danger">*</small></label>
+                    <div class="col-md-9">
+                        <label> <strong>Item</strong>  <small class="text-danger">*</small></label>
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Rp.</span>
-                            </div>
-                            <input type="text" name="harga" id="harga_edit" class="form-control col-md-12">
+                            <select class="form-control custom-select select2" style="width: 100%;" name="item" id="item"></select>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <label> <strong>Harga Jual</strong>  <small class="text-danger">*</small></label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"> Rp.</span>
-                            </div>
-                            <input type="text" name="harga_jual" id="harga_jual_edit" class="form-control col-md-12" onkeypress="return angka(this, event)" maxlength="5">
-                        </div>
+                    <div class="col-md-3 mt-4">
+                        <button type="button" class="btn btn-outline-primary  btn-block btn-xs waves-effect waves-light mt-2" id="detail_save"> <i class="fas fa-plus-circle ml-1"></i> Tambah</button>
                     </div>
+                 
                 </div>
+                <hr>
+                <table id="datatable" class="table table-bordered dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">NO</th>
+                            <th style="text-align: center">NAMA</th>
+                            <th style="text-align: center">NOMINAL</th>
+                            <th style="text-align: center">AKSI</th>
+                        </tr>
+                    </thead>
+                   <tbody id="show_data_detail"></tbody>
+                </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning btn-sm" id="btn_update"><i class="fas fa-save"></i> UPDATE</button>
+                <button type="button" class="btn btn-primary btn-xs" id="btn_save"><i class="fas fa-save"></i> SAVE</button>
             </div>
         </div>
     </div>
@@ -168,7 +170,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('tarif.paket.view') }}",
+            url: "{{ route('tarif.view') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -192,23 +194,20 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].paket_kode)));   
+                            .html((data[i].tarif_kode)));   
                             
                         tr.find('td:nth-child(3)').append($('<div>')
-                            .html((data[i].paket_nama)));   
+                            .html((data[i].tarif_nama)));   
 
                         tr.find('td:nth-child(4)').append($('<div>')
                             .html((data[i].kat_nama)));   
 
                         tr.find('td:nth-child(5)').append($('<div>')
-                            .html((data[i].total)));   
+                            .html('<b>'+(data[i].total)+'</b>'));   
                         
-                        if ((data[i].is_aktif) == 'Y'){
-                            tr.find('td:nth-child(9)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_set" data="'+data[i].menu_kode+'"><i class="fas fa-align-justify"></i></a><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].menu_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].menu_kode+'"><i class="fa fa-trash"></i></a></div>');   
-                        }
-                        else {
-                            tr.find('td:nth-child(9)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_set" data="'+data[i].menu_kode+'"><i class="fas fa-align-justify"></i></a><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].menu_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].menu_kode+'"><i class="mdi mdi-check"></i></a></div>');   
-                        }
+
+                        tr.find('td:nth-child(6)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].tarif_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].tarif_kode+'"><i class="fa fa-trash"></i></a></div>');                          
+                      
                         
 
                         tr.appendTo($('#show_data'));
@@ -224,7 +223,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('tarif.paket.detail_view') }}",
+            url: "{{ route('tarif.detail_view') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -323,7 +322,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('tarif.paket.save') }}",
+            url: "{{ route('tarif.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -488,7 +487,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('tarif.paket.detail_save') }}",
+            url: "{{ route('tarif.detail_save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -542,7 +541,7 @@
         var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('tarif.paket.detail_nonaktif') }}",
+                    url   : "{{ route('tarif.detail_nonaktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){

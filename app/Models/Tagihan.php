@@ -12,7 +12,7 @@ class Tagihan extends Model
 {
     protected $connection = 'daycare';
     protected $table = 'daftar_tc_tagihan';
-    protected $primaryKey = 'tag_id';
+    protected $primaryKey = 'trs_id';
 
     public static function autonumber()
 
@@ -20,7 +20,7 @@ class Tagihan extends Model
 
         $data = DB::connection('daycare')
                      ->table('daftar_tc_tagihan')
-                     ->select(DB::raw("MAX(RIGHT(tag_kode,4)) as kd_max"));
+                     ->select(DB::raw("MAX(RIGHT(trs_kode,4)) as kd_max"));
                    
         
         $kode_depan = date('Y');    

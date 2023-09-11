@@ -564,13 +564,13 @@ addToUnscopables('entries');
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var TO_STRING_TAG_SUPPORT = __webpack_require__(101);
+var TO_STRING_trs_SUPPORT = __webpack_require__(101);
 var redefine = __webpack_require__(48);
 var toString = __webpack_require__(155);
 
 // `Object.prototype.toString` method
 // https://tc39.es/ecma262/#sec-object.prototype.tostring
-if (!TO_STRING_TAG_SUPPORT) {
+if (!TO_STRING_trs_SUPPORT) {
   redefine(Object.prototype, 'toString', toString, { unsafe: true });
 }
 
@@ -1224,7 +1224,7 @@ var TO_STRING_TAG = wellKnownSymbol('toStringTag');
 var TYPED_ARRAY_TAG = uid('TYPED_ARRAY_TAG');
 // Fixing native typed arrays in Opera Presto crashes the browser, see #595
 var NATIVE_ARRAY_BUFFER_VIEWS = NATIVE_ARRAY_BUFFER && !!setPrototypeOf && classof(global.opera) !== 'Opera';
-var TYPED_ARRAY_TAG_REQIRED = false;
+var TYPED_ARRAY_trs_REQIRED = false;
 var NAME;
 
 var TypedArrayConstructorsList = {
@@ -1342,7 +1342,7 @@ if (NATIVE_ARRAY_BUFFER_VIEWS && getPrototypeOf(Uint8ClampedArrayPrototype) !== 
 }
 
 if (DESCRIPTORS && !has(TypedArrayPrototype, TO_STRING_TAG)) {
-  TYPED_ARRAY_TAG_REQIRED = true;
+  TYPED_ARRAY_trs_REQIRED = true;
   defineProperty(TypedArrayPrototype, TO_STRING_TAG, { get: function () {
     return isObject(this) ? this[TYPED_ARRAY_TAG] : undefined;
   } });
@@ -1353,7 +1353,7 @@ if (DESCRIPTORS && !has(TypedArrayPrototype, TO_STRING_TAG)) {
 
 module.exports = {
   NATIVE_ARRAY_BUFFER_VIEWS: NATIVE_ARRAY_BUFFER_VIEWS,
-  TYPED_ARRAY_TAG: TYPED_ARRAY_TAG_REQIRED && TYPED_ARRAY_TAG,
+  TYPED_ARRAY_TAG: TYPED_ARRAY_trs_REQIRED && TYPED_ARRAY_TAG,
   aTypedArray: aTypedArray,
   aTypedArrayConstructor: aTypedArrayConstructor,
   exportTypedArrayMethod: exportTypedArrayMethod,
@@ -2803,7 +2803,7 @@ module.exports = function (originalArray, length) {
 /* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var TO_STRING_TAG_SUPPORT = __webpack_require__(101);
+var TO_STRING_trs_SUPPORT = __webpack_require__(101);
 var classofRaw = __webpack_require__(50);
 var wellKnownSymbol = __webpack_require__(28);
 
@@ -2819,7 +2819,7 @@ var tryGet = function (it, key) {
 };
 
 // getting tag from ES6+ `Object.prototype.toString`
-module.exports = TO_STRING_TAG_SUPPORT ? classofRaw : function (it) {
+module.exports = TO_STRING_trs_SUPPORT ? classofRaw : function (it) {
   var O, tag, result;
   return it === undefined ? 'Undefined' : it === null ? 'Null'
     // @@toStringTag case
@@ -5077,12 +5077,12 @@ module.exports = function (it) {
 
 "use strict";
 
-var TO_STRING_TAG_SUPPORT = __webpack_require__(101);
+var TO_STRING_trs_SUPPORT = __webpack_require__(101);
 var classof = __webpack_require__(85);
 
 // `Object.prototype.toString` method implementation
 // https://tc39.es/ecma262/#sec-object.prototype.tostring
-module.exports = TO_STRING_TAG_SUPPORT ? {}.toString : function toString() {
+module.exports = TO_STRING_trs_SUPPORT ? {}.toString : function toString() {
   return '[object ' + classof(this) + ']';
 };
 

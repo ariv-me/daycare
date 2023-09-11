@@ -674,13 +674,13 @@
                 $('[name="anak_kode"]').val(data.anak_kode);
                 $('[name="ortu_kode"]').val(data.ortu_kode);
                 $('[name="pnj_kode"]').val(data.pnj_kode);
-                $('[name="paket_kode"]').val(data.paket_kode);
+                $('[name="tarif_kode"]').val(data.tarif_kode);
                 
                 $('[name="tgl_daftar"]').datepicker('setDate',moment(data.daftar_tgl).format('DD-MM-YYYY'));
                 $('[name="periode"]').val(data.periode_id).trigger("change");
                 $('[name="grup"]').val(data.grup_id).trigger("change");
                 $('[name="kategori"]').val(data.kat_id).trigger("change");
-                $('[name="paket"]').val(data.paket_kode).trigger("change");
+                $('[name="paket"]').val(data.tarif_kode).trigger("change");
 
                 $('[name="anak_nama"]').val(data.anak_nama);
                 $('[name="anak_tmp_lahir"]').val(data.anak_tmp_lahir);
@@ -1423,7 +1423,7 @@
         var paket           = $('#paket').val();
         var kategori        = $('#kategori').val();
         var keterangan      = $('#keterangan').val();
-        var paket_kode      = $('#paket_kode').val();
+        var tarif_kode      = $('#tarif_kode').val();
 
         var anak_nama       = $('#anak_nama').val();
         var anak_tmp_lahir  = $('#anak_tmp_lahir').val();
@@ -1498,7 +1498,7 @@
         formData.append('paket', paket);
         formData.append('kategori', kategori);
         formData.append('keterangan', keterangan);
-        formData.append('paket_kode', paket_kode);
+        formData.append('tarif_kode', tarif_kode);
 
         formData.append('anak_nama', anak_nama);
         formData.append('anak_tmp_lahir', anak_tmp_lahir);
@@ -2120,7 +2120,7 @@
             data: {id:paket},
             success: function(data) {
 
-                $('[name="paket_kode"]').val(data.paket_kode);
+                $('[name="tarif_kode"]').val(data.tarif_kode);
                
             }
         });
@@ -2146,7 +2146,7 @@
                         x.add(option);
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].paket_kode)+'>'+(data[i].tarif_nama)+'</option>';
+                    html = '<option value='+(data[i].tarif_kode)+'>'+(data[i].tarif_nama)+'</option>';
                     $('select[name=paket]').append(html)
                 }
             }
