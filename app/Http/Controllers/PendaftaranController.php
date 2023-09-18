@@ -21,7 +21,7 @@ use App\Models\JenisPekerjaan;
 use App\Models\HCISKaryawan;
 
 use App\Models\Pendaftaran;
-use App\Models\Tagihan;
+use App\Models\PendaftaranTagihan;
 
 use App\Models\DapokAnak;
 use App\Models\DapokOrtu;
@@ -68,7 +68,7 @@ class PendaftaranController extends Controller
     
                 $app        = SistemApp::sistem();
 
-                /*-- DAFTAR --*/
+                /*-- TRANSAKSI --*/
     
                 $daftar = new Pendaftaran();  
 
@@ -76,38 +76,44 @@ class PendaftaranController extends Controller
                 $anak_kode   = DapokAnak::autonumber();
                 $ortu_kode   = DapokOrtu::autonumber();
                 $pnj_kode    = DapokPenjemput::autonumber();
-                $trs_kode    = Tagihan::autonumber();
-                $tarif       = Tarif::where('tarif_kode',$r->paket)->first();
+                $tarif       = DB::connection('daycare')
+                                ->table('daftar_tc_transaksi_detail AS aa')
+                                ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
+                                ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','bb.jenis_kode')
+                                ->where('aa.detail_aktif','Y')
+                                ->where('aa.trs_kode',null)
+                                ->where('aa.anak_kode',null)
+                                ->where('bb.jenis_kode','JN0001')
+                                ->first();
 
-                
-
-                $daftar->daftar_tgl     = date('Y-m-d', strtotime($r->tgl_daftar));
-                $daftar->periode_id     = $r->periode;
-                $daftar->daftar_kode    = $daftar_kode;
+                $daftar->trs_tgl        = Carbon::now()->toDateString();
+                $daftar->trs_kode       = $daftar_kode;
                 $daftar->anak_kode      = $anak_kode;
-                $daftar->grup_id        = $r->grup;
-                $daftar->kat_id         = $r->kategori;
-                $daftar->tarif_kode     = $r->paket;     
-                $daftar->tarif_id       = $tarif->tarif_id;  
-                $daftar->tarif_total    = $tarif->tarif_reg + $tarif->tarif_gizi + $tarif->tarif_spp + $tarif->tarif_pembg;     
-                $daftar->kar_id         = $app['kar_id'];
+                $daftar->tarif_kode     = $tarif->tarif_kode;
+                $daftar->grup_kode      = $tarif->grup_kode;
+                $daftar->kat_kode       = $tarif->kat_kode;
+                $daftar->trs_total      = str_replace(".", "", $r->total_biaya);
+
                 $daftar->created_nip    = $app['kar_nip'];
                 $daftar->created_nama   = $app['kar_nama_awal'];
                 $daftar->created_ip     = $r->ip();
 
+                
+                $detail = PendaftaranDetail::where('trs_kode',null)->where('anak_kode',null)->where('detail_aktif','Y')->get();
 
-                /*-- TAGIHAN --*/
+                foreach ($detail as $key => $value) {
 
-                $tag = new Tagihan();  
+                    $sql = DB::connection('daycare')
+                                ->table('daftar_tc_transaksi_detail')
+                                ->where('detail_aktif','Y')
+                                ->where('trs_kode',null)
+                                ->where('anak_kode',null)
+                                ->update([
+                                    'trs_kode' => $daftar_kode,
+                                    'anak_kode' => $anak_kode,
+                                ]);
 
-                $tag->trs_kode       = $trs_kode;
-                $tag->daftar_kode    = $daftar_kode;
-                $tag->trs_total      = $tarif->tarif_reg + $tarif->tarif_gizi + $tarif->tarif_spp + $tarif->tarif_pembg;
-                $tag->kar_id         = $app['kar_id'];
-                $tag->created_nip    = $app['kar_nip'];
-                $tag->created_nama   = $app['kar_nama_awal'];
-                $tag->created_ip     = $r->ip();
-
+                }
 
                 /*-- ANAK --*/
 
@@ -158,7 +164,7 @@ class PendaftaranController extends Controller
                 $ortu->ortu_provinsi_id            = $r->provinsi;
                 $ortu->ortu_kota_id                = $r->kota;
                 $ortu->ortu_kecamatan_id           = $r->kecamatan;
-                $ortu->ortu_ortu_alamat            = $r->alamat;
+                $ortu->ortu_alamat            = $r->alamat;
 
                 $ortu->created_nip           = $app['kar_nip'];
                 $ortu->created_nama          = $app['kar_nama_awal'];
@@ -188,7 +194,6 @@ class PendaftaranController extends Controller
                 $pnj->created_nama          = $app['kar_nama_awal'];
                 $pnj->created_ip            = $r->ip();
 
-                $tag->save();
                 $daftar->save();
                 $anak->save();
                 $ortu->save();
@@ -238,9 +243,9 @@ class PendaftaranController extends Controller
                 $daftar->updated_nama   = $app['kar_nama_awal'];
                 $daftar->updated_ip     = $r->ip();
                 
-                /*-- TAGIHAN --*/
+                /*-- PendaftaranTagihan --*/
                 
-                $tag = Tagihan::where('daftar_kode',$r->daftar_kode)->first();  
+                $tag = PendaftaranTagihan::where('daftar_kode',$r->daftar_kode)->first();  
                 $trs_total_sum  = Pendaftaran::where('daftar_kode',$r->daftar_kode)->sum('tarif_total');
 
                 $tag->trs_total      =  $trs_total_sum;

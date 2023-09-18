@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class Tagihan extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'daftar_tc_tagihan';
+    protected $table = 'daftar_tc_transaksi';
     protected $primaryKey = 'trs_id';
 
     public static function autonumber()
@@ -19,7 +19,7 @@ class Tagihan extends Model
     {
 
         $data = DB::connection('daycare')
-                     ->table('daftar_tc_tagihan')
+                     ->table('daftar_tc_transaksi')
                      ->select(DB::raw("MAX(RIGHT(trs_kode,4)) as kd_max"));
                    
         

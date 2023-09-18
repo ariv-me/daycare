@@ -29,7 +29,7 @@ class ComboController extends Controller
          $data = DB::connection('daycare')
                          ->table('tarif_ta_jenis')
                          ->where('jenis_aktif','Y')
-                         ->orderby('pro_nama')
+                         ->orderby('jenis_kode')
                          ->get();
 
          return response()->json($data);
@@ -73,8 +73,8 @@ class ComboController extends Controller
        
         $data = DB::connection('daycare')
                         ->table('tarif_tc_tarif AS aa')
-                        ->leftjoin('tarif_ta_kategori AS bb','bb.kat_id','=','aa.kat_id')
-                        ->where('aa.kat_id',$r->kategori)
+                        ->leftjoin('tarif_ta_kategori AS bb','bb.kat_kode','=','aa.kat_kode')
+                        ->where('aa.kat_kode',$r->kategori)
                         ->orderby('tarif_kode','desc')
                         ->get();
         return response()->json($data); 

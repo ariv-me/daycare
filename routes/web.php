@@ -141,6 +141,8 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 		Route::get('/edit', [PendaftaranTagihanController::class, 'edit'])->name('edit');
 		Route::post('/update', [PendaftaranTagihanController::class, 'update'])->name('update');
 		Route::post('/void', [PendaftaranTagihanController::class, 'void'])->name('void');
+		
+		Route::get('/detail_view', [PendaftaranTagihanController::class, 'detail_view'])->name('detail_view');
 
 	});
 
@@ -192,19 +194,6 @@ Route::group(['prefix' => 'grup', 'as' => 'grup.'], function () {
 });
 
 
-
-// Jenis Member
-
-Route::group(['prefix' => 'jenis', 'as' => 'jenis.'], function () {
-
-	Route::get('/', [JenisController::class, 'index'])->name('index');
-	Route::get('/view', [JenisController::class, 'view'])->name('view');
-	Route::post('/save', [JenisController::class, 'save'])->name('save');
-	Route::get('/edit', [JenisController::class, 'edit'])->name('edit');
-	Route::post('/update', [JenisController::class, 'update'])->name('update');
-	Route::post('/void', [JenisController::class, 'void'])->name('void');
-
-});
 
 // Tarif
 

@@ -3,59 +3,37 @@
 @section('css')
     <style>
 
-        .scrollspy-example {
-            position: relative;
-            height: 325px;
-            margin-top: 0.1rem;
-            overflow: auto;
-        }
-        .modal-header {
-            padding: 0.5rem 0.5rem 0.5rem 1rem;
-        }
-
-        .form-control {
-            border-radius: 0rem;
-            padding: 0.5rem 0.5rem;
+        .nav-border .nav-item.show .nav-link, .nav-border .nav-link.active {
+            background: #ffffff;
+            color: #2a2a2a;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            border-bottom: 3px solid #FF9800;
+            padding-bottom: 0px;
         }
 
-        .select2-container--default .select2-selection--single {
-            border-radius: 0px;
+        .nav-border .nav-item.show .nav-link, .nav-border{
+            background: #fbb617;
+            color: #ffffff;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            border-bottom: 3px solid #03d87f;
+            padding-bottom: 0px;
         }
 
-        .form-group {
-            margin-bottom: 10px;
-        }
-
-        .table td, .table th {
-            font-size: 10px;
-            padding: 0.3rem;
-        }
-
-        label {
-            font-weight: 500;
-            color: #6c757d;
-            font-size: 13px;
-        }
-
-        .btn {
-            border-radius: 0px;
-        }
-
-        .card-header:first-child {
-            border-radius: calc(0rem - 1px) calc(0rem - 1px) 0 0;
-        }
-
-        .card {
-            border-radius: 0rem;
-        }
-
-        .red {
-            color:#ff0002;
-        }
-
-        code {
-            color: #ff0002;
-            font-size: 13px;
+        .la, .las, .lar, .lal, .lad, .lab {
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+            font-size: 27px;
         }
 
     </style>   
@@ -79,7 +57,7 @@
             <div class="card-body">    
 
                 <!-- Nav tabs -->
-                <div class="nav-tabs-custom text-left">
+                {{-- <div class="nav-tabs-custom text-left">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link text-center active" data-toggle="tab" href="#dapok" role="tab" aria-selected="true"><i class="la la-home d-block"></i>Data Pokok</a>
@@ -89,8 +67,18 @@
                         </li>                                                
                       
                     </ul>
-                </div>
-                <hr>
+                </div> --}}
+
+                <ul class="nav-border nav nav-pills mb-2" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link text-center active" data-toggle="tab" href="#dapok" role="tab" aria-selected="true"><i class="la la-child d-block"></i>Data Pokok</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-center" data-toggle="tab" href="#tarif_daycare" role="tab" aria-selected="false"><i class="la la-edit d-block"></i>Paket Daycare</a>
+                    </li>
+                </ul>
+
+                {{-- <hr> --}}
                 
 
                 <!-- Tab panes -->
@@ -538,7 +526,7 @@
                     </div><!--end col-->
                     <div class="col-lg-12 col-xl-4">
                         <div class="float-right d-print-none">
-                            <button id="btn-simpan" class="btn btn-success btn-sm"><i class="fas fa-save"></i> DAFTAR</button>
+                            <button id="btn_simpan" class="btn btn-success btn-sm"><i class="fas fa-save"></i> DAFTAR</button>
                         </div>
                     </div><!--end col-->
                 </div>
@@ -690,7 +678,6 @@
         $('#anak_alamat').val(""); 
         $('#id_edit_anak').val(""); 
 
-
         $('#id_kerja').val(""); 
         $('#kerja_nama').val(""); 
 
@@ -700,61 +687,9 @@
 
     $('#btn_simpan').on('click', function(){
 
-        if (!$("#tgl_daftar").val()) {
-            $.toast({
-                text: 'TANGGAL DAFTAR HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#tgl_daftar").focus();
-            return false;
-
-        }
-
-        else if (!$("#periode").val()) {
-            $.toast({
-                text: 'PERIODE HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#periode").focus();
-            return false;
-        }
-
-        else if (!$("#grup").val()) {
-            $.toast({
-                text: 'GRUP HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#grup").focus();
-            return false;
-        }
-
-        else if (!$("#paket").val()) {
-            $.toast({
-                text: 'PAKET HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#paket").focus();
-            return false;
-        }
-
-
-        else if (!$("#anak_nama").val()) {
+        var total = $('#total_biaya').text();
+       
+        if (!$("#anak_nama").val()) {
             $.toast({
                 text: 'NAMA ANAK MASIH KOSONG',
                 position: 'top-right',
@@ -1166,7 +1101,22 @@
             $("#alamat").focus();
             return false;
 
-        }
+        } 
+
+
+        else if ( total == "0") {
+            $.toast({
+                text: 'TRANSAKSI TIDAK ADA',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#paket").focus();
+            return false;
+
+        }    
+         
 
         // else if (!$("#penjemput_nama").val()) {
         //     $.toast({
@@ -1368,14 +1318,7 @@
 
         // ANAK
 
-
-        var tgl_daftar      = $('#tgl_daftar').val();
-        var periode         = $('#periode').val();
-        var grup            = $('#grup').val();
-        var paket           = $('#paket').val();
-        var kategori        = $('#kategori').val();
-        var keterangan      = $('#keterangan').val();
-        var tarif_kode      = $('#tarif_kode').val();
+        var total_biaya     = $('#total_biaya').text();
 
         var anak_nama       = $('#anak_nama').val();
         var anak_tmp_lahir  = $('#anak_tmp_lahir').val();
@@ -1430,20 +1373,15 @@
         var penjemput_kecamatan       = $('#penjemput_kecamatan').val();
         var penjemput_alamat          = $('#penjemput_alamat').val(); 
 
-        console.log(alamat);
+        console.log(total_biaya);
 
         var token = $('[name=_token]').val();
         var formData = new FormData();
 
         // ANAK
 
-        formData.append('tgl_daftar', tgl_daftar);
-        formData.append('periode', periode);
-        formData.append('grup', grup);
-        formData.append('paket', paket);
-        formData.append('kategori', kategori);
-        formData.append('keterangan', keterangan);
-        formData.append('tarif_kode', tarif_kode);
+ 
+        formData.append('total_biaya', total_biaya);
 
         formData.append('anak_nama', anak_nama);
         formData.append('anak_tmp_lahir', anak_tmp_lahir);
@@ -1623,7 +1561,7 @@
 
      // TRANSAKSI
 
-     function view_detail() {
+    function view_detail() {
 
         $.ajax({
             type: 'GET',
@@ -1932,7 +1870,7 @@
                     x.add(option);
                     for(i=0; i<data.length; i++){
                         var html = '';
-                        html = '<option value='+(data[i].kat_id)+'>'+(data[i].kat_nama)+'</option>';
+                        html = '<option value='+(data[i].kat_kode)+'>'+(data[i].kat_nama)+'</option>';
                         $('select[name=kategori]').append(html)
                     }
                 }
@@ -2194,28 +2132,6 @@
 
     }
 
-    function combo_grup(){
-
-        $.ajax({
-            type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_grup') }}",
-            async : false,
-            dataType : 'JSON',
-            success : function(data){
-                var html = '';
-                var i;
-                $('select[name=grup]').empty()
-                for(i=0; i<data.length; i++){
-                    var html = '';
-                    html = '<option value='+(data[i].grup_id)+'>'+(data[i].grup_nama)+'</option>';
-                    $('select[name=grup]').append(html)
-                }
-            }
-        });
-
-    }
-
-
     function combo_penjemput(){
 
          $('select[name=penjemput]').empty()
@@ -2246,7 +2162,7 @@
 
     function combo_grup(){
 
-         $('select[name=perusahaan_grup]').empty()
+         $('select[name=grup]').empty()
         $.ajax({
                 type  : 'GET',
                 url   : "{{ route('combo_sistem.combo_grup') }}",
@@ -2255,16 +2171,16 @@
                 success : function(data){
                     var html = '';
                     var i;
-                    $('select[name=perusahaan_grup]').empty()
-                        var x = document.getElementById("perusahaan_grup");
+                    $('select[name=grup]').empty()
+                        var x = document.getElementById("grup");
                         var option = document.createElement("option");
                         option.text = "--Pilih--";
                         option.value = '';
                         x.add(option);
                     for(i=0; i<data.length; i++){
                         var html = '';
-                        html = '<option value='+(data[i].grup_id)+'>'+(data[i].grup_nama)+'</option>';
-                        $('select[name=perusahaan_grup]').append(html)
+                        html = '<option value='+(data[i].grup_kode)+'>'+(data[i].grup_nama)+'</option>';
+                        $('select[name=grup]').append(html)
                     }
                 }
             });
@@ -2334,32 +2250,8 @@
 
     }
 
-    function combo_grup(){
-
-        $('select[name=grup]').empty()
-        $.ajax({
-            type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_grup') }}",
-            async : false,
-            dataType : 'JSON',
-            success : function(data){
-                var html = '';
-                var i;
-                $('select[name=grup]').empty()
-                var x = document.getElementById("grup");
-                        var option = document.createElement("option");
-                        option.text = "--Pilih--";
-                        option.value = '';
-                        x.add(option);
-                for(i=0; i<data.length; i++){
-                    var html = '';
-                    html = '<option value='+(data[i].grup_id)+'>'+(data[i].grup_nama)+'</option>';
-                    $('select[name=grup]').append(html)
-                }
-            }
-        });
-
-    }
+  
+    
 
 
     function combo_periode(){
@@ -2388,9 +2280,6 @@
         });
 
     }
-
-    
-
 
 
 </script>
