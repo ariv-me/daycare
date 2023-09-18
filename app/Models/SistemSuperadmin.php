@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class SistemSuperadmin extends Model
 {
     protected $connection = 'spf';
-    protected $table = 'sistem_tb_superadmin';
+    protected $table = 'hcm_tz_superadmin';
     protected $primaryKey = 'akses_id';
 }

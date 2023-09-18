@@ -3,59 +3,37 @@
 @section('css')
     <style>
 
-        .scrollspy-example {
-            position: relative;
-            height: 325px;
-            margin-top: 0.1rem;
-            overflow: auto;
-        }
-        .modal-header {
-            padding: 0.5rem 0.5rem 0.5rem 1rem;
-        }
-
-        .form-control {
-            border-radius: 0rem;
-            padding: 0.5rem 0.5rem;
+        .nav-border .nav-item.show .nav-link, .nav-border .nav-link.active {
+            background: #ffffff;
+            color: #2a2a2a;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            border-bottom: 3px solid #FF9800;
+            padding-bottom: 0px;
         }
 
-        .select2-container--default .select2-selection--single {
-            border-radius: 0px;
+        .nav-border .nav-item.show .nav-link, .nav-border{
+            background: #fbb617;
+            color: #ffffff;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            border-bottom: 3px solid #03d87f;
+            padding-bottom: 0px;
         }
 
-        .form-group {
-            margin-bottom: 10px;
-        }
-
-        .table td, .table th {
-            font-size: 10px;
-            padding: 0.3rem;
-        }
-
-        label {
-            font-weight: 500;
-            color: #6c757d;
-            font-size: 13px;
-        }
-
-        .btn {
-            border-radius: 0px;
-        }
-
-        .card-header:first-child {
-            border-radius: calc(0rem - 1px) calc(0rem - 1px) 0 0;
-        }
-
-        .card {
-            border-radius: 0rem;
-        }
-
-        .red {
-            color:#ff0002;
-        }
-
-        code {
-            color: #ff0002;
-            font-size: 13px;
+        .la, .las, .lar, .lal, .lad, .lab {
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+            font-size: 27px;
         }
 
     </style>   
@@ -79,7 +57,7 @@
             <div class="card-body">    
 
                 <!-- Nav tabs -->
-                <div class="nav-tabs-custom text-left">
+                {{-- <div class="nav-tabs-custom text-left">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link text-center active" data-toggle="tab" href="#dapok" role="tab" aria-selected="true"><i class="la la-home d-block"></i>Data Pokok</a>
@@ -89,8 +67,18 @@
                         </li>                                                
                       
                     </ul>
-                </div>
-                <hr>
+                </div> --}}
+
+                <ul class="nav-border nav nav-pills mb-2" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link text-center active" data-toggle="tab" href="#dapok" role="tab" aria-selected="true"><i class="la la-child d-block"></i>Data Pokok</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-center" data-toggle="tab" href="#tarif_daycare" role="tab" aria-selected="false"><i class="la la-edit d-block"></i>Paket Daycare</a>
+                    </li>
+                </ul>
+
+                {{-- <hr> --}}
                 
 
                 <!-- Tab panes -->
@@ -538,7 +526,7 @@
                     </div><!--end col-->
                     <div class="col-lg-12 col-xl-4">
                         <div class="float-right d-print-none">
-                            <button id="btn_simpan" class="btn btn-success btn-sm"><i class="fas fa-save"></i> DAFTAR</button>
+                            <button id="btn_simpan" class="btn btn-warning btn-sm"><i class="fas fa-save"></i> UPDATE</button>
                         </div>
                     </div><!--end col-->
                 </div>
@@ -591,6 +579,7 @@
         combo_anak_agama();
 
         view_detail();
+        view();
 
 
 
@@ -695,7 +684,84 @@
 
     }
 
+    function view() {
 
+    $.ajax({
+        type: 'GET',
+        url: "{{ route('pendaftaran.transaksi.edit_get', $id) }}",
+        async: true,
+        dataType: 'JSON',
+        success: function(data) {      
+            
+                console.log(data);
+                
+                $('[name="daftar_kode"]').val(data.daftar_kode);
+                $('[name="anak_kode"]').val(data.anak_kode);
+                $('[name="ortu_kode"]').val(data.ortu_kode);
+                $('[name="pnj_kode"]').val(data.pnj_kode);
+                $('[name="tarif_kode"]').val(data.tarif_kode);
+                
+                $('[name="tgl_daftar"]').datepicker('setDate',moment(data.daftar_tgl).format('DD-MM-YYYY'));
+                $('[name="periode"]').val(data.periode_id).trigger("change");
+                $('[name="grup"]').val(data.grup_kode).trigger("change");
+                $('[name="kategori"]').val(data.kat_kode).trigger("change");
+                $('[name="paket"]').val(data.tarif_kode).trigger("change");
+
+                $('[name="anak_nama"]').val(data.anak_nama);
+                $('[name="anak_tmp_lahir"]').val(data.anak_tmp_lahir);
+                $('[name="anak_tgl_lahir"]').datepicker('setDate',moment(data.anak_tgl_lahir).format('DD-MM-YYYY'));
+                $('[name="anak_jekel"]').val(data.anak_jekel).trigger("change");
+                $('[name="anak_ke"]').val(data.anak_ke);
+                $('[name="anak_saudara"]').val(data.anak_jml_saudara);
+                $('[name="anak_berat"]').val(data.anak_berat);
+                $('[name="anak_tinggi"]').val(data.anak_tinggi);
+
+                $('[name="ayah_nama"]').val(data.ortu_ayah);
+                $('[name="ayah_nik"]').val(data.ortu_ayah_nik);
+                $('[name="ayah_tmp_lahir"]').val(data.ortu_ayah_tmp_lahir);
+                $('[name="ayah_lahir"]').datepicker('setDate',moment(data.ortu_ayah_tgl_lahir).format('DD-MM-YYYY'));
+                $('[name="ayah_kerja"]').val(data.ortu_ayah_kerja);
+                $('[name="ayah_hp"]').val(data.ortu_ayah_hp);
+                $('[name="ayah_wa"]').val(data.ortu_ayah_wa);
+                $('[name="ayah_pdk"]').val(data.ortu_ayah_pdk_id).trigger("change");
+                $('[name="ayah_agama"]').val(data.ortu_ayah_agama_id).trigger("change");
+
+                $('[name="ibu_nama"]').val(data.ortu_ibu);
+                $('[name="ibu_nik"]').val(data.ortu_ibu_nik);
+                $('[name="ibu_tmp_lahir"]').val(data.ortu_ibu_tmp_lahir);
+                $('[name="ibu_lahir"]').datepicker('setDate',moment(data.ortu_ibu_tgl_lahir).format('DD-MM-YYYY'));
+                $('[name="ibu_kerja"]').val(data.ortu_ibu_kerja);
+                $('[name="ibu_hp"]').val(data.ortu_ibu_hp);
+                $('[name="ibu_wa"]').val(data.ortu_ibu_wa);
+                $('[name="ibu_pdk"]').val(data.ortu_ibu_pdk_id).trigger("change");
+                $('[name="ibu_agama"]').val(data.ortu_ibu_agama_id).trigger("change");
+
+                $('[name="provinsi"]').val(data.ortu_provinsi_id).trigger("change");
+                $('[name="kota"]').val(data.ortu_kota_id).trigger("change");
+                $('[name="kecamatan"]').val(data.ortu_kecamatan_id).trigger("change");
+                $('[name="alamat"]').val(data.ortu_alamat);
+
+                $('[name="penjemput_nama"]').val(data.pnj_nama);
+                $('[name="penjemput_nik"]').val(data.pnj_nik);
+                $('[name="penjemput_tmp_lahir"]').val(data.pnj_tmp_lahir);
+                $('[name="penjemput_lahir"]').datepicker('setDate',moment(data.pnj_tgl_lahir).format('DD-MM-YYYY'));
+                $('[name="penjemput_kerja"]').val(data.pnj_kerja);
+                $('[name="penjemput_hp"]').val(data.pnj_hp);
+                $('[name="penjemput_wa"]').val(data.pnj_wa);
+                $('[name="penjemput_hubungan"]').val(data.pnj_hub_id).trigger("change");
+                $('[name="penjemput_pdk"]').val(data.pnj_pdk_id).trigger("change");
+                $('[name="penjemput_agama"]').val(data.pnj_agama_id).trigger("change");
+
+                $('[name="penjemput_provinsi"]').val(data.pnj_provinsi_id).trigger("change");
+                $('[name="penjemput_kota"]').val(data.pnj_kota_id).trigger("change");
+                $('[name="penjemput_kecamatan"]').val(data.pnj_kecamatan_id).trigger("change");
+                $('[name="penjemput_alamat"]').val(data.pnj_alamat);
+
+            }
+            
+        });
+
+    }
 
     $('#btn_simpan').on('click', function(){
 
@@ -1573,11 +1639,11 @@
 
      // TRANSAKSI
 
-     function view_detail() {
+    function view_detail() {
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('pendaftaran.detail.view') }}",
+            url: "{{ route('pendaftaran.transaksi.detail_get',$id) }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -1585,7 +1651,7 @@
                 
                 $('#show_data_detail').empty();
                 data = r.data;
-            
+             
                 document.getElementById("total_biaya").innerHTML='<b class="text-info font-20">'+r.total+'</b>';
 
                 if (data.length) {
@@ -1882,7 +1948,7 @@
                     x.add(option);
                     for(i=0; i<data.length; i++){
                         var html = '';
-                        html = '<option value='+(data[i].kat_id)+'>'+(data[i].kat_nama)+'</option>';
+                        html = '<option value='+(data[i].kat_kode)+'>'+(data[i].kat_nama)+'</option>';
                         $('select[name=kategori]').append(html)
                     }
                 }
@@ -2144,28 +2210,6 @@
 
     }
 
-    function combo_grup(){
-
-        $.ajax({
-            type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_grup') }}",
-            async : false,
-            dataType : 'JSON',
-            success : function(data){
-                var html = '';
-                var i;
-                $('select[name=grup]').empty()
-                for(i=0; i<data.length; i++){
-                    var html = '';
-                    html = '<option value='+(data[i].grup_id)+'>'+(data[i].grup_nama)+'</option>';
-                    $('select[name=grup]').append(html)
-                }
-            }
-        });
-
-    }
-
-
     function combo_penjemput(){
 
          $('select[name=penjemput]').empty()
@@ -2196,7 +2240,7 @@
 
     function combo_grup(){
 
-         $('select[name=perusahaan_grup]').empty()
+         $('select[name=grup]').empty()
         $.ajax({
                 type  : 'GET',
                 url   : "{{ route('combo_sistem.combo_grup') }}",
@@ -2205,16 +2249,16 @@
                 success : function(data){
                     var html = '';
                     var i;
-                    $('select[name=perusahaan_grup]').empty()
-                        var x = document.getElementById("perusahaan_grup");
+                    $('select[name=grup]').empty()
+                        var x = document.getElementById("grup");
                         var option = document.createElement("option");
                         option.text = "--Pilih--";
                         option.value = '';
                         x.add(option);
                     for(i=0; i<data.length; i++){
                         var html = '';
-                        html = '<option value='+(data[i].grup_id)+'>'+(data[i].grup_nama)+'</option>';
-                        $('select[name=perusahaan_grup]').append(html)
+                        html = '<option value='+(data[i].grup_kode)+'>'+(data[i].grup_nama)+'</option>';
+                        $('select[name=grup]').append(html)
                     }
                 }
             });
@@ -2284,32 +2328,8 @@
 
     }
 
-    function combo_grup(){
-
-        $('select[name=grup]').empty()
-        $.ajax({
-            type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_grup') }}",
-            async : false,
-            dataType : 'JSON',
-            success : function(data){
-                var html = '';
-                var i;
-                $('select[name=grup]').empty()
-                var x = document.getElementById("grup");
-                        var option = document.createElement("option");
-                        option.text = "--Pilih--";
-                        option.value = '';
-                        x.add(option);
-                for(i=0; i<data.length; i++){
-                    var html = '';
-                    html = '<option value='+(data[i].grup_id)+'>'+(data[i].grup_nama)+'</option>';
-                    $('select[name=grup]').append(html)
-                }
-            }
-        });
-
-    }
+  
+    
 
 
     function combo_periode(){
@@ -2338,9 +2358,6 @@
         });
 
     }
-
-    
-
 
 
 </script>
