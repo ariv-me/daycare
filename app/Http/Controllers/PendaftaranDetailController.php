@@ -93,8 +93,8 @@ class PendaftaranDetailController extends Controller
             $tmp->detail_tgl     = date('Y-m-d', strtotime($r->tgl_daftar));
             $tmp->detail_kode     = $detail_kode;
             $tmp->periode_id     = $r->periode;
-            $tmp->grup_id        = $r->grup;
-            $tmp->kat_id         = $r->kategori;
+            $tmp->grup_kode        = $r->grup;
+            $tmp->kat_kode         = $r->kategori;
             $tmp->tarif_kode     = $tarif->tarif_kode;  
             $tmp->detail_total    = $tarif->tarif_total;
             $tmp->created_nip    = $app['kar_nip'];

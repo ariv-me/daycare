@@ -46,45 +46,113 @@
 
         <style>
 
-        hr.hr-dashed {
-            margin-top: 0rem;
-            margin-bottom: 1rem;
-            border: 0;
-            border-top: 1px dashed #eceff5;
-            -webkit-box-sizing: content-box;
-            box-sizing: content-box;
-            height: 0;
-            overflow: visible;
-        }
+            .table th {
+                color: #303e67;
+                font-weight: 500;
+                padding: 6px;
+                vertical-align: middle;
+            }
 
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            color: #303e67;
-            line-height: 33px;
-            font-size: 11px;
-        }
+            .table td {
+                vertical-align: middle;
+                padding: 7px;
+                font-size: 12px;
+            }
 
-        .select2-container--default .select2-results__option--highlighted[aria-selected] {
-            background-color: #5897fb;
-            color: white;
-            font-size: 12px;
-        }
+            .scrollspy-example {
+                position: relative;
+                height: 325px;
+                margin-top: 0.1rem;
+                overflow: auto;
+            }
+            .modal-header {
+                padding: 0.5rem 0.5rem 0.5rem 1rem;
+            }
 
-        .select2-results__option {
-            padding: 5px;
-            user-select: none;
-        }
+            .form-group {
+                margin-bottom: 2px;
+            }
 
-        .select2-results__option[aria-selected] {
-            cursor: pointer;
-            font-size: 12px;
-        }
+            label {
+                font-weight: 500;
+                color: #6c757d;
+                font-size: 13px;
+            }
 
-        .scrollspy-example {
-                    position: relative;
-                    height: 500px;
-                    margin-top: 0.1rem;
-                    overflow: auto;
-        }
+            .card-header:first-child {
+                border-radius: calc(0rem - 1px) calc(0rem - 1px) 0 0;
+            }
+
+            .red {
+                color:#ff0002;
+            }
+
+            code {
+                color: #ff0002;
+                font-size: 13px;
+            }
+
+            .col-form-label {
+                padding-top: calc(0.375rem + 1px);
+                padding-bottom: calc(0.375rem + 1px);
+                margin-bottom: 0;
+                font-size: 12px;
+                line-height: 1.8;
+                color: #322e2e;
+            }
+
+            .geser_kanan {
+                text-align: right;
+                font-size: 18px;
+            }
+
+            hr.hr-dashed {
+                margin-top: 0rem;
+                margin-bottom: 1rem;
+                border: 0;
+                border-top: 1px dashed #eceff5;
+                -webkit-box-sizing: content-box;
+                box-sizing: content-box;
+                height: 0;
+                overflow: visible;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                height: 26px;
+                position: absolute;
+                top: 2px;
+                right: 1px;
+                width: 20px;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__rendered {
+                color: #303e67;
+                line-height: 33px;
+                font-size: 11px;
+            }
+
+            .select2-container--default .select2-results__option--highlighted[aria-selected] {
+                background-color: #5897fb;
+                color: white;
+                font-size: 12px;
+            }
+
+            .select2-results__option {
+                padding: 5px;
+                user-select: none;
+            }
+
+            .select2-results__option[aria-selected] {
+                cursor: pointer;
+                font-size: 12px;
+            }
+
+            .scrollspy-example {
+                position: relative;
+                height: 500px;
+                margin-top: 0.1rem;
+                overflow: auto;
+            }
 
             .total-payment .table tbody td, .total-payment table tbody td, .shopping-cart .table tbody td, .shopping-cart table tbody td {
                 padding: 8px 10px;
@@ -94,10 +162,6 @@
 
             .total-payment .table thead tr th, .total-payment table thead tr th, .shopping-cart .table thead tr th, .shopping-cart table thead tr th {
                 font-size: 11px;
-            }
-
-            .form-group {
-                margin-bottom: 8px;
             }
 
             .input-group-text {
@@ -134,7 +198,8 @@
                 background-color: #fff;
                 background-clip: padding-box;
                 border: 1px solid #e3ebf6;
-                border-radius: 0.25rem;
+                border-radius: 0.23rem;
+                padding: 0.5rem 0.5rem;
                 -webkit-transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
                 transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
                 transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
@@ -147,11 +212,6 @@
                 border: 0;
                 border-top: 1px solid #FF9800;
             }
-            
-            .table td, .table th {
-                font-size: 13px;
-                padding: 0.3rem;
-            }
 
             body.dark-sidenav .left-sidenav-menu li>a i {
                 color: #91adfa;
@@ -162,25 +222,6 @@
                 font-size: 19px;
                 opacity: 0.9;
                 color: #a6aed4;
-            }
-
-            .form-control2 {
-                display: block;
-                width: 100%;
-                height: calc(1.8em + 0.75rem + 2px);
-                padding: 0.375rem 0.75rem;
-                font-size: 1.8125rem;
-                font-weight: 400;
-                line-height: 1.8;
-                color: #303e67;
-                background-color: #fff;
-                background-clip: padding-box;
-                border: 1px solid #e3ebf6;
-                border-radius: 0.25rem;
-                -webkit-transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
-                transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
-                transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
-                transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
             }
 
             .left-sidenav .brand {
@@ -199,118 +240,19 @@
                 margin-right: 13px;
                 display: inline-block;
             }
-            /* body.dark-sidebar .left-sidebar .sidebar-user-pro {
-                padding: 20px 16px;
-            } */
-            
-            /* .mx-auto {
-                margin-right: auto!important;
-                margin-left: auto!important;
-            }
-
-            .position-relative {
-                position: relative!important;
-            }
-
-            .thumb-md {
-                height: 48px;
-                width: 48px;
-                font-size: 18px;
-                font-weight: 700;
-            }
-
-            .rounded-circle {
-                border-radius: 50%!important;
-            } */
-
-            /* body.dark-sidenav .left-sidenav {
-                background-color: #03d87f;
-            } */
-
-            /* .update-msg {
-                border-radius: 5px;
-                padding: 20px 12px;
-                margin: 50px 24px 24px;
-                position: relative;
-                background-color: #ffd622;
-            }  */
-
-            /* .left-sidenav .brand {
-                text-align: center;
-                height: 74px;
-                background: #ffffff;
-            }
-
-            .left-sidenav .menu-content {
-                height: 100%;
-                padding-bottom: 70px;
-                background: #03d87f;
-            }
-
-            .left-sidenav-menu li>a.active .menu-icon {
-                color: #f8f8fc;
-                fill: rgb(0 0 0 / 0%);
-            }
-
-            body.dark-sidenav .left-sidenav-menu li>a {
-                color: #f8f8fc;
-            }
-
-            .left-sidenav-menu li>a {
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                -webkit-box-align: center;
-                -ms-flex-align: center;
-                align-items: center;
-                padding: 6px 0px;
-                color: #f8f8fc;
-                -webkit-transition: all 0.3s ease-out;
-                transition: all 0.3s ease-out;
-                font-weight: 300;
-            }
-
-            body.dark-sidenav .left-sidenav-menu li>a i {
-                color: #f8f8fc;
-            }
-
-            body.dark-sidenav .left-sidenav-menu li ul li>a {
-                color: #f8f8fc;
-            }
-
-            body.dark-sidenav .left-sidenav-menu li>a {
-                display: block;
-                padding: 7px 20px;
-                color: #eceef3;
-                border-left: 3px solid transparent;
-                -webkit-transition: all 0.3s ease-out;
-                transition: all 0.3s ease-out;
-            }
-
-            .left-sidenav-menu {
-                padding-left: 0;
-                margin-bottom: 0;
-                padding: 0px;
-            }
-
-            body.dark-sidenav .left-sidenav-menu li>a.active {
-                color: #fff;
-                background-color: #ffb822;
-                border-left-color: #f8f8fc;
-                padding: 20;
-                margin-top: -8px;
-            } */
-
-
+           
             label {
                 font-weight: 600;
-                color: #585e7e;
+                color: #404350;
                 font-size: 13px;
             }
 
             
         
-</style>
+        </style>
+
+        @section('css')   
+        @show    
 
     </head>
 

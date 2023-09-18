@@ -8,34 +8,31 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Carbon\Carbon;
 
-class Pendaftaran extends Model
+class PendaftaranBayar extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'daftar_tc_transaksi';
-    protected $primaryKey = 'trs_id';
+    protected $table = 'daftar_tc_bayar';
+    protected $primaryKey = 'bayar_id';
 
     public static function autonumber()
 
     {
 
         $data = DB::connection('daycare')
-                     ->table('daftar_tc_transaksi')
-                     ->select(DB::raw("MAX(RIGHT(trs_kode,4)) as kd_max"));
-                   
-        
-        $kode_depan = date('Y');    
+                     ->table('daftar_tc_bayar')
+                     ->select(DB::raw("MAX(RIGHT(bayar_kode,4)) as kd_max"));   
         
         if($data->count() > 0)
         {
             foreach($data->get() as $k)
             {
                 $tmp = ((int)$k->kd_max)+1;
-                $kd = "TAG".$kode_depan.sprintf("%04s", $tmp);
+                $kd = "BYR".sprintf("%04s", $tmp);
             }
         }
         else
         {
-            $kd = "TAG".$kode_depan."0001";
+            $kd = "BYR"."0001";
         }
 
         return ($kd);

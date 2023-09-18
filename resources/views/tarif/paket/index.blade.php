@@ -27,6 +27,7 @@
                                 <th style="text-align: center">NO</th>
                                 <th style="text-align: center">KODE</th>
                                 <th style="text-align: center">NAMA</th>
+                                <th style="text-align: center">JENIS</th>
                                 <th style="text-align: center">KATEGORI</th>
                                 <th style="text-align: center">HARGA</th>
                                 <th style="text-align: center">AKSI</th>
@@ -54,6 +55,10 @@
                 <div class="row">
                     <div class="col-md-12">
 
+                        <div class="form-group">
+                            <label> <strong>Jenis</strong>  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="jenis" id="jenis"></select>
+                        </div>
                         <div class="form-group">
                             <label> <strong>Kategori</strong>  <small class="text-danger">*</small></label>
                             <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"></select>
@@ -187,6 +192,7 @@
                             $('<td width="5%" align="center">'),
                             $('<td width="20%">'),
                             $('<td width="15%" align="left">'),
+                            $('<td width="15%" align="left">'),
                             $('<td width="10%" align="right">'),
                             $('<td width="1%" align="center">')
                         ]);
@@ -200,13 +206,16 @@
                             .html((data[i].tarif_nama)));   
 
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html((data[i].kat_nama)));   
+                            .html((data[i].jenis_nama)));
 
                         tr.find('td:nth-child(5)').append($('<div>')
+                            .html((data[i].kat_nama)));   
+
+                        tr.find('td:nth-child(6)').append($('<div>')
                             .html('<b>'+(data[i].total)+'</b>'));   
                         
 
-                        tr.find('td:nth-child(6)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].tarif_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].tarif_kode+'"><i class="fa fa-trash"></i></a></div>');                          
+                        tr.find('td:nth-child(7)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].tarif_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].tarif_kode+'"><i class="fa fa-trash"></i></a></div>');                          
                       
                         
 
@@ -271,6 +280,7 @@
         detail_view();
         combo_tarif_kategori();
         combo_tarif_item();
+        combo_tarif_jenis();
         reset();
 
     });
@@ -284,7 +294,20 @@
 
     $('#btn_save').on('click', function(){
 
-        if (!$("#kategori").val()) {
+        if (!$("#jenis").val()) {
+            $.toast({
+                text: 'JENIS HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#jenis").focus();
+            return false;
+
+        } 
+        
+        else if (!$("#kategori").val()) {
             $.toast({
                 text: 'KATEGORI HARUS DI ISI',
                 position: 'top-right',
@@ -295,7 +318,9 @@
             $("#kategori").focus();
             return false;
 
-        } else if (!$("#nama").val()) {
+        } 
+        
+        else if (!$("#nama").val()) {
             $.toast({
                 text: 'NAMA HARUS DI ISI',
                 position: 'top-right',
@@ -309,6 +334,7 @@
 
         } 
 
+        var jenis        = $('#jenis').val();
         var kategori        = $('#kategori').val();
         var nama            = $('#nama').val();
 
@@ -316,6 +342,7 @@
 
         var formData = new FormData();
     
+        formData.append('jenis', jenis);
         formData.append('kategori', kategori);
         formData.append('nama', nama);
         formData.append('_token', token);
@@ -623,7 +650,7 @@
                 for(i=0; i<data.length; i++){
                     var html = '';
                     html =  
-                            '<option value='+(data[i].kat_id)+'>'+(data[i].kat_nama)+'</option>';
+                            '<option value='+(data[i].kat_kode)+'>'+(data[i].kat_nama)+'</option>';
                     $('select[name=kategori]').append(html)
                 }
             }
@@ -652,6 +679,33 @@
                     html =  
                             '<option value='+(data[i].item_id)+'>'+(data[i].item_nama)+' - <strong>'+(data[i].item_nominal)+'</strong></option>';
                     $('select[name=item]').append(html)
+                }
+            }
+        });
+
+    }
+
+    function combo_tarif_jenis(){
+
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo.combo_tarif_jenis') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=jenis]').empty()
+                var x = document.getElementById("jenis");
+                    var option = document.createElement("option");
+                    option.text = "--Pilih--";
+                    option.value = '';
+                    x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html =  
+                            '<option value='+(data[i].jenis_kode)+'>'+(data[i].jenis_nama)+'</option>';
+                    $('select[name=jenis]').append(html)
                 }
             }
         });

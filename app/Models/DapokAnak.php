@@ -32,12 +32,12 @@ class DapokAnak extends Model
             foreach($data->get() as $k)
             {
                 $tmp = ((int)$k->kd_max)+1;
-                $kd = $kode_depan.sprintf("%04s", $tmp);
+                $kd = "NIS".$kode_depan.sprintf("%04s", $tmp);
             }
         }
         else
         {
-            $kd = $kode_depan."0001";
+            $kd = "NIS".$kode_depan."0001";
         }
 
         return ($kd);

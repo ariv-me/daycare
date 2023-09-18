@@ -236,8 +236,8 @@ CREATE TABLE IF NOT EXISTS `daftar_tc_bayar` (
 /*!40000 ALTER TABLE `daftar_tc_bayar` DISABLE KEYS */;
 /*!40000 ALTER TABLE `daftar_tc_bayar` ENABLE KEYS */;
 
--- Dumping structure for table dbspf_daycare.daftar_tc_tagihan
-CREATE TABLE IF NOT EXISTS `daftar_tc_tagihan` (
+-- Dumping structure for table dbspf_daycare.daftar_tc_transaksi
+CREATE TABLE IF NOT EXISTS `daftar_tc_transaksi` (
   `trs_id` int(11) NOT NULL AUTO_INCREMENT,
   `trs_kode` varchar(50) DEFAULT NULL,
   `daftar_kode` varchar(50) DEFAULT NULL,
@@ -254,11 +254,11 @@ CREATE TABLE IF NOT EXISTS `daftar_tc_tagihan` (
   PRIMARY KEY (`trs_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table dbspf_daycare.daftar_tc_tagihan: ~1 rows (approximately)
-/*!40000 ALTER TABLE `daftar_tc_tagihan` DISABLE KEYS */;
-INSERT INTO `daftar_tc_tagihan` (`trs_id`, `trs_kode`, `daftar_kode`, `trs_diskon`, `trs_sub_total`, `trs_total`, `trs_aktif`, `kar_id`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`) VALUES
+-- Dumping data for table dbspf_daycare.daftar_tc_transaksi: ~1 rows (approximately)
+/*!40000 ALTER TABLE `daftar_tc_transaksi` DISABLE KEYS */;
+INSERT INTO `daftar_tc_transaksi` (`trs_id`, `trs_kode`, `daftar_kode`, `trs_diskon`, `trs_sub_total`, `trs_total`, `trs_aktif`, `kar_id`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`) VALUES
 	(1, 'TAG20230001', 'DFTR20230001', 0, 0, 4050000, 'T', 1080, '2023-09-01 15:30:01', NULL, NULL, NULL, '2023-09-01 15:30:01');
-/*!40000 ALTER TABLE `daftar_tc_tagihan` ENABLE KEYS */;
+/*!40000 ALTER TABLE `daftar_tc_transaksi` ENABLE KEYS */;
 
 -- Dumping structure for table dbspf_daycare.daftar_tc_transaksi
 CREATE TABLE IF NOT EXISTS `daftar_tc_transaksi` (
@@ -656,8 +656,8 @@ INSERT INTO `tarif_tc_tarif` (`tarif_id`, `tarif_kode`, `kat_id`, `tarif_nama`, 
 	(6, 'TRF0003', 2, 'Harian - [ Senin s/d. Jum\'at ]', 100000, 0, 0, 0, '2023-06-05 10:36:47', 2087075, 'HAQQUL', '::1', '2023-09-06 13:41:07', NULL, NULL, NULL, 'T', '2023-06-05 10:36:47', 10000427, 'ARIF', '::1');
 /*!40000 ALTER TABLE `tarif_tc_tarif` ENABLE KEYS */;
 
--- Dumping structure for table dbspf_daycare.ta_periode
-CREATE TABLE IF NOT EXISTS `ta_periode` (
+-- Dumping structure for table dbspf_daycare.dc_ta_periode
+CREATE TABLE IF NOT EXISTS `dc_ta_periode` (
   `periode_id` int(11) NOT NULL AUTO_INCREMENT,
   `periode_nama` varchar(50) NOT NULL,
   `periode_aktif` enum('Y','T') DEFAULT 'Y',
@@ -666,12 +666,12 @@ CREATE TABLE IF NOT EXISTS `ta_periode` (
   PRIMARY KEY (`periode_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table dbspf_daycare.ta_periode: ~3 rows (approximately)
-/*!40000 ALTER TABLE `ta_periode` DISABLE KEYS */;
-INSERT INTO `ta_periode` (`periode_id`, `periode_nama`, `periode_aktif`, `created_at`, `updated_at`) VALUES
+-- Dumping data for table dbspf_daycare.dc_ta_periode: ~3 rows (approximately)
+/*!40000 ALTER TABLE `dc_ta_periode` DISABLE KEYS */;
+INSERT INTO `dc_ta_periode` (`periode_id`, `periode_nama`, `periode_aktif`, `created_at`, `updated_at`) VALUES
 	(1, '2022', 'Y', '2022-07-16 20:32:51', '2023-06-16 11:19:30'),
 	(2, '2023', 'Y', '2022-07-16 20:33:10', '2023-06-16 11:19:35');
-/*!40000 ALTER TABLE `ta_periode` ENABLE KEYS */;
+/*!40000 ALTER TABLE `dc_ta_periode` ENABLE KEYS */;
 
 -- Dumping structure for table dbspf_daycare.tb_kelas
 CREATE TABLE IF NOT EXISTS `tb_kelas` (
