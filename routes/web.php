@@ -128,6 +128,7 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 		Route::post('/save', [PendaftaranController::class, 'save'])->name('save');
 		Route::get('/get', [PendaftaranController::class, 'get'])->name('get');
 		Route::get('/edit_get/{id}', [PendaftaranController::class, 'edit_get'])->name('edit_get');
+		Route::get('/detail_get/{id}', [PendaftaranController::class, 'detail_get'])->name('detail_get');
 		Route::get('/edit_view/{id}', [PendaftaranController::class, 'edit_view'])->name('edit_view');
 		Route::post('/update', [PendaftaranController::class, 'update'])->name('update');
 		Route::post('/void', [PendaftaranController::class, 'void'])->name('void');

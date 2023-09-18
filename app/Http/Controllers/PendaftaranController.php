@@ -22,6 +22,7 @@ use App\Models\HCISKaryawan;
 
 use App\Models\Pendaftaran;
 use App\Models\PendaftaranTagihan;
+use App\Models\Member;
 
 use App\Models\DapokAnak;
 use App\Models\DapokOrtu;
@@ -46,7 +47,7 @@ class PendaftaranController extends Controller
     }
 
     public function edit_view($id)
-    {
+    {   
         $app    = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
         return view('pendaftaran.transaksi.edit',compact('app','menu','id'));
@@ -76,6 +77,7 @@ class PendaftaranController extends Controller
                 $anak_kode   = DapokAnak::autonumber();
                 $ortu_kode   = DapokOrtu::autonumber();
                 $pnj_kode    = DapokPenjemput::autonumber();
+      
                 $tarif       = DB::connection('daycare')
                                 ->table('daftar_tc_transaksi_detail AS aa')
                                 ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
@@ -89,6 +91,7 @@ class PendaftaranController extends Controller
                 $daftar->trs_tgl        = Carbon::now()->toDateString();
                 $daftar->trs_kode       = $daftar_kode;
                 $daftar->anak_kode      = $anak_kode;
+                $daftar->periode_id     = $r->periode;
                 $daftar->tarif_kode     = $tarif->tarif_kode;
                 $daftar->grup_kode      = $tarif->grup_kode;
                 $daftar->kat_kode       = $tarif->kat_kode;
@@ -114,6 +117,21 @@ class PendaftaranController extends Controller
                                 ]);
 
                 }
+
+                /*-- MEMBER --*/
+                $member_kode    = Member::autonumber();
+                $member = new Member(); 
+
+                $member->member_kode    = $member_kode;
+                $member->anak_kode      = $anak_kode;
+                $member->periode_id     = $r->periode;
+                $member->tarif_kode     = $tarif->tarif_kode;
+                $member->grup_kode      = $tarif->grup_kode;
+                $member->kat_kode       = $tarif->kat_kode;
+
+                $member->created_nip    = $app['kar_nip'];
+                $member->created_nama   = $app['kar_nama_awal'];
+                $member->created_ip     = $r->ip();
 
                 /*-- ANAK --*/
 
@@ -195,6 +213,7 @@ class PendaftaranController extends Controller
                 $pnj->created_ip            = $r->ip();
 
                 $daftar->save();
+                $member->save();
                 $anak->save();
                 $ortu->save();
                 $pnj->save();
@@ -378,13 +397,51 @@ class PendaftaranController extends Controller
                     ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_kode','aa.ortu_kode')              
                     ->leftjoin('dapok_tb_penjemput AS cc','cc.pnj_kode','aa.pnj_kode')              
                     ->leftjoin('daftar_tc_transaksi AS dd','dd.anak_kode','aa.anak_kode')              
-                    ->leftjoin('tarif_ta_kategori AS ee','ee.kat_id','dd.kat_id')              
+                    ->leftjoin('tarif_ta_kategori AS ee','ee.kat_kode','dd.kat_kode')              
                     ->orderby('aa.anak_id','desc')
                     ->where('aa.anak_kode',$id)
                     ->first();
 
-
         return response()->json($data);
+
+    }
+
+    public function detail_get(Request $r){
+
+        $result = array('success'=>false);
+
+        try{
+
+            $app = SistemApp::sistem();
+            $id  = $r->id;
+            
+            $data = DB::connection('daycare')
+                        ->table('daftar_tc_transaksi_detail AS aa')
+                        ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
+                        ->where('aa.detail_aktif','Y')
+                        ->where('aa.anak_kode',$id)
+                        ->orderby('aa.detail_id','desc')
+                        ->get();
+
+            $data = $data->map(function($value) {
+
+                $value->detail  = format_rupiah($value->detail_total); 
+                return $value;
+
+            });
+      
+        } catch(\Exeption $e) {
+
+            $result['message'] = $e->getMessage();
+            return response()->json($result);
+
+        }
+
+            $result['success'] = true;
+            $result['data'] = $data;
+            $result['total'] = format_rupiah($data->sum('tarif_total'));
+
+        return response()->json($result);
 
     }
 

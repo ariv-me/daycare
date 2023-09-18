@@ -81,7 +81,7 @@
                                     <th style="text-align: center">NO</th>
                                     <th style="text-align: center">ANAK</th>
                                     <th style="text-align: center">ORTU</th>
-                                    <th  style="text-align: center">PAKET</th>
+                                    <th  style="text-align: center">TAGIHAN</th>
                                     <th  style ="text-align: center">AKSI</th>
                                 </tr>
                             </thead>
@@ -301,7 +301,32 @@
 
     $('#btn_save').on('click', function(){
 
+        if (!$("#untuk_bulan").val()) {
+            $.toast({
+                text: 'BULAN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#untuk_bulan").focus();
+            return false;
+
+        } 
         
+        else if (!$("#input_bayar").val()) {
+            $.toast({
+                text: 'PEMBAYARAN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#input_bayar").focus();
+            return false;
+
+        } 
+
         var tgl_bayar   = $('#tgl_bayar').val();
         var kode        = $('#trs_kode').val();
         var sub_total   = $('#total_biaya').val();
@@ -311,7 +336,7 @@
         var bulan       = $('#untuk_bulan').val();
         var keterangan  = $('#keterangan').val();
 
-        console.log(bulan);
+        console.log(grand_total);
         
         var token       = $('[name=_token]').val();
         var formData    = new FormData();

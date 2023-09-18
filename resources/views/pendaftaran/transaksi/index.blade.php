@@ -1373,6 +1373,8 @@
         var penjemput_kecamatan       = $('#penjemput_kecamatan').val();
         var penjemput_alamat          = $('#penjemput_alamat').val(); 
 
+        var periode          = $('#periode').val(); 
+
         console.log(total_biaya);
 
         var token = $('[name=_token]').val();
@@ -1434,6 +1436,8 @@
         formData.append('penjemput_kota', penjemput_kota);
         formData.append('penjemput_kecamatan', penjemput_kecamatan);
         formData.append('penjemput_alamat', penjemput_alamat);
+
+        formData.append('periode', periode);
 
         formData.append('_token', token);
 
