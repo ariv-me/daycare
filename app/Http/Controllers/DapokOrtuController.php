@@ -16,6 +16,7 @@ use App\Models\SistemProvinsi;
 use App\Models\SistemKota;
 use App\Models\SistemKecamatan;
 use App\Models\SistemAgama;
+use App\Models\SistemPendidikan;
 
 class DapokOrtuController extends Controller
 {
@@ -29,7 +30,7 @@ class DapokOrtuController extends Controller
     {
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        //return view('ysp_sosial.rumah_singgah.index',compact('app','menu'));
+        return view('dapok.ortu.index',compact('app','menu'));
     }
 
 
@@ -75,8 +76,6 @@ class DapokOrtuController extends Controller
                 $tmp->created_nama          = $app['kar_nama_awal'];
                 $tmp->created_ip            = $r->ip();
 
-                //dd($tmp);
-
                 $tmp->save();
     
                 return true;
@@ -116,7 +115,7 @@ class DapokOrtuController extends Controller
 
     }
 
-    public function view_ortu(Request $r){
+    public function view(Request $r){
 
         $result = array('success'=>false);
 
@@ -131,9 +130,9 @@ class DapokOrtuController extends Controller
 
                 $data = $data->map(function($value) {
 
-                    $value->provinsi = ucwords(strtolower(SistemProvinsi::getNamaProvinsi($value->provinsi_id)));
+                    $value->provinsi = ucwords(strtolower(SistemProvinsi::getNamaProvinsi($value->prov_id)));
                     $value->kota = ucwords(strtolower(SistemKota::getNamaKota($value->kota_id)));
-                    $value->kecamatan = ucwords(strtolower(SistemKecamatan::getNamaKecamatan($value->kecamatan_id)));
+                    $value->kecamatan = ucwords(strtolower(SistemKecamatan::getNamaKecamatan($value->kec_id)));
 
                 $value->ayah_usia = Carbon::parse($value->ortu_ayah_tgl_lahir)->age;
                 $value->ibu_usia = Carbon::parse($value->ortu_ibu_tgl_lahir)->age;
@@ -155,8 +154,6 @@ class DapokOrtuController extends Controller
                     $value->ayah_agama   = SistemAgama::where('agama_id',$value->ortu_ayah_agama_id)->first()->agama_nama;
 
                 } 
-
-                
 
                 return $value;
 
@@ -182,9 +179,17 @@ class DapokOrtuController extends Controller
     {
         $id = $r->get('id');
        
-        $data = DapokOrtu::where('ortu_id',$id)->first();
+        $data = DapokOrtu::where('ortu_kode',$id)->first();
 
         $result = array();
+        $result['ayah_agama']   = SistemAgama::where('agama_id',$data->ortu_ayah_agama_id)->first()->agama_nama;
+        $result['ibu_agama']   = SistemAgama::where('agama_id',$data->ortu_ibu_agama_id)->first()->agama_nama;
+        $result['ayah_pdk']   = SistemPendidikan::where('pdk_id',$data->ortu_ayah_pdk_id)->first()->pdk_nama;
+        $result['ibu_pdk']   = SistemPendidikan::where('pdk_id',$data->ortu_ibu_pdk_id)->first()->pdk_nama;
+        $result['provinsi']   = SistemProvinsi::where('prov_id',$data->prov_id)->first()->prov_nama;
+        $result['kota']   = SistemKota::where('kota_id',$data->kota_id)->first()->kota_nama;
+        $result['kecamatan']   = SistemKecamatan::where('kec_id',$data->kec_id)->first()->kec_nama;
+
         $result['data']    = $data;
 
        return response()->json($result);

@@ -42,7 +42,6 @@ class TarifController extends Controller
 
             $tmp->tarif_kode   = $tarif_kode;
             $tmp->jenis_kode   = $r->jenis;
-            $tmp->kat_kode     = $r->kategori;
             $tmp->tarif_nama   = $r->nama;
             $tmp->tarif_total  =  $tarif_total;
 
@@ -81,7 +80,6 @@ class TarifController extends Controller
             
             $data = DB::connection('daycare')
                             ->table('tarif_tc_tarif AS aa')
-                            ->leftjoin('tarif_ta_kategori AS bb','bb.kat_kode','=','aa.kat_kode')
                             ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','=','aa.jenis_kode')
                             ->orderby('aa.tarif_kode','desc')
                             ->get();
@@ -196,7 +194,6 @@ class TarifController extends Controller
                             ->table('tarif_tc_tarif AS aa')
                             ->leftjoin('tarif_tc_tarif_detail AS bb','bb.tarif_kode','=','aa.tarif_kode')
                             ->leftjoin('tarif_tb_item AS cc','cc.item_kode','=','bb.item_kode')
-                            ->where('aa.kat_kode',$kategori)
                             ->where('aa.tarif_kode',$paket)
                             ->get();    
 

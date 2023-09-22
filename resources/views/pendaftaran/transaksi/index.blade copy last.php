@@ -3983,7 +3983,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].pro_id)+'>'+(data[i].pro_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].pro_nama)+'</option>';
                     $('select[name=provinsi]').append(html)
                 }
             }
@@ -4062,7 +4062,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].pro_id)+'>'+(data[i].pro_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].pro_nama)+'</option>';
                     $('select[name=penjemput_provinsi]').append(html)
                 }
             }

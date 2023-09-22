@@ -69,7 +69,7 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 	Route::group(['prefix' => 'ortu', 'as' => 'ortu.'], function () {
 
 		Route::get('/', [DapokOrtuController::class, 'index'])->name('index');
-		Route::get('/view_ortu', [DapokOrtuController::class, 'view_ortu'])->name('view_ortu');
+		Route::get('/view', [DapokOrtuController::class, 'view'])->name('view');
 		Route::post('/save', [DapokOrtuController::class, 'save'])->name('save');
 		Route::get('/edit', [DapokOrtuController::class, 'edit'])->name('edit');
 		Route::post('/update', [DapokOrtuController::class, 'update'])->name('update');
@@ -81,6 +81,7 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 	Route::group(['prefix' => 'anak', 'as' => 'anak.'], function () {
 
 		Route::get('/', [DapokAnakController::class, 'index'])->name('index');
+		Route::get('/view', [DapokAnakController::class, 'view'])->name('view');
 		Route::get('/view_anak', [DapokAnakController::class, 'view_anak'])->name('view_anak');
 		Route::post('/save', [DapokAnakController::class, 'save'])->name('save');
 		Route::get('/edit', [DapokAnakController::class, 'edit'])->name('edit');
@@ -102,19 +103,6 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 		
 	});
 
-	Route::group(['prefix' => 'kontak_darurat', 'as' => 'kontak_darurat.'], function () {
-
-		Route::get('/', [DapokKontakDaruratController::class, 'index'])->name('index');
-		Route::get('/view_kontak', [DapokKontakDaruratController::class, 'view_kontak'])->name('view_kontak');
-		Route::post('/save', [DapokKontakDaruratController::class, 'save'])->name('save');
-		Route::get('/edit', [DapokKontakDaruratController::class, 'edit'])->name('edit');
-		Route::post('/update', [DapokKontakDaruratController::class, 'update'])->name('update');
-		Route::get('/aktif', [DapokKontakDaruratController::class, 'aktif'])->name('aktif');
-		Route::get('/nonaktif', [DapokKontakDaruratController::class, 'nonaktif'])->name('nonaktif');
-		
-	});
-
-	
 });
 
 /**-- PENDAFTARAN --**/
@@ -138,6 +126,7 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 	Route::group(['prefix' => 'tagihan', 'as' => 'tagihan.'], function () {
 		Route::get('/', [PendaftaranTagihanController::class, 'index'])->name('index');	
 		Route::get('/view', [PendaftaranTagihanController::class, 'view'])->name('view');
+		Route::get('/add', [PendaftaranTagihanController::class, 'add'])->name('add');
 		Route::post('/save', [PendaftaranTagihanController::class, 'save'])->name('save');
 		Route::get('/edit', [PendaftaranTagihanController::class, 'edit'])->name('edit');
 		Route::post('/update', [PendaftaranTagihanController::class, 'update'])->name('update');
@@ -167,14 +156,14 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 });
 
 	
-Route::group(['prefix' => 'biaya', 'as' => 'biaya.'], function () {
+Route::group(['prefix' => 'pembayaran', 'as' => 'pembayaran.'], function () {
 
-	Route::get('/', [BiayaController::class, 'index'])->name('index');
-	Route::get('/view', [BiayaController::class, 'view'])->name('view');
-	Route::post('/save', [BiayaController::class, 'save'])->name('save');
-	Route::get('/edit', [BiayaController::class, 'edit'])->name('edit');
-	Route::post('/update', [BiayaController::class, 'update'])->name('update');
-	Route::post('/void', [BiayaController::class, 'void'])->name('void');
+	Route::get('/data', [PendaftaranTagihanController::class, 'data'])->name('data');
+	Route::get('/view', [PendaftaranTagihanController::class, 'view'])->name('view');
+	Route::post('/save', [PendaftaranTagihanController::class, 'save'])->name('save');
+	Route::get('/edit', [PendaftaranTagihanController::class, 'edit'])->name('edit');
+	Route::post('/update', [PendaftaranTagihanController::class, 'update'])->name('update');
+	Route::post('/void', [PendaftaranTagihanController::class, 'void'])->name('void');
 
 
 });

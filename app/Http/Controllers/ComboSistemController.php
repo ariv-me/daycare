@@ -57,7 +57,7 @@ class ComboSistemController extends Controller
          $provinsi = $r->provinsi;
          $data = DB::connection('spf')
                          ->table('sistem_ta_2_kota as aa')
-                         ->where('aa.pro_id',$provinsi)
+                         ->where('aa.prov_id',$provinsi)
                          ->get();
      
          return response()->json($data);
@@ -69,7 +69,7 @@ class ComboSistemController extends Controller
  
          $data = DB::connection('spf')
                          ->table('sistem_ta_1_provinsi as aa')
-                         ->orderby('pro_nama')
+                         ->orderby('prov_nama')
                          ->get();
 
      
@@ -112,7 +112,7 @@ class ComboSistemController extends Controller
         $data = DB::connection('daycare')
                         ->table('tarif_tc_tarif AS aa')
                         ->leftjoin('tarif_ta_kategori AS bb','bb.kat_id','=','aa.kat_id')
-                        ->where('aa.kat_id',$r->kategori)
+                        // ->where('aa.kat_id',$r->kategori)
                         ->orderby('tarif_kode','desc')
                         ->get();
         return response()->json($data); 

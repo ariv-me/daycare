@@ -77,7 +77,7 @@ class DapokAnakController extends Controller
     }
 
 
-    public function view_anak(Request $r){
+    public function view(Request $r){
 
         $result = array('success'=>false);
 
@@ -88,6 +88,46 @@ class DapokAnakController extends Controller
                             ->table('dapok_tb_anak AS aa')          
                             ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_id','aa.ortu_id')              
                             ->orderby('aa.anak_id','desc')
+                            ->get();
+
+                $data = $data->map(function($value) {
+
+                if($value->anak_jekel == 'L'){
+                    $value->anak_jekel = 'Laki - Laki';
+                }
+                else if($value->anak_jekel == 'P'){
+                    $value->anak_jekel = 'Perempuan';
+                }
+                 
+                return $value;
+
+            });
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['data'] = $data;
+
+        return response()->json($result);
+
+    }
+
+    public function view_anak(Request $r){
+
+        $result = array('success'=>false);
+
+        try{
+
+            $kode = $r->get('kode');
+            
+            $data = DB::connection('daycare')
+                            ->table('dapok_tb_anak AS aa')          
+                            ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_kode','aa.ortu_kode')              
+                            ->orderby('aa.anak_id','desc')
+                            ->where('aa.ortu_kode',$kode)
                             ->get();
 
                 $data = $data->map(function($value) {
