@@ -61,17 +61,7 @@
             
 
                 <!-- Nav tabs -->
-                {{-- <div class="nav-tabs-custom text-left">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link text-center active" data-toggle="tab" href="#dapok" role="tab" aria-selected="true"><i class="la la-home d-block"></i>Data Pokok</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-center" data-toggle="tab" href="#tarif_daycare" role="tab" aria-selected="false"><i class="la la-calendar d-block"></i>Paket Daycare</a>
-                        </li>                                                
-                      
-                    </ul>
-                </div> --}}
+           
 
                 <ul class="nav-border nav nav-pills mb-2" role="tablist">
                     <li class="nav-item">
@@ -280,30 +270,31 @@
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="provinsi" id="provinsi" onchange="showOrtuProvinsi(this)"></select>
                                             </div>
                                         </div>
-                               
-                                        <div class="form-group row">
-                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-left">Kecamatan<small class="text-danger">*</small></label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control custom-select select2" style="width: 100%;" name="kecamatan" id="kecamatan"></select>
-                                            </div>
-                                        </div>
-                                                           
-                                    </div>
-                                    <div class="col-sm-6">
-                                       
+
                                         <div class="form-group row">
                                             <label for="example-email-input" class="col-sm-3 col-form-label text-left">Kab/Kota <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="kota" id="kota" onchange="showOrtuKota(this)"></select>
                                             </div>
                                         </div> 
+                  
+                                    </div>
+                                    <div class="col-sm-6">
+                                       
+                                        <div class="form-group row">
+                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-left">Kecamatan<small class="text-danger">*</small></label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control custom-select select2" style="width: 100%;" name="kecamatan" id="kecamatan"></select>
+                                            </div>
+                                        </div>
                                     
                                         <div class="form-group row">
                                             <label for="example-password-input" class="col-sm-3 col-form-label text-left">Alamat<small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="alamat" name="alamat">
                                             </div>
-                                        </div>                        
+                                        </div>         
+
                                     </div>
                                 </div>
 
@@ -382,6 +373,7 @@
                                         
                                     </div>
                                 </div>
+                                
                                 <hr class="hr-dashed">
         
                                 <div class="row">
@@ -444,7 +436,7 @@
                                 
                                 <div class="form-group row">
                                     <label for="example-password-input" class="col-sm-3 col-form-label text-left">Grup <small class="text-danger">*</small></label>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-9">
                                         <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"></select>
                                     </div>
                                 </div>
@@ -455,7 +447,34 @@
                                         <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"  onchange="showFilterKategori(this)"></select>
                                     </div>
                                 </div>
-      
+                            </div>
+                            <div class="col-sm-6">
+                                <table class="table table-sm table-bordered mb-0 table-centered">
+                                    <thead>
+                                        <tr>
+                                            <th width="1%" style="text-align: center; vertical-align: middle;" rowspan="2">NO</th>
+                                            <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2">ITEM TARIF</th>
+                                            <th style="text-align: center" colspan="5">BIAYA</th>
+                                        </tr>
+                    
+                                    </thead>
+                                    <tbody id="show_data_tarif">
+                                    
+                                    </tbody>
+                                </table><!--end /table--> 
+                                <table class="table table-bordered mb-0 table-centered">
+                                    <thead>
+                                        <tr>
+                                            <th width="72%" style="text-align: center; vertical-align: middle;" colspan="2">TOTAL BIAYA</th>
+                                            <th style="text-align: right;background:white; color:#ff0002" id="total_tarif"></th>
+                                        </tr>
+                                    </thead>
+                                </table><!--end /table-->
+                            </div>
+                        </div>
+                        <h4 class="card-title bg-light p-2 mb-2"><i class="mdi mdi-cash-multiple"></i>  INFO TARIF & TOTAL BIAYA</h4>
+                        <div class="row">
+                            <div class="col-sm-6">
                                 <div class="form-group row">
                                     <label for="example-password-input" class="col-sm-3 col-form-label text-left">Paket <small class="text-danger">*</small></label>
                                     <div class="col-sm-6">
@@ -466,37 +485,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="table-responsive">
-                                    <label class="text-primary">Info Tarif </label>
-                                    <hr class="hr-dashed">
-                                    <table class="table table-bordered mb-0 table-centered">
-                                        <thead>
-                                            <tr>
-                                                <th width="1%" style="text-align: center; vertical-align: middle;" rowspan="2">NO</th>
-                                                <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2">ITEM TARIF</th>
-                                                <th style="text-align: center" colspan="5">BIAYA</th>
-                                            </tr>
-                       
-                                        </thead>
-                                        <tbody id="show_data_tarif">
-                                        
-                                        </tbody>
-                                    </table><!--end /table--> 
-                                    <table class="table table-bordered mb-0 table-centered">
-                                        <thead>
-                                            <tr>
-                                                <th width="72%" style="text-align: center; vertical-align: middle;" colspan="2">TOTAL BIAYA</th>
-                                                <th style="text-align: right;background:white; color:#ff0002" id="total_tarif"></th>
-                                            </tr>
-                                        </thead>
-                                    </table><!--end /table-->
-                                </div>
-                            </div>
+                          
                         </div>
-                        <h4 class="card-title bg-light p-2 mb-2"><i class="mdi mdi-cash-multiple"></i>  TOTAL BIAYA</h4>
-                        <div class="table-responsive">
-                            <table class="table table-bordered mb-0 table-centered">
+                        
+                        <div class="table-responsive-sm">
+                            <table class="table table-sm table-bordered mb-0 table-centered">
                                 <thead>
                                     <tr>
                                         <th width="1%" style="text-align: center; vertical-align: middle;">NO</th>
@@ -1120,6 +1113,22 @@
             return false;
 
         }    
+
+        else if (!$("#tgl_daftar").val()) {
+            $.toast({
+                text: 'TANGGAL DAFTAR HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#tgl_daftar").focus();
+            return false;
+
+        }
+
+        
          
 
         // else if (!$("#penjemput_nama").val()) {
@@ -1372,16 +1381,15 @@
         var penjemput_jekel      = $('#penjemput_jekel').val();
         var penjemput_hubungan   = $('#penjemput_hubungan').val();
 
-        var penjemput_provinsi        = $('#penjemput_provinsi').val();
-        var penjemput_kota            = $('#penjemput_kota').val();
-        var penjemput_kecamatan       = $('#penjemput_kecamatan').val();
-        var penjemput_alamat          = $('#penjemput_alamat').val(); 
+        var penjemput_provinsi   = $('#penjemput_provinsi').val();
+        var penjemput_kota       = $('#penjemput_kota').val();
+        var penjemput_kecamatan  = $('#penjemput_kecamatan').val();
+        var penjemput_alamat     = $('#penjemput_alamat').val(); 
 
-        var periode            = $('#periode').val(); 
+        var periode              = $('#periode').val(); 
+        var tgl_daftar           = $('#tgl_daftar').val(); 
+        var kategori        = $('#kategori').val();
         
-
-        console.log(total_biaya);
-
         var token = $('[name=_token]').val();
         var formData = new FormData();
 
@@ -1390,7 +1398,6 @@
  
         formData.append('total_biaya', total_biaya);
 
-     
         formData.append('anak_nama', anak_nama);
         formData.append('anak_tmp_lahir', anak_tmp_lahir);
         formData.append('anak_tgl_lahir', anak_tgl_lahir);
@@ -1444,6 +1451,8 @@
         formData.append('penjemput_alamat', penjemput_alamat);
 
         formData.append('periode', periode);
+        formData.append('tgl_daftar', tgl_daftar);
+        formData.append('kategori', kategori);
 
         formData.append('_token', token);
 
@@ -1468,21 +1477,7 @@
 
     $('#detail_save').on('click', function(){
 
-        if (!$("#tgl_daftar").val()) {
-            $.toast({
-                text: 'TANGGAL DAFTAR HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#tgl_daftar").focus();
-            return false;
-
-        }
-
-        else if (!$("#periode").val()) {
+        if (!$("#periode").val()) {
             $.toast({
                 text: 'PERIODE HARUS DI ISI',
                 position: 'top-right',
@@ -1524,7 +1519,6 @@
 
       
 
-        var tgl_daftar      = $('#tgl_daftar').val();
         var periode         = $('#periode').val();
         var kategori        = $('#kategori').val();
         var grup            = $('#grup').val();
@@ -1532,16 +1526,12 @@
         var tarif_kode      = $('#tarif_kode').val();
         var anak_kode       = $('#anak_kode').val(); 
         var trs_kode        = $('#trs_kode').val(); 
-        console.log(alamat);
 
         var token = $('[name=_token]').val();
         var formData = new FormData();
 
-        
         formData.append('anak_kode', anak_kode);
         formData.append('trs_kode', trs_kode);
-
-        formData.append('tgl_daftar', tgl_daftar);
         formData.append('periode', periode);
         formData.append('grup', grup);
         formData.append('paket', paket);
@@ -1587,7 +1577,7 @@
                 $('#show_data_detail').empty();
                 data = r.data;
             
-                document.getElementById("total_biaya").innerHTML='<b class="text-info font-20">'+r.total+'</b>';
+                document.getElementById("total_biaya").innerHTML='<b class="text-danger font-20">'+r.total+'</b>';
 
                 if (data.length) {
                     for (i = 0; i < data.length; i++) {
@@ -1641,7 +1631,7 @@
                 data = r.data;
             
                 
-                document.getElementById("total_tarif").innerHTML='<b class="text-red font-20">'+r.total_tarif+'</b>';
+                document.getElementById("total_tarif").innerHTML='<b class="text-info font-15">'+r.total_tarif+'</b>';
 
                 if (data.length) {
                     for (i = 0; i < data.length; i++) {
@@ -1778,7 +1768,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].pro_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].prov_nama)+'</option>';
                     $('select[name=provinsi]').append(html)
                 }
             }
@@ -1857,7 +1847,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].pro_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].prov_nama)+'</option>';
                     $('select[name=penjemput_provinsi]').append(html)
                 }
             }

@@ -63,11 +63,11 @@
             <div class="card-header bg-success">
                 <div class="row">
                     <div class="col-md-9">
-                        <h4 class="card-title text-white"><i class="fas fa-clipboard-list"></i>  DATA - PENDAFTARAN</h4>
+                        <h4 class="card-title text-white"><i class="fas fa-cart-arrow-down"></i>  TAGIHAN</h4>
                     </div>
                     <div class="col-md-3" style="text-align: right">
                         <a href="{{ route('pendaftaran.transaksi.index') }}" type="button" class="btn btn-warning btn-xs text-white"><i class="fas fa-plus-circle"></i> PENDAFTARAN </a>
-                        <a href="{{ route('pendaftaran.transaksi.index') }}" type="button" class="btn btn-warning btn-xs text-white"><i class="fas fa-plus-circle"></i> TAGIHAN </a>
+                        <a href="{{ route('pendaftaran.tagihan.add') }}" type="button" class="btn btn-warning btn-xs text-white"><i class="fas fa-plus-circle"></i> TAGIHAN </a>
                     </div>
                 </div>
 
@@ -75,13 +75,14 @@
             <div class="card-body">
                 <div class="box-body">	
                     <div class="table-responsive">
-                        <table id="datatable" class="table-sm table mb-0 table-centered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <table id="datatable" class="table-sm table table-bordered mb-0 table-centered dt-responsive table-striped" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead class="table-light">
                                 <tr>
                                     <th style="text-align: center">NO</th>
                                     <th style="text-align: center">ANAK</th>
                                     <th style="text-align: center">ORTU</th>
                                     <th  style="text-align: center">TAGIHAN</th>
+                                    <th  style="text-align: center">JATUH TEMPO</th>
                                     <th  style ="text-align: center">AKSI</th>
                                 </tr>
                             </thead>
@@ -254,8 +255,6 @@
 </div>
 
 
-
-
 @endsection
 
 @section('js')
@@ -273,8 +272,8 @@
             autoClose: true,
             format: 'MM'
         }).on('changeDate', function (ev) {
-     $(this).datepicker('hide');
-});
+            $(this).datepicker('hide');
+        });
 
 
         // $('.datepicker').datepicker({
@@ -298,6 +297,7 @@
         reset();
 
     });
+
 
     $('#btn_save').on('click', function(){
 
@@ -395,9 +395,10 @@
                         if((data[i].anak_aktif) == 'Y'){
                             var tr = $('<tr>').append([
                                 $('<td width="1%" align="center">'),
-                                $('<td width="15%">'),
-                                $('<td width="15%">'),
+                                $('<td width="10%">'),
+                                $('<td width="10%">'),
                                 $('<td width="9%">'),
+                                $('<td width="5%" align="center">'),
                                 $('<td width="4%" align="left">')
                             ]);
 
@@ -408,6 +409,7 @@
                                 $('<td width="20%">'),
                                 $('<td width="7%">'),
                                 $('<td width="5%">'),
+                                $('<td width="10%">'),
                                 $('<td width="10%">'),
                                 $('<td width="10%">'),
                                 $('<td width="15%" align="left">')
@@ -424,10 +426,10 @@
                             .html('<small class="text-muted">'+(data[i].anak_jekel)+' - '+(data[i].anak_tgl_lahir)+'</small>'));                      
 
                         tr.find('td:nth-child(3)').append($('<div>')
-                            .html('<b>Ayah : </b>'+(data[i].ortu_ayah)));   
+                            .html((data[i].ortu_ayah)+' - <small class="text-muted">(Ayah)</span></small>')); 
 
                         tr.find('td:nth-child(3)').append($('<div>')
-                            .html('<b>Ibu&nbsp;&nbsp;&nbsp; : </b>'+(data[i].ortu_ibu)));   
+                            .html((data[i].ortu_ibu)+' - <small class="text-muted">(Ibu)</span></small>')); 
 
                         tr.find('td:nth-child(4)').append($('<div>')
                             .html('<b class="font-13">'+(data[i].kat_nama)+' - '+(data[i].tarif_nama)+'</b>')); 
@@ -435,9 +437,11 @@
                         tr.find('td:nth-child(4)').append($('<div>')
                             .html('<b class="text-danger font-20">'+(data[i].tarif_total)+'</b>'));
 
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html(data[i].trs_jatuh_tempo));                        
                     
-                        tr.find('td:nth-child(5)').append('<div class="mb-1"><a href="'+(data[i].edit)+'" class="btn btn-block btn-soft-warning btn-xs text-left"><i class="fas fa-pencil-alt"></i> EDIT</a>');   
-                        tr.find('td:nth-child(5)').append('<div><a href="javascript:;" class="btn btn-block btn-soft-primary btn-xs text-left item_bayar" data="'+data[i].trs_kode+'"><i class="far fa-credit-card"></i> BAYAR</a></div>');   
+                        tr.find('td:nth-child(6)').append('<div class="mb-1"><a href="'+(data[i].edit)+'" class="btn btn-block btn-soft-warning btn-xs text-left"><i class="fas fa-pencil-alt"></i> EDIT</a>');   
+                        tr.find('td:nth-child(6)').append('<div><a href="javascript:;" class="btn btn-block btn-soft-primary btn-xs text-left item_bayar" data="'+data[i].trs_kode+'"><i class="far fa-credit-card"></i> BAYAR</a></div>');   
 
                         tr.appendTo($('#show_data'));
                     }

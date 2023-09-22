@@ -43,7 +43,7 @@ class PendaftaranController extends Controller
         
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('pendaftaran.index',compact('app','menu'));
+        return view('pendaftaran.transaksi.index',compact('app','menu'));
     }
 
     public function edit_view($id)
@@ -67,20 +67,17 @@ class PendaftaranController extends Controller
           
             $transaction = DB::connection('daycare')->transaction(function() use($r){
     
-                $app         = SistemApp::sistem();
-                $anak_kode   = DapokAnak::autonumber();
-                $ortu_kode   = DapokOrtu::autonumber();
-                $daftar_kode = Pendaftaran::autonumber();
-                
+                $app        = SistemApp::sistem();
 
-                if ($r->penjemput_nama != null) {
-                    $pnj_kode    = DapokPenjemput::autonumber();
-                } else {
-                    $pnj_kode    = null;
-                }
                 /*-- TRANSAKSI --*/
     
                 $daftar = new Pendaftaran();  
+
+                $daftar_kode = Pendaftaran::autonumber();
+                $anak_kode   = DapokAnak::autonumber();
+                $ortu_kode   = DapokOrtu::autonumber();
+                $pnj_kode    = DapokPenjemput::autonumber();
+      
                 $tarif       = DB::connection('daycare')
                                 ->table('daftar_tc_transaksi_detail AS aa')
                                 ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
@@ -90,28 +87,20 @@ class PendaftaranController extends Controller
                                 ->where('aa.anak_kode',null)
                                 ->where('bb.jenis_kode','JN0001')
                                 ->first();
-              
-                $mounth         = date('m', strtotime($r->tgl_daftar));    
 
-                if ($r->kategori == 'KT0002') {
-                    $days       = 0;
-                } else {
-                    $days       = Carbon::now()->month($mounth)->daysInMonth;
-                }
-
-                $daftar->trs_tgl        = date('Y-m-d', strtotime($r->tgl_daftar));
-                $daftar->trs_jatuh_tempo    = date('Y-m-d', strtotime(now()->parse($r->tgl_daftar)->addDays($days)));
+                $daftar->trs_tgl        = Carbon::now()->toDateString();
                 $daftar->trs_kode       = $daftar_kode;
                 $daftar->anak_kode      = $anak_kode;
                 $daftar->periode_id     = $r->periode;
-                $daftar->tarif_kode     = $tarif->tarif_kode; 
+                $daftar->tarif_kode     = $tarif->tarif_kode;
                 $daftar->grup_kode      = $tarif->grup_kode;
-                $daftar->kat_kode       = $r->kategori;
+                $daftar->kat_kode       = $tarif->kat_kode;
                 $daftar->trs_total      = str_replace(".", "", $r->total_biaya);
 
                 $daftar->created_nip    = $app['kar_nip'];
                 $daftar->created_nama   = $app['kar_nama_awal'];
-                $daftar->created_ip     = $r->ip();    
+                $daftar->created_ip     = $r->ip();
+
                 
                 $detail = PendaftaranDetail::where('trs_kode',null)->where('anak_kode',null)->where('detail_aktif','Y')->get();
 
@@ -190,9 +179,9 @@ class PendaftaranController extends Controller
                 $ortu->ortu_ibu_wa            = $r->ibu_wa;
                 $ortu->ortu_ibu_agama_id      = $r->ibu_agama;
 
-                $ortu->prov_id                = $r->provinsi;
-                $ortu->kota_id                = $r->kota;
-                $ortu->kec_id                  = $r->kecamatan;
+                $ortu->ortu_provinsi_id            = $r->provinsi;
+                $ortu->ortu_kota_id                = $r->kota;
+                $ortu->ortu_kecamatan_id           = $r->kecamatan;
                 $ortu->ortu_alamat            = $r->alamat;
 
                 $ortu->created_nip           = $app['kar_nip'];
@@ -201,48 +190,33 @@ class PendaftaranController extends Controller
 
                 /*-- PENJEMPUT --*/
 
+                $pnj = new DapokPenjemput();
 
+                $pnj->pnj_kode              = $pnj_kode;
+                $pnj->pnj_nama              = $r->penjemput_nama;
+                $pnj->pnj_nik               = $r->penjemput_nik;
+                $pnj->pnj_tgl_lahir         = date('Y-m-d', strtotime($r->penjemput_lahir));
+                $pnj->pnj_tmp_lahir         = $r->penjemput_tmp_lahir;
+                $pnj->pnj_kerja          = $r->penjemput_kerja;
+                $pnj->pnj_hp                = $r->penjemput_hp;
+                $pnj->pnj_wa                = $r->penjemput_wa;
+                $pnj->pnj_agama_id          = $r->penjemput_agama;
+                $pnj->pnj_pdk_id            = $r->penjemput_pdk;
+                $pnj->pnj_hub_id            = $r->penjemput_hubungan;
+                $pnj->pnj_provinsi_id           = $r->penjemput_provinsi;
+                $pnj->pnj_kecamatan_id          = $r->penjemput_kecamatan;
+                $pnj->pnj_kota_id               = $r->penjemput_kota;
+                $pnj->pnj_alamat            = $r->penjemput_alamat;
 
-                if ($pnj_kode != null){
+                $pnj->created_nip           = $app['kar_nip'];
+                $pnj->created_nama          = $app['kar_nama_awal'];
+                $pnj->created_ip            = $r->ip();
 
-                    
-                    $pnj = new DapokPenjemput();
-                    $pnj->pnj_kode              = $pnj_kode;
-                    $pnj->pnj_nama              = $r->penjemput_nama;
-                    $pnj->pnj_nik               = $r->penjemput_nik;
-                    $pnj->pnj_tgl_lahir         = date('Y-m-d', strtotime($r->penjemput_lahir));
-                    $pnj->pnj_tmp_lahir         = $r->penjemput_tmp_lahir;
-                    $pnj->pnj_kerja             = $r->penjemput_kerja;
-                    $pnj->pnj_hp                = $r->penjemput_hp;
-                    $pnj->pnj_wa                = $r->penjemput_wa;
-                    $pnj->pnj_agama_id          = $r->penjemput_agama;
-                    $pnj->pnj_pdk_id            = $r->penjemput_pdk;
-                    $pnj->pnj_hub_id            = $r->penjemput_hubungan;
-                    $pnj->pnj_provinsi_id           = $r->penjemput_provinsi;
-                    $pnj->pnj_kecamatan_id          = $r->penjemput_kecamatan;
-                    $pnj->pnj_kota_id               = $r->penjemput_kota;
-                    $pnj->pnj_alamat            = $r->penjemput_alamat;
-    
-                    $pnj->updated_nip           = $app['kar_nip'];
-                    $pnj->updated_nama          = $app['kar_nama_awal'];
-                    $pnj->updated_ip            = $r->ip();
-
-                    $daftar->save();
-                    $member->save();
-                    $anak->save();
-                    $ortu->save();
-                    $pnj->save();
-
-                }
-                
-                else {
-
-                    $daftar->save();
-                    $member->save();
-                    $anak->save();
-                    $ortu->save();
-
-                }
+                $daftar->save();
+                $member->save();
+                $anak->save();
+                $ortu->save();
+                $pnj->save();
 
                 return true;
     
@@ -281,18 +255,13 @@ class PendaftaranController extends Controller
                                 ->where('bb.jenis_kode','JN0001')
                                 ->first();
 
-             
+                               
                 
                 /*-- DAFTAR --*/
-                
-            
-
+    
                 $daftar  = Pendaftaran::where('trs_kode',$r->trs_kode)->first();  
 
-                $mounth                 = date('m', strtotime($r->tgl_daftar));                 
-                $days                   = Carbon::now()->month($mounth)->daysInMonth;
-                $daftar->trs_tgl        = date('Y-m-d', strtotime($r->tgl_daftar));
-                $daftar->trs_jatuh_tempo    = date('Y-m-d', strtotime(now()->parse($r->tgl_daftar)->addDays($days)));
+                // $daftar->trs_tgl        = Carbon::now()->toDateString();
                 $daftar->periode_id     = $r->periode;
                 $daftar->tarif_kode     = $tarif->tarif_kode;
                 $daftar->grup_kode      = $tarif->grup_kode;
@@ -303,8 +272,6 @@ class PendaftaranController extends Controller
                 $daftar->updated_nama   = $app['kar_nama_awal'];
                 $daftar->updated_ip     = $r->ip();
 
-                // dd($daftar);
-                
                 /*-- MEMBER --*/
 
                 $member = Member::where('anak_kode',$r->anak_kode)->first();
@@ -360,10 +327,10 @@ class PendaftaranController extends Controller
                 $ortu->ortu_ibu_wa            = $r->ibu_wa;
                 $ortu->ortu_ibu_agama_id      = $r->ibu_agama;
 
-                $ortu->prov_id               = $r->provinsi;
-                $ortu->kota_id               = $r->kota;
-                $ortu->kec_id                = $r->kecamatan;
-                $ortu->ortu_alamat           = $r->alamat;
+                $ortu->ortu_provinsi_id            = $r->provinsi;
+                $ortu->ortu_kota_id                = $r->kota;
+                $ortu->ortu_kecamatan_id           = $r->kecamatan;
+                $ortu->ortu_alamat                 = $r->alamat;
 
                 $ortu->updated_nip           = $app['kar_nip'];
                 $ortu->updated_nama          = $app['kar_nama_awal'];
@@ -396,7 +363,6 @@ class PendaftaranController extends Controller
                 $anak->save();
                 $ortu->save();
                 $pnj->save();
-             
 
                 return true;
     

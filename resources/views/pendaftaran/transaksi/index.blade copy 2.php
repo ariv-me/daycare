@@ -1626,13 +1626,13 @@
 
     }
 
-    function view_tarif(paket) {
+    function view_tarif(kategori,paket) {
 
         $.ajax({
             type: 'GET',
             url: "{{ route('tarif.view_transaksi') }}",
             async: true,
-            data : {paket:paket},
+            data : {kategori:kategori,paket:paket},
             dataType: 'JSON',
             success: function(r) {
                 var i;

@@ -30,6 +30,22 @@ class PendaftaranTagihanController extends Controller
         return view('pendaftaran.tagihan.index',compact('app','menu'));
     }
 
+    public function add()
+    {
+        
+        $app = SistemApp::sistem();
+        $menu = SistemApp::OtoritasMenu($app['idu']);
+        return view('pendaftaran.tagihan.add',compact('app','menu'));
+    }
+
+    public function data()
+    {
+        
+        $app = SistemApp::sistem();
+        $menu = SistemApp::OtoritasMenu($app['idu']);
+        return view('pembayaran.index',compact('app','menu'));
+    }
+
     public function save(Request $r){
 
         $result = array('success'=>false);
@@ -104,8 +120,7 @@ class PendaftaranTagihanController extends Controller
                             ->table('dapok_tb_anak AS aa')          
                             ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_kode','aa.ortu_kode')              
                             ->leftjoin('dapok_tb_penjemput AS cc','cc.pnj_kode','aa.pnj_kode')              
-                            ->leftjoin('daftar_tc_transaksi AS dd','dd.anak_kode','aa.anak_kode')         
-                            // ->leftjoin('daftar_tc_transaksi_detail AS ee','ee.trs_kode','dd.trs_kode')         
+                            ->leftjoin('daftar_tc_transaksi AS dd','dd.anak_kode','aa.anak_kode')           
                             ->leftjoin('tarif_tc_tarif AS ff','ff.tarif_kode','dd.tarif_kode')         
                             ->leftjoin('tarif_ta_jenis AS gg','gg.jenis_kode','ff.jenis_kode')         
                             ->leftjoin('tarif_ta_kategori AS hh','hh.kat_kode','dd.kat_kode')         
@@ -115,8 +130,9 @@ class PendaftaranTagihanController extends Controller
                 $data = $data->map(function($value) {
 
                    $value->edit = route('pendaftaran.transaksi.edit_view',$value->anak_kode); 
-                   $value->anak_tgl_lahir = format_indo($value->anak_tgl_lahir);
-                   $value->tarif_total    = format_rupiah($value->trs_total);
+                   $value->anak_tgl_lahir  = format_indo($value->anak_tgl_lahir);
+                   $value->trs_jatuh_tempo = format_indo($value->trs_jatuh_tempo);
+                   $value->tarif_total     = format_rupiah($value->trs_total);
 
                 if($value->anak_jekel == 'L'){
                     $value->anak_jekel = 'Laki - Laki';

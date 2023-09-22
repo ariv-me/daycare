@@ -54,8 +54,13 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">    
-
+            <div class="card-body">   
+                
+            <input type="hidden" id="trs_kode" name="trs_kode">
+            <input type="hidden" id="anak_kode" name="anak_kode">
+            <input type="hidden" id="ortu_kode" name="ortu_kode">
+            <input type="hidden" id="pnj_kode" name="pnj_kode">
+    
                 <!-- Nav tabs -->
                 {{-- <div class="nav-tabs-custom text-left">
                     <ul class="nav nav-tabs" role="tablist">
@@ -88,6 +93,7 @@
 
                             <div class="col-lg-12">
                                 
+
                                 <h4 class="card-title bg-light p-2 mb-3"><i class="fas fa-child"></i>  DATA ANAK</h4>
         
                                 <div class="row">
@@ -695,13 +701,14 @@
             
                 console.log(data);
                 
+                $('[name="trs_kode"]').val(data.trs_kode);
                 $('[name="daftar_kode"]').val(data.daftar_kode);
                 $('[name="anak_kode"]').val(data.anak_kode);
                 $('[name="ortu_kode"]').val(data.ortu_kode);
                 $('[name="pnj_kode"]').val(data.pnj_kode);
                 $('[name="tarif_kode"]').val(data.tarif_kode);
                 
-                $('[name="tgl_daftar"]').datepicker('setDate',moment(data.daftar_tgl).format('DD-MM-YYYY'));
+                $('[name="tgl_daftar"]').datepicker('setDate',moment(data.trs_tgl).format('DD-MM-YYYY'));
                 $('[name="periode"]').val(data.periode_id).trigger("change");
                 $('[name="grup"]').val(data.grup_kode).trigger("change");
                 $('[name="kategori"]').val(data.kat_kode).trigger("change");
@@ -736,9 +743,9 @@
                 $('[name="ibu_pdk"]').val(data.ortu_ibu_pdk_id).trigger("change");
                 $('[name="ibu_agama"]').val(data.ortu_ibu_agama_id).trigger("change");
 
-                $('[name="provinsi"]').val(data.ortu_provinsi_id).trigger("change");
-                $('[name="kota"]').val(data.ortu_kota_id).trigger("change");
-                $('[name="kecamatan"]').val(data.ortu_kecamatan_id).trigger("change");
+                $('[name="provinsi"]').val(data.prov_id).trigger("change");
+                $('[name="kota"]').val(data.kota_id).trigger("change");
+                $('[name="kecamatan"]').val(data.kec_id).trigger("change");
                 $('[name="alamat"]').val(data.ortu_alamat);
 
                 $('[name="penjemput_nama"]').val(data.pnj_nama);
@@ -994,7 +1001,6 @@
 
         } 
 
-      
         // IBU 
         
         else if (!$("#ibu_nama").val()) {
@@ -1181,6 +1187,20 @@
 
         } 
 
+        else if (!$("#tgl_daftar").val()) {
+            $.toast({
+                text: 'TANGGAL DAFTAR HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#tgl_daftar").focus();
+            return false;
+
+        }
+
 
         else if ( total == "0") {
             $.toast({
@@ -1193,7 +1213,9 @@
             $("#paket").focus();
             return false;
 
-        }    
+        }   
+        
+        
          
 
         // else if (!$("#penjemput_nama").val()) {
@@ -1397,6 +1419,7 @@
         // ANAK
 
         var total_biaya     = $('#total_biaya').text();
+        var tgl_daftar      = $('#tgl_daftar').val();
 
         var anak_nama       = $('#anak_nama').val();
         var anak_tmp_lahir  = $('#anak_tmp_lahir').val();
@@ -1451,6 +1474,12 @@
         var penjemput_kecamatan       = $('#penjemput_kecamatan').val();
         var penjemput_alamat          = $('#penjemput_alamat').val(); 
 
+        var periode          = $('#periode').val(); 
+        var trs_kode          = $('#trs_kode').val(); 
+        var anak_kode          = $('#anak_kode').val(); 
+        var ortu_kode          = $('#ortu_kode').val(); 
+        var pnj_kode          = $('#pnj_kode').val(); 
+
         console.log(total_biaya);
 
         var token = $('[name=_token]').val();
@@ -1460,6 +1489,12 @@
 
  
         formData.append('total_biaya', total_biaya);
+        formData.append('periode', periode);
+        formData.append('trs_kode', trs_kode);
+        formData.append('anak_kode', anak_kode);
+        formData.append('ortu_kode', ortu_kode);
+        formData.append('pnj_kode', pnj_kode);
+        formData.append('tgl_daftar', tgl_daftar);
 
         formData.append('anak_nama', anak_nama);
         formData.append('anak_tmp_lahir', anak_tmp_lahir);
@@ -1517,7 +1552,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('pendaftaran.transaksi.save') }}",
+            url: "{{ route('pendaftaran.transaksi.update') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -1536,21 +1571,7 @@
 
     $('#detail_save').on('click', function(){
 
-        if (!$("#tgl_daftar").val()) {
-            $.toast({
-                text: 'TANGGAL DAFTAR HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#tgl_daftar").focus();
-            return false;
-
-        }
-
-        else if (!$("#periode").val()) {
+        if (!$("#periode").val()) {
             $.toast({
                 text: 'PERIODE HARUS DI ISI',
                 position: 'top-right',
@@ -1592,12 +1613,13 @@
 
       
 
-        var tgl_daftar      = $('#tgl_daftar').val();
         var periode         = $('#periode').val();
         var kategori        = $('#kategori').val();
         var grup            = $('#grup').val();
         var paket           = $('#paket').val();
         var tarif_kode      = $('#tarif_kode').val();
+        var trs_kode        = $('#trs_kode').val();
+        var anak_kode       = $('#anak_kode').val();
 
         console.log(alamat);
 
@@ -1606,7 +1628,8 @@
 
         // ANAK
 
-        formData.append('tgl_daftar', tgl_daftar);
+        formData.append('trs_kode', trs_kode);
+        formData.append('anak_kode', anak_kode);
         formData.append('periode', periode);
         formData.append('grup', grup);
         formData.append('paket', paket);
@@ -1691,13 +1714,13 @@
 
     }
 
-    function view_tarif(kategori,paket) {
+    function view_tarif(paket) {
 
         $.ajax({
             type: 'GET',
             url: "{{ route('tarif.view_transaksi') }}",
             async: true,
-            data : {kategori:kategori,paket:paket},
+            data : {paket:paket},
             dataType: 'JSON',
             success: function(r) {
                 var i;
@@ -1843,7 +1866,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].pro_id)+'>'+(data[i].pro_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].prov_nama)+'</option>';
                     $('select[name=provinsi]').append(html)
                 }
             }
@@ -1922,7 +1945,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].pro_id)+'>'+(data[i].pro_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].prov_nama)+'</option>';
                     $('select[name=penjemput_provinsi]').append(html)
                 }
             }
@@ -2300,14 +2323,13 @@
         });
     }
 
-    function combo_paket(kategori){
+    function combo_paket(){
 
     $('select[name=paket]').empty()
         $.ajax({
             type  : 'GET',
             url   : "{{ route('combo.combo_tarif_paket2') }}",
             async : false,
-            data : {kategori:kategori},
             dataType : 'JSON',
             success : function(data){
                 var html = '';
