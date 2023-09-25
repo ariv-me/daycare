@@ -122,12 +122,13 @@ class ComboController extends Controller
 
     // Combo Data Pokok 
 
-    public function combo_anak(){
+    public function combo_dapok_anak(){
         $data = DB::connection('daycare')
                     ->table('dapok_tb_anak AS aa')
-                    ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_id','=','aa.ortu_id')
-                    ->where('anak_aktif','Y')
-                    ->orderby('anak_id','desc')
+                    ->leftjoin('daftar_tc_member AS bb','bb.anak_kode','=','aa.anak_kode')
+                    ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','=','aa.ortu_kode')
+                    ->where('aa.anak_aktif','Y')
+                    ->orderby('aa.anak_id','desc')
                     ->get();
         return response()->json($data); 
     }

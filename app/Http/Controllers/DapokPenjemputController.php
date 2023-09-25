@@ -53,7 +53,7 @@ class DapokPenjemputController extends Controller
             $tmp->pnj_hub_id            = $r->penjemput_hubungan;
             $tmp->provinsi_id       = $r->provinsi;
             $tmp->kecamatan_id      = $r->kecamatan;
-            $tmp->kota_id           = $r->kota;
+            $tmp->kota_kode           = $r->kota;
             $tmp->pnj_alamat            = $r->alamat;
 
             $tmp->created_nip           = $app['kar_nip'];
@@ -86,7 +86,7 @@ class DapokPenjemputController extends Controller
                 $data = $data->map(function($value) {
 
                     $value->provinsi    = ucwords(strtolower(SistemProvinsi::getNamaProvinsi($value->provinsi_id)));
-                    $value->kota        = ucwords(strtolower(SistemKota::getNamaKota($value->kota_id)));
+                    $value->kota        = ucwords(strtolower(SistemKota::getNamaKota($value->kota_kode)));
                     $value->kecamatan   = ucwords(strtolower(SistemKecamatan::getNamaKecamatan($value->kecamatan_id)));
 
                     $value->pnj_usia    = Carbon::parse($value->pnj_tgl_lahir)->age;
@@ -147,7 +147,7 @@ class DapokPenjemputController extends Controller
               $tmp->pnj_hub_id            = $r->penjemput_hubungan;
               $tmp->provinsi_id           = $r->provinsi;
               $tmp->kecamatan_id          = $r->kecamatan;
-              $tmp->kota_id               = $r->kota;
+              $tmp->kota_kode               = $r->kota;
               $tmp->pnj_alamat            = $r->alamat;
 
               $tmp->updated_nip           = $app['kar_nip'];

@@ -370,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `dapok_tb_kontak` (
   `kontak_jekel` enum('L','P') DEFAULT NULL,
   `kontak_aktif` enum('Y','T') DEFAULT 'Y',
   `provinsi_id` int(11) DEFAULT NULL,
-  `kota_id` int(11) DEFAULT NULL,
+  `kota_kode` int(11) DEFAULT NULL,
   `kecamatan_id` int(11) DEFAULT NULL,
   `kontak_alamat` text,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -411,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `dapok_tb_ortu` (
   `ortu_ibu_hp` varchar(15) DEFAULT NULL,
   `ortu_ibu_wa` varchar(15) DEFAULT NULL,
   `ortu_provinsi_id` int(11) DEFAULT NULL,
-  `ortu_kota_id` int(11) DEFAULT NULL,
+  `ortu_kota_kode` int(11) DEFAULT NULL,
   `ortu_kecamatan_id` int(11) DEFAULT NULL,
   `ortu_alamat` text,
   `ortu_aktif` enum('Y','T') DEFAULT 'Y',
@@ -428,7 +428,7 @@ CREATE TABLE IF NOT EXISTS `dapok_tb_ortu` (
 
 -- Dumping data for table dbspf_daycare.dapok_tb_ortu: ~0 rows (approximately)
 /*!40000 ALTER TABLE `dapok_tb_ortu` DISABLE KEYS */;
-INSERT INTO `dapok_tb_ortu` (`ortu_id`, `ortu_kode`, `ortu_ayah`, `ortu_ayah_nik`, `ortu_ayah_kerja`, `ortu_ayah_hp`, `ortu_ayah_pdk_id`, `ortu_ayah_wa`, `ortu_ayah_tgl_lahir`, `ortu_ayah_tmp_lahir`, `ortu_ayah_agama_id`, `ortu_ibu`, `ortu_ibu_nik`, `ortu_ibu_pdk_id`, `ortu_ibu_tmp_lahir`, `ortu_ibu_tgl_lahir`, `ortu_ibu_kerja`, `ortu_ibu_agama_id`, `ortu_ibu_hp`, `ortu_ibu_wa`, `ortu_provinsi_id`, `ortu_kota_id`, `ortu_kecamatan_id`, `ortu_alamat`, `ortu_aktif`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
+INSERT INTO `dapok_tb_ortu` (`ortu_id`, `ortu_kode`, `ortu_ayah`, `ortu_ayah_nik`, `ortu_ayah_kerja`, `ortu_ayah_hp`, `ortu_ayah_pdk_id`, `ortu_ayah_wa`, `ortu_ayah_tgl_lahir`, `ortu_ayah_tmp_lahir`, `ortu_ayah_agama_id`, `ortu_ibu`, `ortu_ibu_nik`, `ortu_ibu_pdk_id`, `ortu_ibu_tmp_lahir`, `ortu_ibu_tgl_lahir`, `ortu_ibu_kerja`, `ortu_ibu_agama_id`, `ortu_ibu_hp`, `ortu_ibu_wa`, `ortu_provinsi_id`, `ortu_kota_kode`, `ortu_kecamatan_id`, `ortu_alamat`, `ortu_aktif`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
 	(1, 'ORTU20230001', 'Java Script', 12321323, 'Pengusaha', '08192321312', 3, '08192321312', '1990-09-30', 'Padang', 1, 'Json', 123213, 3, 'Solok Selatan', '1994-05-12', 'IRT', 1, '08192321312', '08192321312', 13, 1302, 1302100, 'BALAH HILIR UTARA, LUBUK ALUNG', 'Y', '2023-09-13 13:59:03', '10000427', 'ARIF', '::1', '2023-09-13 13:59:03', NULL, NULL, NULL),
 	(2, 'ORTU20230002', 'Rapi Amad', 12321323, 'Pengusaha', '08192321312', 3, '08192321312', '1995-11-07', 'Solok Sleatan', 1, 'Rika', 123213, 3, 'Solok Selatan', '1994-05-12', 'Pengusaha', 1, '08192321312', '08192321312', 36, 3604, 3604261, 'LUBANG BATU', 'Y', '2023-09-14 16:34:00', '10000427', 'ARIF', '::1', '2023-09-14 16:34:00', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `dapok_tb_ortu` ENABLE KEYS */;
@@ -450,7 +450,7 @@ CREATE TABLE IF NOT EXISTS `dapok_tb_penjemput` (
   `pnj_peru` varchar(50) DEFAULT NULL,
   `pnj_agama_id` int(11) DEFAULT NULL,
   `pnj_provinsi_id` int(11) DEFAULT NULL,
-  `pnj_kota_id` int(11) DEFAULT NULL,
+  `pnj_kota_kode` int(11) DEFAULT NULL,
   `pnj_kecamatan_id` int(11) DEFAULT NULL,
   `pnj_alamat` text,
   `pnj_aktif` enum('Y','T') DEFAULT 'Y',
@@ -467,7 +467,7 @@ CREATE TABLE IF NOT EXISTS `dapok_tb_penjemput` (
 
 -- Dumping data for table dbspf_daycare.dapok_tb_penjemput: ~3 rows (approximately)
 /*!40000 ALTER TABLE `dapok_tb_penjemput` DISABLE KEYS */;
-INSERT INTO `dapok_tb_penjemput` (`pnj_id`, `pnj_kode`, `pnj_nama`, `pnj_hp`, `pnj_nik`, `pnj_jekel`, `pnj_wa`, `pnj_pdk_id`, `pnj_hub_id`, `pnj_tgl_lahir`, `pnj_tmp_lahir`, `pnj_kerja`, `pnj_peru`, `pnj_agama_id`, `pnj_provinsi_id`, `pnj_kota_id`, `pnj_kecamatan_id`, `pnj_alamat`, `pnj_aktif`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
+INSERT INTO `dapok_tb_penjemput` (`pnj_id`, `pnj_kode`, `pnj_nama`, `pnj_hp`, `pnj_nik`, `pnj_jekel`, `pnj_wa`, `pnj_pdk_id`, `pnj_hub_id`, `pnj_tgl_lahir`, `pnj_tmp_lahir`, `pnj_kerja`, `pnj_peru`, `pnj_agama_id`, `pnj_provinsi_id`, `pnj_kota_kode`, `pnj_kecamatan_id`, `pnj_alamat`, `pnj_aktif`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
 	(1, 'PNJ20230001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1970-01-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y', '2023-09-12 12:53:44', '10000427', 'ARIF', '::1', '2023-09-12 12:53:44', NULL, NULL, NULL),
 	(2, 'PNJ20230002', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1970-01-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y', '2023-09-13 11:21:54', '10000427', 'ARIF', '::1', '2023-09-13 11:21:54', NULL, NULL, NULL),
 	(3, 'PNJ20230003', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1970-01-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y', '2023-09-13 13:59:03', '10000427', 'ARIF', '::1', '2023-09-13 13:59:03', NULL, NULL, NULL),

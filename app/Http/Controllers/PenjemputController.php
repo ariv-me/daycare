@@ -45,7 +45,7 @@ class PenjemputController extends Controller
             $tmp->pnj_hub_id       = $r->penjemput_hubungan;
             $tmp->pnj_provinsi_id       = $r->provinsi;
             $tmp->pnj_kecamatan_id      = $r->kecamatan;
-            $tmp->pnj_kota_id           = $r->kota;
+            $tmp->pnj_kota_kode           = $r->kota;
             $tmp->pnj_alamat            = $r->alamat;
 
             $tmp->created_nip           = $app['kar_nip'];

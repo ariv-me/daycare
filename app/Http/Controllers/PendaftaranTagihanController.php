@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 use DB;
 
-use App\Models\PendaftaranBayar;
+
 use App\Models\Pendaftaran;
 use App\Models\PendaftaranDetail;
 
@@ -54,49 +54,62 @@ class PendaftaranTagihanController extends Controller
 
             $app        = SistemApp::sistem();
             
-            $tmp = new PendaftaranBayar();  
-            $bayar_kode = PendaftaranBayar::autonumber();  
+            $tmp = new Pendaftaran();  
+            $daftar_kode = Pendaftaran::autonumber();
+
+            $tarif       = DB::connection('daycare')
+                                ->table('daftar_tc_transaksi_detail AS aa')
+                                ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
+                                ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','bb.jenis_kode')
+                                ->where('aa.detail_aktif','Y')
+                                ->where('aa.trs_kode',null)
+                                ->where('aa.anak_kode',null)
+                                ->where('bb.jenis_kode','JN0001')
+                                ->first();
+
+            if ($tarif == null) {
+                $tarif       = DB::connection('daycare')
+                                ->table('daftar_tc_transaksi_detail AS aa')
+                                ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
+                                ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','bb.jenis_kode')
+                                ->where('aa.detail_aktif','Y')
+                                ->where('aa.trs_kode',null)
+                                ->where('aa.anak_kode',null)
+                                ->where('bb.jenis_kode','JN0002')
+                                ->first();
+            }
+
             
-            $tmp->bayar_kode        = $bayar_kode;
-            $tmp->trs_kode          = $r->kode;
-            $tmp->bayar_ket         = $r->keterangan;
-            $tmp->bayar_tgl         = date('Y-m-d', strtotime($r->tgl_bayar));
-            $tmp->bayar_diskon      = str_replace(".", "", $r->diskon);
-            $tmp->bayar_sub_total   = str_replace(".", "", $r->sub_total);
-            $tmp->bayar_total       = str_replace(".", "", $r->bayar);
+            $tmp->trs_tgl        = date('Y-m-d', strtotime($r->tgl_daftar));
+            $tmp->trs_jatuh_tempo = date('Y-m-d', strtotime($r->jatuh_tempo));
+            $tmp->trs_kode       = $daftar_kode;
+            $tmp->anak_kode      = $r->anak;
+            $tmp->periode_id     = $r->periode;
+            $tmp->tarif_kode     = $tarif->tarif_kode; 
+            $tmp->grup_kode      = $tarif->grup_kode;
+            $tmp->kat_kode       = $r->kategori;
+            $tmp->trs_total      = str_replace(".", "", $r->total_biaya);
+
             $tmp->created_nip       = $app['kar_nip'];
             $tmp->created_nama      = $app['kar_nama_awal'];
             $tmp->created_ip        = $r->ip();
 
-            $daftar = Pendaftaran::where('trs_kode',$r->kode)->first();
+            $detail = PendaftaranDetail::where('trs_kode',null)->where('anak_kode',null)->where('detail_aktif','Y')->get();
 
-            if($r->grand_total <= 0){
+            foreach ($detail as $key => $value) {
 
-                $daftar->trs_status = 'L';
-                $daftar->trs_total = str_replace(".", "", $r->grand_total);
-                $daftar->trs_untuk_bulan = date('m', strtotime($r->bulan));
-
-                $detail = PendaftaranDetail::where('trs_kode',$r->kode)->where('detail_aktif','Y')->get();
-                foreach ($detail as $key => $value) {
-
-                    $sql = DB::connection('daycare')
-                                ->table('daftar_tc_transaksi_detail')
-                                ->where('detail_aktif','Y')
-                                ->where('trs_kode',$r->kode)
-                                ->update([
-                                    'detail_aktif' => 'T',
-                                ]);
-
-                }
-
-            } else {
-
-                $daftar->trs_total = str_replace(".", "", $r->grand_total);
-                $daftar->trs_untuk_bulan = date('m', strtotime($r->bulan));
+                $sql = DB::connection('daycare')
+                            ->table('daftar_tc_transaksi_detail')
+                            ->where('detail_aktif','Y')
+                            ->where('trs_kode',null)
+                            ->where('anak_kode',null)
+                            ->update([
+                                'trs_kode' => $daftar_kode,
+                                'anak_kode' => $r->anak,
+                            ]);
 
             }
 
-            $daftar->save();
             $tmp->save();
 
         } catch (\Exception $e) {
@@ -108,6 +121,71 @@ class PendaftaranTagihanController extends Controller
         return response()->json($result);
            
     }
+
+    // public function save(Request $r){
+
+    //     $result = array('success'=>false);
+
+    //     try {
+
+    //         $app        = SistemApp::sistem();
+            
+    //         $tmp = new PendaftaranBayar();  
+    //         $bayar_kode = PendaftaranBayar::autonumber();  
+            
+    //         $tmp->bayar_kode        = $bayar_kode;
+    //         $tmp->trs_kode          = $r->kode;
+    //         $tmp->bayar_ket         = $r->keterangan;
+    //         $tmp->bayar_tgl         = date('Y-m-d', strtotime($r->tgl_bayar));
+    //         $tmp->bayar_diskon      = str_replace(".", "", $r->diskon);
+    //         $tmp->bayar_sub_total   = str_replace(".", "", $r->sub_total);
+    //         $tmp->bayar_total       = str_replace(".", "", $r->bayar);
+    //         $tmp->created_nip       = $app['kar_nip'];
+    //         $tmp->created_nama      = $app['kar_nama_awal'];
+    //         $tmp->created_ip        = $r->ip();
+
+    //         dd($tmp);
+
+    //         $daftar = Pendaftaran::where('trs_kode',$r->kode)->first();
+
+    //         if($r->grand_total <= 0){
+
+    //             $daftar->trs_status = 'L';
+    //             $daftar->trs_total = str_replace(".", "", $r->grand_total);
+    //             $daftar->trs_untuk_bulan = date('m', strtotime($r->bulan));
+
+    //             $detail = PendaftaranDetail::where('trs_kode',$r->kode)->where('detail_aktif','Y')->get();
+    //             foreach ($detail as $key => $value) {
+
+    //                 $sql = DB::connection('daycare')
+    //                             ->table('daftar_tc_transaksi_detail')
+    //                             ->where('detail_aktif','Y')
+    //                             ->where('trs_kode',$r->kode)
+    //                             ->update([
+    //                                 'detail_aktif' => 'T',
+    //                             ]);
+
+    //             }
+
+    //         } else {
+
+    //             $daftar->trs_total = str_replace(".", "", $r->grand_total);
+    //             $daftar->trs_untuk_bulan = date('m', strtotime($r->bulan));
+
+    //         }
+
+    //         $daftar->save();
+    //         $tmp->save();
+
+    //     } catch (\Exception $e) {
+    //         $result['message'] = $e->getMessage();  
+    //         return response()->json($result);
+    //     }
+
+    //     $result['success'] = true;
+    //     return response()->json($result);
+           
+    // }
 
     public function view(Request $r){
 
@@ -129,7 +207,7 @@ class PendaftaranTagihanController extends Controller
 
                 $data = $data->map(function($value) {
 
-                   $value->edit = route('pendaftaran.transaksi.edit_view',$value->anak_kode); 
+                   $value->edit = route('pendaftaran.transaksi.edit_view',$value->trs_kode); 
                    $value->anak_tgl_lahir  = format_indo($value->anak_tgl_lahir);
                    $value->trs_jatuh_tempo = format_indo($value->trs_jatuh_tempo);
                    $value->tarif_total     = format_rupiah($value->trs_total);

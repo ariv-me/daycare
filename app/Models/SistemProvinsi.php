@@ -12,7 +12,7 @@ class SistemProvinsi extends Model
     protected $primaryKey = 'prov_id';
 
     public static function getNamaProvinsi($param) {
-        $nama = SistemProvinsi::where('prov_id',$param)->first();
+        $nama = SistemProvinsi::where('prov_kode',$param)->first();
         $data = $nama->prov_nama;
 
         return $data;  

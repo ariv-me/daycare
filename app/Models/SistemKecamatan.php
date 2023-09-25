@@ -12,7 +12,7 @@ class SistemKecamatan extends Model
     protected $primaryKey = 'kec_id';
 
     public static function getNamaKecamatan($param) {
-        $nama = SistemKecamatan::where('kec_id',$param)->first();
+        $nama = SistemKecamatan::where('kec_kode',$param)->first();
         $data = $nama->kec_nama;
 
         return $data;  

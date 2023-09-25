@@ -12,7 +12,7 @@ class SistemKota extends Model
     protected $primaryKey = 'kota_id';
 
     public static function getNamaKota($param) {
-        $nama = SistemKota::where('kota_id',$param)->first();
+        $nama = SistemKota::where('kota_kode',$param)->first();
         $data = $nama->kota_nama;
 
         return $data;  

@@ -180,7 +180,7 @@ class PendaftaranController extends Controller
                 $ortu->ortu_ibu_agama_id      = $r->ibu_agama;
 
                 $ortu->ortu_provinsi_id            = $r->provinsi;
-                $ortu->ortu_kota_id                = $r->kota;
+                $ortu->ortu_kota_kode                = $r->kota;
                 $ortu->ortu_kecamatan_id           = $r->kecamatan;
                 $ortu->ortu_alamat            = $r->alamat;
 
@@ -205,7 +205,7 @@ class PendaftaranController extends Controller
                 $pnj->pnj_hub_id            = $r->penjemput_hubungan;
                 $pnj->pnj_provinsi_id           = $r->penjemput_provinsi;
                 $pnj->pnj_kecamatan_id          = $r->penjemput_kecamatan;
-                $pnj->pnj_kota_id               = $r->penjemput_kota;
+                $pnj->pnj_kota_kode               = $r->penjemput_kota;
                 $pnj->pnj_alamat            = $r->penjemput_alamat;
 
                 $pnj->created_nip           = $app['kar_nip'];
@@ -328,7 +328,7 @@ class PendaftaranController extends Controller
                 $ortu->ortu_ibu_agama_id      = $r->ibu_agama;
 
                 $ortu->ortu_provinsi_id            = $r->provinsi;
-                $ortu->ortu_kota_id                = $r->kota;
+                $ortu->ortu_kota_kode                = $r->kota;
                 $ortu->ortu_kecamatan_id           = $r->kecamatan;
                 $ortu->ortu_alamat                 = $r->alamat;
 
@@ -351,7 +351,7 @@ class PendaftaranController extends Controller
                 $pnj->pnj_hub_id            = $r->penjemput_hubungan;
                 $pnj->pnj_provinsi_id           = $r->penjemput_provinsi;
                 $pnj->pnj_kecamatan_id          = $r->penjemput_kecamatan;
-                $pnj->pnj_kota_id               = $r->penjemput_kota;
+                $pnj->pnj_kota_kode               = $r->penjemput_kota;
                 $pnj->pnj_alamat            = $r->penjemput_alamat;
 
                 $pnj->updated_nip           = $app['kar_nip'];

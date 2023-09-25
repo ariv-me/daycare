@@ -121,27 +121,14 @@ class DapokAnakController extends Controller
 
         try{
 
-            $kode = $r->get('kode');
-            
-            $data = DB::connection('daycare')
-                            ->table('dapok_tb_anak AS aa')          
-                            ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_kode','aa.ortu_kode')              
-                            ->orderby('aa.anak_id','desc')
-                            ->where('aa.ortu_kode',$kode)
-                            ->get();
-
-                $data = $data->map(function($value) {
-
-                if($value->anak_jekel == 'L'){
-                    $value->anak_jekel = 'Laki - Laki';
-                }
-                else if($value->anak_jekel == 'P'){
-                    $value->anak_jekel = 'Perempuan';
-                }
-                 
-                return $value;
-
-            });
+        $kode = $r->get('anak');
+        $data = DB::connection('daycare')
+                        ->table('dapok_tb_anak AS aa')
+                        ->leftjoin('daftar_tc_member AS bb','bb.anak_kode','=','aa.anak_kode')
+                        ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','=','aa.ortu_kode')
+                        ->where('aa.anak_kode',$kode)
+                        ->orderby('aa.anak_id','desc')
+                        ->first();
 
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  
