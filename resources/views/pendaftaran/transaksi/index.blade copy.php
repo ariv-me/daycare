@@ -2781,7 +2781,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kec_id)+'>'+(data[i].kec_nama)+'</option>';
+                    html = '<option value='+(data[i].kec_kode)+'>'+(data[i].kec_nama)+'</option>';
                     $('select[name=kecamatan]').append(html)
                 }
             }
@@ -2806,7 +2806,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kota_id)+'>'+(data[i].kota_nama)+'</option>';
+                    html = '<option value='+(data[i].kota_kode)+'>'+(data[i].kota_nama)+'</option>';
                     $('select[name=kota]').append(html)
                 }
             }
@@ -2831,7 +2831,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].pro_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_kode)+'>'+(data[i].pro_nama)+'</option>';
                     $('select[name=provinsi]').append(html)
                 }
             }
@@ -2859,7 +2859,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kec_id)+'>'+(data[i].kec_nama)+'</option>';
+                    html = '<option value='+(data[i].kec_kode)+'>'+(data[i].kec_nama)+'</option>';
                     $('select[name=penjemput_kecamatan]').append(html)
                 }
             }
@@ -2884,7 +2884,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kota_id)+'>'+(data[i].kota_nama)+'</option>';
+                    html = '<option value='+(data[i].kota_kode)+'>'+(data[i].kota_nama)+'</option>';
                     $('select[name=penjemput_kota]').append(html)
                 }
             }
@@ -2909,7 +2909,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].pro_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_kode)+'>'+(data[i].pro_nama)+'</option>';
                     $('select[name=penjemput_provinsi]').append(html)
                 }
             }

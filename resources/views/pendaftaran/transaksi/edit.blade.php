@@ -743,9 +743,9 @@
                 $('[name="ibu_pdk"]').val(data.ortu_ibu_pdk_id).trigger("change");
                 $('[name="ibu_agama"]').val(data.ortu_ibu_agama_id).trigger("change");
 
-                $('[name="provinsi"]').val(data.prov_id).trigger("change");
-                $('[name="kota"]').val(data.kota_id).trigger("change");
-                $('[name="kecamatan"]').val(data.kec_id).trigger("change");
+                $('[name="provinsi"]').val(data.prov_kode).trigger("change");
+                $('[name="kota"]').val(data.kota_kode).trigger("change");
+                $('[name="kecamatan"]').val(data.kec_kode).trigger("change");
                 $('[name="alamat"]').val(data.ortu_alamat);
 
                 $('[name="penjemput_nama"]').val(data.pnj_nama);
@@ -760,7 +760,7 @@
                 $('[name="penjemput_agama"]').val(data.pnj_agama_id).trigger("change");
 
                 $('[name="penjemput_provinsi"]').val(data.pnj_provinsi_id).trigger("change");
-                $('[name="penjemput_kota"]').val(data.pnj_kota_id).trigger("change");
+                $('[name="penjemput_kota"]').val(data.pnj_kota_kode).trigger("change");
                 $('[name="penjemput_kecamatan"]').val(data.pnj_kecamatan_id).trigger("change");
                 $('[name="penjemput_alamat"]').val(data.pnj_alamat);
 
@@ -1815,7 +1815,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kec_id)+'>'+(data[i].kec_nama)+'</option>';
+                    html = '<option value='+(data[i].kec_kode)+'>'+(data[i].kec_nama)+'</option>';
                     $('select[name=kecamatan]').append(html)
                 }
             }
@@ -1841,7 +1841,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kota_id)+'>'+(data[i].kota_nama)+'</option>';
+                    html = '<option value='+(data[i].kota_kode)+'>'+(data[i].kota_nama)+'</option>';
                     $('select[name=kota]').append(html)
                 }
             }
@@ -1866,7 +1866,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].prov_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_kode)+'>'+(data[i].prov_nama)+'</option>';
                     $('select[name=provinsi]').append(html)
                 }
             }
@@ -1894,7 +1894,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kec_id)+'>'+(data[i].kec_nama)+'</option>';
+                    html = '<option value='+(data[i].kec_kode)+'>'+(data[i].kec_nama)+'</option>';
                     $('select[name=penjemput_kecamatan]').append(html)
                 }
             }
@@ -1920,7 +1920,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kota_id)+'>'+(data[i].kota_nama)+'</option>';
+                    html = '<option value='+(data[i].kota_kode)+'>'+(data[i].kota_nama)+'</option>';
                     $('select[name=penjemput_kota]').append(html)
                 }
             }
@@ -1945,7 +1945,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].prov_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_kode)+'>'+(data[i].prov_nama)+'</option>';
                     $('select[name=penjemput_provinsi]').append(html)
                 }
             }

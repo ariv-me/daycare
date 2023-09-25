@@ -1563,7 +1563,7 @@
                     $('#formModalEditOrtu').find('[name="ibu_wa"]').val(data.ortu_ibu_wa).trigger("change");
 
                     $('#formModalEditOrtu').find('[name="provinsi"]').val(data.provinsi_id).trigger("change");
-                    $('#formModalEditOrtu').find('[name="kota"]').val(data.kota_id).trigger("change");
+                    $('#formModalEditOrtu').find('[name="kota"]').val(data.kota_kode).trigger("change");
                     $('#formModalEditOrtu').find('[name="kecamatan"]').val(data.kecamatan_id).trigger("change");
                     $('#formModalEditOrtu').find('[name="alamat"]').val(data.ortu_alamat).trigger("change");
 
@@ -3320,7 +3320,7 @@
                     $('#formModalEditPenjemput').find('[name="penjemput_wa"]').val(data.pnj_wa);
 
                     $('#formModalEditPenjemput').find('[name="penjemput_provinsi"]').val(data.provinsi_id).trigger("change");
-                    $('#formModalEditPenjemput').find('[name="penjemput_kota"]').val(data.kota_id).trigger("change");
+                    $('#formModalEditPenjemput').find('[name="penjemput_kota"]').val(data.kota_kode).trigger("change");
                     $('#formModalEditPenjemput').find('[name="penjemput_kecamatan"]').val(data.kecamatan_id).trigger("change");
                     $('#formModalEditPenjemput').find('[name="penjemput_alamat"]').val(data.pnj_alamat).trigger("change");
 
@@ -4074,7 +4074,7 @@
                     $('#formModalEditKontak').find('[name="kontak_hp"]').val(data.kontak_hp);
 
                     $('#formModalEditKontak').find('[name="kontak_provinsi"]').val(data.provinsi_id).trigger("change");
-                    $('#formModalEditKontak').find('[name="kontak_kota"]').val(data.kota_id).trigger("change");
+                    $('#formModalEditKontak').find('[name="kontak_kota"]').val(data.kota_kode).trigger("change");
                     $('#formModalEditKontak').find('[name="kontak_kecamatan"]').val(data.kecamatan_id).trigger("change");
                     $('#formModalEditKontak').find('[name="kontak_alamat"]').val(data.kontak_alamat).trigger("change");
 
@@ -4435,7 +4435,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kec_id)+'>'+(data[i].kec_nama)+'</option>';
+                    html = '<option value='+(data[i].kec_kode)+'>'+(data[i].kec_nama)+'</option>';
                     $('select[name=kecamatan]').append(html)
                 }
             }
@@ -4461,7 +4461,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kota_id)+'>'+(data[i].kota_nama)+'</option>';
+                    html = '<option value='+(data[i].kota_kode)+'>'+(data[i].kota_nama)+'</option>';
                     $('select[name=kota]').append(html)
                 }
             }
@@ -4486,7 +4486,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].pro_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_kode)+'>'+(data[i].pro_nama)+'</option>';
                     $('select[name=provinsi]').append(html)
                 }
             }
@@ -4514,7 +4514,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kec_id)+'>'+(data[i].kec_nama)+'</option>';
+                    html = '<option value='+(data[i].kec_kode)+'>'+(data[i].kec_nama)+'</option>';
                     $('select[name=penjemput_kecamatan]').append(html)
                 }
             }
@@ -4540,7 +4540,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kota_id)+'>'+(data[i].kota_nama)+'</option>';
+                    html = '<option value='+(data[i].kota_kode)+'>'+(data[i].kota_nama)+'</option>';
                     $('select[name=penjemput_kota]').append(html)
                 }
             }
@@ -4565,7 +4565,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].pro_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_kode)+'>'+(data[i].pro_nama)+'</option>';
                     $('select[name=penjemput_provinsi]').append(html)
                 }
             }
@@ -4594,7 +4594,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kec_id)+'>'+(data[i].kec_nama)+'</option>';
+                    html = '<option value='+(data[i].kec_kode)+'>'+(data[i].kec_nama)+'</option>';
                     $('select[name=kontak_kecamatan]').append(html)
                 }
             }
@@ -4619,7 +4619,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kota_id)+'>'+(data[i].kota_nama)+'</option>';
+                    html = '<option value='+(data[i].kota_kode)+'>'+(data[i].kota_nama)+'</option>';
                     $('select[name=kontak_kota]').append(html)
                 }
             }
@@ -4644,7 +4644,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].pro_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_kode)+'>'+(data[i].pro_nama)+'</option>';
                     $('select[name=kontak_provinsi]').append(html)
                 }
             }

@@ -42,7 +42,7 @@ class ComboSistemController extends Controller
          $kota = $r->kota;
          $data = DB::connection('spf')
                          ->table('sistem_ta_3_kecamatan as aa')
-                         ->where('aa.kota_id',$kota)
+                         ->where('aa.kota_kode',$kota)
                          ->orderby('aa.kec_nama')
                          ->get();
         
@@ -57,7 +57,7 @@ class ComboSistemController extends Controller
          $provinsi = $r->provinsi;
          $data = DB::connection('spf')
                          ->table('sistem_ta_2_kota as aa')
-                         ->where('aa.prov_id',$provinsi)
+                         ->where('aa.prov_kode',$provinsi)
                          ->get();
      
          return response()->json($data);

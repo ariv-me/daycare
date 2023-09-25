@@ -68,7 +68,7 @@ class DapokOrtuController extends Controller
                 $tmp->ortu_ibu_agama_id      = $r->ibu_agama;
 
                 $tmp->provinsi_id            = $r->provinsi;
-                $tmp->kota_id                = $r->kota;
+                $tmp->kota_kode                = $r->kota;
                 $tmp->kecamatan_id           = $r->kecamatan;
                 $tmp->ortu_alamat            = $r->alamat;
 
@@ -126,13 +126,14 @@ class DapokOrtuController extends Controller
                             ->table('dapok_tb_ortu AS aa')                        
                             ->orderby('aa.ortu_id','desc')
                             ->get();
-                //dd($data);
 
                 $data = $data->map(function($value) {
 
-                    $value->provinsi = ucwords(strtolower(SistemProvinsi::getNamaProvinsi($value->prov_id)));
-                    $value->kota = ucwords(strtolower(SistemKota::getNamaKota($value->kota_id)));
-                    $value->kecamatan = ucwords(strtolower(SistemKecamatan::getNamaKecamatan($value->kec_id)));
+                $value->provinsi = ucwords(strtolower(SistemProvinsi::getNamaProvinsi($value->prov_kode)));
+                $value->kota = ucwords(strtolower(SistemKota::getNamaKota($value->kota_kode)));
+                $value->kecamatan = ucwords(strtolower(SistemKecamatan::getNamaKecamatan($value->kec_kode)));
+
+                // dd($value->kota_kode);
 
                 $value->ayah_usia = Carbon::parse($value->ortu_ayah_tgl_lahir)->age;
                 $value->ibu_usia = Carbon::parse($value->ortu_ibu_tgl_lahir)->age;
@@ -186,9 +187,9 @@ class DapokOrtuController extends Controller
         $result['ibu_agama']   = SistemAgama::where('agama_id',$data->ortu_ibu_agama_id)->first()->agama_nama;
         $result['ayah_pdk']   = SistemPendidikan::where('pdk_id',$data->ortu_ayah_pdk_id)->first()->pdk_nama;
         $result['ibu_pdk']   = SistemPendidikan::where('pdk_id',$data->ortu_ibu_pdk_id)->first()->pdk_nama;
-        $result['provinsi']   = SistemProvinsi::where('prov_id',$data->prov_id)->first()->prov_nama;
-        $result['kota']   = SistemKota::where('kota_id',$data->kota_id)->first()->kota_nama;
-        $result['kecamatan']   = SistemKecamatan::where('kec_id',$data->kec_id)->first()->kec_nama;
+        $result['provinsi']   = SistemProvinsi::where('prov_kode',$data->prov_kode)->first()->prov_nama;
+        $result['kota']   = SistemKota::where('kota_kode',$data->kota_kode)->first()->kota_nama;
+        $result['kecamatan']   = SistemKecamatan::where('kec_kode',$data->kec_kode)->first()->kec_nama;
 
         $result['data']    = $data;
 
@@ -228,7 +229,7 @@ class DapokOrtuController extends Controller
               $tmp->ortu_ibu_agama_id      = $r->ibu_agama;
 
               $tmp->provinsi_id            = $r->provinsi;
-              $tmp->kota_id                = $r->kota;
+              $tmp->kota_kode                = $r->kota;
               $tmp->kecamatan_id           = $r->kecamatan;
               $tmp->ortu_alamat            = $r->alamat;
 

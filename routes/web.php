@@ -147,11 +147,6 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 		Route::get('/delete', [PendaftaranDetailController::class, 'delete'])->name('delete');
 
 	});
-
-
-	
-
-
 	
 });
 
@@ -352,9 +347,9 @@ Route::group(['prefix' => 'combo', 'as' => 'combo.'], function () {
 
 	// Combo Data Pokok
 
-		Route::get('/combo_dapok_anak', [ComboSistemController::class, 'combo_dapok_anak'])->name('combo_dapok_anak');
-		Route::get('/combo_dapok_ortu', [ComboSistemController::class, 'combo_dapok_ortu'])->name('combo_dapok_ortu');
-		Route::get('/combo_dapok_penjemput', [ComboSistemController::class, 'combo_penjemput'])->name('combo_penjemput');
+		Route::get('/combo_dapok_anak', [ComboController::class, 'combo_dapok_anak'])->name('combo_dapok_anak');
+		Route::get('/combo_dapok_ortu', [ComboController::class, 'combo_dapok_ortu'])->name('combo_dapok_ortu');
+		Route::get('/combo_dapok_penjemput', [ComboController::class, 'combo_penjemput'])->name('combo_penjemput');
 });
 
 // Sistem

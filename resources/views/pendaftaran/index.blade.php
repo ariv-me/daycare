@@ -598,18 +598,19 @@
 
     // ORTU
 
-    function showOrtuProvinsiEdit(select){
-        var provinsi=$('#provinsi_edit').val();
-        combo_kota(provinsi);
+    // function showOrtuProvinsiEdit(select){
+    //     var provinsi=$('#provinsi_edit').val();
+    //     console.log(provinsi);
+    //     combo_kota(provinsi);
 
-        var kota=$('#kota_edit').val();
-        combo_kecamatan(kota);
-    }
+    //     var kota=$('#kota_edit').val();
+    //     combo_kecamatan(kota);
+    // }
 
-    function showOrtuKotaEdit(select){
-        var kota=$('#kota_edit').val();
-        combo_kecamatan(kota);
-    }
+    // function showOrtuKotaEdit(select){
+    //     var kota=$('#kota_edit').val();
+    //     combo_kecamatan(kota);
+    // }
 
     // PENJEMPUT
 
@@ -626,18 +627,18 @@
         combo_kecamatan_penjemput(kota);
     }
 
-    function showPenjemputProvinsiEdit(select){
-        var provinsi=$('#penjemput_provinsi_edit').val();
-        combo_kota_penjemput(provinsi);
+    // function showPenjemputProvinsiEdit(select){
+    //     var provinsi=$('#penjemput_provinsi_edit').val();
+    //     combo_kota_penjemput(provinsi);
 
-        var kota=$('#penjemput_kota_edit').val();
-        combo_kecamatan_penjemput(kota);
-    }
+    //     var kota=$('#penjemput_kota_edit').val();
+    //     combo_kecamatan_penjemput(kota);
+    // }
 
-    function showPenjemputKotaEdit(select){
-        var kota=$('#penjemput_kota_edit').val();
-        combo_kecamatan_penjemput(kota);
-    }
+    // function showPenjemputKotaEdit(select){
+    //     var kota=$('#penjemput_kota_edit').val();
+    //     combo_kecamatan_penjemput(kota);
+    // }
 
 
    
@@ -1717,7 +1718,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kec_id)+'>'+(data[i].kec_nama)+'</option>';
+                    html = '<option value='+(data[i].kec_kode)+'>'+(data[i].kec_nama)+'</option>';
                     $('select[name=kecamatan]').append(html)
                 }
             }
@@ -1743,7 +1744,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kota_id)+'>'+(data[i].kota_nama)+'</option>';
+                    html = '<option value='+(data[i].kota_kode)+'>'+(data[i].kota_nama)+'</option>';
                     $('select[name=kota]').append(html)
                 }
             }
@@ -1768,7 +1769,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].prov_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_kode)+'>'+(data[i].prov_nama)+'</option>';
                     $('select[name=provinsi]').append(html)
                 }
             }
@@ -1796,7 +1797,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kec_id)+'>'+(data[i].kec_nama)+'</option>';
+                    html = '<option value='+(data[i].kec_kode)+'>'+(data[i].kec_nama)+'</option>';
                     $('select[name=penjemput_kecamatan]').append(html)
                 }
             }
@@ -1822,7 +1823,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].kota_id)+'>'+(data[i].kota_nama)+'</option>';
+                    html = '<option value='+(data[i].kota_kode)+'>'+(data[i].kota_nama)+'</option>';
                     $('select[name=penjemput_kota]').append(html)
                 }
             }
@@ -1847,7 +1848,7 @@
 
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].prov_id)+'>'+(data[i].prov_nama)+'</option>';
+                    html = '<option value='+(data[i].prov_kode)+'>'+(data[i].prov_nama)+'</option>';
                     $('select[name=penjemput_provinsi]').append(html)
                 }
             }
@@ -2191,48 +2192,20 @@
     }
 
       
-        
-      
-
-    function showFilterKategori(select){
-
-        var kategori  = $('#kategori').val();
-        var paket  = $('#paket').val();
-        combo_paket(kategori);
-        view_tarif(kategori,paket);
-
-    }
     function showFilterPaket(select){
 
-        var kategori  = $('#kategori').val();
         var paket  = $('#paket').val();
-        view_tarif(kategori,paket);
-        get_tarif(paket);
+        view_tarif(paket);
 
     }
 
-    function get_tarif(paket){
-        $.ajax({
-            type: "GET",
-            url: "{{ route('tarif.get_tarif') }}",
-            dataType: "JSON",
-            data: {id:paket},
-            success: function(data) {
-
-                $('[name="tarif_kode"]').val(data.tarif_kode);
-               
-            }
-        });
-    }
-
-    function combo_paket(kategori){
+    function combo_paket(){
 
     $('select[name=paket]').empty()
         $.ajax({
             type  : 'GET',
             url   : "{{ route('combo.combo_tarif_paket2') }}",
             async : false,
-            data : {kategori:kategori},
             dataType : 'JSON',
             success : function(data){
                 var html = '';
