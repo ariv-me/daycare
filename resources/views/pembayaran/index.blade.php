@@ -6,27 +6,51 @@
     <div class="col-12">
 
         <div class="card">
-        <div class="card-header bg-success">
-                <div class="row">
-                    <div class="col-md-9">
-                        <h4 class="card-title text-white"><i class="mdi mdi-cash-multiple"></i> DATA - PEMBAYARAN</h4>
-                    </div>
-                    <div class="col-md-3" style="text-align: right">
-                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" id="btn_add"><i class="fas fa-plus-circle"></i> TAMBAH DATA </button>
-                    </div>
+            <div class="card-header bg-success">
+                <div class="row align-items-center">
+                    <div class="col">                      
+                        <h4 class="card-title text-white"><i class="mdi mdi-cash-usd"></i>  PEMBAYARAN</h4>          
+                    </div><!--end col-->
+                    <div class="col-auto"> 
+                    </div><!--end col-->
                 </div>
-
             </div>
             <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-2">
+                            <label class="form-label" for="subject">Anak  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="filter_anak" id="filter_anak" onchange="filterAnak(this)"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-2">
+                            <label class="form-label" for="subject">Bulan  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="filter_bulan" id="filter_bulan" onchange="filterBulan(this)"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-2">
+                            <label class="form-label" for="subject">Total  </label><br>
+                            <span class="h4 text-danger mt-2" id="total"></span>      
+                        </div>
+                    </div>
+                </div>
                 <div class="box-body">					
                     <table id="datatable" class="table table-bordered mb-0 table-centered">
                         <thead>
                             <tr>
-                                <th width ="5%" style="text-align: center">NO</th>
-                                <th width ="80%" style="text-align: center">KODE</th>
-                                <th width ="10%" style ="text-align: center">TANGGAL</th>
-                                <th width ="10%" style ="text-align: center">TAGIHAN</th>
-                                <th width ="10%" style ="text-align: center">BAYAR</th>
+                                <th style="text-align: center;  vertical-align:middle;" rowspan="2">NO</th>
+                                <th style="text-align: center; vertical-align:middle;" colspan="2" >KODE</th>
+                                <th style="text-align: center;  vertical-align:middle;" rowspan="2">ANAK</th>
+                                <th style ="text-align: center;  vertical-align:middle;" rowspan="2">TANGGAL</th>
+                                <th style ="text-align: center;  vertical-align:middle;" rowspan="2">DISKON</th>
+                                <th style ="text-align: center;  vertical-align:middle;" rowspan="2">BAYAR</th>
+                                <th style ="text-align: center;  vertical-align:middle;" rowspan="2">TAGIHAN</th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">BAYAR</th>
+                                <th style="text-align: center">TAGIHAN</th>
                             </tr>
                         </thead>
                         <tbody id="show_data"></tbody>
@@ -37,62 +61,6 @@
     </div>
 </div>
 
-<div class="modal fade  bd-example-modal" id="formModalAdd">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"> <strong>Tambah Data Kategori</strong> </h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                {!! csrf_field() !!}
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
-                            <input class="form-control" name="nama" id="nama">
-                        </div>
-                    </div>  
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-sm" id="btn_save"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade  bd-example-modal" id="formModalEdit">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"> <strong>Edit Data Kategori</strong> </h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                {!! csrf_field() !!}
-
-                <input type="hidden" name="id_edit" id="id_edit" class="form-control">
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
-                            <input class="form-control" name="nama_edit" id="nama_edit">
-                        </div>
-                    </div>  
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-warning btn-sm" id="btn_update"><i class="fas fa-save"></i> UPDATE</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 @endsection
 
@@ -102,119 +70,99 @@
 
     $(document).ready(function(){
 
-        view();
-        reset();
+        $('.select2').select2();
+
+        // $("#filter_bulan").datepicker( {
+        //     viewMode: "months",
+        //     minViewMode: "months",
+        //     autoClose: true,
+        //     format: 'mm'
+        // }).on('changeDate', function (ev) {
+        //     $(this).datepicker('hide');
+        // });
+
+        combo_anak();
+        combo_bulan();
+
+        $('#filter_bulan').val('Semua');
+        var anak  = $('#filter_anak').val();
+        var bulan = $('#filter_bulan').val();
+
+        view(anak,bulan);
+       
 
     });
 
-    function reset() {
-        $('#nama').val("");
+    function filterAnak(){
+        var anak = $('#filter_anak').val();
+        var bulan = $('#filter_bulan').val();
+
+        view(anak,bulan);
     }
 
-    $('#btn_add').on('click',function(){
+    function filterBulan(){
+        var anak = $('#filter_anak').val();
+        var bulan = $('#filter_bulan').val();
 
-        $("#nama").val("");
-        $('#formModalAdd').modal('show');
-        reset();
+        view(anak,bulan);
+    }
 
-    });
-
-    $('#btn_save').on('click', function(){
-
-        if (!$("#nama").val()) {
-            $.toast({
-                text: 'NAMA HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#nama").focus();
-            return false;
-
-        } 
-
-        var nama = $('#nama').val();
-        
-        var token = $('[name=_token]').val();
-        var formData = new FormData();
-    
-        formData.append('nama', nama);
-        formData.append('_token', token);
-
-        $.ajax({
-            type: "POST",
-            url: "{{ route('tarif.jenis.save') }}",
-            dataType: "JSON",
-            data: formData,
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function(r) {
-                    
-                    view();
-                    swal("Berhasil!", "Data Berhasil Disimpan", "success");
-                    $('#formModalAdd').modal('hide');
-                
-               
-            }
-        });
-
-    return false;
-
-    });
-
-
-    function view() {
+    function view(anak,bulan) {
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('tarif.jenis.view') }}",
+            url: "{{ route('pembayaran.view') }}",
             async: true,
+            data:{anak:anak,bulan:bulan},
             dataType: 'JSON',
             success: function(r) {
                 var i;
                 $('#datatable').DataTable().destroy(); 
                 $('#show_data').empty();
+                
+            
                 data = r.data;
+
+               document.getElementById("total").innerHTML='<b class="text-info font-18 mt-2">Rp.'+r.total+'</b>';
+
                 if (data.length) {
                     for (i = 0; i < data.length; i++) {
+                    
+                        var tr = $('<tr>').append([
+                            $('<td width="1%" align="center">'),
+                            $('<td width="3%" align="center">'),
+                            $('<td width="3%" align="center">'),
+                            $('<td width="10%" align="left">'),
+                            $('<td width="5%" align="center">'),
+                            $('<td width="5%" align="right">'),
+                            $('<td width="5%" align="right">'),
+                            $('<td width="5%" align="right">')
 
+                        ]);
 
-                        if((data[i].jenis_aktif) == 'Y'){
-                            var tr = $('<tr>').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="50%">'),
-                                $('<td class= width="5%" align="center">')
-
-                            ]);
-
-                        } else {
-
-                            var tr = $('<tr style="background-color:#fee6ec;">').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="50%">'),
-                                $('<td class= width="5%" align="center">')
-                
-                            ]);
-
-                        }
 
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].jenis_nama)));   
-                        
-                        
-                        if((data[i].jenis_aktif) == 'Y'){
+                            .html((data[i].bayar_kode))); 
 
-                            tr.find('td:nth-child(3)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].jenis_id+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].jenis_id+'"><i class="mdi mdi-window-close"></i></a></div>');   
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html((data[i].trs_kode)));      
 
-                        } else {
-                            tr.find('td:nth-child(3)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].jenis_id+'"><i class="mdi mdi-check"></i></a></div>');   
-                        }
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html((data[i].anak_nama)));                           
 
-                        
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html((data[i].bayar_tgl)));       
+
+                        tr.find('td:nth-child(6)').append($('<div>')
+                            .html((data[i].diskon)));           
+
+                        tr.find('td:nth-child(7)').append($('<div>')
+                            .html((data[i].total)));      
+
+                        tr.find('td:nth-child(8)').append($('<div>')
+                            .html((data[i].sub_total)));                           
 
                         tr.appendTo($('#show_data'));
                     }
@@ -225,125 +173,54 @@
         });
     }
 
+    function combo_anak(){
 
-    $('#show_data').on('click','.item_edit',function(){
-
-        var id=$(this).attr('data');
-
+        $('select[name=anak]').empty()
         $.ajax({
-            type : "GET",
-            url   : "{{ route('tarif.jenis.edit') }}",
-            dataType : "JSON",
-            data : {id:id},
-            success: function(data){
-                $('#formModalEdit').modal('show');
-                $('#formModalEdit').find('[name="id_edit"]').val(data.jenis_id);
-                $('#formModalEdit').find('[name="nama_edit"]').val(data.jenis_nama);
+            type  : 'GET',
+            url   : "{{ route('combo.combo_dapok_anak') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=filter_anak]').empty()
+                var x = document.getElementById("filter_anak");
+                        var option = document.createElement("option");
+                        option.text = "Semua";
+                        option.value = 'Semua';
+                        x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].anak_kode)+'>'+(data[i].anak_nama)+'</option>';
+                    $('select[name=filter_anak]').append(html)
+                }
             }
         });
 
-    return false;
+    }
 
-    });
+    function combo_bulan(){
 
-        $('#formModalEdit').on('shown.bs.modal', function () {
-        $('#nama_edit').focus();
-    })  
+        $('select[name=filter_bulan]').empty()
+        var html = '';
+        html = '<option value="Semua">Semua</option>'+
+               '<option value="01">Januari</option>'+
+               '<option value="02">Februari</option>'+
+               '<option value="03">Maret</option>'+
+               '<option value="04">April</option>'+
+               '<option value="05">Mei</option>'+
+               '<option value="06">Juni</option>'+
+               '<option value="07">Juli</option>'+
+               '<option value="08">Agustus</option>'+
+               '<option value="09">September</option>'+
+               '<option value="10">Oktober</option>'+
+               '<option value="11">November</option>'+
+               '<option value="12">Desember</option>';
 
-    $('#btn_update').on('click',function(){
+        $('select[name=filter_bulan]').append(html)
 
-        if (!$("#nama_edit").val()) {
-            $.toast({
-                text: 'NAMA HARUS DI ISI',
-                position: 'top-left',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#nama_edit").focus();
-            return false;
-
-        } 
-      
-        var id = $('#id_edit').val();
-        var nama = $('#nama_edit').val();
-        var token = $('[name=_token]').val();
-
-        var formData = new FormData();
-
-        formData.append('id', id);
-        formData.append('nama', nama);
-        formData.append('_token', token);
-
-        $.ajax({
-            type : "POST",
-            url   : "{{ route('tarif.jenis.update') }}",
-            dataType : "JSON",
-            data : formData,
-            cache : false,
-            processData : false,
-            contentType : false,
-            success: function(data){
-                $('#formModalEdit').modal('hide');
-                swal("Berhasil!", "Data Berhasil Diupdate", "success");
-                view();
-            }
-        });
-
-        return false;
-    });
-
-    $('#show_data').on('click','.item_aktif',function(){
-        var id=$(this).attr('data');
-        swal({
-                title: "Anda Yakin Aktifkan Data Ini ?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Ya, Aktifkan !",
-                closeOnConfirm: false
-        }, function (isConfirm) {
-            if (isConfirm) {
-                var _token = $('meta[name=csrf-token]').attr('content');
-                $.ajax({
-                    type : "GET",
-                    url   : "{{ route('tarif.jenis.aktif') }}",
-                    dataType : "JSON",
-                    data : {id,_token},
-                    success: function(data){
-                        swal("Aktif !", "Data Sudah Di-Aktifkan !!.", "success");
-                        view();
-                    }
-                });  
-            }
-        });
-    });
-
-    $('#show_data').on('click','.item_nonaktif',function(){
-        var id=$(this).attr('data');
-        swal({
-                title: "Anda Yakin Non-Aktifkan Data Ini ?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Ya, Non-Aktifkan !",
-                closeOnConfirm: false
-        }, function (isConfirm) {
-            if (isConfirm) {
-                var _token = $('meta[name=csrf-token]').attr('content');
-                $.ajax({
-                    type : "GET",
-                    url   : "{{ route('tarif.jenis.nonaktif') }}",
-                    dataType : "JSON",
-                    data : {id,_token},
-                    success: function(data){
-                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
-                        view();
-                    }
-                });  
-            }
-        });
-    });
+    }
 
 
     

@@ -20,6 +20,7 @@ use App\Http\Controllers\TarifController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PendaftaranTagihanController;
 use App\Http\Controllers\PendaftaranDetailController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\BayarController;
 
 /*-- CATERING --*/
@@ -84,6 +85,7 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 		Route::get('/view', [DapokAnakController::class, 'view'])->name('view');
 		Route::get('/view_anak', [DapokAnakController::class, 'view_anak'])->name('view_anak');
 		Route::post('/save', [DapokAnakController::class, 'save'])->name('save');
+		Route::get('/get_anak', [DapokAnakController::class, 'get_anak'])->name('get_anak');
 		Route::get('/edit', [DapokAnakController::class, 'edit'])->name('edit');
 		Route::post('/update', [DapokAnakController::class, 'update'])->name('update');
 		Route::get('/aktif', [DapokAnakController::class, 'aktif'])->name('aktif');
@@ -123,19 +125,6 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 
 	});
 
-	Route::group(['prefix' => 'tagihan', 'as' => 'tagihan.'], function () {
-		Route::get('/', [PendaftaranTagihanController::class, 'index'])->name('index');	
-		Route::get('/view', [PendaftaranTagihanController::class, 'view'])->name('view');
-		Route::get('/add', [PendaftaranTagihanController::class, 'add'])->name('add');
-		Route::post('/save', [PendaftaranTagihanController::class, 'save'])->name('save');
-		Route::get('/edit', [PendaftaranTagihanController::class, 'edit'])->name('edit');
-		Route::post('/update', [PendaftaranTagihanController::class, 'update'])->name('update');
-		Route::post('/void', [PendaftaranTagihanController::class, 'void'])->name('void');
-		
-		Route::get('/detail_view', [PendaftaranTagihanController::class, 'detail_view'])->name('detail_view');
-
-	});
-
 	// Pendaftaran Detail
 
 	Route::group(['prefix' => 'detail', 'as' => 'detail.'], function () {
@@ -150,15 +139,30 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 	
 });
 
-	
-Route::group(['prefix' => 'pembayaran', 'as' => 'pembayaran.'], function () {
+/**-- TAGIHAN --**/
 
-	Route::get('/data', [PendaftaranTagihanController::class, 'data'])->name('data');
+Route::group(['prefix' => 'tagihan', 'as' => 'tagihan.'], function () {
+	Route::get('/', [PendaftaranTagihanController::class, 'index'])->name('index');	
 	Route::get('/view', [PendaftaranTagihanController::class, 'view'])->name('view');
+	Route::get('/add', [PendaftaranTagihanController::class, 'add'])->name('add');
 	Route::post('/save', [PendaftaranTagihanController::class, 'save'])->name('save');
 	Route::get('/edit', [PendaftaranTagihanController::class, 'edit'])->name('edit');
 	Route::post('/update', [PendaftaranTagihanController::class, 'update'])->name('update');
 	Route::post('/void', [PendaftaranTagihanController::class, 'void'])->name('void');
+	
+	Route::get('/detail_view', [PendaftaranTagihanController::class, 'detail_view'])->name('detail_view');
+
+});
+
+	
+Route::group(['prefix' => 'pembayaran', 'as' => 'pembayaran.'], function () {
+
+	Route::get('/data', [PembayaranController::class, 'data'])->name('data');
+	Route::get('/view', [PembayaranController::class, 'view'])->name('view');
+	Route::post('/save', [PembayaranController::class, 'save'])->name('save');
+	Route::get('/edit', [PembayaranController::class, 'edit'])->name('edit');
+	Route::post('/update', [PembayaranController::class, 'update'])->name('update');
+	Route::post('/void', [PembayaranController::class, 'void'])->name('void');
 
 
 });

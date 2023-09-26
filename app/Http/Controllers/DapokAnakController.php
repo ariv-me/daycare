@@ -121,14 +121,29 @@ class DapokAnakController extends Controller
 
         try{
 
-        $kode = $r->get('anak');
+        $kode = $r->get('kode');
         $data = DB::connection('daycare')
                         ->table('dapok_tb_anak AS aa')
                         ->leftjoin('daftar_tc_member AS bb','bb.anak_kode','=','aa.anak_kode')
                         ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','=','aa.ortu_kode')
-                        ->where('aa.anak_kode',$kode)
+                        ->where('aa.ortu_kode',$kode)
                         ->orderby('aa.anak_id','desc')
-                        ->first();
+                        ->get();
+
+        $data = $data->map(function($value) {
+
+            $value->anak_tgl_lahir = format_indo($value->anak_tgl_lahir);
+
+            if($value->anak_jekel == 'L'){
+                $value->anak_jekel = 'Laki - Laki';
+            }
+            else if($value->anak_jekel == 'P'){
+                $value->anak_jekel = 'Perempuan';
+            }
+
+            return $value;
+
+        });
 
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  
@@ -144,14 +159,31 @@ class DapokAnakController extends Controller
 
     public function edit(Request $r)
     {
-        $id = $r->get('id');
-       
-        $data = DapokAnak::where('anak_id',$id)->first();
+        $result = array('success'=>false);
 
-        $result = array();
-        $result['data']    = $data;
+        try{
 
-       return response()->json($result);
+        $kode = $r->get('kode');
+        $data = DB::connection('daycare')
+                        ->table('dapok_tb_anak AS aa')
+                        ->leftjoin('daftar_tc_member AS bb','bb.anak_kode','=','aa.anak_kode')
+                        ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','=','aa.ortu_kode')
+                        ->where('aa.anak_kode',$kode)
+                        ->orderby('aa.anak_id','desc')
+                        ->first();
+
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['data'] = $data;
+
+        return response()->json($result);
+
+
     }
 
     public function update(Request $r){

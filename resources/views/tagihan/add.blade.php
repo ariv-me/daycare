@@ -59,9 +59,9 @@
             <input type="hidden" id="trs_kode" name="trs_kode">
             <input type="hidden" id="anak_kode" name="anak_kode">
 
-            <input type="hidden" id="periode" name="periode">
-            <input type="hidden" id="grup" name="grup">
-            <input type="hidden" id="kategori" name="kategori">
+            <input type="text" id="periode" name="periode">
+            <input type="text" id="grup" name="grup">
+            <input type="text" id="kategori" name="kategori">
 
             <h4 class="card-title bg-light p-2 mb-2"><i class="fas fa-edit"></i>  TAGIHAN</h4>
             <div class="row">
@@ -200,8 +200,8 @@
 
     function showAnak(select){
 
-        var anak  = $('#anak').val();
-        view_anak(anak);
+        var kode  = $('#anak').val();
+        view_anak(kode);
 
     }
 
@@ -275,7 +275,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('pendaftaran.tagihan.save') }}",
+            url: "{{ route('tagihan.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -464,18 +464,20 @@
 
     }
 
-    function view_anak(anak) {
+    function view_anak(kode) {
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('dapok.anak.view_anak') }}",
+            url: "{{ route('dapok.anak.edit') }}",
             async: true,
-            data : {anak:anak},
+            data : {kode:kode},
             dataType: 'JSON',
             success: function(r) {
                 var i;
                 
                 data = r.data;
+
+                console.log(data);
                 
                 $('#periode').val(data.periode_id);
                 $('#grup').val(data.grup_kode);

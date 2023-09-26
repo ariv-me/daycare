@@ -10,7 +10,7 @@
     </li>
       
     <li>
-        <a href="{{ route('pendaftaran.tagihan.index') }}"> <i class="mdi mdi-cart-outline" class="align-self-center menu-icon"></i><span>Tagihan</span></a>
+        <a href="{{ route('tagihan.index') }}"> <i class="mdi mdi-cart-outline" class="align-self-center menu-icon"></i><span>Tagihan</span></a>
     </li>
 
     <li>

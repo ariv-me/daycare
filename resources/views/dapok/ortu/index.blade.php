@@ -180,7 +180,6 @@
                                     <th  style="text-align: center; vertical-align: middle;">NAMA</th>
                                     <th  style="text-align: center; vertical-align: middle;">JEKEL</th>
                                     <th  style="text-align: center; vertical-align: middle;">TGL LAHIR</th></th>
-                                    <th style="text-align: center; vertical-align: middle;">AKSI</th>
                                 </tr>
                             </thead>
                             <tbody id="show_data_anak"></tbody>
@@ -509,7 +508,6 @@
                             $('<td width="14%">'),
                             $('<td width="7%" align="center">'),
                             $('<td width="7%" align="center">'),
-                            $('<td width="5%" align="center">')
                         ]);
 
                         tr.find('td:nth-child(1)').html((i + 1));

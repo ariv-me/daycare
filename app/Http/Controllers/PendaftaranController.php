@@ -304,6 +304,7 @@ class PendaftaranController extends Controller
                 $daftar->grup_kode      = $tarif->grup_kode;
                 $daftar->kat_kode       = $tarif->kat_kode;
                 $daftar->trs_total      = str_replace(".", "", $r->total_biaya);
+                $daftar->trs_sub_total  = str_replace(".", "", $r->total_biaya);
                  
                 $daftar->updated_nip    = $app['kar_nip'];
                 $daftar->updated_nama   = $app['kar_nama_awal'];
