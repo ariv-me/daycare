@@ -60,29 +60,86 @@
     <div class="col-12">
 
         <div class="card">
+            
             <div class="card-header bg-success">
-                <div class="row">
-                    <div class="col-md-9">
-                        <h4 class="card-title text-white"><i class="fas fa-cart-arrow-down"></i>  TAGIHAN</h4>
-                    </div>
-                    <div class="col-md-3" style="text-align: right">
+                <div class="row align-items-center">
+                    <div class="col">                      
+                        <h4 class="card-title text-white"><i class="fas fa-cart-arrow-down"></i>  TAGIHAN</h4>          
+                    </div><!--end col-->
+                    <div class="col-auto"> 
                         <a href="{{ route('pendaftaran.transaksi.index') }}" type="button" class="btn btn-warning btn-xs text-white"><i class="fas fa-plus-circle"></i> PENDAFTARAN </a>
-                        <a href="{{ route('pendaftaran.tagihan.add') }}" type="button" class="btn btn-warning btn-xs text-white"><i class="fas fa-plus-circle"></i> TAGIHAN </a>
+                        <a href="{{ route('tagihan.add') }}" type="button" class="btn btn-warning btn-xs text-white"><i class="fas fa-plus-circle"></i> TAGIHAN </a>
+                    </div><!--end col-->
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label" for="subject">Anak  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="anak" id="anak" onchange="showAnak(this)"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label" for="subject">Bulan  <small class="text-danger">*</small></label>
+                            <input type="text" id="filter_bulan" name="filter_bulan" class="form-control datepicker" onchange="showBulan(this)">
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="row">
+                    
+                    <div class="col-12 col-lg-6 col-xl"> 
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col text-center">                                                                        
+                                        <span class="h4 text-danger" id="belum_lunas">$24,500</span>      
+                                        <h6 class="text-uppercase text-muted mt-2 m-0">Belum Lunas</h6>                
+                                    </div><!--end col-->
+                                </div> <!-- end row -->
+                            </div><!--end card-body-->
+                        </div> <!--end card-body-->                     
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl"> 
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col text-center">                                                                        
+                                        <span class="h4 text-success" id="lunas">$24,500</span>      
+                                        <h6 class="text-uppercase text-muted mt-2 m-0">Lunas</h6>                
+                                    </div><!--end col-->
+                                </div> <!-- end row -->
+                            </div><!--end card-body-->
+                        </div> <!--end card-body-->                     
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl"> 
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col text-center">                                                                        
+                                        <span class="h4 text-primary" id="total">$24,500</span>      
+                                        <h6 class="text-uppercase text-muted mt-2 m-0">Total</h6>                
+                                    </div><!--end col-->
+                                </div> <!-- end row -->
+                            </div><!--end card-body-->
+                        </div> <!--end card-body-->                     
                     </div>
                 </div>
 
-            </div>
-            <div class="card-body">
+                <hr>
+               
                 <div class="box-body">	
                     <div class="table-responsive">
-                        <table id="datatable" class="table-sm table table-bordered mb-0 table-centered dt-responsive table-striped" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <table id="datatable" class="table-sm table table-bordered mb-0 table-centered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead class="table-light">
                                 <tr>
                                     <th style="text-align: center">NO</th>
                                     <th style="text-align: center">ANAK</th>
                                     <th style="text-align: center">ORTU</th>
-                                    <th  style="text-align: center">TAGIHAN</th>
                                     <th  style="text-align: center">JATUH TEMPO</th>
+                                    <th  style="text-align: center">TAGIHAN</th>
                                     <th  style ="text-align: center">AKSI</th>
                                 </tr>
                             </thead>
@@ -172,21 +229,9 @@
                                                     </div>   
 
                                                     <div class="form-group row">
-                                                        <label for="example-password-input" class="col-sm-3 col-form-label text-right">Untuk Bulan</small></label>
-                                                        <div class="col-sm-5">
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                                                </div>
-                                                                 <input type="text" id="untuk_bulan" name="untuk_bulan" class="form-control bulan datepicker" >
-                                                            </div>
-                                                        </div>
-                                                    </div>     
-
-                                                    <div class="form-group row">
                                                         <label for="example-password-input" class="col-sm-3 col-form-label text-right">Keterangan</small></label>
                                                         <div class="col-sm-9">
-                                                            <textarea id="keterangan" name="keterangan" class="form-control" maxlength="225" rows="3" placeholder="This textarea has a limit of 225 chars."></textarea>
+                                                            <textarea id="keterangan" name="keterangan" class="form-control" maxlength="225" rows="3"></textarea>
                                                         </div>
                                                     </div>     
                             
@@ -265,8 +310,9 @@
 
         
         $('.datepicker[name=tgl_bayar]').val(moment().format('DD-MM-YYYY'));
-
-        $("#untuk_bulan").datepicker( {
+        $('.select2').select2();
+        
+        $("#filter_bulan").datepicker( {
             viewMode: "months",
             minViewMode: "months",
             autoClose: true,
@@ -275,12 +321,9 @@
             $(this).datepicker('hide');
         });
 
+        $('#filter_bulan').val('Semua');
 
-        // $('.datepicker').datepicker({
-        //     autoclose: true,
-        //     format:'dd-mm-yyyy',
-        // });
-
+        combo_anak();
         view();
         reset();
 
@@ -300,21 +343,8 @@
 
 
     $('#btn_save').on('click', function(){
-
-        if (!$("#untuk_bulan").val()) {
-            $.toast({
-                text: 'BULAN MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#untuk_bulan").focus();
-            return false;
-
-        } 
         
-        else if (!$("#input_bayar").val()) {
+        if (!$("#input_bayar").val()) {
             $.toast({
                 text: 'PEMBAYARAN MASIH KOSONG',
                 position: 'top-right',
@@ -333,11 +363,8 @@
         var diskon      = $('#input_diskon').val();
         var grand_total = $('#grand_total').val();
         var bayar       = $('#input_bayar').val();
-        var bulan       = $('#untuk_bulan').val();
         var keterangan  = $('#keterangan').val();
 
-        console.log(grand_total);
-        
         var token       = $('[name=_token]').val();
         var formData    = new FormData();
     
@@ -346,14 +373,13 @@
         formData.append('sub_total', sub_total);
         formData.append('diskon', diskon);
         formData.append('bayar', bayar);
-        formData.append('bulan', bulan);
         formData.append('keterangan', keterangan);
         formData.append('grand_total', grand_total);
         formData.append('_token', token);
 
         $.ajax({
             type: "POST",
-            url: "{{ route('pendaftaran.tagihan.save') }}",
+            url: "{{ route('pembayaran.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -380,7 +406,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('pendaftaran.tagihan.view') }}",
+            url: "{{ route('tagihan.view') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -388,34 +414,22 @@
                 $('#datatable').DataTable().destroy(); 
                 $('#show_data').empty();
                 data = r.data;
+                
+                document.getElementById("belum_lunas").innerHTML= r.belum_lunas;
+                document.getElementById("lunas").innerHTML= r.lunas;
+                document.getElementById("total").innerHTML= r.total;
 
                 if (data.length) {
                     for (i = 0; i < data.length; i++) {
 
-                        if((data[i].anak_aktif) == 'Y'){
-                            var tr = $('<tr>').append([
-                                $('<td width="1%" align="center">'),
-                                $('<td width="10%">'),
-                                $('<td width="10%">'),
-                                $('<td width="9%">'),
-                                $('<td width="5%" align="center">'),
-                                $('<td width="4%" align="left">')
-                            ]);
-
-                        } else {
-
-                            var tr = $('<tr style="background-color:#ffedc6;">').append([
-                                $('<td width="1%" align="center">'),
-                                $('<td width="20%">'),
-                                $('<td width="7%">'),
-                                $('<td width="5%">'),
-                                $('<td width="10%">'),
-                                $('<td width="10%">'),
-                                $('<td width="10%">'),
-                                $('<td width="15%" align="left">')
-                            ]);
-
-                        }
+                        var tr = $('<tr>').append([
+                            $('<td width="1%" align="center">'),
+                            $('<td width="10%">'),
+                            $('<td width="10%">'),
+                            $('<td width="5%">'),
+                            $('<td width="5%" align="right">'),
+                            $('<td width="3%" align="center">')
+                        ]);
              
                         tr.find('td:nth-child(1)').html((i + 1));
 
@@ -430,18 +444,22 @@
 
                         tr.find('td:nth-child(3)').append($('<div>')
                             .html((data[i].ortu_ibu)+' - <small class="text-muted">(Ibu)</span></small>')); 
-
+                        
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<b class="font-13">'+(data[i].kat_nama)+' - '+(data[i].tarif_nama)+'</b>')); 
-
-                        tr.find('td:nth-child(4)').append($('<div>')
-                            .html('<b class="text-danger font-20">'+(data[i].tarif_total)+'</b>'));
+                            .html(data[i].trs_jatuh_tempo));      
 
                         tr.find('td:nth-child(5)').append($('<div>')
-                            .html(data[i].trs_jatuh_tempo));                        
-                    
-                        tr.find('td:nth-child(6)').append('<div class="mb-1"><a href="'+(data[i].edit)+'" class="btn btn-block btn-soft-warning btn-xs text-left"><i class="fas fa-pencil-alt"></i> EDIT</a>');   
-                        tr.find('td:nth-child(6)').append('<div><a href="javascript:;" class="btn btn-block btn-soft-primary btn-xs text-left item_bayar" data="'+data[i].trs_kode+'"><i class="far fa-credit-card"></i> BAYAR</a></div>');   
+                            .html('<b class="text-dark font-15">'+(data[i].tarif_total)+'</b>'));
+
+                        if ((data[i].trs_status) == 'U' ) {
+
+                            tr.find('td:nth-child(6)').append('<div class="dropdown d-inline-block float-center"><a class="nav-link btn btn-xs btn-outline-danger dropdown-toggle arrow-none" id="dLabel4" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false" href="#" class="btn btn-soft-warning btn-xs item_edit"> <span>'+(data[i].status)+'</span> <i class="las la-angle-down ms-1"></i></a><div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel4"> <a class="dropdown-item" href="'+(data[i].edit)+'" ><i class="fas fa-edit"></i> Edit</a><a class="dropdown-item item_bayar" href="javascript:;" data="' + data[i].trs_kode + '"><i class="far fa-credit-card"></i>  Bayar</a><a class="dropdown-item item_void" href="javascript:;" data="' + data[i].trs_kode + '"><i class="fas fa-trash-alt"></i>  Hapus</a></div></div>');
+
+                        } else {
+
+                            tr.find('td:nth-child(6)').append('<div class="dropdown d-inline-block float-center"><a class="nav-link btn btn-xs btn-outline-success dropdown-toggle arrow-none" id="dLabel4" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false" href="#" class="btn btn-soft-warning btn-xs item_edit"> <span>'+(data[i].status)+'</span> <i class="las la-angle-down ms-1"></i></a><div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel4"> <a class="dropdown-item" href="'+(data[i].cetak)+'" ><i class="fas fa-print"></i> Cetak</a></div>');
+
+                        }                      
 
                         tr.appendTo($('#show_data'));
                     }
@@ -456,7 +474,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('pendaftaran.tagihan.detail_view') }}",
+            url: "{{ route('tagihan.detail_view') }}",
             async: true,
             dataType: 'JSON',
             data:{kode:kode},
@@ -509,7 +527,7 @@
         var id=$(this).attr('data');
         $.ajax({
             type : "GET",
-            url   : "{{ route('pendaftaran.tagihan.edit') }}",
+            url   : "{{ route('tagihan.edit') }}",
             dataType : "JSON",
             data : {id:id},
             success: function(data){
@@ -639,6 +657,33 @@
         });
     });
 
+    function combo_anak(){
+
+        $('select[name=anak]').empty()
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo.combo_dapok_anak') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=anak]').empty()
+                var x = document.getElementById("anak");
+                        var option = document.createElement("option");
+                        option.text = "Semua";
+                        option.value = 'Semua';
+                        x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].anak_kode)+'>'+(data[i].anak_nama)+'</option>';
+                    $('select[name=anak]').append(html)
+                }
+            }
+        });
+
+    }
+
     function format2(n, currency) {
 
         var hasil = currency + " " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1.");
@@ -686,23 +731,6 @@
         var hasil_rupiah = parseInt(total_baru) - parseInt(bayar_baru);
         var hasil = format2(hasil_rupiah,"");
                 document.getElementById('grand_total').value = hasil;
-
-        // if (total_baru > bayar_baru) {
-
-          
-
-        //     // if (!isNaN(hasil_rupiah)) {
-
-                
-        //     // }
-
-        // } else {
-
-        //     var hasil_rupiah = 0;
-        //     var hasil = format2(hasil_rupiah,"");
-        //     document.getElementById('grand_total').value = hasil;
-
-        // }
 
     }
 

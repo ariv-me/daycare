@@ -542,9 +542,7 @@
     $(document).ready(function(){
 
         $('.select2').select2();
-
         $('.datepicker[name=tgl_daftar]').val(moment().format('DD-MM-YYYY'));
-
         $('.datepicker').datepicker({
             autoclose: true,
             format:'dd-mm-yyyy',

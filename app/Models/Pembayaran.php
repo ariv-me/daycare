@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Carbon\Carbon;
 
-class PendaftaranBayar extends Model
+class Pembayaran extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'daftar_tc_bayar';
+    protected $table = 'bayar_tc';
     protected $primaryKey = 'bayar_id';
 
     public static function autonumber()
@@ -19,7 +19,7 @@ class PendaftaranBayar extends Model
     {
 
         $data = DB::connection('daycare')
-                     ->table('daftar_tc_bayar')
+                     ->table('bayar_tc')
                      ->select(DB::raw("MAX(RIGHT(bayar_kode,4)) as kd_max"));   
         
         if($data->count() > 0)
