@@ -570,8 +570,6 @@
 
         view_detail();
 
-
-
     });
 
     // ORTU
@@ -602,6 +600,10 @@
     function showPenjemputKota(select){
         var kota=$('#penjemput_kota').val();
         combo_kecamatan_penjemput(kota);
+    }
+
+    function redirect(){
+        window.location.href = "{{ route('tagihan.index') }}";
     }
 
 
@@ -1436,7 +1438,21 @@
             contentType: false,
             success: function(data) {
 
-                swal("Berhasil!", "Data Berhasil Di Simpan", "success");
+                swal({   
+                    title: "Yeyeyeyeyey",   
+                    text: "Data Berhasil Di Tambahkan",   
+                    type: "success",   
+                    showCancelButton: false,   
+                    confirmButtonColor: "#07d68f",   
+                    confirmButtonText: "OK",   
+                    closeOnConfirm: false,   
+                    closeOnCancel: false 
+                }, function(isConfirm){   
+                    if (isConfirm) {     
+                        redirect();
+                    } 
+                });
+
                 reset();
 
             }

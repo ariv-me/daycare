@@ -345,6 +345,7 @@ class PembayaranController extends Controller
         }
         
         $kode = $data->trs_kode;
+        $anak = $data->anak_kode;
 
         $tagihan_detail = DB::connection('daycare')
                     ->table('daftar_tc_transaksi_detail AS aa')
@@ -353,7 +354,7 @@ class PembayaranController extends Controller
                     ->where('aa.trs_kode',$kode)
                     ->orderby('aa.detail_id','desc')
                     ->get();
-        
+                    
         $tagihan_detail = $tagihan_detail->map(function($value) {
 
             $value->detail      = format_rupiah($value->detail_total);

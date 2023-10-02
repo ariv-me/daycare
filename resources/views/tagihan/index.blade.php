@@ -457,7 +457,7 @@
 
                         } else {
 
-                            tr.find('td:nth-child(6)').append('<div class="dropdown d-inline-block float-center"><a class="nav-link btn btn-xs btn-outline-success dropdown-toggle arrow-none" id="dLabel4" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false" href="#" class="btn btn-soft-warning btn-xs item_edit"> <span>'+(data[i].status)+'</span> <i class="las la-angle-down ms-1"></i></a><div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel4"> <a class="dropdown-item" href="'+(data[i].cetak)+'" ><i class="fas fa-print"></i> Cetak</a></div>');
+                            tr.find('td:nth-child(6)').append('<div class="dropdown d-inline-block float-center"><a class="nav-link btn btn-xs btn-outline-success dropdown-toggle arrow-none" id="dLabel4" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false" href="#" class="btn btn-soft-warning btn-xs item_edit" > <span>'+(data[i].status)+'</span> <i class="las la-angle-down ms-1"></i></a><div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel4"> <a class="dropdown-item" href="'+(data[i].cetak)+'" target="_blank" ><i class="fas fa-print"></i> Cetak</a></div>');
 
                         }                      
 
