@@ -87,7 +87,6 @@ class TarifController extends Controller
             $data = $data->map(function($value) {
                 
                 $value->total         = format_rupiah($value->tarif_total);
-
                 return $value;
            
             });
@@ -134,14 +133,26 @@ class TarifController extends Controller
         $result = array('success'=>false);
 
         try{
+
+            $id = $r->kode;
             
-            $data = DB::connection('daycare')
+            if ($id == null){
+                $data = DB::connection('daycare')
                             ->table('tarif_tc_tarif_detail AS aa')
                             ->leftjoin('tarif_tb_item AS bb','bb.item_kode','=','aa.item_kode')
                             ->where('aa.detail_aktif','Y')
                             ->where('aa.tarif_kode',null)
                             ->orderby('aa.detail_id')
                             ->get();
+            } else {
+                $data = DB::connection('daycare')
+                            ->table('tarif_tc_tarif_detail AS aa')
+                            ->leftjoin('tarif_tb_item AS bb','bb.item_kode','=','aa.item_kode')
+                            ->where('aa.detail_aktif','Y')
+                            ->where('aa.tarif_kode',$id)
+                            ->orderby('aa.detail_id')
+                            ->get();
+            }
 
             $data = $data->map(function($value) {
             

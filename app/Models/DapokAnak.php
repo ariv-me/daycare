@@ -11,7 +11,7 @@ class DapokAnak extends Model
 {
     protected $connection = 'daycare';
     protected $table = 'dapok_tb_anak';
-    protected $primaryKey = 'anak_id';
+    protected $primaryKey = 'anak_kode';
 
     public static function autonumber()
 
@@ -19,14 +19,11 @@ class DapokAnak extends Model
 
         $data = DB::connection('daycare')
                      ->table('dapok_tb_anak')
-                     ->select(DB::raw("MAX(RIGHT(anak_id,4)) as kd_max"));
+                     ->select(DB::raw("MAX(RIGHT(anak_kode,4)) as kd_max"));
                    
         
         $kode_depan = date('Y');    
         
-        // dd($data);
-
-
         if($data->count() > 0)
         {
             foreach($data->get() as $k)

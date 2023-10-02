@@ -59,15 +59,44 @@
             <input type="hidden" id="trs_kode" name="trs_kode">
             <input type="hidden" id="anak_kode" name="anak_kode">
 
-            <input type="text" id="periode" name="periode">
-            <input type="text" id="grup" name="grup">
-            <input type="text" id="kategori" name="kategori">
+            <input type="hidden" id="periode" name="periode">
+            <input type="hidden" id="grup" name="grup">
+            <input type="hidden" id="kategori" name="kategori">
 
             <h4 class="card-title bg-light p-2 mb-2"><i class="fas fa-edit"></i>  TAGIHAN</h4>
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-md-3">
+                    <div class="form-group row">
+                        <label for="example-password-input" class="col-sm-3 col-form-label text-left">Tanggal Daftar <small class="text-danger">*</small></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control datepicker" id="tgl_daftar" name="tgl_daftar">
+                        </div>
+                    </div>     
+
+                    <div class="form-group row">
+                        <label for="example-password-input" class="col-sm-3 col-form-label text-left">Jatuh Tempo <small class="text-danger">*</small></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control datepicker" id="jatuh_tempo" name="jatuh_tempo">
+                        </div>
+                    </div>  
+                    
+                    <div class="form-group row">
+                        <label for="example-password-input" class="col-sm-3 col-form-label text-left">Pilih Anak <small class="text-danger">*</small></label>
+                        <div class="col-sm-9">
+                            <select class="form-control custom-select select2" style="width: 100%;" name="anak" id="anak" onchange="showAnak(this)"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-password-input" class="col-sm-3 col-form-label text-left">Paket <small class="text-danger">*</small></label>
+                        <div class="col-sm-6">
+                            <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
+                        </div>
+                        <div class="col-sm-3 mt-1">
+                            <button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-light btn-block" id="detail_save"><i class="fas fa-plus mr-2"></i>Tambahkan</button>
+                        </div>
+                    </div>
+                </div>
+                        {{-- <div class="col-md-3">
                             <div class="mb-3">
                                 <label class="form-label" for="username">Tanggal <small class="text-danger">*</small></label>
                                 <input type="text" class="form-control datepicker" id="tgl_daftar" name="tgl_daftar">
@@ -93,9 +122,9 @@
                         </div>
                         <div class="col-sm-6 mt-4">
                             <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light btn-block mt-1" id="detail_save"><i class="fas fa-plus mr-2"></i>Tambahkan</button>
-                        </div>
-                    </div>
-                </div>
+                        </div> --}}
+                   
+               
                 <div class="col-sm-6">
                     <table class="table table-sm table-bordered mb-0 table-centered">
                         <thead>
@@ -283,7 +312,22 @@
             contentType: false,
             success: function(data) {
 
-                swal("Berhasil!", "Data Berhasil Di Simpan", "success");
+                swal({   
+                    title: "Berhasil",   
+                    text: "Data Berhasil Di Tambahkan",   
+                    type: "success",   
+                    showCancelButton: false,   
+                    confirmButtonColor: "#07d68f",   
+                    confirmButtonText: "OK",   
+                    closeOnConfirm: false,   
+                    closeOnCancel: false 
+                }, function(isConfirm){   
+                    if (isConfirm) {     
+                        redirect();
+                    } 
+                });
+
+                reset();
 
             }
         });
@@ -291,6 +335,10 @@
         return false;
 
     });
+
+    function redirect(){
+        window.location.href = "{{ route('tagihan.index') }}";
+    }
 
     $('#detail_save').on('click', function(){
 
@@ -468,7 +516,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('dapok.anak.edit') }}",
+            url: "{{ route('dapok.anak.view_anak_tagihan') }}",
             async: true,
             data : {kode:kode},
             dataType: 'JSON',
