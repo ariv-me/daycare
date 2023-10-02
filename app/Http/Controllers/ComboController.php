@@ -133,13 +133,13 @@ class ComboController extends Controller
         return response()->json($data); 
     }
 
-    public function combo_ortu(){
-        $data = DapokOrtu::orderby('ortu_id','desc')->where('ortu_aktif','Y')->get();
+    public function combo_dapok_ortu(){
+        $data = DapokOrtu::orderby('ortu_kode','desc')->where('ortu_aktif','Y')->get();
         return response()->json($data); 
     }
 
-    public function combo_penjemput(){
-        $data = DapokPenjemput::orderby('pnj_id','desc')->where('pnj_aktif','Y')->get();
+    public function combo_dapok_penjemput(){
+        $data = DapokPenjemput::orderby('pnj_kode','desc')->where('pnj_aktif','Y')->get();
         return response()->json($data); 
     }
 

@@ -50,7 +50,7 @@ class PendaftaranController extends Controller
     {   
         $app    = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('pendaftaran.transaksi.edit',compact('app','menu','id'));
+        return view('pendaftaran.edit',compact('app','menu','id'));
     }
 
 
@@ -108,6 +108,7 @@ class PendaftaranController extends Controller
                 $daftar->grup_kode      = $tarif->grup_kode;
                 $daftar->kat_kode       = $r->kategori;
                 $daftar->trs_total      = str_replace(".", "", $r->total_biaya);
+                $daftar->trs_sisa       = str_replace(".", "", $r->total_biaya);
 
                 $daftar->created_nip    = $app['kar_nip'];
                 $daftar->created_nama   = $app['kar_nama_awal'];

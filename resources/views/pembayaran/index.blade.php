@@ -47,6 +47,7 @@
                                 <th style ="text-align: center;  vertical-align:middle;" rowspan="2">DISKON</th>
                                 <th style ="text-align: center;  vertical-align:middle;" rowspan="2">BAYAR</th>
                                 <th style ="text-align: center;  vertical-align:middle;" rowspan="2">TAGIHAN</th>
+                                <th style ="text-align: center;  vertical-align:middle;" rowspan="2">#</th>
                             </tr>
                             <tr>
                                 <th style="text-align: center">BAYAR</th>
@@ -136,7 +137,8 @@
                             $('<td width="5%" align="center">'),
                             $('<td width="5%" align="right">'),
                             $('<td width="5%" align="right">'),
-                            $('<td width="5%" align="right">')
+                            $('<td width="5%" align="right">'),
+                            $('<td width="1%" align="center">'),
 
                         ]);
 
@@ -162,7 +164,9 @@
                             .html((data[i].total)));      
 
                         tr.find('td:nth-child(8)').append($('<div>')
-                            .html((data[i].sub_total)));                           
+                            .html((data[i].sub_total)));     
+                        
+                        tr.find('td:nth-child(9)').append('<div class="btn-group"><a href="'+(data[i].cetak)+'" class="btn btn-soft-danger btn-xs" target="_blank"><i class="fas fa-print"></i></a></div>');   
 
                         tr.appendTo($('#show_data'));
                     }

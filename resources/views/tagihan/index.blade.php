@@ -483,6 +483,8 @@
                 
                 $('#show_data_detail').empty();
                 data = r.data;
+
+                console.log(data);
             
                 $('[name="total_biaya"]').val(r.total);
                 $('[name="grand_total"]').val(r.total);

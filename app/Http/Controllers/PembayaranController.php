@@ -8,6 +8,7 @@ use App\Helpers;
 use Carbon\Carbon;
 
 use DB;
+use PDF;
 
 
 use App\Models\Pembayaran;
@@ -66,14 +67,14 @@ class PembayaranController extends Controller
             $tmp->bayar_diskon      = str_replace(".", "", $r->diskon);
             $tmp->bayar_sub_total   = str_replace(".", "", $r->sub_total);
             $tmp->bayar_total       = str_replace(".", "", $r->bayar);
-           
+
 
             $daftar = Pendaftaran::where('trs_kode',$r->kode)->first();
 
             if($r->grand_total <= 0){
 
                 $daftar->trs_status = 'L';
-                $daftar->trs_total = str_replace(".", "", $r->grand_total);
+                $daftar->trs_sisa = str_replace(".", "", $r->grand_total);
 
                 $detail = PendaftaranDetail::where('trs_kode',$r->kode)->where('detail_aktif','Y')->get();
 
@@ -91,7 +92,7 @@ class PembayaranController extends Controller
 
             } else {
 
-                $daftar->trs_total = str_replace(".", "", $r->grand_total);
+                $daftar->trs_sisa = str_replace(".", "", $r->grand_total);
 
             }
 
@@ -172,6 +173,7 @@ class PembayaranController extends Controller
             
             $data = $data->map(function($value) {
 
+                   $value->cetak         = route('pembayaran.cetak',$value->bayar_kode);
                    $value->bayar_tgl     = format_indo($value->bayar_tgl);
                    $value->diskon        = format_rupiah($value->bayar_diskon);
                    $value->total         = format_rupiah($value->bayar_total);
@@ -253,6 +255,144 @@ class PembayaranController extends Controller
             $result['total'] = format_rupiah($total->sum('trs_total'));
 
         return response()->json($result);
+
+    }
+
+    public function cetak($id){
+
+        $app  = SistemApp::sistem();
+        $data = DB::connection('daycare')
+                    ->table('bayar_tc AS aa')          
+                    ->leftjoin('daftar_tc_transaksi AS bb','bb.trs_kode','aa.trs_kode')              
+                    ->leftjoin('dapok_tb_anak AS cc','cc.anak_kode','aa.anak_kode')   
+                    ->leftjoin('dapok_tb_ortu AS dd','dd.ortu_kode','cc.ortu_kode')              
+                    ->where('aa.bayar_kode',$id)
+                    ->first();
+
+        
+        if ($data->anak_jekel == 'L'){
+            $jekel = 'Laki-Laki';
+        } else {
+            $jekel = 'Perempuan';
+        }
+        
+        $kode = $data->trs_kode;
+
+        $tagihan = DB::connection('daycare')
+                    ->table('daftar_tc_transaksi AS aa')          
+                    ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')           
+                    ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','bb.ortu_kode')              
+                    ->leftjoin('dapok_tb_penjemput AS dd','dd.pnj_kode','bb.pnj_kode')              
+                    ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')         
+                    ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
+                    ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')         
+                    ->where('aa.trs_kode',$kode)
+                    ->first();
+
+        $tagihan_detail = DB::connection('daycare')
+                    ->table('daftar_tc_transaksi_detail AS aa')
+                    ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
+                    ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','bb.jenis_kode')
+                    ->where('aa.trs_kode',$kode)
+                    ->orderby('aa.detail_id','desc')
+                    ->get();
+        
+        $tagihan_detail = $tagihan_detail->map(function($value) {
+
+            $value->detail      = format_rupiah($value->detail_total);
+            return $value;
+
+        });
+
+        if ($tagihan->trs_sisa == '0') {
+            $status = 'Lunas';
+        } else {
+            $status = 'Belum Lunas';
+        }
+
+        $tgl_lahir   = format_indo($data->anak_tgl_lahir);
+        $tgl_bayar   = format_indo($data->bayar_tgl);
+        $jatuh_tempo = format_indo($data->trs_jatuh_tempo);    
+        $sisa        = format_rupiah($tagihan->trs_sisa); 
+        $sub_total   = format_rupiah($tagihan->trs_total);            
+        $bayar       = format_rupiah($data->bayar_total);            
+
+        $pdf = PDF::loadview('pembayaran.cetak',compact('status','sub_total','sisa','bayar','data','app','tagihan','tgl_lahir','tgl_bayar','jatuh_tempo','jekel','tagihan_detail'));
+        return $pdf->stream('Invoice Pembayaran.pdf');
+
+    }
+
+    public function cetak_all($id){
+
+        $app  = SistemApp::sistem();
+        $data = DB::connection('daycare')
+                    ->table('daftar_tc_transaksi AS aa')          
+                    ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')           
+                    ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','bb.ortu_kode')              
+                    ->leftjoin('dapok_tb_penjemput AS dd','dd.pnj_kode','bb.pnj_kode')              
+                    ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')         
+                    ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
+                    ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')         
+                    ->where('aa.trs_kode',$id)
+                    ->first();
+        
+        $total_tagihan   = format_rupiah($data->trs_total);             
+        
+        if ($data->anak_jekel == 'L'){
+            $jekel = 'Laki-Laki';
+        } else {
+            $jekel = 'Perempuan';
+        }
+        
+        $kode = $data->trs_kode;
+
+        $tagihan_detail = DB::connection('daycare')
+                    ->table('daftar_tc_transaksi_detail AS aa')
+                    ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
+                    ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','bb.jenis_kode')
+                    ->where('aa.trs_kode',$kode)
+                    ->orderby('aa.detail_id','desc')
+                    ->get();
+        
+        $tagihan_detail = $tagihan_detail->map(function($value) {
+
+            $value->detail      = format_rupiah($value->detail_total);
+            return $value;
+
+        });
+
+        if ($data->trs_sisa == '0') {
+            $status = 'Lunas';
+        } else {
+            $status = 'Belum Lunas';
+        }
+
+        $tgl_lahir   = format_indo($data->anak_tgl_lahir);
+        $jatuh_tempo = format_indo($data->trs_jatuh_tempo);    
+        $sisa        = format_rupiah($data->trs_sisa); 
+       
+
+        $bayar = DB::connection('daycare')
+                    ->table('bayar_tc AS aa')          
+                    ->leftjoin('daftar_tc_transaksi AS bb','bb.trs_kode','aa.trs_kode')              
+                    ->leftjoin('dapok_tb_anak AS cc','cc.anak_kode','aa.anak_kode')   
+                    ->leftjoin('dapok_tb_ortu AS dd','dd.ortu_kode','cc.ortu_kode')              
+                    ->where('aa.trs_kode',$id)
+                    ->get();
+
+        $bayar = $bayar->map(function($value) {
+
+            $value->total      = format_rupiah($value->bayar_total);
+            $value->bayar_tgl      = format_indo($value->bayar_tgl);
+            return $value;
+
+        });
+        
+        $total_bayar = format_rupiah($bayar->where('trs_kode',$id)->sum('bayar_total'));
+            
+
+        $pdf = PDF::loadview('pembayaran.cetak_all',compact('total_tagihan','total_bayar','bayar','data','jekel','tgl_lahir','jatuh_tempo','tagihan_detail','status','sisa'));
+        return $pdf->stream('Invoice Pembayaran.pdf');
 
     }
 

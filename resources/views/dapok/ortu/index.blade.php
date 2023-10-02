@@ -26,10 +26,10 @@
     <div class="col-12">
 
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-success">
                 <div class="row">
                     <div class="col-md-9">
-                        <h4 class="card-title"><i class="mdi mdi-account-multiple-outline"></i> ORANG TUA</h4>
+                        <h4 class="card-title text-white"><i class="mdi mdi-account-multiple-outline"></i> ORANG TUA</h4>
                     </div>
                     <div class="col-md-3" style="text-align: right">
                         <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" id="btn_add"><i class="fas fa-plus-circle"></i> TAMBAH DATA </button>

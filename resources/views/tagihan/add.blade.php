@@ -468,7 +468,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('dapok.anak.edit') }}",
+            url: "{{ route('dapok.anak.view_anak_tagihan') }}",
             async: true,
             data : {kode:kode},
             dataType: 'JSON',

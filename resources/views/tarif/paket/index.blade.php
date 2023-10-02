@@ -55,16 +55,12 @@
                 <div class="row">
                     <div class="col-md-12">
 
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label> <strong>Jenis</strong>  <small class="text-danger">*</small></label>
                             <select class="form-control custom-select select2" style="width: 100%;" name="jenis" id="jenis"></select>
                         </div>
-                        <div class="form-group">
-                            <label> <strong>Kategori</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"></select>
-                        </div>
                        
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
                             <input class="form-control" name="nama" id="nama">
                         </div>
@@ -100,11 +96,11 @@
     </div>
 </div>
 
-<div class="modal fade  bd-example-modal" id="formModalAdd">
+<div class="modal fade  bd-example-modal" id="formModalEdit">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"> <i class="fas fa-plus-circle"></i> <strong>Tarif - Paket</strong> </h5>
+                <h5 class="modal-title"> <i class="fas fa-pencil"></i> <strong>Tarif - Paket</strong> </h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
@@ -112,21 +108,21 @@
                 {!! csrf_field() !!}
                 <div class="row">
                     <div class="col-md-12">
-
-                        <div class="form-group">
-                            <label> <strong>Kategori</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"></select>
+                        <input class="form-control" type="hidden" name="id_edit" id="id_edit">
+                        <div class="form-group mb-2">
+                            <label> <strong>Jenis</strong>  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="jenis" id="jenis_edit"></select>
                         </div>
                        
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
-                            <input class="form-control" name="nama" id="nama">
+                            <input class="form-control" name="nama" id="nama_edit">
                         </div>
                     </div>  
                     <div class="col-md-9">
                         <label> <strong>Item</strong>  <small class="text-danger">*</small></label>
                         <div class="input-group">
-                            <select class="form-control custom-select select2" style="width: 100%;" name="item" id="item"></select>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="item" id="item_edit"></select>
                         </div>
                     </div>
                     <div class="col-md-3 mt-4">
@@ -153,6 +149,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 
@@ -228,17 +226,19 @@
         });
     }
 
-    function detail_view() {
+    function detail_view(kode) {
 
         $.ajax({
             type: 'GET',
             url: "{{ route('tarif.detail_view') }}",
             async: true,
             dataType: 'JSON',
+            data:{kode:kode},
             success: function(r) {
                 var i;
                 $('#show_data_detail').empty();
                 data = r.data;
+
                 if (data.length) {
                     for (i = 0; i < data.length; i++) {
 
@@ -262,7 +262,12 @@
                         tr.appendTo($('#show_data_detail'));
                     }
 
+                } else {
+
+                        $('#show_data_detail').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
                 }
+
             }
         });
     }
@@ -278,7 +283,6 @@
 
         $('#formModalAdd').modal('show');
         detail_view();
-        combo_tarif_kategori();
         combo_tarif_item();
         combo_tarif_jenis();
         reset();
@@ -306,20 +310,7 @@
             return false;
 
         } 
-        
-        else if (!$("#kategori").val()) {
-            $.toast({
-                text: 'KATEGORI HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#kategori").focus();
-            return false;
-
-        } 
-        
+            
         else if (!$("#nama").val()) {
             $.toast({
                 text: 'NAMA HARUS DI ISI',
@@ -335,15 +326,13 @@
         } 
 
         var jenis        = $('#jenis').val();
-        var kategori        = $('#kategori').val();
-        var nama            = $('#nama').val();
+        var nama         = $('#nama').val();
 
         var token = $('[name=_token]').val();
 
         var formData = new FormData();
     
         formData.append('jenis', jenis);
-        formData.append('kategori', kategori);
         formData.append('nama', nama);
         formData.append('_token', token);
 
@@ -462,32 +451,6 @@
 
     });
 
-    $('#show_data').on('click','.item_set',function(){
-
-        var id=$(this).attr('data');
-
-        console.log(id);
-
-        $.ajax({
-            type : "GET",
-            url   : "{{ route('catering.menu.edit') }}",
-            dataType : "JSON",
-            data : {id:id},
-            success: function(data){
-                $('#formModalSet').modal('show');    
-                $('#formModalSet').find('[name="id_set"]').val(data.menu_kode);      
-                $('#formModalSet').find('[name="nama_item"]').val("");
-                $('#formModalSet').find('[name="kode_item"]').val(data.menu_kode);
-                view();
-                view_item(id);
-              
-            }
-        });
-
-        return false;
-
-    });
-
     $('#detail_save').on('click', function(){
 
 
@@ -536,20 +499,21 @@
     $('#show_data').on('click','.item_edit',function(){
 
         var id=$(this).attr('data');
+       
+        combo_tarif_item();
+        combo_tarif_jenis();
 
         $.ajax({
             type : "GET",
-            url   : "{{ route('catering.menu.edit') }}",
+            url   : "{{ route('tarif.edit') }}",
             dataType : "JSON",
             data : {id:id},
             success: function(data){
                 $('#formModalEdit').modal('show');
-                $('#formModalEdit').find('[name="kode"]').val(data.menu_kode);
-                $('#formModalEdit').find('[name="nama"]').val(data.menu_nama);
-                $('#formModalEdit').find('[name="harga"]').val(data.menu_harga);
-                $('#formModalEdit').find('[name="harga_jual"]').val(data.menu_harga_jual);
-                $('#formModalEdit').find('[name="kategori"]').val(data.kat_id).trigger("change");
-
+                $('#formModalEdit').find('[name="id_edit"]').val(data.tarif_kode);
+                $('#jenis_edit').val(data.jenis_kode).trigger("change");
+                $('#nama_edit').val(data.tarif_nama);
+                detail_view(id);
             }
         });
 
@@ -557,11 +521,7 @@
 
     });
 
-    $('#formModalEdit').on('shown.bs.modal', function () {
-        $('#nama_edit').focus();
-    })  
-
-
+   
     $('#show_data_detail').on('click','.detail_delete',function(){
         
         var id=$(this).attr('data');

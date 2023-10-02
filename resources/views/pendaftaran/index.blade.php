@@ -444,7 +444,16 @@
                                 <div class="form-group row">
                                     <label for="example-password-input" class="col-sm-3 col-form-label text-left">Kategori <small class="text-danger">*</small></label>
                                     <div class="col-sm-9">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"  onchange="showFilterKategori(this)"></select>
+                                        <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-password-input" class="col-sm-3 col-form-label text-left">Paket <small class="text-danger">*</small></label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
+                                    </div>
+                                    <div class="col-sm-3 mt-1">
+                                        <button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-light btn-block" id="detail_save"><i class="fas fa-plus mr-2"></i>Tambahkan</button>
                                     </div>
                                 </div>
                             </div>
@@ -473,21 +482,7 @@
                             </div>
                         </div>
                         <h4 class="card-title bg-light p-2 mb-2"><i class="mdi mdi-cash-multiple"></i>  INFO TARIF & TOTAL BIAYA</h4>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group row">
-                                    <label for="example-password-input" class="col-sm-3 col-form-label text-left">Paket <small class="text-danger">*</small></label>
-                                    <div class="col-sm-6">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
-                                    </div>
-                                    <div class="col-sm-3 mt-1">
-                                        <button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-light btn-block" id="detail_save"><i class="fas fa-plus mr-2"></i>Tambahkan</button>
-                                    </div>
-                                </div>
-                            </div>
-                          
-                        </div>
-                        
+                             
                         <div class="table-responsive-sm">
                             <table class="table table-sm table-bordered mb-0 table-centered">
                                 <thead>
@@ -594,22 +589,6 @@
         combo_kecamatan(kota);
     }
 
-    // ORTU
-
-    // function showOrtuProvinsiEdit(select){
-    //     var provinsi=$('#provinsi_edit').val();
-    //     console.log(provinsi);
-    //     combo_kota(provinsi);
-
-    //     var kota=$('#kota_edit').val();
-    //     combo_kecamatan(kota);
-    // }
-
-    // function showOrtuKotaEdit(select){
-    //     var kota=$('#kota_edit').val();
-    //     combo_kecamatan(kota);
-    // }
-
     // PENJEMPUT
 
     function showPenjemputProvinsi(select){
@@ -625,57 +604,49 @@
         combo_kecamatan_penjemput(kota);
     }
 
-    // function showPenjemputProvinsiEdit(select){
-    //     var provinsi=$('#penjemput_provinsi_edit').val();
-    //     combo_kota_penjemput(provinsi);
 
-    //     var kota=$('#penjemput_kota_edit').val();
-    //     combo_kecamatan_penjemput(kota);
-    // }
-
-    // function showPenjemputKotaEdit(select){
-    //     var kota=$('#penjemput_kota_edit').val();
-    //     combo_kecamatan_penjemput(kota);
-    // }
-
-
-   
 
     function reset() {
+
         $('#ayah_nama').val("");
         $('#ayah_nik').val("");
-        $('#ayah_lahir').val("").trigger("change");
-        $('#ayah_kerja').val("").trigger("change");
-        $('#ayah_agama').val("").trigger("change");
+        $('#ayah_tmp_lahir').val("");
+        $('#ayah_lahir').val("");
+        $('#ayah_agama').val("");
+        $('#ayah_kerja').val("");
         $('#ayah_hp').val("");
         $('#ayah_wa').val("");
-        $('#alamat').val("");
+        $('#ayah_pdk').val("").val("").trigger("change");
+
         $('#ibu_nama').val("");
         $('#ibu_nik').val("");
-        $('#ibu_lahir').val("").val("").trigger("change");
-        $('#ibu_kerja').val("").trigger("change");
-        $('#ibu_kerja').val("").trigger("change");
-        $('#ibu_agama').val("").trigger("change");
+        $('#ibu_tmp_lahir').val("");
+        $('#ibu_lahir').val("");
+        $('#ibu_agama').val("");
+        $('#ibu_kerja').val("");
         $('#ibu_hp').val("");
         $('#ibu_wa').val("");
-        $('#ibu_alamat').val(""); 
+        $('#ibu_pdk').val("").val("").trigger("change");
 
-        $('#ortu').val("").trigger("change");
-        $('#anak_jekel').val("").trigger("change");
-        $('#anak_agama').val("").trigger("change");
-        $('#anak_tgl_lahir').val("").trigger("change");
+        $('#kecamatan').val("").val("").trigger("change");
+        $('#kota').val("").val("").trigger("change");
+        $('#provinsi').val("").val("").trigger("change");
+        $('#alamat').val("");
+
         $('#anak_nama').val(""); 
+        $('#anak_jekel').val("").trigger("change");
         $('#anak_tmp_lahir').val(""); 
+        $('#anak_tgl_lahir').val("").trigger("change");
         $('#anak_ke').val(""); 
         $('#anak_saudara').val(""); 
         $('#anak_berat').val(""); 
         $('#anak_tinggi').val(""); 
-        $('#anak_alamat').val(""); 
-        $('#anak_alamat').val(""); 
-        $('#id_edit_anak').val(""); 
 
-        $('#id_kerja').val(""); 
-        $('#kerja_nama').val(""); 
+        $('#tgl_daftar').val(""); 
+        $('#periode').val("").val("").trigger("change");
+        $('#grup').val("").val("").trigger("change");
+        $('#kategori').val("").val("").trigger("change");
+        $('#paket').val("").val("").trigger("change");
 
     }
 
@@ -1466,6 +1437,7 @@
             success: function(data) {
 
                 swal("Berhasil!", "Data Berhasil Di Simpan", "success");
+                reset();
 
             }
         });

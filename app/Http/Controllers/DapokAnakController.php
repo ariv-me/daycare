@@ -10,8 +10,10 @@ use Carbon\Carbon;
 use DB;
 
 use App\Models\DapokAnak;
-use App\Models\Perusahaan;
 use App\Models\SistemAgama;
+use App\Models\SistemProvinsi;
+use App\Models\SistemKota;
+use App\Models\SistemKecamatan;
 
 class DapokAnakController extends Controller
 {
@@ -25,7 +27,7 @@ class DapokAnakController extends Controller
     {
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        //return view('ysp_sosial.rumah_singgah.index',compact('app','menu'));
+        return view('dapok.anak.index',compact('app','menu'));
     }
 
 
@@ -41,24 +43,24 @@ class DapokAnakController extends Controller
                 
                 $tmp = new DapokAnak();
 
-                $tmp->anak_kode           = $nis;
-                $tmp->ortu_id            = $r->ortu;
-                $tmp->pnj_id             = $r->penjemput;
-                $tmp->kontak_id          = $r->kontak;
-                $tmp->anak_nama          = $r->anak_nama;
-                $tmp->anak_tmp_lahir     = $r->anak_tmp_lahir;
-                $tmp->anak_tgl_lahir     = date('Y-m-d', strtotime($r->anak_tgl_lahir));
-                $tmp->anak_jekel         = $r->anak_jekel;
+                $tmp->anak_kode          = $nis;
+                $tmp->ortu_kode            = $r->ortu;
+                $tmp->pnj_kode             = $r->penjemput;
+                $tmp->anak_nama          = $r->nama;
+                $tmp->anak_tmp_lahir     = $r->tmp_lahir;
+                $tmp->anak_tgl_lahir     = date('Y-m-d', strtotime($r->tgl_lahir));
+                $tmp->anak_jekel         = $r->jekel;
                 $tmp->anak_ke            = $r->anak_ke;
-                $tmp->anak_jml_saudara   = $r->anak_saudara;
-                $tmp->agama_id           = $r->anak_agama;
-                $tmp->anak_berat         = $r->anak_berat;
-                $tmp->anak_tinggi        = $r->anak_tinggi;
-
+                $tmp->anak_jml_saudara   = $r->saudara;
+                $tmp->agama_id           = $r->agama;
+                $tmp->anak_berat         = $r->berat;
+                $tmp->anak_tinggi        = $r->tinggi;
 
                 $tmp->created_nip        = $app['kar_nip'];
                 $tmp->created_nama       = $app['kar_nama_awal'];
                 $tmp->created_ip         = $r->ip();
+
+                
 
                 $tmp->save();
     
@@ -73,7 +75,6 @@ class DapokAnakController extends Controller
         $result['success'] = true;
         return response()->json($result);   
 
-
     }
 
 
@@ -86,11 +87,21 @@ class DapokAnakController extends Controller
             
             $data = DB::connection('daycare')
                             ->table('dapok_tb_anak AS aa')          
-                            ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_id','aa.ortu_id')              
-                            ->orderby('aa.anak_id','desc')
+                            ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_kode','aa.ortu_kode')              
+                            ->leftjoin('dapok_tb_penjemput AS cc','cc.pnj_kode','aa.pnj_kode')              
+                            // ->leftjoin('daftar_tc_member AS dd','dd.anak_kode','aa.anak_kode')              
+                            ->orderby('aa.anak_kode','desc')
                             ->get();
 
                 $data = $data->map(function($value) {
+
+                $value->provinsi = ucwords(strtolower(SistemProvinsi::getNamaProvinsi($value->prov_kode)));
+                $value->kota = ucwords(strtolower(SistemKota::getNamaKota($value->kota_kode)));
+                $value->kecamatan = ucwords(strtolower(SistemKecamatan::getNamaKecamatan($value->kec_kode)));
+
+                $value->tgl_lahir = format_indo($value->anak_tgl_lahir);
+                $value->usia = Carbon::parse($value->anak_tgl_lahir)->age;
+
 
                 if($value->anak_jekel == 'L'){
                     $value->anak_jekel = 'Laki - Laki';
@@ -127,7 +138,7 @@ class DapokAnakController extends Controller
                         ->leftjoin('daftar_tc_member AS bb','bb.anak_kode','=','aa.anak_kode')
                         ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','=','aa.ortu_kode')
                         ->where('aa.ortu_kode',$kode)
-                        ->orderby('aa.anak_id','desc')
+                        ->orderby('aa.anak_kode','desc')
                         ->get();
 
         $data = $data->map(function($value) {
@@ -157,7 +168,7 @@ class DapokAnakController extends Controller
 
     }
 
-    public function edit(Request $r)
+    public function view_anak_tagihan(Request $r)
     {
         $result = array('success'=>false);
 
@@ -169,9 +180,37 @@ class DapokAnakController extends Controller
                         ->leftjoin('daftar_tc_member AS bb','bb.anak_kode','=','aa.anak_kode')
                         ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','=','aa.ortu_kode')
                         ->where('aa.anak_kode',$kode)
-                        ->orderby('aa.anak_id','desc')
+                        ->orderby('aa.anak_kode','desc')
                         ->first();
 
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['data'] = $data;
+
+        return response()->json($result);
+
+
+    }
+
+    public function edit(Request $r)
+    {
+        $result = array('success'=>false);
+
+        try{
+
+        $kode = $r->get('id');
+        $data = DB::connection('daycare')
+                        ->table('dapok_tb_anak AS aa')
+                        // ->leftjoin('daftar_tc_member AS bb','bb.anak_kode','=','aa.anak_kode')
+                        // ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','=','aa.ortu_kode')
+                        ->where('aa.anak_kode',$kode)
+                        ->orderby('aa.anak_kode','desc')
+                        ->first();
+        
 
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  
@@ -193,28 +232,23 @@ class DapokAnakController extends Controller
         $transaction = DB::connection('daycare')->transaction(function() use($r,$app){
   
               $id = $r->get('id');
-              //dd($id);
-              $tmp = DapokAnak::where('anak_id',$id)->first();
+              $tmp = DapokAnak::where('anak_kode',$id)->first();
 
-
-              $tmp->ortu_id            = $r->ortu;
-              $tmp->pnj_id             = $r->penjemput;
-              $tmp->kontak_id          = $r->kontak;
-              $tmp->anak_nama          = $r->anak_nama;
-              $tmp->anak_tmp_lahir     = $r->anak_tmp_lahir;
-              $tmp->anak_tgl_lahir     = date('Y-m-d', strtotime($r->anak_tgl_lahir));
-              $tmp->anak_jekel         = $r->anak_jekel;
+              $tmp->ortu_kode            = $r->ortu;
+              $tmp->pnj_kode             = $r->penjemput;
+              $tmp->anak_nama          = $r->nama;
+              $tmp->anak_tmp_lahir     = $r->tmp_lahir;
+              $tmp->anak_tgl_lahir     = date('Y-m-d', strtotime($r->tgl_lahir));
+              $tmp->anak_jekel         = $r->jekel;
               $tmp->anak_ke            = $r->anak_ke;
-              $tmp->anak_jml_saudara   = $r->anak_saudara;
-              $tmp->agama_id           = $r->anak_agama;
-              $tmp->anak_berat         = $r->anak_berat;
-              $tmp->anak_tinggi        = $r->anak_tinggi;
+              $tmp->anak_jml_saudara   = $r->saudara;
+              $tmp->agama_id           = $r->agama;
+              $tmp->anak_berat         = $r->berat;
+              $tmp->anak_tinggi        = $r->tinggi;
 
               $tmp->updated_nip           = $app['kar_nip'];
               $tmp->updated_nama          = $app['kar_nama_awal'];
               $tmp->updated_ip            = $r->ip();
-
-              //dd($tmp);
 
               $tmp->save();
   
@@ -229,13 +263,13 @@ class DapokAnakController extends Controller
         $transaction = DB::connection('daycare')->transaction(function() use($r){
             $app = SistemApp::sistem();
             $id = $r->get('id');
-            $tmp = DapokAnak::where('anak_id',$id)->first();
+            $tmp = DapokAnak::where('anak_kode',$id)->first();
             $tmp->anak_aktif  = 'Y';
 
             $tmp->updated_nip           = $app['kar_nip'];
             $tmp->updated_nama          = $app['kar_nama_awal'];
             $tmp->updated_ip            = $r->ip();
-          
+            
             $tmp->save();
 
             return true;
@@ -247,15 +281,16 @@ class DapokAnakController extends Controller
     public function nonaktif(Request $r)
     {
         $transaction = DB::connection('daycare')->transaction(function() use($r){
+
             $app = SistemApp::sistem();
             $id = $r->get('id');
-            $tmp = DapokAnak::where('anak_id',$id)->first();
+            $tmp = DapokAnak::where('anak_kode',$id)->first();
             $tmp->anak_aktif  = 'T';
 
             $tmp->updated_nip           = $app['kar_nip'];
             $tmp->updated_nama          = $app['kar_nama_awal'];
             $tmp->updated_ip            = $r->ip();
-          
+
             $tmp->save();
 
             return true;
