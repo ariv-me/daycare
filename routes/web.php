@@ -76,6 +76,7 @@ Route::group(['prefix' => 'dapok', 'as' => 'dapok.'], function () {
 		Route::post('/update', [DapokOrtuController::class, 'update'])->name('update');
 		Route::get('/aktif', [DapokOrtuController::class, 'aktif'])->name('aktif');
 		Route::get('/nonaktif', [DapokOrtuController::class, 'nonaktif'])->name('nonaktif');
+		Route::get('/get', [DapokOrtuController::class, 'get'])->name('get');
 		
 	});
 

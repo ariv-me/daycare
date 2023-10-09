@@ -42,8 +42,10 @@ class TarifController extends Controller
 
             $tmp->tarif_kode   = $tarif_kode;
             $tmp->jenis_kode   = $r->jenis;
+            $tmp->kat_kode   = $r->kategori;
+            $tmp->grup_kode   = $r->grup;
             $tmp->tarif_nama   = $r->nama;
-            $tmp->tarif_total  =  $tarif_total;
+            $tmp->tarif_total   = $tarif_total;
 
 
             $tmp->created_nip  = $app['kar_nip'];
@@ -72,6 +74,35 @@ class TarifController extends Controller
 
     }
 
+    public function update(Request $r){
+
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
+  
+            $app = SistemApp::sistem();
+
+            $id = $r->get('id');
+            $tmp = Tarif::where('tarif_kode',$id)->first();
+            $tarif_total = TarifDetail::where('tarif_kode',$id)->where('detail_aktif','Y')->sum('detail_total');
+
+            $tmp->jenis_kode   = $r->jenis;
+            $tmp->kat_kode     = $r->kategori;
+            $tmp->grup_kode    = $r->grup;
+            $tmp->tarif_nama   = $r->nama;
+            $tmp->tarif_total  = $tarif_total;
+
+            $tmp->created_nip  = $app['kar_nip'];
+            $tmp->created_nama = $app['kar_nama_awal'];;
+            $tmp->created_ip   = $r->ip();
+
+            $tmp->save();
+
+            return true;
+
+          });
+  
+          return response()->json($transaction);   
+    }
+
     public function view(Request $r){
 
         $result = array('success'=>false);
@@ -80,13 +111,15 @@ class TarifController extends Controller
             
             $data = DB::connection('daycare')
                             ->table('tarif_tc_tarif AS aa')
+                            ->leftjoin('tarif_ta_kategori AS bb','bb.kat_kode','=','aa.kat_kode')
                             ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','=','aa.jenis_kode')
+                            ->leftjoin('sistem_tb_grup AS dd','dd.grup_kode','=','aa.grup_kode')
                             ->orderby('aa.tarif_kode','desc')
                             ->get();
 
             $data = $data->map(function($value) {
                 
-                $value->total         = format_rupiah($value->tarif_total);
+                $value->total         = format_rupiah(TarifDetail::where('tarif_kode',$value->tarif_kode)->sum('detail_total'));
                 return $value;
            
             });
@@ -109,8 +142,10 @@ class TarifController extends Controller
 
             $app = SistemApp::sistem();
             $tmp = new TarifDetail();
+
             $item = TarifItem::where('item_id',$r->item)->first();
 
+            $tmp->tarif_kode    = $r->kode;
             $tmp->item_kode     = $item->item_kode;
             $tmp->detail_nama   = $item->item_nama;
             $tmp->detail_total  = $item->item_nominal;
@@ -118,7 +153,6 @@ class TarifController extends Controller
             $tmp->created_nip  = $app['kar_nip'];
             $tmp->created_nama = $app['kar_nama_awal'];;
             $tmp->created_ip   = $r->ip();
-
 
             $tmp->save();
 
@@ -134,7 +168,7 @@ class TarifController extends Controller
 
         try{
 
-            $id = $r->kode;
+            $id = $r->id;
             
             if ($id == null){
                 $data = DB::connection('daycare')
@@ -180,11 +214,9 @@ class TarifController extends Controller
             
             $app = SistemApp::sistem();
 
-            $id = $r->get('id');
+            $id  = $r->get('id');
             $tmp = TarifDetail::where('detail_id',$id)->first();
-            $tmp->detail_aktif = 'T';
-
-            $tmp->save();
+            $tmp->delete();
 
             return true;
         });
@@ -211,7 +243,7 @@ class TarifController extends Controller
             $data = $data->map(function($value) {
 
                 $value->detail_total_tampil = format_rupiah($value->detail_total);
-                $value->tarif_total = format_rupiah($value->tarif_total);
+                $value->tarif_total         = format_rupiah(TarifDetail::where('tarif_kode',$value->tarif_kode)->sum('detail_total'));
                
                 return $value;
            
@@ -234,8 +266,7 @@ class TarifController extends Controller
     {
         $id = strtolower($r->get('id'));
         $data = Tarif::where('tarif_kode',$id)->first();
-        //dd($data);
-        
+
         return response()->json($data);
     }
 
@@ -247,34 +278,7 @@ class TarifController extends Controller
         return response()->json($data);
     }
 
-    public function update(Request $r){
-
-        $transaction = DB::connection('daycare')->transaction(function() use($r){
   
-              $app = SistemApp::sistem();
-  
-              $id = $r->get('id');
-              $tmp = Tarif::where('tarif_kode',$id)->first();
-
-              $tmp->kat_kode       = $r->kategori;
-              $tmp->tarif_nama   = $r->nama;
-              $tmp->tarif_reg    = str_replace(".", "", $r->registrasi);
-              $tmp->tarif_gizi   = str_replace(".", "", $r->gizi);
-              $tmp->tarif_spp    = str_replace(".", "", $r->bulanan);
-              $tmp->tarif_pembg  = str_replace(".", "", $r->pembangunan);
-              $tmp->tarif_total  = $tmp->tarif_reg + $tmp->tarif_gizi + $tmp->tarif_spp + $tmp->tarif_pembg;
-
-              $tmp->updated_nip         = $app['kar_nip'];
-              $tmp->updated_nama        = $app['kar_nama_awal'];;
-              $tmp->updated_ip          = $r->ip();
-            
-              $tmp->save();
-  
-              return true;
-          });
-  
-          return response()->json($transaction);   
-    }
 
     public function aktif(Request $r)
     {
@@ -285,10 +289,10 @@ class TarifController extends Controller
             $id = $r->get('id');
             
             $tmp = Tarif::where('tarif_kode',$id)->first();
-            $tmp->void              = 'T';
-            $tmp->void_nip          = $app['kar_nip'];
-            $tmp->void_nama         = $app['kar_nama_awal'];;
-            $tmp->void_ip           = $r->ip();
+            $tmp->tarif_aktif       = 'Y';
+            $tmp->updated_nip          = $app['kar_nip'];
+            $tmp->updated_nama         = $app['kar_nama_awal'];;
+            $tmp->updated_ip           = $r->ip();
             $tmp->save();
 
             return true;
@@ -305,10 +309,10 @@ class TarifController extends Controller
             $id         = $r->get('id');
             $tmp        = Tarif::where('tarif_kode',$id)->first();
                     
-            $tmp->void              = 'Y';
-            $tmp->void_nip          = $app['kar_nip'];
-            $tmp->void_nama         = $app['kar_nama_awal'];;
-            $tmp->void_ip           = $r->ip();
+            $tmp->tarif_aktif          = 'T';
+            $tmp->updated_nip          = $app['kar_nip'];
+            $tmp->updated_nama         = $app['kar_nama_awal'];;
+            $tmp->updated_ip           = $r->ip();
             $tmp->save();
 
             return true;

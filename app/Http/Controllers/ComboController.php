@@ -49,13 +49,42 @@ class ComboController extends Controller
 
     public function combo_tarif_item() {
  
-         $data = DB::connection('daycare')
-                         ->table('tarif_tb_item')
-                         ->where('item_aktif','Y')
-                         ->orderby('item_nama')
-                         ->get();
+        // $data = DB::connection('daycare')
+        //                  ->table('tarif_tb_item')
+        //                  ->where('item_aktif','Y')
+        //                  ->orderby('item_nama')
+        //                  ->get();
 
-         return response()->json($data);
+        // return response()->json($data);
+
+        $result = array('success'=>false);
+
+        try{
+        
+            $data = DB::connection('daycare')
+                        ->table('tarif_tb_item')
+                        ->where('item_aktif','Y')
+                        ->orderby('item_nama')
+                        ->get();
+
+            $data = $data->map(function($value) {
+
+                $value->item_nominal = format_rupiah($value->item_nominal);
+                return $value;
+        
+            });
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['data'] = $data;
+
+        return response()->json($result);
+
+         
     }
 
     public function combo_tarif_paket() {

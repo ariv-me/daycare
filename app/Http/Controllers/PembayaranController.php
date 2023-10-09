@@ -14,6 +14,7 @@ use PDF;
 use App\Models\Pembayaran;
 use App\Models\Pendaftaran;
 use App\Models\PendaftaranDetail;
+use App\Models\Member;
 
 
 class PembayaranController extends Controller
@@ -96,11 +97,21 @@ class PembayaranController extends Controller
 
             }
 
+            $member = Member::where('anak_kode',$daftar->anak_kode)->first();
+
+            if ($daftar->kat_kode == 'KT0002') {
+                
+                $member->member_aktif = 'T';
+
+            } 
+
+
             $tmp->anak_kode          = $daftar->anak_kode;
             $tmp->created_nip       = $app['kar_nip'];
             $tmp->created_nama      = $app['kar_nama_awal'];
             $tmp->created_ip        = $r->ip();
 
+            $member->save();
             $daftar->save();
             $tmp->save();
 

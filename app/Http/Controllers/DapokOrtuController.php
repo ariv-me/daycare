@@ -176,6 +176,19 @@ class DapokOrtuController extends Controller
 
     }
 
+    public function get(Request $r){
+
+        $id = $r->get('ortu');
+        $data = DapokOrtu::where('ortu_kode',$id)->first();
+        $count = DapokOrtu::where('ortu_kode',$id)->count();
+
+        $result = array();
+        $result['data']    = $data;
+        $result['count']   = $count;
+
+       return response()->json($result);
+    }
+
     public function edit(Request $r)
     {
         $id = $r->get('id');
@@ -183,7 +196,7 @@ class DapokOrtuController extends Controller
         $data = DapokOrtu::where('ortu_kode',$id)->first();
 
         $result = array();
-        $result['ayah_agama']   = SistemAgama::where('agama_id',$data->ortu_ayah_agama_id)->first()->agama_nama;
+        $result['count']   = SistemAgama::where('agama_id',$data->ortu_ayah_agama_id)->first()->agama_nama;
         $result['ibu_agama']   = SistemAgama::where('agama_id',$data->ortu_ibu_agama_id)->first()->agama_nama;
         $result['ayah_pdk']   = SistemPendidikan::where('pdk_id',$data->ortu_ayah_pdk_id)->first()->pdk_nama;
         $result['ibu_pdk']   = SistemPendidikan::where('pdk_id',$data->ortu_ibu_pdk_id)->first()->pdk_nama;

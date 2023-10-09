@@ -3,6 +3,7 @@
 @section('css')
     <style>
 
+
         .nav-border .nav-item.show .nav-link, .nav-border .nav-link.active {
             background: #ffffff;
             color: #2a2a2a;
@@ -36,12 +37,135 @@
             font-size: 27px;
         }
 
+        /* Absolute Center Spinner */
+        .loading {
+        position: fixed;
+        z-index: 999;
+        height: 2em;
+        width: 2em;
+        overflow: show;
+        margin: auto;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        }
+
+        /* Transparent Overlay */
+        .loading:before {
+        content: '';
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+            background: radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0, .8));
+
+        background: -webkit-radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0,.8));
+        }
+
+        /* :not(:required) hides these rules from IE9 and below */
+        .loading:not(:required) {
+        /* hide "loading..." text */
+        font: 0/0 a;
+        color: transparent;
+        text-shadow: none;
+        background-color: transparent;
+        border: 0;
+        }
+
+        .loading:not(:required):after {
+        content: '';
+        display: block;
+        font-size: 10px;
+        width: 1em;
+        height: 1em;
+        margin-top: -0.5em;
+        -webkit-animation: spinner 150ms infinite linear;
+        -moz-animation: spinner 150ms infinite linear;
+        -ms-animation: spinner 150ms infinite linear;
+        -o-animation: spinner 150ms infinite linear;
+        animation: spinner 150ms infinite linear;
+        border-radius: 0.5em;
+        -webkit-box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+        box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+        }
+
+        /* Animation */
+
+        @-webkit-keyframes spinner {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+        }
+        @-moz-keyframes spinner {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+        }
+        @-o-keyframes spinner {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+        }
+        @keyframes spinner {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+        }
+
     </style>   
 @endsection
 
 
 @section('content')
 
+<div class="loading" id="loading">Loading&#8230;</div>
 
 <div class="row mt-3">
     <div class="col-12">
@@ -57,8 +181,7 @@
             <div class="card-body">    
 
             <input type="hidden" id="trs_kode" name="trs_kode">
-            <input type="hidden" id="anak_kode" name="anak_kode">
-            
+            <input type="hidden" id="anak_kode" name="anak_kode">            
 
                 <!-- Nav tabs -->
            
@@ -148,7 +271,20 @@
                                 </div>
         
                                 <h4 class="card-title bg-light p-2 mb-3"><i class="fas fa-user-friends"></i>  DATA ORANG TUA</h4>
-                              
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="example-text-input" class="col-sm-3 col-form-label text-left">Pilih Orang Tua <small class="text-danger">*</small></label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control custom-select select2" style="width: 100%;" name="pilih_ortu" id="pilih_ortu" onchange="showOrtu(this)"></select> 
+                                                   
+                                               
+                                                <small class="text-danger font-10 mb-2 mt-2">*Pilih jika orang tua sudah terdaftar</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="spinner-border spinner-border-sm mt-2" role="status" id="loading_ortu" style="display: none;"></div>
+                                </div>    
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group row">
@@ -300,7 +436,6 @@
 
                                 <h4 class="card-title bg-light p-2 mb-3"><i class="fas fa-taxi"></i>  DATA PENJEMPUT</h4>
                   
-        
                                 <div class="row">
                                    
                                     <div class="col-sm-6">
@@ -534,7 +669,13 @@
 
 <script type="text/javascript">
 
+
+
     $(document).ready(function(){
+
+        $("#loading").fadeOut(function() {
+            $(this).remove(); // Optional if it's going to only be used once.
+        });
 
         $('.select2').select2();
         $('.datepicker[name=tgl_daftar]').val(moment().format('DD-MM-YYYY'));
@@ -547,6 +688,7 @@
         combo_kategori();
         combo_paket();
         combo_periode();
+        combo_ortu();
         
         combo_ayah_agama();
         combo_ibu_agama();
@@ -571,6 +713,8 @@
         view_detail();
 
     });
+
+   
 
     // ORTU
 
@@ -600,6 +744,18 @@
     function showPenjemputKota(select){
         var kota=$('#penjemput_kota').val();
         combo_kecamatan_penjemput(kota);
+    }
+
+    function showFilterPaket(select){
+
+        var paket  = $('#paket').val();
+        view_tarif(paket);
+
+    }
+
+    function showOrtu(select){
+        var ortu=$('#pilih_ortu').val();
+        view_ortu(ortu);
     }
 
     function redirect(){
@@ -1316,6 +1472,7 @@
         var anak_berat      = $('#anak_berat').val();
         var anak_tinggi     = $('#anak_tinggi').val();
         
+        var ortu            = $('#pilih_ortu').val();
         var ayah_nama       = $('#ayah_nama').val();
         var ayah_nik        = $('#ayah_nik').val();
         var ayah_tmp_lahir  = $('#ayah_tmp_lahir').val();
@@ -1381,6 +1538,7 @@
         formData.append('anak_berat', anak_berat);
         formData.append('anak_tinggi', anak_tinggi);
     
+        formData.append('ortu', ortu);
         formData.append('ayah_nama', ayah_nama);
         formData.append('ayah_nik', ayah_nik);
         formData.append('ayah_lahir', ayah_lahir);
@@ -1439,7 +1597,7 @@
             success: function(data) {
 
                 swal({   
-                    title: "Yeyeyeyeyey",   
+                    title: "Berhasil",   
                     text: "Data Berhasil Di Tambahkan",   
                     type: "success",   
                     showCancelButton: false,   
@@ -1543,13 +1701,155 @@
 
             }
         });
-    
+    // 
         return false;
 
     });
 
 
      // TRANSAKSI
+
+    function view_ortu(ortu) {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('dapok.ortu.get') }}",
+            async: true,
+            data : {ortu:ortu},
+            dataType: 'JSON',
+            beforeSend: () => {
+                $('#loading_ortu').show();
+            },
+            complete: () =>{
+                $('#loading_ortu').hide();
+            },
+            success: function(r) {
+
+                var count = r.count;
+                var data = r.data;
+
+                if (count == 0){
+                   
+                    $('[name="ayah_nama"]').val("").removeAttr('disabled');
+                    $('[name="ayah_nik"]').val("").removeAttr('disabled');
+                    $('[name="ayah_tmp_lahir"]').val("").removeAttr('disabled');
+                    $('[name="ayah_lahir"]').val("").removeAttr('disabled');
+                    $('[name="ayah_kerja"]').val("").removeAttr('disabled');
+                    $('[name="ayah_hp"]').val("").removeAttr('disabled');
+                    $('[name="ayah_wa"]').val("").removeAttr('disabled');
+                    $('[name="ayah_pdk"]').val("").trigger("change").removeAttr('disabled');
+                    $('[name="ayah_agama"]').val("").trigger("change").removeAttr('disabled');
+
+                    $('[name="ibu_nama"]').val("").removeAttr('disabled');
+                    $('[name="ibu_nik"]').val("").removeAttr('disabled');
+                    $('[name="ibu_tmp_lahir"]').val("").removeAttr('disabled');
+                    $('[name="ibu_lahir"]').val("").removeAttr('disabled');
+                    $('[name="ibu_kerja"]').val("").removeAttr('disabled');
+                    $('[name="ibu_hp"]').val("").removeAttr('disabled');
+                    $('[name="ibu_wa"]').val("").removeAttr('disabled');
+                    $('[name="ibu_pdk"]').val("").trigger("change").removeAttr('disabled');
+                    $('[name="ibu_agama"]').val("").trigger("change").removeAttr('disabled');
+
+                    $('[name="provinsi"]').val("").trigger("change").removeAttr('disabled');
+                    $('[name="kota"]').val("").trigger("change").removeAttr('disabled');
+                    $('[name="kecamatan"]').val("").trigger("change").removeAttr('disabled');
+                    $('[name="alamat"]').val("").removeAttr('disabled');
+          
+                } else {
+
+                    $('[name="ayah_nama"]').val(data.ortu_ayah).prop('disabled', true);
+                    $('[name="ayah_nik"]').val(data.ortu_ayah_nik).prop('disabled', true);
+                    $('[name="ayah_tmp_lahir"]').val(data.ortu_ayah_tmp_lahir).prop('disabled', true);
+                    $('[name="ayah_lahir"]').datepicker('setDate',moment(data.ortu_ayah_tgl_lahir).format('DD-MM-YYYY')).prop('disabled', true);
+                    $('[name="ayah_kerja"]').val(data.ortu_ayah_kerja).prop('disabled', true);
+                    $('[name="ayah_hp"]').val(data.ortu_ayah_hp).prop('disabled', true);
+                    $('[name="ayah_wa"]').val(data.ortu_ayah_wa).prop('disabled', true);
+                    $('[name="ayah_pdk"]').val(data.ortu_ayah_pdk_id).trigger("change").prop('disabled', true);
+                    $('[name="ayah_agama"]').val(data.ortu_ayah_agama_id).trigger("change").prop('disabled', true);
+
+                    $('[name="ibu_nama"]').val(data.ortu_ibu).prop('disabled', true);
+                    $('[name="ibu_nik"]').val(data.ortu_ibu_nik).prop('disabled', true);
+                    $('[name="ibu_tmp_lahir"]').val(data.ortu_ibu_tmp_lahir).prop('disabled', true);
+                    $('[name="ibu_lahir"]').datepicker('setDate',moment(data.ortu_ibu_tgl_lahir).format('DD-MM-YYYY')).prop('disabled', true);
+                    $('[name="ibu_kerja"]').val(data.ortu_ibu_kerja).prop('disabled', true);
+                    $('[name="ibu_hp"]').val(data.ortu_ibu_hp).prop('disabled', true);
+                    $('[name="ibu_wa"]').val(data.ortu_ibu_wa).prop('disabled', true);
+                    $('[name="ibu_pdk"]').val(data.ortu_ibu_pdk_id).trigger("change").prop('disabled', true);
+                    $('[name="ibu_agama"]').val(data.ortu_ibu_agama_id).trigger("change").prop('disabled', true);
+
+                    $('[name="provinsi"]').val(data.prov_kode).trigger("change").prop('disabled', true);
+                    $('[name="kota"]').val(data.kota_kode).trigger("change").prop('disabled', true);
+                    $('[name="kecamatan"]').val(data.kec_kode).trigger("change").prop('disabled', true);
+                    $('[name="alamat"]').val(data.ortu_alamat).prop('disabled', true);
+
+                }
+
+              
+
+               
+               
+                
+                // if (data != null) {
+                //     $('[name="ayah_nama"]').val(data.ortu_ayah).prop('disabled', true);
+                //     $('[name="ayah_nik"]').val(data.ortu_ayah_nik).prop('disabled', true);
+                //     $('[name="ayah_tmp_lahir"]').val(data.ortu_ayah_tmp_lahir).prop('disabled', true);
+                //     $('[name="ayah_lahir"]').datepicker('setDate',moment(data.ortu_ayah_tgl_lahir).format('DD-MM-YYYY')).prop('disabled', true);
+                //     $('[name="ayah_kerja"]').val(data.ortu_ayah_kerja).prop('disabled', true);
+                //     $('[name="ayah_hp"]').val(data.ortu_ayah_hp).prop('disabled', true);
+                //     $('[name="ayah_wa"]').val(data.ortu_ayah_wa).prop('disabled', true);
+                //     $('[name="ayah_pdk"]').val(data.ortu_ayah_pdk_id).trigger("change").prop('disabled', true);
+                //     $('[name="ayah_agama"]').val(data.ortu_ayah_agama_id).trigger("change").prop('disabled', true);
+
+                //     $('[name="ibu_nama"]').val(data.ortu_ibu).prop('disabled', true);
+                //     $('[name="ibu_nik"]').val(data.ortu_ibu_nik).prop('disabled', true);
+                //     $('[name="ibu_tmp_lahir"]').val(data.ortu_ibu_tmp_lahir).prop('disabled', true);
+                //     $('[name="ibu_lahir"]').datepicker('setDate',moment(data.ortu_ibu_tgl_lahir).format('DD-MM-YYYY')).prop('disabled', true);
+                //     $('[name="ibu_kerja"]').val(data.ortu_ibu_kerja).prop('disabled', true);
+                //     $('[name="ibu_hp"]').val(data.ortu_ibu_hp).prop('disabled', true);
+                //     $('[name="ibu_wa"]').val(data.ortu_ibu_wa).prop('disabled', true);
+                //     $('[name="ibu_pdk"]').val(data.ortu_ibu_pdk_id).trigger("change").prop('disabled', true);
+                //     $('[name="ibu_agama"]').val(data.ortu_ibu_agama_id).trigger("change").prop('disabled', true);
+
+                //     $('[name="provinsi"]').val(data.prov_kode).trigger("change").prop('disabled', true);
+                //     $('[name="kota"]').val(data.kota_kode).trigger("change").prop('disabled', true);
+                //     $('[name="kecamatan"]').val(data.kec_kode).trigger("change").prop('disabled', true);
+                //     $('[name="alamat"]').val(data.ortu_alamat).prop('disabled', true);
+                // } else  {
+                //     $('[name="ayah_nama"]').val(data.ortu_ayah);
+                //     $('[name="ayah_nik"]').val(data.ortu_ayah_nik);
+                //     $('[name="ayah_tmp_lahir"]').val(data.ortu_ayah_tmp_lahir);
+                //     $('[name="ayah_lahir"]').datepicker('setDate',moment(data.ortu_ayah_tgl_lahir).format('DD-MM-YYYY'));
+                //     $('[name="ayah_kerja"]').val(data.ortu_ayah_kerja);
+                //     $('[name="ayah_hp"]').val(data.ortu_ayah_hp);
+                //     $('[name="ayah_wa"]').val(data.ortu_ayah_wa);
+                //     $('[name="ayah_pdk"]').val(data.ortu_ayah_pdk_id).trigger("change");
+                //     $('[name="ayah_agama"]').val(data.ortu_ayah_agama_id).trigger("change");
+
+                //     $('[name="ibu_nama"]').val(data.ortu_ibu);
+                //     $('[name="ibu_nik"]').val(data.ortu_ibu_nik);
+                //     $('[name="ibu_tmp_lahir"]').val(data.ortu_ibu_tmp_lahir);
+                //     $('[name="ibu_lahir"]').datepicker('setDate',moment(data.ortu_ibu_tgl_lahir).format('DD-MM-YYYY'));
+                //     $('[name="ibu_kerja"]').val(data.ortu_ibu_kerja);
+                //     $('[name="ibu_hp"]').val(data.ortu_ibu_hp);
+                //     $('[name="ibu_wa"]').val(data.ortu_ibu_wa);
+                //     $('[name="ibu_pdk"]').val(data.ortu_ibu_pdk_id).trigger("change");
+                //     $('[name="ibu_agama"]').val(data.ortu_ibu_agama_id).trigger("change");
+
+                //     $('[name="provinsi"]').val(data.prov_kode).trigger("change");
+                //     $('[name="kota"]').val(data.kota_kode).trigger("change");
+                //     $('[name="kecamatan"]').val(data.kec_kode).trigger("change");
+                //     $('[name="alamat"]').val(data.ortu_alamat);
+                // }
+
+       
+                
+                
+                
+
+            }
+        });
+
+    }
 
     function view_detail() {
 
@@ -2037,6 +2337,34 @@
 
     }
 
+    
+    function combo_ortu(){
+
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo.combo_dapok_ortu') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=pilih_ortu]').empty()
+                var x = document.getElementById("pilih_ortu");
+                    var option = document.createElement("option");
+                    option.text = "--Pilih--";
+                    option.value = '';
+                    x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html =  
+                            '<option value='+(data[i].ortu_kode)+'>'+(data[i].ortu_ayah)+' - '+(data[i].ortu_ibu)+'</option>';
+                    $('select[name=pilih_ortu]').append(html)
+                }
+            }
+        });
+
+    }
+
 
     function combo_ibu_pendidikan(){
 
@@ -2178,12 +2506,7 @@
     }
 
       
-    function showFilterPaket(select){
-
-        var paket  = $('#paket').val();
-        view_tarif(paket);
-
-    }
+  
 
     function combo_paket(){
 

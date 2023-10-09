@@ -528,8 +528,8 @@ INSERT INTO `sistem_ta_jenis_pekerjaan` (`kerja_id`, `kerja_nama`, `created_at`,
 	(8, 'Wiraswasta', '2022-09-14 10:10:56', '2022-09-14 10:10:56', 'Y');
 /*!40000 ALTER TABLE `sistem_ta_jenis_pekerjaan` ENABLE KEYS */;
 
--- Dumping structure for table dbspf_daycare.sistem_tb_grup
-CREATE TABLE IF NOT EXISTS `sistem_tb_grup` (
+-- Dumping structure for table dbspf_daycare.sistem_tb_grup_detail
+CREATE TABLE IF NOT EXISTS `sistem_tb_grup_detail` (
   `grup_id` int(11) NOT NULL AUTO_INCREMENT,
   `grup_kode` varchar(50) DEFAULT '',
   `grup_nama` varchar(50) DEFAULT '',
@@ -546,16 +546,16 @@ CREATE TABLE IF NOT EXISTS `sistem_tb_grup` (
   UNIQUE KEY `grup_kode` (`grup_kode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table dbspf_daycare.sistem_tb_grup: ~6 rows (approximately)
-/*!40000 ALTER TABLE `sistem_tb_grup` DISABLE KEYS */;
-INSERT INTO `sistem_tb_grup` (`grup_id`, `grup_kode`, `grup_nama`, `grup_aktif`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
+-- Dumping data for table dbspf_daycare.sistem_tb_grup_detail: ~6 rows (approximately)
+/*!40000 ALTER TABLE `sistem_tb_grup_detail` DISABLE KEYS */;
+INSERT INTO `sistem_tb_grup_detail` (`grup_id`, `grup_kode`, `grup_nama`, `grup_aktif`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
 	(1, 'SP', 'Semen Padang', 'Y', '2022-07-16 20:29:24', NULL, NULL, NULL, '2023-09-07 09:26:15', NULL, NULL, NULL),
 	(2, 'YSP', 'Yayasan Semen Padang', 'Y', '2023-09-07 09:25:15', NULL, NULL, NULL, '2023-09-07 09:25:39', NULL, NULL, NULL),
 	(3, 'SPH', 'Semen Padang Hospital', 'Y', '2023-09-07 09:24:43', NULL, NULL, NULL, '2023-09-07 09:25:51', NULL, NULL, NULL),
 	(4, 'KLISEPA', 'Klinik Semen Padang', 'Y', '2023-09-07 09:25:03', NULL, NULL, NULL, '2023-09-07 09:25:55', NULL, NULL, NULL),
 	(5, 'APLP', 'APLP', 'T', '2022-07-16 20:30:19', NULL, NULL, NULL, '2023-09-07 09:25:58', NULL, NULL, NULL),
 	(6, 'UMU', 'Umum', 'Y', '2022-07-16 20:30:05', NULL, NULL, NULL, '2023-09-07 09:26:00', NULL, NULL, NULL);
-/*!40000 ALTER TABLE `sistem_tb_grup` ENABLE KEYS */;
+/*!40000 ALTER TABLE `sistem_tb_grup_detail` ENABLE KEYS */;
 
 -- Dumping structure for table dbspf_daycare.tarif_ta_diskon
 CREATE TABLE IF NOT EXISTS `tarif_ta_diskon` (

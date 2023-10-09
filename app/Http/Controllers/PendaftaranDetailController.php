@@ -110,6 +110,7 @@ class PendaftaranDetailController extends Controller
 
             }
 
+       
             $tmp->created_nip    = $app['kar_nip'];
             $tmp->created_nama   = $app['kar_nama_awal'];
             $tmp->created_ip     = $r->ip();

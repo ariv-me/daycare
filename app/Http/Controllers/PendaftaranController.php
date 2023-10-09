@@ -66,10 +66,20 @@ class PendaftaranController extends Controller
 
           
             $transaction = DB::connection('daycare')->transaction(function() use($r){
+
+                $cek_ortu = DapokOrtu::where('ortu_kode',$r->ortu)->count();
+               
+
+                if ($cek_ortu > 0) {
+                    $ortu_kode   = $r->ortu;
+                    $ortu = DapokOrtu::where('ortu_kode',$r->ortu)->first();
+                } else {
+                    $ortu_kode   = DapokOrtu::autonumber();
+                    $ortu = new DapokOrtu();  
+                }
     
                 $app         = SistemApp::sistem();
                 $anak_kode   = DapokAnak::autonumber();
-                $ortu_kode   = DapokOrtu::autonumber();
                 $daftar_kode = Pendaftaran::autonumber();
                 
 
@@ -168,8 +178,6 @@ class PendaftaranController extends Controller
 
                 /*-- ORTU --*/
 
-                $ortu = new DapokOrtu();
-
                 $ortu->ortu_kode               = $ortu_kode;
                 $ortu->ortu_ayah               = $r->ayah_nama;
                 $ortu->ortu_ayah_nik           = $r->ayah_nik;
@@ -191,18 +199,21 @@ class PendaftaranController extends Controller
                 $ortu->ortu_ibu_wa            = $r->ibu_wa;
                 $ortu->ortu_ibu_agama_id      = $r->ibu_agama;
 
-                $ortu->prov_kode                = $r->provinsi;
-                $ortu->kota_kode                = $r->kota;
-                $ortu->kec_kode                  = $r->kecamatan;
+                $ortu->prov_kode              = $r->provinsi;
+                $ortu->kota_kode              = $r->kota;
+                $ortu->kec_kode               = $r->kecamatan;
                 $ortu->ortu_alamat            = $r->alamat;
 
                 $ortu->created_nip           = $app['kar_nip'];
                 $ortu->created_nama          = $app['kar_nama_awal'];
-                $ortu->created_ip            = $r->ip();           
+                $ortu->created_ip            = $r->ip();  
 
+                    
+              
+               
+
+              
                 /*-- PENJEMPUT --*/
-
-
 
                 if ($pnj_kode != null){
 
@@ -219,9 +230,9 @@ class PendaftaranController extends Controller
                     $pnj->pnj_agama_id          = $r->penjemput_agama;
                     $pnj->pnj_pdk_id            = $r->penjemput_pdk;
                     $pnj->pnj_hub_id            = $r->penjemput_hubungan;
-                    $pnj->pnj_provinsi_id           = $r->penjemput_provinsi;
-                    $pnj->pnj_kecamatan_id          = $r->penjemput_kecamatan;
-                    $pnj->pnj_kota_kode               = $r->penjemput_kota;
+                    $pnj->pnj_provinsi_id       = $r->penjemput_provinsi;
+                    $pnj->pnj_kecamatan_id      = $r->penjemput_kecamatan;
+                    $pnj->pnj_kota_kode         = $r->penjemput_kota;
                     $pnj->pnj_alamat            = $r->penjemput_alamat;
     
                     $pnj->updated_nip           = $app['kar_nip'];
