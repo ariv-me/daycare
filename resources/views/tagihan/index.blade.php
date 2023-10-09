@@ -77,13 +77,13 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label" for="subject">Anak  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="anak" id="anak" onchange="showAnak(this)"></select>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="filter_anak" id="filter_anak" onchange="filterAnak(this)"></select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label" for="subject">Bulan  <small class="text-danger">*</small></label>
-                            <input type="text" id="filter_bulan" name="filter_bulan" class="form-control datepicker" onchange="showBulan(this)">
+                            <select class="form-control custom-select select2" style="width: 100%;" name="filter_bulan" id="filter_bulan" onchange="filterBulan(this)"></select>
                         </div>
                     </div>
                 </div>
@@ -323,11 +323,31 @@
 
         $('#filter_bulan').val('Semua');
 
-        combo_anak();
-        view();
-        reset();
+        combo_filter_anak();
+        combo_filter_bulan();
+
+        var anak  = $('#filter_anak').val();
+        var bulan = $('#filter_bulan').val();
+
+        view(anak,bulan);
+    
 
     });
+
+    function filterAnak(){
+        var anak = $('#filter_anak').val();
+        var bulan = $('#filter_bulan').val();
+
+        view(anak,bulan);
+    }
+
+    function filterBulan(){
+        var anak = $('#filter_anak').val();
+        var bulan = $('#filter_bulan').val();
+
+        view(anak,bulan);
+    }
+
 
     function reset() {
         $('#nama').val("");
@@ -402,13 +422,14 @@
 
 
 
-    function view() {
+    function view(anak,bulan) {
 
         $.ajax({
             type: 'GET',
             url: "{{ route('tagihan.view') }}",
             async: true,
             dataType: 'JSON',
+            data:{anak:anak,bulan:bulan},
             success: function(r) {
                 var i;
                 $('#datatable').DataTable().destroy(); 
@@ -659,9 +680,9 @@
         });
     });
 
-    function combo_anak(){
+    function combo_filter_anak(){
 
-        $('select[name=anak]').empty()
+        $('select[name=filter_anak]').empty()
         $.ajax({
             type  : 'GET',
             url   : "{{ route('combo.combo_dapok_anak') }}",
@@ -670,8 +691,8 @@
             success : function(data){
                 var html = '';
                 var i;
-                $('select[name=anak]').empty()
-                var x = document.getElementById("anak");
+                $('select[name=filter_anak]').empty()
+                var x = document.getElementById("filter_anak");
                         var option = document.createElement("option");
                         option.text = "Semua";
                         option.value = 'Semua';
@@ -679,10 +700,32 @@
                 for(i=0; i<data.length; i++){
                     var html = '';
                     html = '<option value='+(data[i].anak_kode)+'>'+(data[i].anak_nama)+'</option>';
-                    $('select[name=anak]').append(html)
+                    $('select[name=filter_anak]').append(html)
                 }
             }
         });
+
+    }
+
+    function combo_filter_bulan(){
+
+    $('select[name=filter_bulan]').empty()
+        var html = '';
+        html = '<option value="Semua">Semua</option>'+
+            '<option value="01">Januari</option>'+
+            '<option value="02">Februari</option>'+
+            '<option value="03">Maret</option>'+
+            '<option value="04">April</option>'+
+            '<option value="05">Mei</option>'+
+            '<option value="06">Juni</option>'+
+            '<option value="07">Juli</option>'+
+            '<option value="08">Agustus</option>'+
+            '<option value="09">September</option>'+
+            '<option value="10">Oktober</option>'+
+            '<option value="11">November</option>'+
+            '<option value="12">Desember</option>';
+
+        $('select[name=filter_bulan]').append(html)
 
     }
 

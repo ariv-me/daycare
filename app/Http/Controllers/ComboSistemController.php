@@ -121,7 +121,7 @@ class ComboSistemController extends Controller
     public function combo_perusahaan(){
         $data = DB::connection('daycare')
                     ->table('sistem_tb_perusahaan AS aa')
-                    ->leftjoin('sistem_tb_grup AS bb','bb.grup_id','=','aa.grup_id')
+                    ->leftjoin('sistem_tb_grup_detail AS bb','bb.grup_id','=','aa.grup_id')
                     ->orderby('bb.grup_id')
                     ->where('aa.peru_aktif','Y')
                     ->where('bb.grup_aktif','Y')

@@ -135,37 +135,93 @@ class TagihanController extends Controller
 
         try{
 
+            $anak  = $r->get('anak');
+            $bulan = $r->get('bulan');
+
+            if ($anak === 'Semua') {
+
+                if ($bulan === 'Semua') {
+
+                    $data = DB::connection('daycare')
+                                ->table('daftar_tc_transaksi AS aa')          
+                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')           
+                                ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','bb.ortu_kode')              
+                                ->leftjoin('dapok_tb_penjemput AS dd','dd.pnj_kode','bb.pnj_kode')              
+                                ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')         
+                                ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
+                                ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')         
+                                ->orderby('aa.trs_id','desc')
+                                ->get();
+                } else {
+
+                    $data = DB::connection('daycare')
+                                ->table('daftar_tc_transaksi AS aa')          
+                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')           
+                                ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','bb.ortu_kode')              
+                                ->leftjoin('dapok_tb_penjemput AS dd','dd.pnj_kode','bb.pnj_kode')              
+                                ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')         
+                                ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
+                                ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')   
+                                ->whereRaw('MONTH(trs_jatuh_tempo) = '.$bulan)  
+                                ->orderby('aa.trs_id','desc')
+                                ->get();
+
+                }
+
+            }
             
-            $data = DB::connection('daycare')
+            else {
+
+                if ($bulan === 'Semua') {
+                    $data = DB::connection('daycare')
                             ->table('daftar_tc_transaksi AS aa')          
                             ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')           
                             ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','bb.ortu_kode')              
                             ->leftjoin('dapok_tb_penjemput AS dd','dd.pnj_kode','bb.pnj_kode')              
                             ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')         
                             ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
-                            ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')         
+                            ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')     
+                            ->where('aa.anak_kode',$anak)    
                             ->orderby('aa.trs_id','desc')
                             ->get();
-                //dd($data);
+                } else {
+                    $data = DB::connection('daycare')
+                            ->table('daftar_tc_transaksi AS aa')          
+                            ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')           
+                            ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','bb.ortu_kode')              
+                            ->leftjoin('dapok_tb_penjemput AS dd','dd.pnj_kode','bb.pnj_kode')              
+                            ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')         
+                            ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
+                            ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')     
+                            ->where('aa.anak_kode',$anak)   
+                            ->whereRaw('MONTH(trs_jatuh_tempo) = '.$bulan)  
+                            ->orderby('aa.trs_id','desc')
+                            ->get();
+            
+                }
 
-                $data = $data->map(function($value) {
+            }
+            
+           
+                
+            $data = $data->map(function($value) {
 
-                   $value->edit   = route('pendaftaran.transaksi.edit_view',$value->trs_kode); 
-                   $value->cetak  = route('pembayaran.cetak_all',$value->trs_kode);
+                $value->edit   = route('pendaftaran.transaksi.edit_view',$value->trs_kode); 
+                $value->cetak  = route('pembayaran.cetak_all',$value->trs_kode);
 
-                   if($value->trs_status == 'U') {
+                if($value->trs_status == 'U') {
 
-                        $value->status = 'Belum Lunas';
+                    $value->status = 'Belum Lunas';
 
-                   } else {
+                } else {
 
-                        $value->status = 'Lunas';
+                    $value->status = 'Lunas';
 
-                   }
+                }
 
-                   $value->anak_tgl_lahir  = format_indo($value->anak_tgl_lahir);
-                   $value->trs_jatuh_tempo = format_indo($value->trs_jatuh_tempo);
-                   $value->tarif_total     = format_rupiah($value->trs_sisa);
+                $value->anak_tgl_lahir  = format_indo($value->anak_tgl_lahir);
+                $value->trs_jatuh_tempo = format_indo($value->trs_jatuh_tempo);
+                $value->tarif_total     = format_rupiah($value->trs_sisa);
 
                 if($value->anak_jekel == 'L'){
                     $value->anak_jekel = 'Laki - Laki';
@@ -173,7 +229,7 @@ class TagihanController extends Controller
                 else if($value->anak_jekel == 'P'){
                     $value->anak_jekel = 'Perempuan';
                 }
-                 
+                    
                 return $value;
 
             });

@@ -18,28 +18,22 @@
 
             </div>
             <div class="card-body">
-                <div class="box-body">					
-                    <table id="datatable" class="table table-hover table-bordered mb-0 table-centered">
-                        <thead>
-                            <tr>
-                                <th width="1%" style="text-align: center; vertical-align: middle;" rowspan="2"  >NO</th>
-                                <th width="6%" style="text-align: center; vertical-align: middle;" rowspan="2"  >KODE</th>
-                                <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2"  >NAMA</th>
-                                <th width="10%" style="text-align: center; vertical-align: middle;" rowspan="2"  >JENIS</th>
-                                <th style="text-align: center" colspan="5">BIAYA</th>
-                                <th width="5%" style="text-align: center; vertical-align: middle;" rowspan="2"  >AKSI</th>
-                            </tr>
-                            <tr>
-                                <th width="10%" style="text-align: center">REG</th>
-                                <th width="10%" style="text-align: center">GIZI</th>
-                                <th width="10%" style="text-align: center">SPP</th>
-                                <th width="10%" style="text-align: center">PEMBANGUNAN</th>
-                                <th width="10%" style="text-align: center">TOTAL</th>
-                            </tr>
-                        </thead>
-                        <tbody id="show_data"></tbody>
-                    </table>
-                </div>
+     					
+                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">NO</th>
+                            <th style="text-align: center">KODE</th>
+                            <th style="text-align: center">NAMA</th>
+                            <th style="text-align: center">JENIS</th>
+                            <th style="text-align: center">KATEGORI</th>
+                            <th style="text-align: center">HARGA</th>
+                            <th style="text-align: center">AKSI</th>
+                        </tr>
+                    </thead>
+                   <tbody id="show_data"></tbody>
+                </table>
+
             </div>
         </div>
     </div>
@@ -205,7 +199,7 @@
         $('.select2').select2();
 
         combo_kategori();
-        combo_jenis_tarif();
+        combo_tarif_jenis();
 
         view();
         reset();
@@ -320,7 +314,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('tarif.paket.save') }}",
+            url: "{{ route('tarif.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -344,7 +338,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('tarif.paket.view') }}",
+            url: "{{ route('tarif.view') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -441,7 +435,7 @@
 
         $.ajax({
             type : "GET",
-            url   : "{{ route('tarif.paket.edit') }}",
+            url   : "{{ route('tarif.edit') }}",
             dataType : "JSON",
             data : {id:id},
             success: function(data){
@@ -560,7 +554,7 @@
 
         $.ajax({
             type : "POST",
-            url   : "{{ route('tarif.paket.update') }}",
+            url   : "{{ route('tarif.update') }}",
             dataType : "JSON",
             data : formData,
             cache : false,
@@ -590,7 +584,7 @@
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('tarif.paket.aktif') }}",
+                    url   : "{{ route('tarif.aktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
@@ -616,7 +610,7 @@
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('tarif.paket.nonaktif') }}",
+                    url   : "{{ route('tarif.nonaktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
@@ -632,7 +626,7 @@
 
         $.ajax({
             type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_tarif_kategori') }}",
+            url   : "{{ route('combo.combo_tarif_kategori') }}",
             async : false,
             dataType : 'JSON',
             success : function(data){
@@ -655,11 +649,11 @@
 
     }
 
-    function combo_jenis_tarif(){
+    function combo_tarif_jenis(){
 
         $.ajax({
             type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_jenis_tarif') }}",
+            url   : "{{ route('combo.combo_tarif_jenis') }}",
             async : false,
             dataType : 'JSON',
             success : function(data){
