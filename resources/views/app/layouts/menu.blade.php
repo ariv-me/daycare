@@ -16,19 +16,20 @@
     <li>
         <a href="{{ route('pembayaran.data') }}"> <i class="mdi mdi-cash-usd" class="align-self-center menu-icon"></i><span>Pembayaran</span></a>
     </li>
-
     <li>
-        <a href="{{ route('dapok.ortu.index') }}"> <i class="mdi mdi-account-multiple-outline" class="align-self-center menu-icon"></i><span>Orang Tua</span></a>
+        <a href="{{ route('member.index') }}"> <i class="mdi mdi-account-check-outline" class="align-self-center menu-icon"></i><span>Members</span></a>
     </li>
 
     <li>
-        <a href="{{ route('dapok.penjemput.index') }}"> <i class="mdi mdi-taxi" class="align-self-center menu-icon"></i><span>Penjemput</span></a>
+        <a href="javascript: void(0);"> <i class="mdi mdi-clipboard-account-outline" class="align-self-center menu-icon"></i><span>Data Pokok</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+        <ul class="nav-second-level" aria-expanded="false">
+            <li class="nav-item"><a href="{{ route('dapok.ortu.index') }}"> <i class="mdi mdi-account-multiple-outline" class="align-self-center menu-icon"></i><span>Orang Tua</span></a></li>
+            <li class="nav-item"><a href="{{ route('dapok.penjemput.index') }}"> <i class="mdi mdi-taxi" class="align-self-center menu-icon"></i><span>Penjemput</span></a></li>
+            <li class="nav-item"><a href="{{ route('dapok.anak.index') }}"> <i class="mdi mdi-face-recognition" class="align-self-center menu-icon"></i><span>Data Anak</span></a></li>        
+        </ul>
     </li>
 
-    <li>
-        <a href="{{ route('dapok.anak.index') }}"> <i class="mdi mdi-face-recognition" class="align-self-center menu-icon"></i><span>Data Anak</span></a>
-    </li>
-
+    
     <li>
         <a href="javascript: void(0);"> <i class="mdi mdi-cash-multiple" class="align-self-center menu-icon"></i><span>Grup & Tarif</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
         <ul class="nav-second-level" aria-expanded="false">

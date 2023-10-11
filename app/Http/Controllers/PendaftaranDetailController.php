@@ -58,7 +58,6 @@ class PendaftaranDetailController extends Controller
                 return $value;
 
             });
-
       
         } catch(\Exeption $e) {
 
@@ -69,7 +68,7 @@ class PendaftaranDetailController extends Controller
 
             $result['success'] = true;
             $result['data'] = $data;
-            $result['total'] = format_rupiah($data->sum('tarif_total'));
+            $result['total'] = format_rupiah($data->sum('detail_total'));
 
         return response()->json($result);
 
@@ -82,11 +81,11 @@ class PendaftaranDetailController extends Controller
 
         try {
 
-            $app        = SistemApp::sistem();
-            
-            $tmp = new PendaftaranDetail();  
+            $app         = SistemApp::sistem();
+            $tmp         = new PendaftaranDetail();  
             $detail_kode = PendaftaranDetail::autokode();  
-            $tarif  = Tarif::where('tarif_kode',$r->paket)->first();
+            $tarif       = Tarif::where('tarif_kode',$r->paket)->first();
+            $total_tarif = str_replace(".", "", $r->total_tarif);
 
             if ($r->trs_kode != null) {
 
@@ -95,7 +94,8 @@ class PendaftaranDetailController extends Controller
                 $tmp->grup_kode      = $r->grup;
                 $tmp->kat_kode       = $r->kategori;
                 $tmp->tarif_kode     = $tarif->tarif_kode;  
-                $tmp->detail_total   = $tarif->tarif_total;
+                $tmp->detail_qty      = $r->qty;  
+                $tmp->detail_total   = $r->qty * $total_tarif;
                 $tmp->trs_kode       = $r->trs_kode;
                 $tmp->anak_kode      = $r->anak_kode;
 
@@ -106,10 +106,10 @@ class PendaftaranDetailController extends Controller
                 $tmp->grup_kode      = $r->grup;
                 $tmp->kat_kode       = $r->kategori;
                 $tmp->tarif_kode     = $tarif->tarif_kode;  
-                $tmp->detail_total   = $tarif->tarif_total;
+                $tmp->detail_qty      = $r->qty;  
+                $tmp->detail_total   = $r->qty * $total_tarif;
 
             }
-
        
             $tmp->created_nip    = $app['kar_nip'];
             $tmp->created_nama   = $app['kar_nama_awal'];
