@@ -2479,7 +2479,7 @@
 
     }
 
-
+ 
     function combo_grup(){
 
          $('select[name=grup]').empty()
