@@ -86,6 +86,7 @@ class PendaftaranDetailController extends Controller
             $detail_kode = PendaftaranDetail::autokode();  
             $tarif       = Tarif::where('tarif_kode',$r->paket)->first();
             $total_tarif = str_replace(".", "", $r->total_tarif);
+            $qty         = '1';
 
             if ($r->trs_kode != null) {
 
@@ -94,8 +95,8 @@ class PendaftaranDetailController extends Controller
                 $tmp->grup_kode      = $r->grup;
                 $tmp->kat_kode       = $r->kategori;
                 $tmp->tarif_kode     = $tarif->tarif_kode;  
-                $tmp->detail_qty      = $r->qty;  
-                $tmp->detail_total   = $r->qty * $total_tarif;
+                $tmp->detail_qty      = $qty;  
+                $tmp->detail_total   = $qty * $total_tarif;
                 $tmp->trs_kode       = $r->trs_kode;
                 $tmp->anak_kode      = $r->anak_kode;
 
@@ -106,8 +107,8 @@ class PendaftaranDetailController extends Controller
                 $tmp->grup_kode      = $r->grup;
                 $tmp->kat_kode       = $r->kategori;
                 $tmp->tarif_kode     = $tarif->tarif_kode;  
-                $tmp->detail_qty      = $r->qty;  
-                $tmp->detail_total   = $r->qty * $total_tarif;
+                $tmp->detail_qty      = $qty;  
+                $tmp->detail_total   =  $qty * $total_tarif;
 
             }
        

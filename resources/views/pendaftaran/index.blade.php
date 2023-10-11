@@ -1671,6 +1671,7 @@
         var tarif_kode      = $('#tarif_kode').val();
         var anak_kode       = $('#anak_kode').val(); 
         var trs_kode        = $('#trs_kode').val(); 
+        var total_tarif        = $('#total_tarif').text(); 
 
         var token = $('[name=_token]').val();
         var formData = new FormData();
@@ -1682,6 +1683,7 @@
         formData.append('paket', paket);
         formData.append('kategori', kategori);
         formData.append('tarif_kode', tarif_kode);
+        formData.append('total_tarif', total_tarif);
 
       
         formData.append('_token', token);
@@ -2483,7 +2485,7 @@
          $('select[name=grup]').empty()
         $.ajax({
                 type  : 'GET',
-                url   : "{{ route('combo_sistem.combo_grup') }}",
+                url   : "{{ route('combo_sistem.combo_grup_detail') }}",
                 async : false,
                 dataType : 'JSON',
                 success : function(data){
@@ -2497,7 +2499,7 @@
                         x.add(option);
                     for(i=0; i<data.length; i++){
                         var html = '';
-                        html = '<option value='+(data[i].grup_kode)+'>'+(data[i].grup_nama)+'</option>';
+                        html = '<option value='+(data[i].grup_kode)+'>'+(data[i].detail_nama)+'</option>';
                         $('select[name=grup]').append(html)
                     }
                 }

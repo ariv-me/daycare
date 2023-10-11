@@ -258,6 +258,7 @@ class TarifController extends Controller
         $result['data'] = $data;
         $result['total_tarif'] = format_rupiah($data->sum('detail_total'));
 
+
         return response()->json($result);
 
     }
