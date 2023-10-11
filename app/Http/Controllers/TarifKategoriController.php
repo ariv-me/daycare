@@ -77,7 +77,8 @@ class TarifKategoriController extends Controller
     public function update(Request $r){
 
         $transaction = DB::connection('daycare')->transaction(function() use($r){
-  
+            
+              $app = SistemApp::sistem();
               $id = $r->get('id');
               $tmp = Tarifkategori::where('kat_id',$id)->first();
 

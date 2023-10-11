@@ -12,6 +12,7 @@ use DB;
 
 use App\Models\Pendaftaran;
 use App\Models\PendaftaranDetail;
+use App\Models\Pembayaran;
 
 
 class TagihanController extends Controller
@@ -202,12 +203,13 @@ class TagihanController extends Controller
 
             }
             
-           
+            
                 
             $data = $data->map(function($value) {
 
                 $value->edit   = route('pendaftaran.transaksi.edit_view',$value->trs_kode); 
                 $value->cetak  = route('pembayaran.cetak_all',$value->trs_kode);
+                $value->total_bayar = format_rupiah(Pembayaran::where('trs_kode',$value->trs_kode)->sum('bayar_total'));
 
                 if($value->trs_status == 'U') {
 
@@ -221,6 +223,7 @@ class TagihanController extends Controller
 
                 $value->anak_tgl_lahir  = format_indo($value->anak_tgl_lahir);
                 $value->trs_jatuh_tempo = format_indo($value->trs_jatuh_tempo);
+                $value->trs_tgl         = format_indo($value->trs_tgl);
                 $value->tarif_total     = format_rupiah($value->trs_sisa);
 
                 if($value->anak_jekel == 'L'){

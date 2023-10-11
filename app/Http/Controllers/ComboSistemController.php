@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SistemGrupDetail;
 use StdClass;
 Use DB;
 use Illuminate\Http\Request;
@@ -101,6 +102,10 @@ class ComboSistemController extends Controller
         $data = Grup::orderby('grup_id','desc')->where('grup_aktif','Y')->get();
         return response()->json($data); 
     }
+    public function combo_grup_detail(){
+        $data = SistemGrupDetail::orderby('detail_id','desc')->where('detail_aktif','Y')->get();
+        return response()->json($data); 
+    }
 
     public function combo_tarif_kategori(){
         $data = TarifKategori::orderby('kat_id','desc')->where('kat_aktif','Y')->get();
@@ -198,7 +203,7 @@ class ComboSistemController extends Controller
     }
 
     public function combo_kategori(){
-        $data = CateringKategori::orderby('kat_id')->where('kat_aktif','Y')->get();
+        $data = TarifKategori::orderby('kat_id')->where('kat_aktif','Y')->get();
         return response()->json($data); 
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Auth;
 
 /*-- APP --*/
@@ -22,6 +23,7 @@ use App\Http\Controllers\PendaftaranDetailController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\BayarController;
+use App\Http\Controllers\MemberController;
 
 /*-- CATERING --*/
 use App\Http\Controllers\CateringOrderController;
@@ -139,6 +141,21 @@ Route::group(['prefix' => 'pendaftaran', 'as' => 'pendaftaran.'], function () {
 
 	});
 	
+});
+
+/**-- MEMBER --**/
+
+Route::group(['prefix' => 'member', 'as' => 'member.'], function () {
+	Route::get('/', [MemberController::class, 'index'])->name('index');	
+	Route::get('/view', [MemberController::class, 'view'])->name('view');
+	Route::get('/add', [MemberController::class, 'add'])->name('add');
+	Route::post('/save', [MemberController::class, 'save'])->name('save');
+	Route::get('/edit', [MemberController::class, 'edit'])->name('edit');
+	Route::post('/update', [MemberController::class, 'update'])->name('update');
+	Route::post('/void', [MemberController::class, 'void'])->name('void');
+	
+	
+	Route::get('/detail_view', [MemberController::class, 'detail_view'])->name('detail_view');
 });
 
 /**-- TAGIHAN --**/
@@ -370,6 +387,7 @@ Route::group(['prefix' => 'combo_sistem', 'as' => 'combo_sistem.'], function () 
 	Route::get('/combo_hubungan', [ComboSistemController::class, 'combo_hubungan'])->name('combo_hubungan');
 	Route::get('/combo_bulan', [ComboSistemController::class, 'combo_bulan'])->name('combo_bulan');
 	Route::get('/combo_grup', [ComboSistemController::class, 'combo_grup'])->name('combo_grup');
+	Route::get('/combo_grup_detail', [ComboSistemController::class, 'combo_grup_detail'])->name('combo_grup_detail');
 	Route::get('/combo_agama', [ComboSistemController::class, 'combo_agama'])->name('combo_agama');
 	Route::get('/combo_kategori', [ComboSistemController::class, 'combo_kategori'])->name('combo_kategori');
 	Route::get('/combo_provinsi', [ComboSistemController::class, 'combo_provinsi'])->name('combo_provinsi');
