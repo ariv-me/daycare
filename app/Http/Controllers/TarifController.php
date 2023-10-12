@@ -238,7 +238,7 @@ class TarifController extends Controller
                             ->leftjoin('tarif_tc_tarif_detail AS bb','bb.tarif_kode','=','aa.tarif_kode')
                             ->leftjoin('tarif_tb_item AS cc','cc.item_kode','=','bb.item_kode')
                             ->where('aa.tarif_kode',$paket)
-                            ->get();    
+                            ->get();  
 
             $data = $data->map(function($value) {
 

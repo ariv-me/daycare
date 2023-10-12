@@ -430,7 +430,56 @@
     
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="form-group row">
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="username">Tanggal Daftar <small class="text-danger">*</small></label>
+                                            <input type="text" class="form-control datepicker" id="tgl_daftar" name="tgl_daftar">
+                                        </div>
+                                    </div>
+                  
+                                    <div class="col-md-3">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="username">Periode <small class="text-danger">*</small></label>
+                                            <select class="form-control custom-select select2" style="width: 100%;" name="periode" id="periode"></select>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-md-3">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="username">Grup <small class="text-danger">*</small></label>
+                                            <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"></select>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-md-3">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="username">Kategori <small class="text-danger">*</small></label>
+                                            <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"></select>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-md-6">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="username">Paket <small class="text-danger">*</small></label>
+                                            <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="username">QTY <small class="text-danger">*</small></label>
+                                            <input class="form-control" type="number" id="qty" name="qty">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mt-3">
+                                        <div class="mb-3 mt-2">
+                                            <button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-light btn-block mt-1" id="detail_save"><i class="fas fa-plus mr-2"></i>Tambahkan</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- <div class="form-group row">
                                     <label for="example-password-input" class="col-sm-3 col-form-label text-left">Tanggal Daftar <small class="text-danger">*</small></label>
                                     <div class="col-sm-4">
                                         <input type="text" class="form-control datepicker" id="tgl_daftar" name="tgl_daftar">
@@ -463,15 +512,20 @@
                                     <div class="col-sm-6">
                                         <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="username">QTY <small class="text-danger">*</small></label>
+                                            <input class="form-control" type="number" id="qty" name="qty">
+                                        </div>
+                                    </div>
                                     <div class="col-sm-3 mt-1">
                                         <button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-light btn-block" id="detail_save"><i class="fas fa-plus mr-2"></i>Tambahkan</button>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col-sm-6">
                                 <div class="table-responsive">
-                                    <label class="text-primary">Info Tarif </label>
-                                    <hr class="hr-dashed">
+                                    
                                     <table class="table table-bordered mb-0 table-centered">
                                         <thead>
                                             <tr>
@@ -496,7 +550,8 @@
                                 </div>
                             </div>
                         </div>
-                        <h4 class="card-title bg-light p-2 mb-2"><i class="mdi mdi-cash-multiple"></i>  TOTAL BIAYA</h4>
+                        <label class="text-primary">Info Tagihan </label>
+                        <hr class="hr-dashed">
                         <div class="table-responsive">
                             <table class="table table-bordered mb-0 table-centered">
                                 <thead>
@@ -551,6 +606,7 @@
     $(document).ready(function(){
 
         $('.select2').select2();
+        $('#qty').val("1");
 
         $('.datepicker[name=tgl_daftar]').val(moment().format('DD-MM-YYYY'));
 
@@ -762,6 +818,7 @@
                 $('[name="penjemput_provinsi"]').val(data.pnj_provinsi_id).trigger("change");
                 $('[name="penjemput_kota"]').val(data.pnj_kota_kode).trigger("change");
                 $('[name="penjemput_kecamatan"]').val(data.pnj_kecamatan_id).trigger("change");
+                $('[name="penjemput_alamat"]').val(data.pnj_alamat);
                 $('[name="penjemput_alamat"]').val(data.pnj_alamat);
 
             }
@@ -1418,6 +1475,7 @@
 
         // ANAK
 
+        
         var total_biaya     = $('#total_biaya').text();
         var tgl_daftar      = $('#tgl_daftar').val();
 
@@ -1480,7 +1538,8 @@
         var ortu_kode          = $('#ortu_kode').val(); 
         var pnj_kode          = $('#pnj_kode').val(); 
 
-        console.log(total_biaya);
+        
+        console.log(total_tarif);
 
         var token = $('[name=_token]').val();
         var formData = new FormData();
@@ -1488,6 +1547,7 @@
         // ANAK
 
  
+        
         formData.append('total_biaya', total_biaya);
         formData.append('periode', periode);
         formData.append('trs_kode', trs_kode);
@@ -1612,7 +1672,8 @@
 
 
       
-
+        var total_tarif     = $('#total_tarif').text();
+        var qty             = $('#qty').val();
         var periode         = $('#periode').val();
         var kategori        = $('#kategori').val();
         var grup            = $('#grup').val();
@@ -1628,6 +1689,8 @@
 
         // ANAK
 
+        formData.append('total_tarif', total_tarif);
+        formData.append('qty', qty);
         formData.append('trs_kode', trs_kode);
         formData.append('anak_kode', anak_kode);
         formData.append('periode', periode);
@@ -1635,7 +1698,6 @@
         formData.append('paket', paket);
         formData.append('kategori', kategori);
         formData.append('tarif_kode', tarif_kode);
-
       
         formData.append('_token', token);
 
@@ -2302,26 +2364,11 @@
     }
     function showFilterPaket(select){
 
-        var kategori  = $('#kategori').val();
         var paket  = $('#paket').val();
-        view_tarif(kategori,paket);
-        get_tarif(paket);
+        view_tarif(paket);
 
     }
 
-    function get_tarif(paket){
-        $.ajax({
-            type: "GET",
-            url: "{{ route('tarif.get_tarif') }}",
-            dataType: "JSON",
-            data: {id:paket},
-            success: function(data) {
-
-                $('[name="tarif_kode"]').val(data.tarif_kode);
-               
-            }
-        });
-    }
 
     function combo_paket(){
 
