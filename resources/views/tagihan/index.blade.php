@@ -95,7 +95,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col text-center">                                                                        
-                                        <span class="h4 text-danger" id="belum_lunas">$24,500</span>      
+                                        <span class="h4 text-danger" id="belum_lunas">0</span>      
                                         <h6 class="text-uppercase text-muted mt-2 m-0">Belum Lunas</h6>                
                                     </div><!--end col-->
                                 </div> <!-- end row -->
@@ -107,7 +107,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col text-center">                                                                        
-                                        <span class="h4 text-success" id="lunas">$24,500</span>      
+                                        <span class="h4 text-success" id="lunas">0</span>      
                                         <h6 class="text-uppercase text-muted mt-2 m-0">Lunas</h6>                
                                     </div><!--end col-->
                                 </div> <!-- end row -->
@@ -119,7 +119,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col text-center">                                                                        
-                                        <span class="h4 text-primary" id="total">$24,500</span>      
+                                        <span class="h4 text-primary" id="total">0</span>      
                                         <h6 class="text-uppercase text-muted mt-2 m-0">Total</h6>                
                                     </div><!--end col-->
                                 </div> <!-- end row -->
