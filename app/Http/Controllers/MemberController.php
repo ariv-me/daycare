@@ -213,7 +213,7 @@ class MemberController extends Controller
 
                 // $value->edit   = route('pendaftaran.transaksi.edit_view',$value->trs_kode); 
                 // $value->cetak  = route('pembayaran.cetak_all',$value->trs_kode);
-                
+                $value->tgl_member = format_indo($value->member_tgl);
                 $get_date           = Carbon::now()->diff(date('Y-m-d', strtotime($value->member_tgl)));
                 $hari_member = $get_date->days;
 
