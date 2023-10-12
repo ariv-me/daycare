@@ -3,6 +3,11 @@
 @section('css')
     <style>
 
+        label {
+            font-weight: 600;
+            color: #404350;
+            font-size: 12px;
+        }
 
         .nav-border .nav-item.show .nav-link, .nav-border .nav-link.active {
             background: #ffffff;
@@ -174,7 +179,7 @@
             <div class="card-header bg-success ">
                 <div class="row">
                     <div class="col-md-9">
-                        <h4 class="card-title text-white"><i class="fas fa-clipboard-list"></i>  PENDAFTARAN</h4>
+                        <h4 class="card-title text-white"><i class="fas fa-clipboard-list"></i>  BIODATA</h4>
                     </div>
                 </div>
             </div>
@@ -183,22 +188,6 @@
             <input type="hidden" id="trs_kode" name="trs_kode">
             <input type="hidden" id="anak_kode" name="anak_kode">            
 
-                <!-- Nav tabs -->
-           
-
-                <ul class="nav-border nav nav-pills mb-2" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link text-center active" data-toggle="tab" href="#dapok" role="tab" aria-selected="true"><i class="la la-child d-block"></i>Data Pokok</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-center" data-toggle="tab" href="#tarif_daycare" role="tab" aria-selected="false"><i class="la la-edit d-block"></i>Paket Daycare</a>
-                    </li>
-                </ul>
-
-                {{-- <hr> --}}
-                
-
-                <!-- Tab panes -->
                 <div class="tab-content">
                     <div class="tab-pane active" id="dapok" role="tabpanel">
                         <div class="row justify-content-center">
@@ -209,6 +198,13 @@
         
                                 <div class="row">
                                     <div class="col-sm-6">
+                                        {{-- <div class="col-md-3">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="username">Nama <small class="text-danger">*</small></label>
+                                                <input type="text" class="form-control" id="anak_nama" name="anak_nama">
+                                            </div>
+                                        </div> --}}
+
                                         <div class="form-group row">
                                             <label for="example-password-input" class="col-sm-3 col-form-label text-left">Nama<small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
@@ -323,11 +319,11 @@
                                             </div>
                                         </div> 
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">NO HP</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor HP <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ayah_hp" name="ayah_hp" onkeypress="return angka(this, event)">
                                             </div>
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">NO WA</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor WA <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ayah_wa" name="ayah_wa" onkeypress="return angka(this, event)">
                                             </div>
@@ -378,11 +374,11 @@
                                         </div> 
         
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor HP</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor HP <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ibu_hp" name="ibu_hp" onkeypress="return angka(this, event)">
                                             </div>
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor WA</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor WA <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ibu_wa" name="ibu_wa" onkeypress="return angka(this, event)">
                                             </div>
@@ -551,101 +547,126 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="tarif_daycare" role="tabpanel">
-                        <h4 class="card-title bg-light p-2 mb-2"><i class="fas fa-edit"></i>  PENDAFTARAN</h4>
-    
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group row">
-                                    <label for="example-password-input" class="col-sm-3 col-form-label text-left">Tanggal Daftar <small class="text-danger">*</small></label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control datepicker" id="tgl_daftar" name="tgl_daftar">
-                                    </div>
-                                </div>     
-        
-                                <div class="form-group row">
-                                    <label for="example-password-input" class="col-sm-3 col-form-label text-left">Periode <small class="text-danger">*</small></label>
-                                    <div class="col-sm-4">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="periode" id="periode"></select>
-                                    </div>
-                                </div>  
-                                
-                                <div class="form-group row">
-                                    <label for="example-password-input" class="col-sm-3 col-form-label text-left">Grup <small class="text-danger">*</small></label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"></select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="example-password-input" class="col-sm-3 col-form-label text-left">Kategori <small class="text-danger">*</small></label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"></select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="example-password-input" class="col-sm-3 col-form-label text-left">Paket <small class="text-danger">*</small></label>
-                                    <div class="col-sm-6">
-                                        <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
-                                    </div>
-                                    <div class="col-sm-3 mt-1">
-                                        <button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-light btn-block" id="detail_save"><i class="fas fa-plus mr-2"></i>Tambahkan</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <table class="table table-sm table-bordered mb-0 table-centered">
-                                    <thead>
-                                        <tr>
-                                            <th width="1%" style="text-align: center; vertical-align: middle;" rowspan="2">NO</th>
-                                            <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2">ITEM TARIF</th>
-                                            <th style="text-align: center" colspan="5">BIAYA</th>
-                                        </tr>
-                    
-                                    </thead>
-                                    <tbody id="show_data_tarif">
-                                    
-                                    </tbody>
-                                </table><!--end /table--> 
-                                <table class="table table-bordered mb-0 table-centered">
-                                    <thead>
-                                        <tr>
-                                            <th width="72%" style="text-align: center; vertical-align: middle;" colspan="2">TOTAL BIAYA</th>
-                                            <th style="text-align: right;background:white; color:#ff0002" id="total_tarif"></th>
-                                        </tr>
-                                    </thead>
-                                </table><!--end /table-->
-                            </div>
-                        </div>
-                        <h4 class="card-title bg-light p-2 mb-2"><i class="mdi mdi-cash-multiple"></i>  INFO TARIF & TOTAL BIAYA</h4>
-                             
-                        <div class="table-responsive-sm">
-                            <table class="table table-sm table-bordered mb-0 table-centered">
-                                <thead>
-                                    <tr>
-                                        <th width="1%" style="text-align: center; vertical-align: middle;">NO</th>
-                                        <th width="20%" style="text-align: center; vertical-align: middle;">TARIF</th>
-                                        <th width="5%" style="text-align: center; vertical-align: middle;">AKSI</th>
-                                        <th width="30%" style="text-align: right; vertical-align: middle;">TOTAL</th>
-                                    </tr>
-               
-                                </thead>
-                                <tbody id="show_data_detail">
-                                
-                                </tbody>
-                            </table><!--end /table--> 
-                            <table class="table table-bordered mb-0 table-centered">
-                                <thead>
-                                    <tr>
-                                        <th width="71%" style="text-align: right; vertical-align: middle;" colspan="2">TOTAL BIAYA</th>
-                                        <th style="text-align: right;background:white; color:#ff0002" id="total_biaya"></th>
-                                    </tr>
-                                </thead>
-                            </table><!--end /table-->
-                        </div>
+                        
                     </div>                                                
-   
                 </div> <!--end tab-content-->   
             </div><!--end card-body-->
+        </div>
+        <div class="card">
+            <div class="card-header bg-success ">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4 class="card-title text-white"><i class="mdi mdi-cash-multiple"></i>  PAKET DAYCARE</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">    
+                <h4 class="card-title bg-light p-2 mb-2"><i class="fas fa-edit"></i>  PENDAFTARAN</h4>
+    
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="mb-1">
+                                    <label class="form-label" for="username">Tanggal Daftar <small class="text-danger">*</small></label>
+                                    <input type="text" class="form-control datepicker" id="tgl_daftar" name="tgl_daftar">
+                                </div>
+                            </div>
+          
+                            <div class="col-md-3">
+                                <div class="mb-1">
+                                    <label class="form-label" for="username">Periode <small class="text-danger">*</small></label>
+                                    <select class="form-control custom-select select2" style="width: 100%;" name="periode" id="periode"></select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-1">
+                                    <label class="form-label" for="username">Grup <small class="text-danger">*</small></label>
+                                    <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"></select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-1">
+                                    <label class="form-label" for="username">Kategori <small class="text-danger">*</small></label>
+                                    <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"></select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-1">
+                                    <label class="form-label" for="username">Paket <small class="text-danger">*</small></label>
+                                    <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-1">
+                                    <label class="form-label" for="username">QTY <small class="text-danger">*</small></label>
+                                    <input class="form-control" type="number" id="qty" name="qty">
+                                </div>
+                            </div>
+                            <div class="col-md-3 mt-3">
+                                <div class="mb-3 mt-2">
+                                    <button type="button" class="btn btn-xs btn-outline-primary waves-effect waves-light btn-block mt-1" id="detail_save"><i class="fas fa-plus mr-2"></i>Tambahkan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <table class="table table-sm table-bordered mb-0 table-centered">
+                            <thead>
+                                <tr>
+                                    <th width="1%" style="text-align: center; vertical-align: middle;" rowspan="2">NO</th>
+                                    <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2">ITEM TARIF</th>
+                                    <th style="text-align: center" colspan="5">BIAYA</th>
+                                </tr>
+            
+                            </thead>
+                            <tbody id="show_data_tarif">
+                            
+                            </tbody>
+                        </table><!--end /table--> 
+                        <table class="table table-bordered mb-0 table-centered">
+                            <thead>
+                                <tr>
+                                    <th width="72%" style="text-align: center; vertical-align: middle;" colspan="2">TOTAL BIAYA</th>
+                                    <th style="text-align: right;background:white; color:#ff0002" id="total_tarif"></th>
+                                </tr>
+                            </thead>
+                        </table><!--end /table-->
+                    </div>
+                </div>
+                {{-- <h4 class="card-title bg-light p-2 mb-2"><i class="mdi mdi-cash-multiple"></i>  INFO TARIF & TOTAL BIAYA</h4> --}}
+
+                <hr>
+                     
+                <div class="table-responsive-sm">
+                    <table class="table table-sm table-bordered mb-0 table-centered">
+                        <thead>
+                            <tr>
+                                <th width="1%" style="text-align: center; vertical-align: middle;">NO</th>
+                                <th width="20%" style="text-align: center; vertical-align: middle;">TARIF</th>
+                                <th width="5%" style="text-align: center; vertical-align: middle;">AKSI</th>
+                                <th width="30%" style="text-align: right; vertical-align: middle;">TOTAL</th>
+                            </tr>
+       
+                        </thead>
+                        <tbody id="show_data_detail">
+                        
+                        </tbody>
+                    </table><!--end /table--> 
+                    <table class="table table-bordered mb-0 table-centered">
+                        <thead>
+                            <tr>
+                                <th width="71%" style="text-align: right; vertical-align: middle;" colspan="2">TOTAL BIAYA</th>
+                                <th style="text-align: right;background:white; color:#ff0002" id="total_biaya"></th>
+                            </tr>
+                        </thead>
+                    </table><!--end /table-->
+                </div>
+            </div>
             <div class="card-footer float-right d-print-none">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-12 col-xl-4 ml-auto align-self-center">
@@ -678,7 +699,8 @@
         });
 
         $('.select2').select2();
-        $('.datepicker[name=tgl_daftar]').val(moment().format('DD-MM-YYYY'));
+        $('#qty').val("1");
+        // $('.datepicker[name=tgl_daftar]').val(moment().format('DD-MM-YYYY'));
         $('.datepicker').datepicker({
             autoclose: true,
             format:'dd-mm-yyyy',
@@ -1659,11 +1681,25 @@
 
             $("#paket").focus();
             return false;
+        } 
+
+        else if (!$("#qty").val()) {
+            $.toast({
+                text: 'QTY HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#qty").focus();
+            return false;
         }
 
 
       
 
+        var qty         = $('#periode').val();
         var periode         = $('#periode').val();
         var kategori        = $('#kategori').val();
         var grup            = $('#grup').val();
@@ -1676,6 +1712,7 @@
         var token = $('[name=_token]').val();
         var formData = new FormData();
 
+        formData.append('qty', qty);
         formData.append('anak_kode', anak_kode);
         formData.append('trs_kode', trs_kode);
         formData.append('periode', periode);
@@ -2499,7 +2536,7 @@
                         x.add(option);
                     for(i=0; i<data.length; i++){
                         var html = '';
-                        html = '<option value='+(data[i].grup_kode)+'>'+(data[i].detail_nama)+'</option>';
+                        html = '<option value='+(data[i].detail_kode)+'>'+(data[i].detail_nama)+'</option>';
                         $('select[name=grup]').append(html)
                     }
                 }

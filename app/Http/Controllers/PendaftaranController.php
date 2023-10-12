@@ -146,6 +146,8 @@ class PendaftaranController extends Controller
 
                 $member->member_kode    = $member_kode;
                 $member->anak_kode      = $anak_kode;
+                $member->member_tgl     = date('Y-m-d', strtotime($r->tgl_daftar));
+                $member->trs_kode       = $daftar_kode;
                 $member->periode_id     = $r->periode;
                 $member->tarif_kode     = $tarif->tarif_kode;
                 $member->grup_kode      = $tarif->grup_kode;
