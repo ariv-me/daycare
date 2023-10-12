@@ -173,6 +173,7 @@ class MemberController extends Controller
                                         'aa.grup_kode',
                                         'aa.kat_kode',
                                         'aa.member_aktif',
+                                        'aa.member_tgl',
                                         'aa.created_at',
                                         
                                         'bb.anak_kode',
