@@ -86,7 +86,7 @@ class PendaftaranDetailController extends Controller
             $detail_kode = PendaftaranDetail::autokode();  
             $tarif       = Tarif::where('tarif_kode',$r->paket)->first();
             $total_tarif = str_replace(".", "", $r->total_tarif);
-            $qty         = '1';
+            $qty         = $r->qty;
 
             if ($r->trs_kode != null) {
 

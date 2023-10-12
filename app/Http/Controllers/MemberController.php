@@ -167,6 +167,7 @@ class MemberController extends Controller
                                     ->select(
                                         'aa.member_id',
                                         'aa.anak_kode',
+                                        'aa.trs_kode',
                                         'aa.periode_id',
                                         'aa.tarif_kode',
                                         'aa.grup_kode',
@@ -208,6 +209,7 @@ class MemberController extends Controller
 
                 // $value->edit   = route('pendaftaran.transaksi.edit_view',$value->trs_kode); 
                 // $value->cetak  = route('pembayaran.cetak_all',$value->trs_kode);
+                
                 $value->tgl_member  = format_indo(date('Y-m-d', strtotime($value->created_at)));
                 $get_date           = Carbon::now()->diff(date('Y-m-d', strtotime($value->created_at)));
                 $hari_member = $get_date->days;
