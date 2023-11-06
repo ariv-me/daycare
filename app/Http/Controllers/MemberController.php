@@ -46,6 +46,7 @@ class MemberController extends Controller
                     $data = DB::connection('daycare')
                                     ->table('daftar_tc_member AS aa')      
                                     ->select(
+
                                         'aa.member_id',
                                         'aa.anak_kode',
                                         'aa.periode_id',
@@ -209,11 +210,10 @@ class MemberController extends Controller
                 }
             }
 
+         
+
             $data = $data->map(function($value) {
 
-                // $value->edit   = route('pendaftaran.transaksi.edit_view',$value->trs_kode); 
-                // $value->cetak  = route('pembayaran.cetak_all',$value->trs_kode);
-                // $value->tgl_member = format_indo($value->member_tgl);
                 $value->tgl_member  = format_indo($value->member_tgl);
                 $get_date    = Carbon::now()->diff(date('Y-m-d', strtotime($value->member_tgl)));
                 $hari_member = $get_date->days;
