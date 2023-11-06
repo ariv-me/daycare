@@ -224,7 +224,7 @@ class TagihanController extends Controller
                 $value->anak_tgl_lahir  = format_indo($value->anak_tgl_lahir);
                 $value->trs_jatuh_tempo = format_indo($value->trs_jatuh_tempo);
                 $value->trs_tgl         = format_indo($value->trs_tgl);
-                $value->tarif_total     = format_rupiah($value->trs_sisa);
+                $value->tarif_total     = format_rupiah($value->trs_total);
 
                 if($value->anak_jekel == 'L'){
                     $value->anak_jekel = 'Laki - Laki';
