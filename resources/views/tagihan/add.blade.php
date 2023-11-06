@@ -67,24 +67,21 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label class="form-label" for="username">Tanggal Daftar <small class="text-danger">*</small></label>
-                                <input type="text" class="form-control datepicker" id="tgl_daftar" name="tgl_daftar">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label class="form-label" for="username">Jatuh tempo <small class="text-danger">*</small></label>
-                                <input type="text" class="form-control datepicker" id="jatuh_tempo" name="jatuh_tempo">
-                            </div>
-                        </div>
+                        <input type="hidden" class="form-control datepicker" id="tgl_daftar" name="tgl_daftar">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label" for="username">Pilih Anak  <small class="text-danger">*</small></label>
                                 <select class="form-control custom-select select2" style="width: 100%;" name="anak" id="anak" onchange="showAnak(this)"></select>
                             </div>
                         </div>
+
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label" for="username">Jatuh tempo <small class="text-danger">*</small></label>
+                                <input type="text" class="form-control datepicker" id="jatuh_tempo" name="jatuh_tempo">
+                            </div>
+                        </div>
+                        
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label" for="username">Paket  <small class="text-danger">*</small></label>
@@ -163,7 +160,7 @@
                     </div><!--end col-->
                     <div class="col-lg-12 col-xl-4">
                         <div class="float-right d-print-none">
-                            <button id="btn_simpan" class="btn btn-success btn-sm"><i class="fas fa-save"></i> DAFTAR</button>
+                            <button id="btn_simpan" class="btn btn-success btn-sm"><i class="fas fa-save"></i> SIMPAN TAGIHAN</button>
                         </div>
                     </div><!--end col-->
                 </div>
@@ -569,7 +566,9 @@
             async : false,
             data : {kategori:kategori},
             dataType : 'JSON',
-            success : function(data){
+            success : function(r){
+
+                data = r.data;
                 var html = '';
                 var i;
                 $('select[name=paket]').empty()
@@ -580,7 +579,7 @@
                         x.add(option);
                 for(i=0; i<data.length; i++){
                     var html = '';
-                    html = '<option value='+(data[i].tarif_kode)+'>'+(data[i].tarif_nama)+'</option>';
+                    html = '<option value='+(data[i].tarif_kode)+'>'+(data[i].tarif_nama)+' - '+(data[i].tarif_total)+'</option>';
                     $('select[name=paket]').append(html)
                 }
             }

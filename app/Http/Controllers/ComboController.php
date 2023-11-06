@@ -48,14 +48,6 @@ class ComboController extends Controller
     }
 
     public function combo_tarif_item() {
- 
-        // $data = DB::connection('daycare')
-        //                  ->table('tarif_tb_item')
-        //                  ->where('item_aktif','Y')
-        //                  ->orderby('item_nama')
-        //                  ->get();
-
-        // return response()->json($data);
 
         $result = array('success'=>false);
 
@@ -99,15 +91,34 @@ class ComboController extends Controller
     }
 
     public function combo_tarif_paket2(Request $r){
-       
-        $data = DB::connection('daycare')
-                        ->table('tarif_tc_tarif AS aa')
-                       // ->leftjoin('tarif_ta_kategori AS bb','bb.kat_kode','=','aa.kat_kode')
-                        // ->where('aa.kat_kode',$r->kategori)
-                        ->orderby('tarif_kode','desc')
-                        ->get();
-                        
-        return response()->json($data); 
+
+        $result = array('success'=>false);
+
+        try{
+
+
+            $data = DB::connection('daycare')
+                    ->table('tarif_tc_tarif AS aa')
+                    ->whereNotIN('aa.jenis_kode',['JN0001'])
+                    ->orderby('tarif_kode','desc')
+                    ->get();       
+        
+            $data = $data->map(function($value) {
+
+                $value->tarif_total = format_rupiah($value->tarif_total);
+                return $value;
+        
+            });
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+        $result['data'] = $data;
+
+        return response()->json($result);
     }
 
 
