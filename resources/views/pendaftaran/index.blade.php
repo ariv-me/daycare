@@ -2552,7 +2552,7 @@
     $('select[name=paket]').empty()
         $.ajax({
             type  : 'GET',
-            url   : "{{ route('combo.combo_tarif_paket2') }}",
+            url   : "{{ route('combo.combo_tarif_paket') }}",
             async : false,
             dataType : 'JSON',
             success : function(data){

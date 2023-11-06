@@ -96,7 +96,7 @@ class ComboController extends Controller
 
         try{
 
-
+          
             $data = DB::connection('daycare')
                     ->table('tarif_tc_tarif AS aa')
                     ->whereNotIN('aa.jenis_kode',['JN0001'])
@@ -110,6 +110,7 @@ class ComboController extends Controller
         
             });
 
+      
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  
             return response()->json($result);
