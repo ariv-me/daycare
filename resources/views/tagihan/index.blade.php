@@ -408,9 +408,15 @@
             contentType: false,
             success: function(r) {
                     
-                    view();
-                    swal("Berhasil!", "Data Berhasil Disimpan", "success");
-                    $('#formModalBayar').modal('hide');
+                $('#filter_bulan').val('Semua');
+
+                var anak  = $('#filter_anak').val();
+                var bulan = $('#filter_bulan').val();
+
+                view(anak,bulan);
+
+                swal("Berhasil!", "Data Berhasil Disimpan", "success");
+                $('#formModalBayar').modal('hide');
                 
                
             }
@@ -582,7 +588,14 @@
                 $('#formModalBayar').modal('show');
                 $('#formModalBayar').find('[name="trs_kode"]').val(data.trs_kode);
                 $('#formModalBayar').find('[name="input_diskon"]').val("0");
-                
+
+                $('#filter_bulan').val('Semua');
+
+                var anak  = $('#filter_anak').val();
+                var bulan = $('#filter_bulan').val();
+
+                view(anak,bulan);
+                                
                 view_detail(id);
             }
         });
@@ -627,9 +640,11 @@
             processData : false,
             contentType : false,
             success: function(data){
+
                 $('#formModalEdit').modal('hide');
                 swal("Berhasil!", "Data Berhasil Diupdate", "success");
-                view();
+                
+                
             }
         });
 
