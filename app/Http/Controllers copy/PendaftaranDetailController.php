@@ -77,66 +77,56 @@ class PendaftaranDetailController extends Controller
 
     public function save(Request $r){
 
-        $data = array();
+        $result = array('success'=>false);
 
-        $transaction = DB::connection('daycare')->transaction(function() use($r){
+        try {
 
-
-              $app         = SistemApp::sistem();
-          
+            $app         = SistemApp::sistem();
+            $tmp         = new PendaftaranDetail();  
+            $detail_kode = PendaftaranDetail::autokode();  
             $tarif       = Tarif::where('tarif_kode',$r->paket)->first();
+            $total_tarif = str_replace(".", "", $r->total_tarif);
+            $qty         = $r->qty;
+
            
-            $kode_tarif  =  DB::connection('daycare')
-                                    ->table('tarif_tc_tarif_detail AS aa')
-                                    ->leftjoin('tarif_tb_item AS bb','bb.item_kode','aa.item_kode')
-                                    ->where('aa.tarif_kode',$tarif->tarif_kode)
-                                    ->pluck('aa.item_kode');
-          
-            //$kode_tarif = ['ITM0008','ITM0004'];
+            if ($r->trs_kode != null) {
 
-            foreach ($kode_tarif as $key => $item) {
-                    
-                    $data   =  DB::connection('daycare')
-                                    ->table('tarif_tb_item AS aa')
-                                    //->leftjoin('tarif_tc_tarif_detail AS bb','bb.item_kode','aa.item_kode')
-                                    ->where('aa.item_kode',$item)
-                                    ->where('aa.item_aktif','Y')
-                                    // ->primary()
-                                    ->first();
-                    //dd($data);
+                $tmp->detail_kode    = $detail_kode;
+                $tmp->periode_id     = $r->periode;
+                $tmp->grup_kode      = $r->grup;
+                $tmp->kat_kode       = $r->kategori;
+                $tmp->tarif_kode     = $tarif->tarif_kode;  
+                $tmp->detail_qty      = $qty;  
+                $tmp->detail_total   = $qty * $total_tarif;
+                $tmp->trs_kode       = $r->trs_kode;
+                $tmp->anak_kode      = $r->anak_kode;
 
-                    $tmp         = new PendaftaranDetail;  
-                    $detail_kode = PendaftaranDetail::autokode();  
-                    $total_tarif = str_replace(".", "", $r->total_tarif);
-                    $qty         = $r->qty; 
+            } else {
+                
+                $tmp->detail_kode    = $detail_kode;
+                $tmp->periode_id     = $r->periode;
+                $tmp->grup_kode      = $r->grup;
+                $tmp->kat_kode       = $r->kategori;
+                $tmp->tarif_kode     = $tarif->tarif_kode;  
+                $tmp->detail_qty      = $qty;  
+                $tmp->detail_total   =  $qty * $total_tarif;
 
-                    $tmp->detail_kode    = $detail_kode;
-                    $tmp->periode_id     = $r->periode;
-                    $tmp->grup_kode      = $r->grup;
-                    $tmp->kat_kode       = $r->kategori;
-                    $tmp->tarif_kode     = $tarif->tarif_kode;  
-                    $tmp->detail_qty     = '1';  
-                    $tmp->detail_total   = $data->item_nominal;
-                    $tmp->item_kode      = $data->item_kode;
-            
-    
-        
-                    $tmp->created_nip    = $app['kar_nip'];
-                    $tmp->created_nama   = $app['kar_nama_awal'];
-                    $tmp->created_ip     = $r->ip();
-                            
-                    $tmp->save();
-            } 
-           
-
-            return true;
-
-        });
-
-        return response()->json($transaction);
-
-        
+            }
        
+            $tmp->created_nip    = $app['kar_nip'];
+            $tmp->created_nama   = $app['kar_nama_awal'];
+            $tmp->created_ip     = $r->ip();
+                     
+            $tmp->save();
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success'] = true;
+
+        return response()->json($result);
            
     }
 

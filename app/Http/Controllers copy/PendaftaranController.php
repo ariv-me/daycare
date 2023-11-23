@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TarifItem;
 use Illuminate\Http\Request;
 use App\Models\SistemApp;
 use App\Helpers;
@@ -295,7 +294,8 @@ class PendaftaranController extends Controller
                                 ->where('bb.jenis_kode','JN0001')
                                 ->first();
 
-       
+                dd($tarif);
+  
                 
 
                 if ($tarif == null) {

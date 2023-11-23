@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TarifItem;
 use Illuminate\Http\Request;
 use App\Models\SistemApp;
 use App\Helpers;
@@ -44,14 +43,14 @@ class PendaftaranController extends Controller
         
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('pendaftaran.index',compact('app','menu'));
+        return view('pendaftaran.transaksi.index',compact('app','menu'));
     }
 
     public function edit_view($id)
     {   
         $app    = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('pendaftaran.edit',compact('app','menu','id'));
+        return view('pendaftaran.transaksi.edit',compact('app','menu','id'));
     }
 
 
@@ -67,31 +66,18 @@ class PendaftaranController extends Controller
 
           
             $transaction = DB::connection('daycare')->transaction(function() use($r){
-
-                $cek_ortu = DapokOrtu::where('ortu_kode',$r->ortu)->count();
-               
-
-                if ($cek_ortu > 0) {
-                    $ortu_kode   = $r->ortu;
-                    $ortu = DapokOrtu::where('ortu_kode',$r->ortu)->first();
-                } else {
-                    $ortu_kode   = DapokOrtu::autonumber();
-                    $ortu = new DapokOrtu();  
-                }
     
-                $app         = SistemApp::sistem();
-                $anak_kode   = DapokAnak::autonumber();
-                $daftar_kode = Pendaftaran::autonumber();
-                
+                $app        = SistemApp::sistem();
 
-                if ($r->penjemput_nama != null) {
-                    $pnj_kode    = DapokPenjemput::autonumber();
-                } else {
-                    $pnj_kode    = null;
-                }
                 /*-- TRANSAKSI --*/
     
                 $daftar = new Pendaftaran();  
+
+                $daftar_kode = Pendaftaran::autonumber();
+                $anak_kode   = DapokAnak::autonumber();
+                $ortu_kode   = DapokOrtu::autonumber();
+                $pnj_kode    = DapokPenjemput::autonumber();
+      
                 $tarif       = DB::connection('daycare')
                                 ->table('daftar_tc_transaksi_detail AS aa')
                                 ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
@@ -101,29 +87,20 @@ class PendaftaranController extends Controller
                                 ->where('aa.anak_kode',null)
                                 ->where('bb.jenis_kode','JN0001')
                                 ->first();
-                
-                $mounth         = date('m', strtotime($r->tgl_daftar));    
 
-                if ($r->kategori == 'KT0002') {
-                    $days       = 0;
-                } else {
-                    $days       = Carbon::now()->month($mounth)->daysInMonth;
-                }
-
-                $daftar->trs_tgl        = date('Y-m-d', strtotime($r->tgl_daftar));
-                $daftar->trs_jatuh_tempo    = date('Y-m-d', strtotime(now()->parse($r->tgl_daftar)->addDays($days)));
+                $daftar->trs_tgl        = Carbon::now()->toDateString();
                 $daftar->trs_kode       = $daftar_kode;
                 $daftar->anak_kode      = $anak_kode;
                 $daftar->periode_id     = $r->periode;
-                $daftar->tarif_kode     = $tarif->tarif_kode; 
+                $daftar->tarif_kode     = $tarif->tarif_kode;
                 $daftar->grup_kode      = $tarif->grup_kode;
-                $daftar->kat_kode       = $r->kategori;
+                $daftar->kat_kode       = $tarif->kat_kode;
                 $daftar->trs_total      = str_replace(".", "", $r->total_biaya);
-                $daftar->trs_sisa       = str_replace(".", "", $r->total_biaya);
 
                 $daftar->created_nip    = $app['kar_nip'];
                 $daftar->created_nama   = $app['kar_nama_awal'];
-                $daftar->created_ip     = $r->ip();    
+                $daftar->created_ip     = $r->ip();
+
                 
                 $detail = PendaftaranDetail::where('trs_kode',null)->where('anak_kode',null)->where('detail_aktif','Y')->get();
 
@@ -147,8 +124,6 @@ class PendaftaranController extends Controller
 
                 $member->member_kode    = $member_kode;
                 $member->anak_kode      = $anak_kode;
-                $member->member_tgl     = date('Y-m-d', strtotime($r->tgl_daftar));
-                $member->trs_kode       = $daftar_kode;
                 $member->periode_id     = $r->periode;
                 $member->tarif_kode     = $tarif->tarif_kode;
                 $member->grup_kode      = $tarif->grup_kode;
@@ -181,6 +156,8 @@ class PendaftaranController extends Controller
 
                 /*-- ORTU --*/
 
+                $ortu = new DapokOrtu();
+
                 $ortu->ortu_kode               = $ortu_kode;
                 $ortu->ortu_ayah               = $r->ayah_nama;
                 $ortu->ortu_ayah_nik           = $r->ayah_nik;
@@ -202,62 +179,44 @@ class PendaftaranController extends Controller
                 $ortu->ortu_ibu_wa            = $r->ibu_wa;
                 $ortu->ortu_ibu_agama_id      = $r->ibu_agama;
 
-                $ortu->prov_kode              = $r->provinsi;
-                $ortu->kota_kode              = $r->kota;
-                $ortu->kec_kode               = $r->kecamatan;
+                $ortu->ortu_provinsi_id            = $r->provinsi;
+                $ortu->ortu_kota_kode                = $r->kota;
+                $ortu->ortu_kecamatan_id           = $r->kecamatan;
                 $ortu->ortu_alamat            = $r->alamat;
 
                 $ortu->created_nip           = $app['kar_nip'];
                 $ortu->created_nama          = $app['kar_nama_awal'];
-                $ortu->created_ip            = $r->ip();  
+                $ortu->created_ip            = $r->ip();           
 
-                    
-              
-               
-
-              
                 /*-- PENJEMPUT --*/
 
-                if ($pnj_kode != null){
+                $pnj = new DapokPenjemput();
 
-                    
-                    $pnj = new DapokPenjemput();
-                    $pnj->pnj_kode              = $pnj_kode;
-                    $pnj->pnj_nama              = $r->penjemput_nama;
-                    $pnj->pnj_nik               = $r->penjemput_nik;
-                    $pnj->pnj_tgl_lahir         = date('Y-m-d', strtotime($r->penjemput_lahir));
-                    $pnj->pnj_tmp_lahir         = $r->penjemput_tmp_lahir;
-                    $pnj->pnj_kerja             = $r->penjemput_kerja;
-                    $pnj->pnj_hp                = $r->penjemput_hp;
-                    $pnj->pnj_wa                = $r->penjemput_wa;
-                    $pnj->pnj_agama_id          = $r->penjemput_agama;
-                    $pnj->pnj_pdk_id            = $r->penjemput_pdk;
-                    $pnj->pnj_hub_id            = $r->penjemput_hubungan;
-                    $pnj->pnj_provinsi_id       = $r->penjemput_provinsi;
-                    $pnj->pnj_kecamatan_id      = $r->penjemput_kecamatan;
-                    $pnj->pnj_kota_kode         = $r->penjemput_kota;
-                    $pnj->pnj_alamat            = $r->penjemput_alamat;
-    
-                    $pnj->updated_nip           = $app['kar_nip'];
-                    $pnj->updated_nama          = $app['kar_nama_awal'];
-                    $pnj->updated_ip            = $r->ip();
+                $pnj->pnj_kode              = $pnj_kode;
+                $pnj->pnj_nama              = $r->penjemput_nama;
+                $pnj->pnj_nik               = $r->penjemput_nik;
+                $pnj->pnj_tgl_lahir         = date('Y-m-d', strtotime($r->penjemput_lahir));
+                $pnj->pnj_tmp_lahir         = $r->penjemput_tmp_lahir;
+                $pnj->pnj_kerja          = $r->penjemput_kerja;
+                $pnj->pnj_hp                = $r->penjemput_hp;
+                $pnj->pnj_wa                = $r->penjemput_wa;
+                $pnj->pnj_agama_id          = $r->penjemput_agama;
+                $pnj->pnj_pdk_id            = $r->penjemput_pdk;
+                $pnj->pnj_hub_id            = $r->penjemput_hubungan;
+                $pnj->pnj_provinsi_id           = $r->penjemput_provinsi;
+                $pnj->pnj_kecamatan_id          = $r->penjemput_kecamatan;
+                $pnj->pnj_kota_kode               = $r->penjemput_kota;
+                $pnj->pnj_alamat            = $r->penjemput_alamat;
 
-                    $daftar->save();
-                    $member->save();
-                    $anak->save();
-                    $ortu->save();
-                    $pnj->save();
+                $pnj->created_nip           = $app['kar_nip'];
+                $pnj->created_nama          = $app['kar_nama_awal'];
+                $pnj->created_ip            = $r->ip();
 
-                }
-                
-                else {
-
-                    $daftar->save();
-                    $member->save();
-                    $anak->save();
-                    $ortu->save();
-
-                }
+                $daftar->save();
+                $member->save();
+                $anak->save();
+                $ortu->save();
+                $pnj->save();
 
                 return true;
     
@@ -292,44 +251,26 @@ class PendaftaranController extends Controller
                                 ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','bb.jenis_kode')
                                 ->where('aa.detail_aktif','Y')
                                 ->where('aa.trs_kode',$r->trs_kode)
+                                ->where('aa.anak_kode',$r->anak_kode)
                                 ->where('bb.jenis_kode','JN0001')
                                 ->first();
 
-       
+                               
                 
-
-                if ($tarif == null) {
-                    $tarif       = DB::connection('daycare')
-                                    ->table('daftar_tc_transaksi_detail AS aa')
-                                    ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
-                                    ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','bb.jenis_kode')
-                                    ->where('aa.detail_aktif','Y')
-                                    ->where('aa.trs_kode',$r->trs_kode)
-                                    ->where('bb.jenis_kode','JN0002')
-                                    ->first();
-                } 
-
-                /*-- DAFTAR --*/            
-
+                /*-- DAFTAR --*/
+    
                 $daftar  = Pendaftaran::where('trs_kode',$r->trs_kode)->first();  
 
-                $mounth                 = date('m', strtotime($r->tgl_daftar));                 
-                $days                   = Carbon::now()->month($mounth)->daysInMonth;
-                $daftar->trs_tgl        = date('Y-m-d', strtotime($r->tgl_daftar));
-                $daftar->trs_jatuh_tempo    = date('Y-m-d', strtotime(now()->parse($r->tgl_daftar)->addDays($days)));
+                // $daftar->trs_tgl        = Carbon::now()->toDateString();
                 $daftar->periode_id     = $r->periode;
                 $daftar->tarif_kode     = $tarif->tarif_kode;
                 $daftar->grup_kode      = $tarif->grup_kode;
                 $daftar->kat_kode       = $tarif->kat_kode;
                 $daftar->trs_total      = str_replace(".", "", $r->total_biaya);
-                $daftar->trs_sub_total  = str_replace(".", "", $r->total_biaya);
-                $daftar->trs_sisa       = str_replace(".", "", $r->total_biaya);
                  
                 $daftar->updated_nip    = $app['kar_nip'];
                 $daftar->updated_nama   = $app['kar_nama_awal'];
                 $daftar->updated_ip     = $r->ip();
-
-          
 
                 /*-- MEMBER --*/
 
@@ -386,48 +327,42 @@ class PendaftaranController extends Controller
                 $ortu->ortu_ibu_wa            = $r->ibu_wa;
                 $ortu->ortu_ibu_agama_id      = $r->ibu_agama;
 
-                $ortu->prov_kode               = $r->provinsi;
-                $ortu->kota_kode               = $r->kota;
-                $ortu->kec_kode                = $r->kecamatan;
-                $ortu->ortu_alamat           = $r->alamat;
+                $ortu->ortu_provinsi_id            = $r->provinsi;
+                $ortu->ortu_kota_kode                = $r->kota;
+                $ortu->ortu_kecamatan_id           = $r->kecamatan;
+                $ortu->ortu_alamat                 = $r->alamat;
 
                 $ortu->updated_nip           = $app['kar_nip'];
                 $ortu->updated_nama          = $app['kar_nama_awal'];
                 $ortu->updated_ip            = $r->ip();  
 
                 /*-- PENJEMPUT --*/
-                
-                if ($r->pnj_kode === null){
-                    
-                    $daftar->save();
-                    $member->save();
-                    $anak->save();
-                    $ortu->save();
 
-                } else  {
-                    
-                    $pnj = DapokPenjemput::where('pnj_kode',$r->pnj_kode)->first();
-                    $pnj->pnj_nama              = $r->penjemput_nama;
-                    $pnj->pnj_nik               = $r->penjemput_nik;
-                    $pnj->pnj_tgl_lahir         = date('Y-m-d', strtotime($r->penjemput_lahir));
-                    $pnj->pnj_tmp_lahir         = $r->penjemput_tmp_lahir;
-                    $pnj->pnj_kerja          = $r->penjemput_kerja;
-                    $pnj->pnj_hp                = $r->penjemput_hp;
-                    $pnj->pnj_wa                = $r->penjemput_wa;
-                    $pnj->pnj_agama_id          = $r->penjemput_agama;
-                    $pnj->pnj_pdk_id            = $r->penjemput_pdk;
-                    $pnj->pnj_hub_id            = $r->penjemput_hubungan;
-                    $pnj->pnj_provinsi_id           = $r->penjemput_provinsi;
-                    $pnj->pnj_kecamatan_id          = $r->penjemput_kecamatan;
-                    $pnj->pnj_kota_kode               = $r->penjemput_kota;
-                    $pnj->pnj_alamat            = $r->penjemput_alamat;
+                $pnj = DapokPenjemput::where('pnj_kode',$r->pnj_kode)->first();
+                $pnj->pnj_nama              = $r->penjemput_nama;
+                $pnj->pnj_nik               = $r->penjemput_nik;
+                $pnj->pnj_tgl_lahir         = date('Y-m-d', strtotime($r->penjemput_lahir));
+                $pnj->pnj_tmp_lahir         = $r->penjemput_tmp_lahir;
+                $pnj->pnj_kerja          = $r->penjemput_kerja;
+                $pnj->pnj_hp                = $r->penjemput_hp;
+                $pnj->pnj_wa                = $r->penjemput_wa;
+                $pnj->pnj_agama_id          = $r->penjemput_agama;
+                $pnj->pnj_pdk_id            = $r->penjemput_pdk;
+                $pnj->pnj_hub_id            = $r->penjemput_hubungan;
+                $pnj->pnj_provinsi_id           = $r->penjemput_provinsi;
+                $pnj->pnj_kecamatan_id          = $r->penjemput_kecamatan;
+                $pnj->pnj_kota_kode               = $r->penjemput_kota;
+                $pnj->pnj_alamat            = $r->penjemput_alamat;
 
-                    $pnj->updated_nip           = $app['kar_nip'];
-                    $pnj->updated_nama          = $app['kar_nama_awal'];
-                    $pnj->updated_ip            = $r->ip();
-                    $pnj->save();
-                
-                }
+                $pnj->updated_nip           = $app['kar_nip'];
+                $pnj->updated_nama          = $app['kar_nama_awal'];
+                $pnj->updated_ip            = $r->ip();
+
+                $daftar->save();
+                $member->save();
+                $anak->save();
+                $ortu->save();
+                $pnj->save();
 
                 return true;
     
@@ -477,7 +412,7 @@ class PendaftaranController extends Controller
                     ->leftjoin('daftar_tc_transaksi AS dd','dd.anak_kode','aa.anak_kode')              
                     ->leftjoin('tarif_ta_kategori AS ee','ee.kat_kode','dd.kat_kode')              
                     ->orderby('aa.anak_id','desc')
-                    ->where('dd.trs_kode',$id)
+                    ->where('aa.anak_kode',$id)
                     ->first();
 
         return response()->json($data);
@@ -497,7 +432,7 @@ class PendaftaranController extends Controller
                         ->table('daftar_tc_transaksi_detail AS aa')
                         ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
                         ->where('aa.detail_aktif','Y')
-                        ->where('aa.trs_kode',$id)
+                        ->where('aa.anak_kode',$id)
                         ->orderby('aa.detail_id','desc')
                         ->get();
 
