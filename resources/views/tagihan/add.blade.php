@@ -288,23 +288,24 @@
             contentType: false,
             success: function(data) {
 
-                swal({   
-                    title: "Berhasil",   
-                    text: "Data Berhasil Di Tambahkan",   
-                    type: "success",   
-                    showCancelButton: false,   
-                    confirmButtonColor: "#07d68f",   
-                    confirmButtonText: "OK",   
-                    closeOnConfirm: false,   
-                    closeOnCancel: false 
-                }, function(isConfirm){   
-                    if (isConfirm) {     
-                        redirect();
-                    } 
-                });
+                // swal({   
+                //     title: "Berhasil",   
+                //     text: "Data Berhasil Di Tambahkan",   
+                //     type: "success",   
+                //     showCancelButton: false,   
+                //     confirmButtonColor: "#07d68f",   
+                //     confirmButtonText: "OK",   
+                //     closeOnConfirm: true,   
+                //     closeOnCancel: false 
+                // });
 
-                reset();
+                swal("Berhasil!", "Data Berhasil Di Simpan", "success");
 
+                view_detail();
+                //reset();
+               
+
+               
             }
         });
     
@@ -419,7 +420,7 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<b class="text-dark">'+(data[i].tarif_nama)+'</b>')); 
+                            .html('<b class="text-dark">'+(data[i].item_nama)+'</b>')); 
 
                         tr.find('td:nth-child(3)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-danger btn-xs item_delete" data="'+data[i].detail_kode+'"><i class="fa fa-trash"></i></a></div>');   
 

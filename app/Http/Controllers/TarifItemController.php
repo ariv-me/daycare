@@ -54,7 +54,18 @@ class TarifItemController extends Controller
 
         try{
             
-            $data = TarifItem::orderby('item_id','desc')->get();
+            $data = DB::connection('daycare')
+                    ->table('tarif_tb_item AS aa')
+                    ->leftJoin('tarif_ta_jenis AS bb','bb.jenis_id','aa.jenis_id')
+                    ->where('aa.item_aktif','Y')
+                    ->get();
+
+            $data = $data->map(function($value) {
+
+                $value->item_nominal   = format_rupiah($value->item_nominal);
+                return $value;
+
+            });
 
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  

@@ -22,11 +22,12 @@
                     <table id="datatable" class="table table-hover table-bordered mb-0 table-centered">
                         <thead>
                             <tr>
-                                <th width="1%" style="text-align: center; vertical-align: middle;" rowspan="2">NO</th>
-                                <th width="6%" style="text-align: center; vertical-align: middle;" rowspan="2">KODE</th>
-                                <th width="20%" style="text-align: center; vertical-align: middle;" rowspan="2">NAMA</th>
-                                <th width="10%" style="text-align: center; vertical-align: middle;" rowspan="2">JENIS</th>
-                                <th width="5%" style="text-align: center; vertical-align: middle;" rowspan="2">AKSI</th>
+                                <th width="1%" style="text-align: center; vertical-align: middle;">NO</th>
+                                <th width="6%" style="text-align: center; vertical-align: middle;">KODE</th>
+                                <th width="20%" style="text-align: center; vertical-align: middle;">NAMA</th>
+                                <th width="10%" style="text-align: center; vertical-align: middle;">JENIS</th>
+                                <th width="10%" style="text-align: center; vertical-align: middle;">NOMINAL</th>
+                                <th width="5%" style="text-align: center; vertical-align: middle;">AKSI</th>
                             </tr>
  
                         </thead>
@@ -313,7 +314,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('tarif.paket.save') }}",
+            url: "{{ route('tarif.item.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -337,7 +338,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('tarif.paket.view') }}",
+            url: "{{ route('tarif.item.view') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -349,17 +350,13 @@
                     for (i = 0; i < data.length; i++) {
 
 
-                        if((data[i].void) == 'T'){
+                        if((data[i].item_aktif) == 'Y'){
                             var tr = $('<tr>').append([
                                 $('<td width="1%" align="center">'),
-                                $('<td width="3%">'),
-                                $('<td width="20%">'),
                                 $('<td width="5%">'),
-                                $('<td width="7%" align="right">'),
-                                $('<td width="7%" align="right">'),
-                                $('<td width="7%" align="right">'),
-                                $('<td width="7%" align="right">'),
-                                $('<td width="7%" align="right">'),
+                                $('<td width="20%">'),
+                                $('<td width="10%">'),
+                                $('<td width="10%" align="right">'),
                                 $('<td width="1%" align="center">')
 
                             ]);
@@ -368,13 +365,10 @@
 
                             var tr = $('<tr style="background-color:#fee6ec;">').append([
                                 $('<td width="1%" align="center">'),
-                                $('<td width="3%">'),
-                                $('<td width="15%">'),
                                 $('<td width="5%">'),
-                                $('<td width="7%" align="right">'),
-                                $('<td width="7%" align="right">'),
-                                $('<td width="7%" align="right">'),
-                                $('<td width="7%" align="right">'),
+                                $('<td width="20%">'),
+                                $('<td width="10%">'),
+                                $('<td width="10%" align="right">'),
                                 $('<td width="1%" align="center">')
                 
                             ]);
@@ -384,36 +378,23 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].tarif_kode))); 
+                            .html((data[i].item_kode))); 
                             
                         tr.find('td:nth-child(3)').append($('<div>')
-                           .html('<b>'+(data[i].tarif_nama)+'</b>'));   
+                           .html('<b>'+(data[i].item_nama)+'</b>'));   
 
                         tr.find('td:nth-child(4)').append($('<div>')
-                            .html((data[i].kat_nama)));  
+                            .html((data[i].jenis_nama)));  
 
                         tr.find('td:nth-child(5)').append($('<div>')
-                            .html((data[i].reg_tampil)));
+                            .html('<strong>'+(data[i].item_nominal)+'</strong>'));
 
-                        tr.find('td:nth-child(6)').append($('<div>')
-                            .html((data[i].tarif_gizi)));
+                        if((data[i].item_aktif) == '&'){
 
-                        tr.find('td:nth-child(7)').append($('<div>')
-                            .html((data[i].spp_tampil)));   
-
-                        tr.find('td:nth-child(8)').append($('<div>')
-                            .html((data[i].pembangunan_tampil)));   
-                            
-                        tr.find('td:nth-child(9)').append($('<div>')
-                            .html('<b class="text-danger">'+(data[i].total_bayar)+'</b>'));   
-                        
-                        
-                        if((data[i].void) == 'T'){
-
-                            tr.find('td:nth-child(10)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].tarif_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-window-close"></i></a></div>');   
+                            tr.find('td:nth-child(6)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].tarif_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-window-close"></i></a></div>');   
 
                         } else {
-                            tr.find('td:nth-child(10)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-check"></i></a></div>');   
+                            tr.find('td:nth-child(6)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].tarif_kode+'"><i class="mdi mdi-check"></i></a></div>');   
                         }
 
                         
@@ -434,7 +415,7 @@
 
         $.ajax({
             type : "GET",
-            url   : "{{ route('tarif.paket.edit') }}",
+            url   : "{{ route('tarif.item.edit') }}",
             dataType : "JSON",
             data : {id:id},
             success: function(data){
@@ -553,7 +534,7 @@
 
         $.ajax({
             type : "POST",
-            url   : "{{ route('tarif.paket.update') }}",
+            url   : "{{ route('tarif.item.update') }}",
             dataType : "JSON",
             data : formData,
             cache : false,
@@ -583,7 +564,7 @@
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('tarif.paket.aktif') }}",
+                    url   : "{{ route('tarif.item.aktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
@@ -609,7 +590,7 @@
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('tarif.paket.nonaktif') }}",
+                    url   : "{{ route('tarif.item.nonaktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
@@ -625,7 +606,7 @@
 
         $.ajax({
             type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_tarif_kategori') }}",
+            url   : "{{ route('combo.combo_tarif_kategori') }}",
             async : false,
             dataType : 'JSON',
             success : function(data){
@@ -652,7 +633,7 @@
 
         $.ajax({
             type  : 'GET',
-            url   : "{{ route('combo_sistem.combo_jenis_tarif') }}",
+            url   : "{{ route('combo.combo_tarif_jenis') }}",
             async : false,
             dataType : 'JSON',
             success : function(data){

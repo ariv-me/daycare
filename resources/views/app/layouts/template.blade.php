@@ -46,6 +46,11 @@
 
         <style>
 
+            .form-control:disabled, .form-control[readonly] {
+                background-color: #eeeeee;
+                opacity: 1;
+            }
+
             .table th {
                 color: #303e67;
                 font-weight: 500;

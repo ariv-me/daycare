@@ -1918,7 +1918,7 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<b class="text-dark">'+(data[i].tarif_nama)+'</b>')); 
+                            .html('<b class="text-dark">'+(data[i].item_nama)+'</b>')); 
 
                         tr.find('td:nth-child(4)').append($('<div>')
                             .html('<b class="text-danger font-15">'+(data[i].detail)+'</b>'));   
