@@ -82,6 +82,7 @@ class PendaftaranDetailController extends Controller
 
             $app         = SistemApp::sistem();
             $tarif       = Tarif::where('tarif_kode',$r->paket)->first();
+
            
             $kode_tarif  =  DB::connection('daycare')
                                     ->table('tarif_tc_tarif_detail AS aa')
