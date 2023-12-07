@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `daftar_tc_member` (
   UNIQUE KEY `trs_kode` (`member_kode`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table dbspf_daycare.daftar_tc_member: ~14 rows (approximately)
+-- Dumping data for table dbspf_daycare.daftar_tc_member: ~15 rows (approximately)
 /*!40000 ALTER TABLE `daftar_tc_member` DISABLE KEYS */;
 INSERT IGNORE INTO `daftar_tc_member` (`member_id`, `member_kode`, `anak_kode`, `trs_kode`, `member_tgl`, `periode_id`, `tarif_kode`, `grup_kode`, `kat_kode`, `member_diskon`, `member_sub_total`, `member_total`, `member_aktif`, `member_status`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
 	(3, 'MBR20230001', 'NIS20230001', 'TAG20230001', '2022-11-07', '2', 'PKT0007', 'SPG', 'KT0001', 0, 0, 0, 'Y', 'U', '2022-11-07 06:05:53', 9876017, 'YOSRIDA', '192.168.150.51', '2023-10-12 10:25:08', 9876017, 'YOSRIDA', '192.168.150.51'),
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `daftar_tc_transaksi` (
   UNIQUE KEY `trs_kode` (`trs_kode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table dbspf_daycare.daftar_tc_transaksi: ~0 rows (approximately)
+-- Dumping data for table dbspf_daycare.daftar_tc_transaksi: ~10 rows (approximately)
 /*!40000 ALTER TABLE `daftar_tc_transaksi` DISABLE KEYS */;
 INSERT IGNORE INTO `daftar_tc_transaksi` (`trs_id`, `trs_kode`, `trs_tgl`, `trs_jatuh_tempo`, `periode_id`, `anak_kode`, `tarif_kode`, `grup_kode`, `kat_kode`, `trs_diskon`, `trs_sub_total`, `trs_total`, `trs_sisa`, `trs_aktif`, `trs_status`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
 	(1, 'TAG20230001', '2023-12-07', '2023-12-24', 1, 'NIS20230003', 'PKT0011', 'UMUM', 'KT0001', 0, 1300000, 1300000, 1300000, 'Y', 'U', '2023-12-07 10:33:42', 10000427, 'ARIF', '::1', '2023-12-07 10:33:42', NULL, NULL, NULL),
@@ -270,7 +270,8 @@ INSERT IGNORE INTO `daftar_tc_transaksi` (`trs_id`, `trs_kode`, `trs_tgl`, `trs_
 	(7, 'TAG20230007', '2023-12-07', '2023-12-11', 2, 'NIS20230011', 'PKT0011', 'UMUM', 'KT0001', 0, 1300000, 1300000, 1300000, 'Y', 'U', '2023-12-07 10:44:59', 10000427, 'ARIF', '::1', '2023-12-07 10:44:59', NULL, NULL, NULL),
 	(8, 'TAG20230008', '2023-12-07', '2023-12-11', 2, 'NIS20230009', 'PKT0011', 'UMUM', 'KT0001', 0, 1300000, 1300000, 1300000, 'Y', 'U', '2023-12-07 10:46:58', 10000427, 'ARIF', '::1', '2023-12-07 10:46:58', NULL, NULL, NULL),
 	(9, 'TAG20230009', '2023-12-07', '2023-12-18', 2, 'NIS20230010', 'PKT0011', 'UMUM', 'KT0001', 0, 1300000, 1300000, 1300000, 'Y', 'U', '2023-12-07 10:47:56', 10000427, 'ARIF', '::1', '2023-12-07 10:47:56', NULL, NULL, NULL),
-	(10, 'TAG20230010', '2023-12-07', '2023-12-01', 2, 'NIS20230012', 'PKT0011', 'UMUM', 'KT0001', 0, 1300000, 1300000, 1300000, 'Y', 'U', '2023-12-07 10:57:38', 10000427, 'ARIF', '::1', '2023-12-07 10:57:38', NULL, NULL, NULL);
+	(10, 'TAG20230010', '2023-12-07', '2023-12-01', 2, 'NIS20230012', 'PKT0011', 'UMUM', 'KT0001', 0, 1300000, 1300000, 1300000, 'Y', 'U', '2023-12-07 10:57:38', 10000427, 'ARIF', '::1', '2023-12-07 10:57:38', NULL, NULL, NULL),
+	(11, 'TAG20230011', '2023-12-07', '2023-12-18', 2, 'NIS20230001', 'PKT0012', 'SPG', 'KT0001', 0, 800000, 800000, 800000, 'Y', 'U', '2023-12-07 14:53:51', 10000427, 'ARIF', '::1', '2023-12-07 14:53:51', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `daftar_tc_transaksi` ENABLE KEYS */;
 
 -- Dumping structure for table dbspf_daycare.daftar_tc_transaksi_detail
@@ -300,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `daftar_tc_transaksi_detail` (
   PRIMARY KEY (`detail_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Dumping data for table dbspf_daycare.daftar_tc_transaksi_detail: ~0 rows (approximately)
+-- Dumping data for table dbspf_daycare.daftar_tc_transaksi_detail: ~10 rows (approximately)
 /*!40000 ALTER TABLE `daftar_tc_transaksi_detail` DISABLE KEYS */;
 INSERT IGNORE INTO `daftar_tc_transaksi_detail` (`detail_id`, `detail_kode`, `trs_kode`, `anak_kode`, `periode_id`, `grup_kode`, `kat_kode`, `tarif_kode`, `item_kode`, `detail_name`, `detail_total`, `detail_qty`, `detail_aktif`, `daftar_ket`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
 	(1, 'DTL0001', 'TAG20230001', 'NIS20230003', 1, 'UMUM', 'KT0001', 'PKT0011', 'ITM0004', NULL, 1300000, 1, 'Y', NULL, '2023-12-07 10:32:22', 10000427, 'ARIF', '::1', '2023-12-07 10:33:42', NULL, NULL, NULL),
@@ -312,7 +313,8 @@ INSERT IGNORE INTO `daftar_tc_transaksi_detail` (`detail_id`, `detail_kode`, `tr
 	(7, 'DTL0007', 'TAG20230007', 'NIS20230011', 2, 'UMUM', 'KT0001', 'PKT0011', 'ITM0004', NULL, 1300000, 1, 'Y', NULL, '2023-12-07 10:44:56', 10000427, 'ARIF', '::1', '2023-12-07 10:44:59', NULL, NULL, NULL),
 	(8, 'DTL0008', 'TAG20230008', 'NIS20230009', 2, 'UMUM', 'KT0001', 'PKT0011', 'ITM0004', NULL, 1300000, 1, 'Y', NULL, '2023-12-07 10:46:55', 10000427, 'ARIF', '::1', '2023-12-07 10:46:58', NULL, NULL, NULL),
 	(9, 'DTL0009', 'TAG20230009', 'NIS20230010', 2, 'UMUM', 'KT0001', 'PKT0011', 'ITM0004', NULL, 1300000, 1, 'Y', NULL, '2023-12-07 10:47:54', 10000427, 'ARIF', '::1', '2023-12-07 10:47:56', NULL, NULL, NULL),
-	(10, 'DTL0010', 'TAG20230010', 'NIS20230012', 2, 'UMUM', 'KT0001', 'PKT0011', 'ITM0004', NULL, 1300000, 1, 'Y', NULL, '2023-12-07 10:57:36', 10000427, 'ARIF', '::1', '2023-12-07 10:57:38', NULL, NULL, NULL);
+	(10, 'DTL0010', 'TAG20230010', 'NIS20230012', 2, 'UMUM', 'KT0001', 'PKT0011', 'ITM0004', NULL, 1300000, 1, 'Y', NULL, '2023-12-07 10:57:36', 10000427, 'ARIF', '::1', '2023-12-07 10:57:38', NULL, NULL, NULL),
+	(11, 'DTL0011', 'TAG20230011', 'NIS20230001', 2, 'SPG', 'KT0001', 'PKT0012', 'ITM0003', NULL, 800000, 1, 'Y', NULL, '2023-12-07 14:53:49', 10000427, 'ARIF', '::1', '2023-12-07 14:53:51', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `daftar_tc_transaksi_detail` ENABLE KEYS */;
 
 -- Dumping structure for table dbspf_daycare.dapok_tb_anak
@@ -346,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `dapok_tb_anak` (
   UNIQUE KEY `anak_nis` (`anak_kode`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
--- Dumping data for table dbspf_daycare.dapok_tb_anak: ~14 rows (approximately)
+-- Dumping data for table dbspf_daycare.dapok_tb_anak: ~15 rows (approximately)
 /*!40000 ALTER TABLE `dapok_tb_anak` DISABLE KEYS */;
 INSERT IGNORE INTO `dapok_tb_anak` (`anak_id`, `anak_kode`, `ortu_kode`, `pnj_kode`, `anak_nama`, `anak_jekel`, `anak_tmp_lahir`, `anak_tgl_lahir`, `anak_ke`, `anak_jml_saudara`, `anak_berat`, `anak_tinggi`, `anak_alamat`, `anak_status`, `agama_id`, `anak_aktif`, `anak_foto`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
 	(3, 'NIS20230001', 'ORTU20230001', NULL, 'Khai Yumna Meccalova', 'P', 'Padang', '2022-03-06', 1, 0, 11, '90', NULL, 'A', 'undefined', 'Y', NULL, '2023-10-11 16:05:53', 9876017, 'YOSRIDA', '192.168.150.51', '2023-10-11 16:06:49', 9876017, 'YOSRIDA', '192.168.150.51'),
@@ -701,7 +703,7 @@ CREATE TABLE IF NOT EXISTS `tarif_tc_tarif` (
   UNIQUE KEY `tarif_kode` (`tarif_kode`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- Dumping data for table dbspf_daycare.tarif_tc_tarif: ~10 rows (approximately)
+-- Dumping data for table dbspf_daycare.tarif_tc_tarif: ~12 rows (approximately)
 /*!40000 ALTER TABLE `tarif_tc_tarif` DISABLE KEYS */;
 INSERT IGNORE INTO `tarif_tc_tarif` (`tarif_id`, `tarif_kode`, `jenis_kode`, `kat_kode`, `grup_kode`, `tarif_nama`, `tarif_aktif`, `tarif_total`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
 	(1, 'PKT0001', 'JN0001', 'KT0001', 'UMUM', 'Membership Plus Umum 1 Tahun - Full Day', 'Y', 4550000, '2023-10-03 11:32:45', 10000427, 'ARIF', '::1', '2023-10-06 15:45:49', NULL, NULL, NULL),
@@ -737,7 +739,7 @@ CREATE TABLE IF NOT EXISTS `tarif_tc_tarif_detail` (
   PRIMARY KEY (`detail_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table dbspf_daycare.tarif_tc_tarif_detail: ~22 rows (approximately)
+-- Dumping data for table dbspf_daycare.tarif_tc_tarif_detail: ~24 rows (approximately)
 /*!40000 ALTER TABLE `tarif_tc_tarif_detail` DISABLE KEYS */;
 INSERT IGNORE INTO `tarif_tc_tarif_detail` (`detail_id`, `tarif_kode`, `item_kode`, `detail_nama`, `detail_total`, `detail_aktif`, `created_at`, `created_nip`, `created_nama`, `created_ip`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
 	(10, 'PKT0001', 'ITM0004', 'Bulanan Full Day', 1300000, 'Y', '2023-10-03 13:38:47', 10000427, 'ARIF', '::1', '2023-10-03 13:38:47', NULL, NULL, NULL),
@@ -780,7 +782,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table dbspf_daycare.users: ~0 rows (approximately)
+-- Dumping data for table dbspf_daycare.users: ~1 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT IGNORE INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 	(1, 'arif', 'arif@gmail.com', NULL, '$2y$10$mAdlo9POiD/9/MEv6bWAFOfSNFCuuiRjjErtAYu/YouXHgoRK44XW', 'l4AFudzsle5GQOIRqU9J5Kp4bbbGS6qh0gAqmo0YjTyDo4O9PqRkSg3kLWTP', '2022-07-14 08:25:38', '2022-07-14 08:25:38');
