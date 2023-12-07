@@ -96,8 +96,10 @@ class PendaftaranDetailController extends Controller
                                     ->where('aa.item_kode',$item)
                                     ->where('aa.item_aktif','Y')
                                     ->first();
+                    //dd($data);
 
-                    $cek_kode = PendaftaranDetail::where('item_kode',$item)->count();
+                    $cek_kode = PendaftaranDetail::where('aa.item_kode',$item)->count();
+          
 
                     $tmp         = new PendaftaranDetail;  
                     $detail_kode = PendaftaranDetail::autokode();  
