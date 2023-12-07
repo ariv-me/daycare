@@ -85,6 +85,7 @@ class PendaftaranDetailController extends Controller
               $app         = SistemApp::sistem();
           
             $tarif       = Tarif::where('tarif_kode',$r->paket)->first();
+<<<<<<< Updated upstream
            
             $kode_tarif  =  DB::connection('daycare')
                                     ->table('tarif_tc_tarif_detail AS aa')
@@ -93,6 +94,10 @@ class PendaftaranDetailController extends Controller
                                     ->pluck('aa.item_kode');
           
             //$kode_tarif = ['ITM0008','ITM0004'];
+=======
+            $total_tarif = str_replace(".", "", $r->total_tarif);
+            $qty         = '1';
+>>>>>>> Stashed changes
 
             foreach ($kode_tarif as $key => $item) {
                     
