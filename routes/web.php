@@ -64,6 +64,13 @@ Route::group(['prefix' => 'blank', 'as' => 'blank.'], function () {
 	Route::get('/', [HomeController::class, 'index_blank'])->name('index');
 });
 
+Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+
+	Route::get('/member', [HomeController::class, 'member'])->name('member');
+	Route::get('/tagihan', [HomeController::class, 'tagihan'])->name('tagihan');
+	
+});
+
 
 /**-- Data Pokok --**/
 

@@ -312,12 +312,11 @@
 
                 
 
-                </div><!-- container -->
-
+             
                 <footer class="footer text-center text-sm-left">
                     &copy; 2022 Yayasan Semen Padang <span class="d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger"></i> by SISFO YSP</span>
                 </footer><!--end footer-->
-            </div>
+            
             <!-- end page content -->
         </div>
         <!-- end page-wrapper -->
@@ -379,10 +378,6 @@
         <script src="{{ asset('resources/templates3/plugins/input-mask/jquery.inputmask.js') }}"></script>
         <script src="{{ asset('resources/templates3/plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
         <script src="{{ asset('resources/templates3/view/assets/pages/jquery.form-wizard.init.js') }}"></script>
-
-        <script src="{{ asset('resources/sources/assets/js_input_mask/dist/jquery.mask') }}"></script>
-        <script src="{{ asset('resources/sources/assets/js_input_mask/dist/jquery.mask.min') }}"></script>
-
         <!-- App js -->
         <script src="{{ asset('resources/templates3/view/assets/js/app.js') }}"></script>
         <script src="{{ asset('resources/templates3/view/assets/my.js')}}"></script>
