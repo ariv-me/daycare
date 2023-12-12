@@ -430,7 +430,7 @@
                                     </div>
                                 </div>
 
-                                <h4 class="card-title bg-light p-2 mb-3"><i class="fas fa-taxi"></i>  DATA PENJEMPUT</h4>
+                                {{-- <h4 class="card-title bg-light p-2 mb-3"><i class="fas fa-taxi"></i>  DATA PENJEMPUT</h4>
                   
                                 <div class="row">
                                    
@@ -504,7 +504,7 @@
                                         
                                     </div>
                                 </div>
-                                
+                                 --}}
                                 <hr class="hr-dashed">
         
                                 <div class="row">
@@ -576,22 +576,15 @@
           
                             <div class="col-md-3">
                                 <div class="mb-1">
-                                    <label class="form-label" for="username">Periode <small class="text-danger">*</small></label>
-                                    <select class="form-control custom-select select2" style="width: 100%;" name="periode" id="periode"></select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="mb-1">
                                     <label class="form-label" for="username">Grup <small class="text-danger">*</small></label>
-                                    <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup"></select>
+                                    <select class="form-control custom-select select2" style="width: 100%;" name="grup" id="grup" onchange="showGrup(this)"></select>
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="mb-1">
                                     <label class="form-label" for="username">Kategori <small class="text-danger">*</small></label>
-                                    <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"></select>
+                                    <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori" onchange="showKategori(this)"></select>
                                 </div>
                             </div>
 
@@ -772,6 +765,21 @@
 
         var paket  = $('#paket').val();
         view_tarif(paket);
+
+    }
+
+    function showGrup(select){
+
+        var grup  = $('#grup').val();
+        var paket  = $('#paket').val();
+        combo_paket(grup,paket);
+
+    }
+    function showKategori(select){
+
+        var grup  = $('#grup').val();
+        var kategori  = $('#kategori').val();
+        combo_paket(grup,kategori);
 
     }
 
@@ -2522,7 +2530,7 @@
          $('select[name=grup]').empty()
         $.ajax({
                 type  : 'GET',
-                url   : "{{ route('combo_sistem.combo_grup_detail') }}",
+                url   : "{{ route('combo_sistem.combo_grup') }}",
                 async : false,
                 dataType : 'JSON',
                 success : function(data){
@@ -2536,7 +2544,7 @@
                         x.add(option);
                     for(i=0; i<data.length; i++){
                         var html = '';
-                        html = '<option value='+(data[i].detail_kode)+'>'+(data[i].detail_nama)+'</option>';
+                        html = '<option value='+(data[i].grup_kode)+'>'+(data[i].grup_nama)+'</option>';
                         $('select[name=grup]').append(html)
                     }
                 }
@@ -2547,12 +2555,13 @@
       
   
 
-    function combo_paket(){
+    function combo_paket(grup,kategori){
 
     $('select[name=paket]').empty()
         $.ajax({
             type  : 'GET',
             url   : "{{ route('combo.combo_tarif_paket') }}",
+            data : {grup:grup,kategori:kategori},
             async : false,
             dataType : 'JSON',
             success : function(data){

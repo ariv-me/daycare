@@ -37,7 +37,7 @@ class MemberController extends Controller
         try{
 
             $kategori  = $r->get('kategori');
-            $grup = $r->get('grup');
+            $grup      = $r->get('grup');
 
             if ($kategori === 'Semua') {
 
@@ -79,7 +79,7 @@ class MemberController extends Controller
                                     ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')       
                                     ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')   
                                     ->leftjoin('sistem_tb_grup AS hh','hh.grup_kode','aa.grup_kode')  
-                                    ->orderby('aa.member_id','asc')
+                                    ->orderby('aa.member_id','desc')
                                     ->get();
 
                 } else {
@@ -120,7 +120,7 @@ class MemberController extends Controller
                                     ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')   
                                     ->leftjoin('sistem_tb_grup AS hh','hh.grup_kode','aa.grup_kode')  
                                     ->where('aa.kat_kode',$kategori)
-                                    ->orderby('aa.member_id','asc')
+                                    ->orderby('aa.member_id','desc')
                                     ->get();
 
                 }
@@ -163,7 +163,7 @@ class MemberController extends Controller
                                     ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')   
                                     ->leftjoin('sistem_tb_grup AS hh','hh.grup_kode','aa.grup_kode')  
                                     ->where('aa.grup_kode',$grup)
-                                    ->orderby('aa.member_id','asc')
+                                    ->orderby('aa.member_id','desc')
                                     ->get();
                 } else {
                     $data = DB::connection('daycare')
@@ -204,7 +204,7 @@ class MemberController extends Controller
                                     ->leftjoin('sistem_tb_grup AS hh','hh.grup_kode','aa.grup_kode')  
                                     ->where('aa.kat_kode',$kategori)
                                     ->where('aa.grup_kode',$grup)
-                                    ->orderby('aa.member_id','asc')
+                                    ->orderby('aa.member_id','desc')
                                     ->get();
                             
                 }

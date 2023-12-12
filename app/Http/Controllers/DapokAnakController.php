@@ -87,16 +87,16 @@ class DapokAnakController extends Controller
             
             $data = DB::connection('daycare')
                             ->table('dapok_tb_anak AS aa')          
-                            ->leftjoin('dapok_tb_ortu AS bb','bb.ortu_kode','aa.ortu_kode')              
-                            ->leftjoin('dapok_tb_penjemput AS cc','cc.pnj_kode','aa.pnj_kode')                
-                            ->orderby('aa.anak_kode','desc')
+                            //->join('dapok_tb_ortu AS bb','bb.ortu_kode','aa.ortu_kode')              
+                            // ->leftjoin('dapok_tb_penjemput AS cc','cc.pnj_kode','aa.pnj_kode')                
+                            ->orderby('aa.anak_id','desc')
                             ->get();
         
                 $data = $data->map(function($value) {
 
-               // $value->provinsi = ucwords(strtolower(SistemProvinsi::getNamaProvinsi($value->prov_kode)));
-                // $value->kota = ucwords(strtolower(SistemKota::getNamaKota($value->kota_kode)));
-                // $value->kecamatan = ucwords(strtolower(SistemKecamatan::getNamaKecamatan($value->kec_kode)));
+            //    $value->provinsi = ucwords(strtolower(SistemProvinsi::getNamaProvinsi($value->prov_kode)));
+            //     $value->kota = ucwords(strtolower(SistemKota::getNamaKota($value->kota_kode)));
+            //     $value->kecamatan = ucwords(strtolower(SistemKecamatan::getNamaKecamatan($value->kec_kode)));
 
                 $value->tgl_lahir = format_indo($value->anak_tgl_lahir);
                 $value->usia = Carbon::parse($value->anak_tgl_lahir)->age;
