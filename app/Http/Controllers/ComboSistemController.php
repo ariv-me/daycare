@@ -99,7 +99,7 @@ class ComboSistemController extends Controller
     }
 
     public function combo_grup(){
-        $data = Grup::orderby('grup_id','desc')->where('grup_aktif','Y')->get();
+        $data = Grup::orderby('grup_urut','asc')->where('grup_aktif','Y')->get();
         return response()->json($data); 
     }
     public function combo_grup_detail(){

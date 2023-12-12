@@ -79,10 +79,15 @@ class ComboController extends Controller
          
     }
 
-    public function combo_tarif_paket() {
+    public function combo_tarif_paket(Request $r) {
+
+         $grup = $r->grup;
+         $kategori = $r->kategori;
  
          $data = DB::connection('daycare')
                          ->table('tarif_tc_tarif')
+                         ->where('grup_kode',$grup)
+                         ->where('kat_kode',$kategori)
                          ->where('tarif_aktif','Y')
                          ->orderby('tarif_nama')
                          ->get();
@@ -169,6 +174,7 @@ class ComboController extends Controller
                     ->leftjoin('daftar_tc_member AS bb','bb.anak_kode','=','aa.anak_kode')
                     ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','=','aa.ortu_kode')
                     ->where('aa.anak_aktif','Y')
+                    ->where('bb.member_aktif','Y')
                     ->orderby('aa.anak_id','desc')
                     ->get();
         return response()->json($data); 

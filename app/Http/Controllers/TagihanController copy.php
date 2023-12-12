@@ -139,7 +139,15 @@ class TagihanController extends Controller
             $anak  = $r->get('anak');
             $bulan = $r->get('bulan');
 
-           
+            $data = DB::connection('daycare')
+                                ->table('daftar_tc_transaksi AS aa')          
+                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')                       
+                                ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')         
+                                ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
+                                ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')         
+                                ->orderby('aa.trs_id','desc')
+                                ->get();
+        //    / dd($data);
 
             if ($anak === 'Semua') {
 
@@ -147,7 +155,9 @@ class TagihanController extends Controller
 
                     $data = DB::connection('daycare')
                                 ->table('daftar_tc_transaksi AS aa')          
-                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')                       
+                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')           
+                                ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','bb.ortu_kode')              
+                                ->leftjoin('dapok_tb_penjemput AS dd','dd.pnj_kode','bb.pnj_kode')              
                                 ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')         
                                 ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
                                 ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')         
@@ -157,10 +167,12 @@ class TagihanController extends Controller
 
                     $data = DB::connection('daycare')
                                 ->table('daftar_tc_transaksi AS aa')          
-                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')                       
+                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')           
+                                ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','bb.ortu_kode')              
+                                ->leftjoin('dapok_tb_penjemput AS dd','dd.pnj_kode','bb.pnj_kode')              
                                 ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')         
                                 ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
-                                ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')         
+                                ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')   
                                 ->whereRaw('MONTH(trs_jatuh_tempo) = '.$bulan)  
                                 ->orderby('aa.trs_id','desc')
                                 ->get();
@@ -174,21 +186,24 @@ class TagihanController extends Controller
                 if ($bulan === 'Semua') {
                     $data = DB::connection('daycare')
                             ->table('daftar_tc_transaksi AS aa')          
-                            ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')                       
+                            ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')           
+                            ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','bb.ortu_kode')              
+                            ->leftjoin('dapok_tb_penjemput AS dd','dd.pnj_kode','bb.pnj_kode')              
                             ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')         
                             ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
-                            ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')         
-                            ->orderby('aa.trs_id','desc')
+                            ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')     
                             ->where('aa.anak_kode',$anak)    
                             ->orderby('aa.trs_id','desc')
                             ->get();
                 } else {
                     $data = DB::connection('daycare')
                             ->table('daftar_tc_transaksi AS aa')          
-                            ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')                       
+                            ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')           
+                            ->leftjoin('dapok_tb_ortu AS cc','cc.ortu_kode','bb.ortu_kode')              
+                            ->leftjoin('dapok_tb_penjemput AS dd','dd.pnj_kode','bb.pnj_kode')              
                             ->leftjoin('tarif_tc_tarif AS ee','ee.tarif_kode','aa.tarif_kode')         
                             ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
-                            ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')       
+                            ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')     
                             ->where('aa.anak_kode',$anak)   
                             ->whereRaw('MONTH(trs_jatuh_tempo) = '.$bulan)  
                             ->orderby('aa.trs_id','desc')

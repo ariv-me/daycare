@@ -17,9 +17,8 @@ class DapokOrtu extends Model
 
         $data = DB::connection('daycare')
                      ->table('dapok_tb_ortu')
-                     ->select(DB::raw("MAX(RIGHT(ortu_id,4)) as kd_max"));
-                   
-        
+                     ->select(DB::raw("MAX(RIGHT(ortu_kode,4)) as kd_max"));
+
         $kode_depan = date('Y');    
         
         // dd($data);
