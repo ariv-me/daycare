@@ -206,25 +206,25 @@
                                         </div> --}}
 
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-left">Nama<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Nama<small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="anak_nama" name="anak_nama">
                                             </div>
                                         </div>     
                 
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-left">Jenis Kelamin<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Jenis Kelamin<small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="anak_jekel" id="anak_jekel"></select>
                                             </div>
                                         </div>  
             
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-left">Tempat Lahir<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Tempat Lahir<small class="text-danger">*</small></label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="anak_tmp_lahir" name="anak_tmp_lahir">
                                             </div>
-                                            <label for="example-password-input" class="col-sm-2 col-form-label text-left">Tgl Lahir<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Tgl Lahir<small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control datepicker" id="anak_tgl_lahir" name="anak_tgl_lahir">
                                             </div>
@@ -232,19 +232,19 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group row">
-                                            <label for="example-number-input" class="col-sm-3 col-form-label text-left">Anak Ke <small class="text-danger">*</small></label>
+                                            <label for="example-number-input" class="col-sm-3 col-form-label text-right">Anak Ke <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="anak_ke" name="anak_ke" onkeypress="return angka(this, event)">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Jumlah Saudara</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Jumlah Saudara</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="anak_saudara" name="anak_saudara" value="0" onkeypress="return angka(this, event)">
                                             </div>
                                         </div> 
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Berat</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Berat</label>
                                             <div class="col-sm-3">
                                                 <div class="input-group">  
                                                     <input type="text" class="form-control" id="anak_berat" name="anak_berat" onkeypress="return angka(this, event)">
@@ -253,7 +253,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Tinggi</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Tinggi</label>
                                             <div class="col-sm-3">
                                                 <div class="input-group">  
                                                     <input type="text" class="form-control" id="anak_tinggi" name="anak_tinggi" onkeypress="return angka(this, event)">
@@ -270,7 +270,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-3 col-form-label text-left">Pilih Orang Tua <small class="text-danger">*</small></label>
+                                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">Pilih Orang Tua <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="pilih_ortu" id="pilih_ortu" onchange="showOrtu(this)"></select> 
                                                    
@@ -284,53 +284,53 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-3 col-form-label text-left">Nama Ayah <small class="text-danger">*</small></label>
+                                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">Nama Ayah <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="ayah_nama" name="ayah_nama">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="example-email-input" class="col-sm-3 col-form-label text-left">NIK <small class="text-danger">*</small></label>
+                                            <label for="example-email-input" class="col-sm-3 col-form-label text-right">NIK <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="ayah_nik" name="ayah_nik" onkeypress="return angka(this, event)">
                                             </div>
                                         </div> 
                                         <div class="form-group row">
-                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-left">Tempat Lahir <small class="text-danger">*</small></label>
+                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-right">Tempat Lahir <small class="text-danger">*</small></label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="ayah_tmp_lahir" name="ayah_tmp_lahir">
                                             </div>
-                                            <label for="example-password-input" class="col-sm-2 col-form-label text-left">Tgl Lahir <small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Tgl Lahir <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control datepicker" id="ayah_lahir" name="ayah_lahir">
                                             </div>
                                         </div>
                                        
                                         <div class="form-group row">
-                                            <label for="example-number-input" class="col-sm-3 col-form-label text-left">Agama <small class="text-danger">*</small></label>
+                                            <label for="example-number-input" class="col-sm-3 col-form-label text-right">Agama <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="ayah_agama" id="ayah_agama"></select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Pekerjaan</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Pekerjaan</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="ayah_kerja" name="ayah_kerja">
                                             </div>
                                         </div> 
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor HP <small class="text-danger">*</small></label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor HP <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ayah_hp" name="ayah_hp" onkeypress="return angka(this, event)">
                                             </div>
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor WA <small class="text-danger">*</small></label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor WA <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ayah_wa" name="ayah_wa" onkeypress="return angka(this, event)">
                                             </div>
                                         </div> 
                                         
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Tingkat Pendidikan</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Tingkat Pendidikan</label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="ayah_pdk" id="ayah_pdk"></select>
                                             </div>
@@ -338,54 +338,54 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-3 col-form-label text-left">Nama Ibu <small class="text-danger">*</small></label>
+                                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">Nama Ibu <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="ibu_nama" name="ibu_nama" data-dtp="dtp_1uPaU">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="example-email-input" class="col-sm-3 col-form-label text-left">NIK <small class="text-danger">*</small></label>
+                                            <label for="example-email-input" class="col-sm-3 col-form-label text-right">NIK <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="ibu_nik" name="ibu_nik" onkeypress="return angka(this, event)">
                                             </div>
                                         </div> 
                                         <div class="form-group row">
-                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-left">Tempat Lahir <small class="text-danger">*</small></label>
+                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-right">Tempat Lahir <small class="text-danger">*</small></label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="ibu_tmp_lahir" name="ibu_tmp_lahir">
                                             </div>
-                                            <label for="example-password-input" class="col-sm-2 col-form-label text-left">Tgl Lahir <small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Tgl Lahir <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control datepicker" id="ibu_lahir" name="ibu_lahir">
                                             </div>
                                         </div>
                                         
                                         <div class="form-group row">
-                                            <label for="example-number-input" class="col-sm-3 col-form-label text-left">Agama <small class="text-danger">*</small></label>
+                                            <label for="example-number-input" class="col-sm-3 col-form-label text-right">Agama <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="ibu_agama" id="ibu_agama"></select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Pekerjaan</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Pekerjaan</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="ibu_kerja" name="ibu_kerja">
                                             </div>
                                         </div> 
         
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor HP <small class="text-danger">*</small></label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor HP <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ibu_hp" name="ibu_hp" onkeypress="return angka(this, event)">
                                             </div>
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor WA <small class="text-danger">*</small></label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor WA <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ibu_wa" name="ibu_wa" onkeypress="return angka(this, event)">
                                             </div>
                                         </div> 
                                         
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Tingkat Pendidikan</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Tingkat Pendidikan</label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="ibu_pdk" id="ibu_pdk"></select>
                                             </div>
@@ -397,14 +397,14 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-3 col-form-label text-left">Provinsi <small class="text-danger">*</small></label>
+                                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">Provinsi <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="provinsi" id="provinsi" onchange="showOrtuProvinsi(this)"></select>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="example-email-input" class="col-sm-3 col-form-label text-left">Kab/Kota <small class="text-danger">*</small></label>
+                                            <label for="example-email-input" class="col-sm-3 col-form-label text-right">Kab/Kota <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="kota" id="kota" onchange="showOrtuKota(this)"></select>
                                             </div>
@@ -414,14 +414,14 @@
                                     <div class="col-sm-6">
                                        
                                         <div class="form-group row">
-                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-left">Kecamatan<small class="text-danger">*</small></label>
+                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-right">Kecamatan<small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="kecamatan" id="kecamatan"></select>
                                             </div>
                                         </div>
                                     
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-left">Alamat<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Alamat<small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="alamat" name="alamat">
                                             </div>
@@ -436,14 +436,14 @@
                                    
                                     <div class="col-sm-6">
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-left">Nama<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Nama<small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="penjemput_nama" name="penjemput_nama">
                                             </div>
                                         </div>     
                 
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-left">NIK<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">NIK<small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="penjemput_nik" name="penjemput_nik" onkeypress="return angka(this, event)">
                                             </div>
@@ -451,19 +451,19 @@
             
                 
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-left">Tempat Lahir<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Tempat Lahir<small class="text-danger">*</small></label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="penjemput_tmp_lahir" name="penjemput_tmp_lahir">
                                             </div>
         
-                                            <label for="example-password-input" class="col-sm-2 col-form-label text-left">Tgl Lahir <small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Tgl Lahir <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control datepicker" id="penjemput_lahir" name="penjemput_lahir">
                                             </div>
                                         </div>     
                 
                                         <div class="form-group row">
-                                            <label for="example-number-input" class="col-sm-3 col-form-label text-left">Agama <small class="text-danger">*</small></label>
+                                            <label for="example-number-input" class="col-sm-3 col-form-label text-right">Agama <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_agama" id="penjemput_agama"></select>
                                             </div>
@@ -473,29 +473,29 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group row">
-                                            <label for="example-number-input" class="col-sm-3 col-form-label text-left">Hubungan <small class="text-danger">*</small></label>
+                                            <label for="example-number-input" class="col-sm-3 col-form-label text-right">Hubungan <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_hubungan" id="penjemput_hubungan"></select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Pekerjaan</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Pekerjaan</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="penjemput_kerja" name="penjemput_kerja">
                                             </div>
                                         </div> 
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Tingkat Pendidikan</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Tingkat Pendidikan</label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_pdk" id="penjemput_pdk"></select>
                                             </div>
                                         </div> 
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor HP</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor HP</label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="penjemput_hp" name="penjemput_hp" onkeypress="return angka(this, event)">
                                             </div>
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-left">Nomor WA</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor WA</label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="penjemput_wa" name="penjemput_wa" onkeypress="return angka(this, event)">
                                             </div>
@@ -504,20 +504,20 @@
                                         
                                     </div>
                                 </div>
-                                 --}}
+                                 
                                 <hr class="hr-dashed">
         
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-3 col-form-label text-left">Provinsi <small class="text-danger">*</small></label>
+                                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">Provinsi <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_provinsi" id="penjemput_provinsi" onchange="showPenjemputProvinsi(this)"></select>
                                             </div>
                                         </div>
                                
                                         <div class="form-group row">
-                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-left">Kecamatan<small class="text-danger">*</small></label>
+                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-right">Kecamatan<small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_kecamatan" id="penjemput_kecamatan"></select>
                                             </div>
@@ -527,20 +527,20 @@
                                     <div class="col-sm-6">
                                        
                                         <div class="form-group row">
-                                            <label for="example-email-input" class="col-sm-3 col-form-label text-left">Kab/Kota <small class="text-danger">*</small></label>
+                                            <label for="example-email-input" class="col-sm-3 col-form-label text-right">Kab/Kota <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_kota" id="penjemput_kota" onchange="showPenjemputKota(this)"></select>
                                             </div>
                                         </div> 
                                     
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-left">Alamat<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Alamat<small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="penjemput_alamat" name="penjemput_alamat">
                                             </div>
                                         </div>                        
                                     </div>
-                                </div>
+                                </div> --}}
    
                                    
                             </div>
@@ -569,6 +569,13 @@
 
                             <div class="col-md-3">
                                 <div class="mb-1">
+                                    <label class="form-label" for="username">Petugas <small class="text-danger">*</small></label>
+                                    <input type="text" class="form-control" id="" name="" value="{{ Auth::user()->name }}" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-1">
                                     <label class="form-label" for="username">Tanggal Daftar <small class="text-danger">*</small></label>
                                     <input type="text" class="form-control datepicker" id="tgl_daftar" name="tgl_daftar">
                                 </div>
@@ -588,16 +595,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-9">
                                 <div class="mb-1">
                                     <label class="form-label" for="username">Paket <small class="text-danger">*</small></label>
                                     <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-1">
-                                    <label class="form-label" for="username">QTY <small class="text-danger">*</small></label>
-                                    <input class="form-control" type="number" id="qty" name="qty">
                                 </div>
                             </div>
                             <div class="col-md-3 mt-3">
@@ -1286,207 +1287,6 @@
 
         }
 
-        
-         
-
-        // else if (!$("#penjemput_nama").val()) {
-        //     $.toast({
-        //         text: 'NAMA PENJEMPUT MASIH KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_nama").focus();
-        //     return false;
-
-        // } 
-        
-        // else if (!$("#penjemput_nik").val()) {
-        //     $.toast({
-        //         text: 'NIK PENJEMPUT MASIH KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_nik").focus();
-        //     return false;
-
-        // }
-
-        // else if (!$("#penjemput_tmp_lahir").val()) {
-        //     $.toast({
-        //         text: 'TANGGAL LAHIR PENJEMPUT KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_tmp_lahir").focus();
-        //     return false;
-
-        // }
-
-        // else if (!$("#penjemput_lahir").val()) {
-        //     $.toast({
-        //         text: 'TANGGAL LAHIR PENJEMPUT  KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_lahir").focus();
-        //     return false;
-
-        // }
-
-        // else if (!$("#penjemput_agama").val()) {
-        //     $.toast({
-        //         text: 'AGAMA PENJEMPUT KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_agama").focus();
-        //     return false;
-
-        // }
-
-        // else if (!$("#penjemput_hubungan").val()) {
-        //     $.toast({
-        //         text: 'HUBUNGAN PENJEMPUT KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_hubungan").focus();
-        //     return false;
-
-        // }
-
-        // else if (!$("#penjemput_kerja").val()) {
-        //     $.toast({
-        //         text: 'KERJA PENJEMPUT KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_kerja").focus();
-        //     return false;
-
-        // }
-
-        // else if (!$("#penjempu_kerja").val()) {
-        //     $.toast({
-        //         text: 'PERUSAHAAN PENJEMPUT MASIH KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjempu_kerja").focus();
-        //     return false;
-
-        // } 
-
-        
-        // else if (!$("#penjemput_hp").val()) {
-        //     $.toast({
-        //         text: 'HP penjemput MASIH KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_hp").focus();
-        //     return false;
-
-        // } 
-
-        // else if (!$("#penjemput_wa").val()) {
-        //     $.toast({
-        //         text: 'WA PENJEMPUT MASIH KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_wa").focus();
-        //     return false;
-
-        // } 
-
-        // else if (!$("#penjemput_provinsi").val()) {
-        //     $.toast({
-        //         text: 'PROVINSI MASIH KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_provinsi").focus();
-        //     return false;
-
-        // } 
-
-        // else if (!$("#penjemput_kota").val()) {
-        //     $.toast({
-        //         text: 'KOTA MASIH KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_kota").focus();
-        //     return false;
-
-        // } 
-
-        // else if (!$("#penjemput_kecamatan").val()) {
-        //     $.toast({
-        //         text: 'KECAMATAN MASIH KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_kecamatan").focus();
-        //     return false;
-
-        // } 
-        
-        // else if (!$("#penjemput_alamat").val()) {
-        //     $.toast({
-        //         text: 'ALAMAT MASIH KOSONG',
-        //         position: 'top-right',
-        //         loaderBg: '#fff716',
-        //         icon: 'error',
-        //         hideAfter: 3000
-        //     });
-
-        //     $("#penjemput_alamat").focus();
-        //     return false;
-
-        // }
-
-
         // ANAK
 
         var total_biaya     = $('#total_biaya').text();
@@ -1528,25 +1328,8 @@
         var kecamatan       = $('#kecamatan').val();
         var alamat          = $('#alamat').val(); 
 
-        var penjemput_nama       = $('#penjemput_nama').val();
-        var penjemput_nik        = $('#penjemput_nik').val();
-        var penjemput_tmp_lahir  = $('#penjemput_tmp_lahir').val();
-        var penjemput_lahir      = $('#penjemput_lahir').val();
-        var penjemput_kerja      = $('#penjemput_kerja').val();
-        var penjemput_hp         = $('#penjemput_hp').val();
-        var penjemput_wa         = $('#penjemput_wa').val();
-        var penjemput_pdk        = $('#penjemput_pdk').val();
-        var penjemput_agama      = $('#penjemput_agama').val();
-        var penjemput_jekel      = $('#penjemput_jekel').val();
-        var penjemput_hubungan   = $('#penjemput_hubungan').val();
-
-        var penjemput_provinsi   = $('#penjemput_provinsi').val();
-        var penjemput_kota       = $('#penjemput_kota').val();
-        var penjemput_kecamatan  = $('#penjemput_kecamatan').val();
-        var penjemput_alamat     = $('#penjemput_alamat').val(); 
-
-        var periode              = $('#periode').val(); 
-        var tgl_daftar           = $('#tgl_daftar').val(); 
+        var periode         = $('#periode').val(); 
+        var tgl_daftar      = $('#tgl_daftar').val(); 
         var kategori        = $('#kategori').val();
         
         var token = $('[name=_token]').val();
@@ -1594,22 +1377,6 @@
         formData.append('kecamatan', kecamatan);
         formData.append('alamat', alamat);
 
-        formData.append('penjemput_nama', penjemput_nama);
-        formData.append('penjemput_nik', penjemput_nik);
-        formData.append('penjemput_lahir', penjemput_lahir);
-        formData.append('penjemput_tmp_lahir', penjemput_tmp_lahir);
-        formData.append('penjemput_kerja', penjemput_kerja);
-        formData.append('penjemput_hp', penjemput_hp);
-        formData.append('penjemput_wa', penjemput_wa);
-        formData.append('penjemput_agama', penjemput_agama);
-        formData.append('penjemput_pdk', penjemput_pdk);
-        formData.append('penjemput_jekel', penjemput_jekel);
-        formData.append('penjemput_hubungan', penjemput_hubungan);
-        formData.append('penjemput_provinsi', penjemput_provinsi);
-        formData.append('penjemput_kota', penjemput_kota);
-        formData.append('penjemput_kecamatan', penjemput_kecamatan);
-        formData.append('penjemput_alamat', penjemput_alamat);
-
         formData.append('periode', periode);
         formData.append('tgl_daftar', tgl_daftar);
         formData.append('kategori', kategori);
@@ -1652,16 +1419,17 @@
 
     $('#detail_save').on('click', function(){
 
-        if (!$("#periode").val()) {
+
+        if (!$("#tgl_daftar").val()) {
             $.toast({
-                text: 'PERIODE HARUS DI ISI',
+                text: 'TANGGAL DAFTAR DI ISI',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
 
-            $("#periode").focus();
+            $("#tgl_daftar").focus();
             return false;
         }
 
@@ -1691,23 +1459,7 @@
             return false;
         } 
 
-        else if (!$("#qty").val()) {
-            $.toast({
-                text: 'QTY HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#qty").focus();
-            return false;
-        }
-
-
-      
-
-        var qty         = $('#periode').val();
+        var qty             = $('#qty').val();
         var periode         = $('#periode').val();
         var kategori        = $('#kategori').val();
         var grup            = $('#grup').val();
@@ -1715,7 +1467,7 @@
         var tarif_kode      = $('#tarif_kode').val();
         var anak_kode       = $('#anak_kode').val(); 
         var trs_kode        = $('#trs_kode').val(); 
-        var total_tarif        = $('#total_tarif').text(); 
+        var total_tarif     = $('#total_tarif').text(); 
 
         var token = $('[name=_token]').val();
         var formData = new FormData();
@@ -1723,7 +1475,6 @@
         formData.append('qty', qty);
         formData.append('anak_kode', anak_kode);
         formData.append('trs_kode', trs_kode);
-        formData.append('periode', periode);
         formData.append('grup', grup);
         formData.append('paket', paket);
         formData.append('kategori', kategori);
@@ -1830,69 +1581,6 @@
                     $('[name="alamat"]').val(data.ortu_alamat).prop('disabled', true);
 
                 }
-
-              
-
-               
-               
-                
-                // if (data != null) {
-                //     $('[name="ayah_nama"]').val(data.ortu_ayah).prop('disabled', true);
-                //     $('[name="ayah_nik"]').val(data.ortu_ayah_nik).prop('disabled', true);
-                //     $('[name="ayah_tmp_lahir"]').val(data.ortu_ayah_tmp_lahir).prop('disabled', true);
-                //     $('[name="ayah_lahir"]').datepicker('setDate',moment(data.ortu_ayah_tgl_lahir).format('DD-MM-YYYY')).prop('disabled', true);
-                //     $('[name="ayah_kerja"]').val(data.ortu_ayah_kerja).prop('disabled', true);
-                //     $('[name="ayah_hp"]').val(data.ortu_ayah_hp).prop('disabled', true);
-                //     $('[name="ayah_wa"]').val(data.ortu_ayah_wa).prop('disabled', true);
-                //     $('[name="ayah_pdk"]').val(data.ortu_ayah_pdk_id).trigger("change").prop('disabled', true);
-                //     $('[name="ayah_agama"]').val(data.ortu_ayah_agama_id).trigger("change").prop('disabled', true);
-
-                //     $('[name="ibu_nama"]').val(data.ortu_ibu).prop('disabled', true);
-                //     $('[name="ibu_nik"]').val(data.ortu_ibu_nik).prop('disabled', true);
-                //     $('[name="ibu_tmp_lahir"]').val(data.ortu_ibu_tmp_lahir).prop('disabled', true);
-                //     $('[name="ibu_lahir"]').datepicker('setDate',moment(data.ortu_ibu_tgl_lahir).format('DD-MM-YYYY')).prop('disabled', true);
-                //     $('[name="ibu_kerja"]').val(data.ortu_ibu_kerja).prop('disabled', true);
-                //     $('[name="ibu_hp"]').val(data.ortu_ibu_hp).prop('disabled', true);
-                //     $('[name="ibu_wa"]').val(data.ortu_ibu_wa).prop('disabled', true);
-                //     $('[name="ibu_pdk"]').val(data.ortu_ibu_pdk_id).trigger("change").prop('disabled', true);
-                //     $('[name="ibu_agama"]').val(data.ortu_ibu_agama_id).trigger("change").prop('disabled', true);
-
-                //     $('[name="provinsi"]').val(data.prov_kode).trigger("change").prop('disabled', true);
-                //     $('[name="kota"]').val(data.kota_kode).trigger("change").prop('disabled', true);
-                //     $('[name="kecamatan"]').val(data.kec_kode).trigger("change").prop('disabled', true);
-                //     $('[name="alamat"]').val(data.ortu_alamat).prop('disabled', true);
-                // } else  {
-                //     $('[name="ayah_nama"]').val(data.ortu_ayah);
-                //     $('[name="ayah_nik"]').val(data.ortu_ayah_nik);
-                //     $('[name="ayah_tmp_lahir"]').val(data.ortu_ayah_tmp_lahir);
-                //     $('[name="ayah_lahir"]').datepicker('setDate',moment(data.ortu_ayah_tgl_lahir).format('DD-MM-YYYY'));
-                //     $('[name="ayah_kerja"]').val(data.ortu_ayah_kerja);
-                //     $('[name="ayah_hp"]').val(data.ortu_ayah_hp);
-                //     $('[name="ayah_wa"]').val(data.ortu_ayah_wa);
-                //     $('[name="ayah_pdk"]').val(data.ortu_ayah_pdk_id).trigger("change");
-                //     $('[name="ayah_agama"]').val(data.ortu_ayah_agama_id).trigger("change");
-
-                //     $('[name="ibu_nama"]').val(data.ortu_ibu);
-                //     $('[name="ibu_nik"]').val(data.ortu_ibu_nik);
-                //     $('[name="ibu_tmp_lahir"]').val(data.ortu_ibu_tmp_lahir);
-                //     $('[name="ibu_lahir"]').datepicker('setDate',moment(data.ortu_ibu_tgl_lahir).format('DD-MM-YYYY'));
-                //     $('[name="ibu_kerja"]').val(data.ortu_ibu_kerja);
-                //     $('[name="ibu_hp"]').val(data.ortu_ibu_hp);
-                //     $('[name="ibu_wa"]').val(data.ortu_ibu_wa);
-                //     $('[name="ibu_pdk"]').val(data.ortu_ibu_pdk_id).trigger("change");
-                //     $('[name="ibu_agama"]').val(data.ortu_ibu_agama_id).trigger("change");
-
-                //     $('[name="provinsi"]').val(data.prov_kode).trigger("change");
-                //     $('[name="kota"]').val(data.kota_kode).trigger("change");
-                //     $('[name="kecamatan"]').val(data.kec_kode).trigger("change");
-                //     $('[name="alamat"]').val(data.ortu_alamat);
-                // }
-
-       
-                
-                
-                
-
             }
         });
 

@@ -536,7 +536,7 @@
                         tr.find('td:nth-child(1)').html((i + 1));
 
                         tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].tarif_nama))); 
+                            .html((data[i].item_nama))); 
 
                         tr.find('td:nth-child(3)').append($('<div>')
                             .html((data[i].detail)));   

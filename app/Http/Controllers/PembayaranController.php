@@ -304,6 +304,7 @@ class PembayaranController extends Controller
                     ->table('daftar_tc_transaksi_detail AS aa')
                     ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
                     ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','bb.jenis_kode')
+                    ->leftjoin('tarif_tb_item AS dd','dd.item_kode','aa.item_kode')
                     ->where('aa.trs_kode',$kode)
                     ->orderby('aa.detail_id','desc')
                     ->get();
@@ -326,9 +327,11 @@ class PembayaranController extends Controller
         $jatuh_tempo = format_indo($data->trs_jatuh_tempo);    
         $sisa        = format_rupiah($tagihan->trs_sisa); 
         $sub_total   = format_rupiah($tagihan->trs_total);            
-        $bayar       = format_rupiah($data->bayar_total);            
+        $bayar       = format_rupiah($data->bayar_total);   
+        $get_bayar = Pembayaran::where('trs_kode',$kode)->first();
+        $bayar_ket = $get_bayar->bayar_ket;         
 
-        $pdf = PDF::loadview('pembayaran.cetak',compact('status','sub_total','sisa','bayar','data','app','tagihan','tgl_lahir','tgl_bayar','jatuh_tempo','jekel','tagihan_detail'));
+        $pdf = PDF::loadview('pembayaran.cetak',compact('bayar_ket','status','sub_total','sisa','bayar','data','app','tagihan','tgl_lahir','tgl_bayar','jatuh_tempo','jekel','tagihan_detail'));
         return $pdf->stream('Invoice Pembayaran.pdf');
 
     }
@@ -362,6 +365,7 @@ class PembayaranController extends Controller
                     ->table('daftar_tc_transaksi_detail AS aa')
                     ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
                     ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','bb.jenis_kode')
+                    ->leftjoin('tarif_tb_item AS dd','dd.item_kode','aa.item_kode')
                     ->where('aa.trs_kode',$kode)
                     ->orderby('aa.detail_id','desc')
                     ->get();
@@ -400,10 +404,12 @@ class PembayaranController extends Controller
 
         });
         
+        $get_bayar = Pembayaran::where('trs_kode',$kode)->first();
+        $bayar_ket = $get_bayar->bayar_ket;
         $total_bayar = format_rupiah($bayar->where('trs_kode',$id)->sum('bayar_total'));
             
 
-        $pdf = PDF::loadview('pembayaran.cetak_all',compact('total_tagihan','total_bayar','bayar','data','jekel','tgl_lahir','jatuh_tempo','tagihan_detail','status','sisa'));
+        $pdf = PDF::loadview('pembayaran.cetak_all',compact('bayar_ket','total_tagihan','total_bayar','bayar','data','jekel','tgl_lahir','jatuh_tempo','tagihan_detail','status','sisa'));
         return $pdf->stream('Invoice Pembayaran.pdf');
 
     }

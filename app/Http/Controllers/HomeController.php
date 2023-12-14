@@ -57,7 +57,6 @@ class HomeController extends Controller
 
                             'aa.member_id',
                             'aa.anak_kode',
-                            'aa.periode_id',
                             'aa.tarif_kode',
                             'aa.grup_kode',
                             'aa.kat_kode',

@@ -106,7 +106,6 @@ class PendaftaranDetailController extends Controller
                     $qty         = $r->qty; 
 
                     $tmp->detail_kode    = $detail_kode;
-                    $tmp->periode_id     = $r->periode;
                     $tmp->grup_kode      = $r->grup;
                     $tmp->kat_kode       = $r->kategori;
                     $tmp->tarif_kode     = $tarif->tarif_kode;  
