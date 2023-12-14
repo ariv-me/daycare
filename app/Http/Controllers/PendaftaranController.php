@@ -114,7 +114,6 @@ class PendaftaranController extends Controller
                 $daftar->trs_jatuh_tempo    = date('Y-m-d', strtotime(now()->parse($r->tgl_daftar)->addDays($days)));
                 $daftar->trs_kode       = $daftar_kode;
                 $daftar->anak_kode      = $anak_kode;
-                $daftar->periode_id     = $r->periode;
                 $daftar->tarif_kode     = $tarif->tarif_kode; 
                 $daftar->grup_kode      = $tarif->grup_kode;
                 $daftar->kat_kode       = $r->kategori;
@@ -149,7 +148,6 @@ class PendaftaranController extends Controller
                 $member->anak_kode      = $anak_kode;
                 $member->member_tgl     = date('Y-m-d', strtotime($r->tgl_daftar));
                 $member->trs_kode       = $daftar_kode;
-                $member->periode_id     = $r->periode;
                 $member->tarif_kode     = $tarif->tarif_kode;
                 $member->grup_kode      = $tarif->grup_kode;
                 $member->kat_kode       = $tarif->kat_kode;
@@ -317,7 +315,6 @@ class PendaftaranController extends Controller
                 $days                   = Carbon::now()->month($mounth)->daysInMonth;
                 $daftar->trs_tgl        = date('Y-m-d', strtotime($r->tgl_daftar));
                 $daftar->trs_jatuh_tempo    = date('Y-m-d', strtotime(now()->parse($r->tgl_daftar)->addDays($days)));
-                $daftar->periode_id     = $r->periode;
                 $daftar->tarif_kode     = $tarif->tarif_kode;
                 $daftar->grup_kode      = $tarif->grup_kode;
                 $daftar->kat_kode       = $tarif->kat_kode;
@@ -336,7 +333,6 @@ class PendaftaranController extends Controller
                 $member = Member::where('anak_kode',$r->anak_kode)->first();
 
                 $member->anak_kode      = $r->anak_kode;
-                $member->periode_id     = $r->periode;
                 $member->tarif_kode     = $tarif->tarif_kode;
                 $member->grup_kode      = $tarif->grup_kode;
                 $member->kat_kode       = $tarif->kat_kode;

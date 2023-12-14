@@ -277,6 +277,7 @@ class TagihanController extends Controller
             $data = DB::connection('daycare')
                         ->table('daftar_tc_transaksi_detail AS aa')
                         ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
+                        ->leftjoin('tarif_tb_item AS cc','cc.item_kode','aa.item_kode')
                         ->where('aa.detail_aktif','Y')
                         ->where('aa.trs_kode',$kode)
                         ->orderby('aa.detail_id','desc')

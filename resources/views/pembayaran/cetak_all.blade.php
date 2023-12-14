@@ -275,7 +275,7 @@
             <tr>
                 <td class="no" style="text-align:center;">{{ $no++ }}</td>
                 <td class="unit">{{$row->detail_kode}}</td>
-                <td class="desc"><h3>{{$row->jenis_nama}}</h3>{{$row->tarif_nama}}</td>
+                <td class="desc"><h3>{{$row->jenis_nama}}</h3>{{$row->item_nama}}</td>
                 <td class="total">{{$row->detail}}</td>
             </tr>
           @endforeach 
@@ -325,10 +325,14 @@
       </table>
       <div id="thanks">Thank you!</div>
       <div id="notices">
-        <div>STATUS :</div>
+        <div><b>Status :</b></div>
         <div class="notice">{{$status}}, Sisa tagihan : <b>{{$sisa}}</b></div>
+        <br>
+        <div><b> Keterangan : </b></div>
+        <div class="notice"> {{ $bayar_ket }}</div>
       </div>
     </main>
+    
     <footer>
       Invoice was created on a computer and is valid without the signature and seal.
     </footer>

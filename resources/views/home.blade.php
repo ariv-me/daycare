@@ -31,23 +31,6 @@
         <div class="col-md-6 col-lg-4">
             <div class="card report-card">
                 <div class="card-body">
-                    <div class="row d-flex justify-content-center">
-                        <div class="col">
-                            <p class="text-dark mb-1 font-weight-semibold">Total Member</p>
-                            <h2 class="my-2" id="member_total"></h2>
-                        </div>
-                        <div class="col-auto align-self-center">
-                            <div class="report-main-icon bg-light-alt">
-                                <i class="dripicons-user-group"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end card-body--> 
-            </div><!--end card--> 
-        </div> <!--end col--> 
-        <div class="col-md-6 col-lg-4">
-            <div class="card report-card">
-                <div class="card-body">
                     <div class="row d-flex justify-content-center">                                                
                         <div class="col">
                             <p class="text-dark mb-1 font-weight-semibold">Laki-Laki</p>
@@ -78,7 +61,24 @@
                     </div>
                 </div><!--end card-body--> 
             </div><!--end card--> 
-        </div> <!--end col-->         
+        </div> <!--end col-->   
+        <div class="col-md-6 col-lg-4">
+            <div class="card report-card">
+                <div class="card-body">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col">
+                            <p class="text-dark mb-1 font-weight-semibold">Total Member</p>
+                            <h2 class="my-2" id="member_total"></h2>
+                        </div>
+                        <div class="col-auto align-self-center">
+                            <div class="report-main-icon bg-light-alt">
+                                <i class="dripicons-user-group"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end card-body--> 
+            </div><!--end card--> 
+        </div> <!--end col-->       
     </div>
 </div>
 <div class="col-lg-8">
@@ -111,13 +111,13 @@
                     <div class="col-md-3">
                         <div class="mb-2">
                             <label class="form-label" for="subject">Terbayar  </label><br>
-                            <span  class="h3 text-success text-strong mt-2">Rp. </span><span class="h3 text-success mt-2" id="total_terbayar"></span>      
+                            <span  class="h5 text-success text-strong mt-2">Rp. </span><span class="h4 text-success font-20 mt-2" id="total_terbayar"></span>      
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="mb-2">
                             <label class="form-label" for="subject">Tagihan  </label><br>
-                            <span  class="h3 text-danger text-strong mt-2">Rp. </span><span class="h3 text-danger mt-2" id="total_tagihan"></span>      
+                            <span  class="h5 text-danger text-strong mt-2">Rp. </span><span class="h4 text-danger font-20 mt-2" id="total_tagihan"></span>      
                         </div>
                     </div>
                 </div>

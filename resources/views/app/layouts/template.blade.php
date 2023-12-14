@@ -47,7 +47,7 @@
         <style>
 
             .form-control:disabled, .form-control[readonly] {
-                background-color: #eeeeee;
+                background-color: #f1f5fa;
                 opacity: 1;
             }
 
