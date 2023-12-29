@@ -66,7 +66,7 @@ class TagihanController extends Controller
                                 ->where('aa.trs_kode',null)
                                 ->where('aa.anak_kode',null)
                                 ->where('aa.tarif_kode',$r->paket)
-                                ->where('bb.jenis_kode','JN0001')
+                                //->where('bb.jenis_kode','JN0001')
                                 ->first();
 
             if ($tarif == null) {
@@ -79,7 +79,7 @@ class TagihanController extends Controller
                                 ->where('aa.trs_kode',null)
                                 ->where('aa.anak_kode',null)
                                 ->where('aa.tarif_kode',$r->paket)
-                                ->where('bb.jenis_kode','JN0002')
+                               // ->where('bb.jenis_kode','JN0002')
                                 ->first();
 
             }
@@ -90,7 +90,6 @@ class TagihanController extends Controller
             $tmp->trs_jatuh_tempo = date('Y-m-d', strtotime($r->jatuh_tempo));
             $tmp->trs_kode       = $daftar_kode;
             $tmp->anak_kode      = $r->anak;
-            $tmp->periode_id     = $r->periode;
             $tmp->tarif_kode     = $tarif->tarif_kode; 
             $tmp->grup_kode      = $r->grup;
             $tmp->kat_kode       = $r->kategori;
