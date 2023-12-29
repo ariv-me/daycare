@@ -220,6 +220,7 @@ class TagihanController extends Controller
                 $value->trs_jatuh_tempo = format_indo($value->trs_jatuh_tempo);
                 $value->trs_tgl         = format_indo($value->trs_tgl);
                 $value->tarif_total     = format_rupiah($value->trs_sisa);
+                
 
                 if($value->anak_jekel == 'L'){
                     $value->anak_jekel = 'Laki - Laki';
@@ -304,7 +305,7 @@ class TagihanController extends Controller
 
             $result['success'] = true;
             $result['data'] = $data;
-            $result['total'] = format_rupiah($total->sum('trs_total'));
+            $result['total'] = format_rupiah($total->sum('trs_sisa'));
 
         return response()->json($result);
 
