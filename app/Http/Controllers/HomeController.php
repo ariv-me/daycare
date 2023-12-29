@@ -117,6 +117,7 @@ class HomeController extends Controller
                                 ->leftjoin('tarif_ta_jenis AS ff','ff.jenis_kode','ee.jenis_kode')         
                                 ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')         
                                 ->orderby('aa.trs_id','desc')
+                                ->where('aa.trs_status','U')
                                 ->get();
                 } else {
 
@@ -130,6 +131,7 @@ class HomeController extends Controller
                                 ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')   
                                 ->whereRaw('MONTH(trs_jatuh_tempo) = '.$bulan)  
                                 ->orderby('aa.trs_id','desc')
+                                ->where('aa.trs_status','U')
                                 ->get();
 
                 }
@@ -149,6 +151,7 @@ class HomeController extends Controller
                             ->leftjoin('tarif_ta_kategori AS gg','gg.kat_kode','aa.kat_kode')     
                             ->where('aa.anak_kode',$anak)    
                             ->orderby('aa.trs_id','desc')
+                            ->where('aa.trs_status','U')
                             ->get();
                 } else {
                     $data = DB::connection('daycare')
@@ -162,6 +165,7 @@ class HomeController extends Controller
                             ->where('aa.anak_kode',$anak)   
                             ->whereRaw('MONTH(trs_jatuh_tempo) = '.$bulan)  
                             ->orderby('aa.trs_id','desc')
+                            ->where('aa.trs_status','U')
                             ->get();
             
                 }

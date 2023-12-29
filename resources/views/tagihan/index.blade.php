@@ -86,6 +86,12 @@
                             <select class="form-control custom-select select2" style="width: 100%;" name="filter_bulan" id="filter_bulan" onchange="filterBulan(this)"></select>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label" for="subject">Status  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="filter_status" id="filter_status" onchange="filterStatus(this)"></select>
+                        </div>
+                    </div>
                 </div>
               
                 <div class="row">
@@ -326,11 +332,13 @@
 
         combo_filter_anak();
         combo_filter_bulan();
+        combo_filter_status();
 
         var anak  = $('#filter_anak').val();
         var bulan = $('#filter_bulan').val();
+        var status = $('#filter_status').val();
 
-        view(anak,bulan);
+        view(anak,bulan,status);
     
 
     });
@@ -338,15 +346,25 @@
     function filterAnak(){
         var anak = $('#filter_anak').val();
         var bulan = $('#filter_bulan').val();
+        var status = $('#filter_status').val();
 
-        view(anak,bulan);
+        view(anak,bulan,status);
     }
 
     function filterBulan(){
         var anak = $('#filter_anak').val();
         var bulan = $('#filter_bulan').val();
+        var status = $('#filter_status').val();
 
-        view(anak,bulan);
+        view(anak,bulan,status);
+    }
+
+    function filterStatus(){
+        var anak = $('#filter_anak').val();
+        var bulan = $('#filter_bulan').val();
+        var status = $('#filter_status').val();
+
+        view(anak,bulan,status);
     }
 
 
@@ -411,8 +429,9 @@
 
                 var anak  = $('#filter_anak').val();
                 var bulan = $('#filter_bulan').val();
+                var status = $('#filter_status').val();
 
-                view(anak,bulan);
+                view(anak,bulan,status);
 
                 swal("Berhasil!", "Data Berhasil Disimpan", "success");
                 $('#formModalBayar').modal('hide');
@@ -425,14 +444,14 @@
 
     })
     ;
-    function view(anak,bulan) {
+    function view(anak,bulan,status) {
 
         $.ajax({
             type: 'GET',
             url: "{{ route('tagihan.view') }}",
             async: true,
             dataType: 'JSON',
-            data:{anak:anak,bulan:bulan},
+            data:{anak:anak,bulan:bulan,status:status},
             success: function(r) {
                 var i;
                 $('#datatable').DataTable().destroy(); 
@@ -592,8 +611,9 @@
 
                 var anak  = $('#filter_anak').val();
                 var bulan = $('#filter_bulan').val();
+                var status = $('#filter_status').val();
 
-                view(anak,bulan);
+                view(anak,bulan,status);
                 view_detail(id);
             }
         });
@@ -747,6 +767,19 @@
             '<option value="12">Desember</option>';
 
         $('select[name=filter_bulan]').append(html)
+
+    }
+
+    function combo_filter_status(){
+
+    $('select[name=filter_status]').empty()
+        var html = '';
+        html = 
+            '<option value="U">Belum Lunas</option>'+
+            '<option value="L">Lunas</option>'+
+            '<option value="Semua">Semua</option>';
+
+        $('select[name=filter_status]').append(html)
 
     }
 
