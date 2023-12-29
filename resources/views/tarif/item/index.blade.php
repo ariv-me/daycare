@@ -43,7 +43,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"> <strong>Tambah Data Harga</strong> </h5>
+                <h5 class="modal-title"> <i class="fas fa-plus-circle"></i> <strong>Tarif - Item</strong> </h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
@@ -51,56 +51,27 @@
                 {!! csrf_field() !!}
                 <div class="row">
 
-                    <div class="col-md-12 mb-0">
+                    <div class="col-md-12 mb-2">
                         <div class="form-group">
                             <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
                             <input type="text" name="nama" id="nama" class="form-control col-md-12">
                         </div>
                     </div>  
 
-                    <div class="col-md-12 mb-0">
+                    <div class="col-md-12 mb-2">
                         <div class="form-group">
-                            <label> <strong>Kategori</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori"></select>
+                            <label> <strong>Jenis</strong>  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="jenis" id="jenis"></select>
                         </div>
                     </div>   
   
                     <div class="col-md-12 mb-3">
-                        <label> <strong>Registrasi</strong>  <small class="text-danger">*</small></label>
+                        <label> <strong>Nominal</strong>  <small class="text-danger">*</small></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp.</span>
                             </div>
-                            <input type="text" name="registrasi" id="registrasi" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
-                        </div>
-                    </div>  
-
-                    <div class="col-md-12 mb-3">
-                        <label> <strong>Gizi</strong>  <small class="text-danger">*</small></label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Rp.</span>
-                            </div>
-                            <input type="text" name="gizi" id="gizi" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
-                        </div>
-                    </div>  
-
-                    <div class="col-md-12 mb-3">
-                        <label> <strong>Bulanan</strong>  <small class="text-danger">*</small></label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Rp.</span>
-                            </div>
-                            <input type="text" name="bulanan" id="bulanan" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
-                        </div>
-                    </div>  
-                    <div class="col-md-12 mb-3">
-                        <label> <strong>Pembangunan</strong>  <small class="text-danger">*</small></label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Rp.</span>
-                            </div>
-                            <input type="text" name="pembangunan" id="pembangunan" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
+                            <input type="text" name="nominal" id="nominal" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
                         </div>
                     </div>  
                 </div>
@@ -127,54 +98,27 @@
 
                 <div class="row">
 
-                    <div class="col-md-12 mb-0">
+                    <div class="col-md-12 mb-2">
                         <div class="form-group">
                             <label> <strong>Nama</strong>  <small class="text-danger">*</small></label>
                             <input type="text" name="nama" id="nama_edit" class="form-control col-md-12">
                         </div>
-                    </div> 
+                    </div>  
 
-                    <div class="col-md-12 mb-0">
+                    <div class="col-md-12 mb-2">
                         <div class="form-group">
-                            <label> <strong>kategori</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="kategori" id="kategori_edit"></select>
+                            <label> <strong>Jenis</strong>  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="jenis" id="jenis_edit"></select>
                         </div>
-                    </div>  
-                 
+                    </div>   
+  
                     <div class="col-md-12 mb-3">
-                        <label> <strong>Registrasi</strong>  <small class="text-danger">*</small></label>
+                        <label> <strong>Nominal</strong>  <small class="text-danger">*</small></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp.</span>
                             </div>
-                            <input type="text" name="registrasi" id="registrasi_edit" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
-                        </div>
-                    </div>  
-                    <div class="col-md-12 mb-3">
-                        <label> <strong>Gizi</strong>  <small class="text-danger">*</small></label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Rp.</span>
-                            </div>
-                            <input type="text" name="gizi" id="gizi_edit" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
-                        </div>
-                    </div>  
-                    <div class="col-md-12 mb-3">
-                        <label> <strong>Bulanan</strong>  <small class="text-danger">*</small></label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Rp.</span>
-                            </div>
-                            <input type="text" name="bulanan" id="bulanan_edit" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
-                        </div>
-                    </div>  
-                    <div class="col-md-12 mb-3">
-                        <label> <strong>Pembangunan</strong>  <small class="text-danger">*</small></label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Rp.</span>
-                            </div>
-                            <input type="text" name="pembangunan" id="pembangunan_edit" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
+                            <input type="text" name="nominal" id="nominal_edit" class="form-control col-md-12" maxlength="15" onkeypress="return angka(this, event)">
                         </div>
                     </div>  
                 </div>
@@ -196,9 +140,9 @@
 
     $(document).ready(function(){
 
+       
         $('.select2').select2();
 
-        combo_kategori();
         combo_jenis_tarif();
 
         view();
@@ -208,12 +152,9 @@
     });
 
     function reset() {
-        $('#kategori').val("").trigger("change");;
         $('#jenis').val("").trigger("change");;
-        $('#registrasi').val("");
+        $('#nama').val("");
         $('#bulanan').val("");
-        $('#pembangunan').val("");
-        
     }
 
     $('#btn_add').on('click',function(){
@@ -237,79 +178,39 @@
 
         }
 
-        else if (!$("#kategori").val()) {
+        else if (!$("#jenis").val()) {
             $.toast({
-                text: 'kategori HARUS DI ISI',
+                text: 'JENIS HARUS DI ISI',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
-            $("#kategori").focus();
+            $("#jenis").focus();
             return false;
 
-        }  else if (!$("#registrasi").val()) {
+        }  else if (!$("#nominal").val()) {
             $.toast({
-                text: 'REGISTRASI HARUS DI ISI',
+                text: 'NOMINAL HARUS DI ISI',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
-            $("#registrasi").focus();
-            return false;
-
-        } else if (!$("#gizi").val()) {
-            $.toast({
-                text: 'GIZI HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#gizi").focus();
-            return false;
-
-        } else if (!$("#bulanan").val()) {
-            $.toast({
-                text: 'BULANAN HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#bulanan").focus();
-            return false;
-
-        } else if (!$("#pembangunan").val()) {
-            $.toast({
-                text: 'PEMBANGUNAN HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#pembangunan").focus();
+            $("#nominal").focus();
             return false;
 
         } 
 
-        var nama    = $('#nama').val();
-        var kategori    = $('#kategori').val();
-        var gizi       = $('#gizi').val();
-        var registrasi  = $('#registrasi').val();
-        var bulanan     = $('#bulanan').val();
-        var pembangunan = $('#pembangunan').val();
-        
-        var token = $('[name=_token]').val();
+        var nama     = $('#nama').val();
+        var jenis    = $('#jenis').val();
+        var nominal  = $('#nominal').val();
+        var token    = $('[name=_token]').val();
         var formData = new FormData();
     
         formData.append('nama', nama);
-        formData.append('kategori', kategori);
-        formData.append('gizi', gizi);
-        formData.append('registrasi', registrasi);
-        formData.append('bulanan', bulanan);
-        formData.append('pembangunan', pembangunan);
+        formData.append('jenis', jenis);
+        formData.append('nominal', nominal);
         formData.append('_token', token);
 
         $.ajax({
@@ -343,7 +244,10 @@
             dataType: 'JSON',
             success: function(r) {
                 var i;
+                
                 $('#datatable').DataTable().destroy(); 
+               
+
                 $('#show_data').empty();
                 data = r.data;
                 if (data.length) {
@@ -421,13 +325,10 @@
             success: function(data){
 
                 $('#formModalEdit').modal('show');
-                $('#formModalEdit').find('[name="id_edit"]').val(data.tarif_kode);
-                $('#formModalEdit').find('[name="kategori"]').val(data.kat_id).trigger("change");
-                $('#formModalEdit').find('[name="nama"]').val(data.tarif_nama);
-                $('#formModalEdit').find('[name="gizi"]').val(data.tarif_gizi);
-                $('#formModalEdit').find('[name="registrasi"]').val(data.tarif_reg);
-                $('#formModalEdit').find('[name="bulanan"]').val(data.tarif_spp);
-                $('#formModalEdit').find('[name="pembangunan"]').val(data.tarif_pembg);
+                $('#formModalEdit').find('[name="id_edit"]').val(data.item_kode);
+                $('#formModalEdit').find('[name="jenis"]').val(data.jenis_id).trigger("change");
+                $('#formModalEdit').find('[name="nama"]').val(data.item_nama);
+                $('#formModalEdit').find('[name="nominal"]').val(data.item_nominal);
               
             }
         });
@@ -455,81 +356,42 @@
 
         } 
 
-        else if (!$("#kategori_edit").val()) {
+        else if (!$("#jenis_edit").val()) {
             $.toast({
-                text: 'kategori HARUS DI ISI',
+                text: 'JENIS HARUS DI ISI',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
-            $("#kategori_edit").focus();
+            $("#jenis_edit").focus();
             return false;
 
-        } else if (!$("#registrasi_edit").val()) {
+        } else if (!$("#nominal_edit").val()) {
             $.toast({
-                text: 'REGISTRASI HARUS DI ISI',
+                text: 'NOMINAL HARUS DI ISI',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
-            $("#registrasi_edit").focus();
+            $("#nominal_edit").focus();
             return false;
 
-        } else if (!$("#gizi_edit").val()) {
-            $.toast({
-                text: 'REGISTRASI HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#gizi_edit").focus();
-            return false;
-
-        } else if (!$("#bulanan_edit").val()) {
-            $.toast({
-                text: 'BULANAN HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#bulanan_edit").focus();
-            return false;
-
-        } else if (!$("#pembangunan_edit").val()) {
-            $.toast({
-                text: 'PEMBANGUNAN HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#pembangunan_edit").focus();
-            return false;
-
-        } 
-      
+        }
+       
         var id          = $('#id_edit').val();
         var nama        = $('#nama_edit').val();
-        var kategori    = $('#kategori_edit').val();
-        var gizi        = $('#gizi_edit').val();
-        var registrasi  = $('#registrasi_edit').val();
-        var bulanan     = $('#bulanan_edit').val();
-        var pembangunan = $('#pembangunan_edit').val();
+        var jenis       = $('#jenis_edit').val();
+        var nominal     = $('#nominal_edit').val();
 
         var token = $('[name=_token]').val();
         var formData = new FormData();
 
         formData.append('id', id);
         formData.append('nama', nama);
-        formData.append('kategori', kategori);
-        formData.append('gizi', gizi);
-        formData.append('registrasi', registrasi);
-        formData.append('bulanan', bulanan);
-        formData.append('pembangunan', pembangunan);
+        formData.append('jenis', jenis);
+        formData.append('nominal', nominal);
         formData.append('_token', token);
 
         $.ajax({
@@ -602,33 +464,6 @@
         });
     });
 
-    function combo_kategori(){
-
-        $.ajax({
-            type  : 'GET',
-            url   : "{{ route('combo.combo_tarif_kategori') }}",
-            async : false,
-            dataType : 'JSON',
-            success : function(data){
-                var html = '';
-                var i;
-                $('select[name=kategori]').empty()
-                var x = document.getElementById("kategori");
-                    var option = document.createElement("option");
-                    option.text = "--Pilih--";
-                    option.value = '';
-                    x.add(option);
-
-                for(i=0; i<data.length; i++){
-                    var html = '';
-                    html = '<option value='+(data[i].kat_id)+'>'+(data[i].kat_nama)+'</option>';
-                    $('select[name=kategori]').append(html)
-                }
-            }
-        });
-
-    }
-
     function combo_jenis_tarif(){
 
         $.ajax({
@@ -659,42 +494,17 @@
     
     /*-- FORMAT RUPIAH --*/
 
-    var registrasi_rupiah  = document.getElementById('registrasi');
-    var bulanan_rupiah     = document.getElementById('bulanan');
-    var pembangunan_rupiah = document.getElementById('pembangunan');
+    var nominal  = document.getElementById('nominal');
+    var nominal_edit  = document.getElementById('nominal_edit');
     
-	registrasi_rupiah.addEventListener('keyup', function(e)
+	nominal.addEventListener('keyup', function(e)
 	{
-		registrasi_rupiah.value = formatRupiah(this.value);
+		nominal.value = formatRupiah(this.value);
 	});
 
-	bulanan_rupiah.addEventListener('keyup', function(e)
+    nominal_edit.addEventListener('keyup', function(e)
 	{
-		bulanan_rupiah.value = formatRupiah(this.value);
-	});
-
-	pembangunan_rupiah.addEventListener('keyup', function(e)
-	{
-		pembangunan_rupiah.value = formatRupiah(this.value);
-	});
-
-    var registrasi_rupiah_edit  = document.getElementById('registrasi_edit');
-    var bulanan_rupiah_edit     = document.getElementById('bulanan_edit');
-    var pembangunan_rupiah_edit = document.getElementById('pembangunan_edit');
-    
-	registrasi_rupiah_edit.addEventListener('keyup', function(e)
-	{
-		registrasi_rupiah_edit.value = formatRupiah(this.value);
-	});
-
-	bulanan_rupiah_edit.addEventListener('keyup', function(e)
-	{
-		bulanan_rupiah_edit.value = formatRupiah(this.value);
-	});
-
-	pembangunan_rupiah_edit.addEventListener('keyup', function(e)
-	{
-		pembangunan_rupiah_edit.value = formatRupiah(this.value);
+		nominal_edit.value = formatRupiah(this.value);
 	});
 
 

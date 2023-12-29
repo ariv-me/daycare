@@ -171,6 +171,7 @@
 @section('content')
 
 <div class="loading" id="loading">Loading&#8230;</div>
+{{-- <div class="spinner-grow text-success" role="status" id="loading" class="loading"></div> --}}
 
 <div class="row mt-3">
     <div class="col-12">
@@ -206,25 +207,25 @@
                                         </div> --}}
 
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Nama<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Nama <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="anak_nama" name="anak_nama">
                                             </div>
                                         </div>     
                 
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Jenis Kelamin<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Jenis Kelamin <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="anak_jekel" id="anak_jekel"></select>
                                             </div>
                                         </div>  
             
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Tempat Lahir<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Tempat Lahir <small class="text-danger">*</small></label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="anak_tmp_lahir" name="anak_tmp_lahir">
                                             </div>
-                                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Tgl Lahir<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Tgl Lahir <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control datepicker" id="anak_tgl_lahir" name="anak_tgl_lahir">
                                             </div>
@@ -244,7 +245,7 @@
                                             </div>
                                         </div> 
                                         <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Berat</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Berat <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <div class="input-group">  
                                                     <input type="text" class="form-control" id="anak_berat" name="anak_berat" onkeypress="return angka(this, event)">
@@ -253,7 +254,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Tinggi</label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Tinggi <small class="text-danger">*</small></label>
                                             <div class="col-sm-3">
                                                 <div class="input-group">  
                                                     <input type="text" class="form-control" id="anak_tinggi" name="anak_tinggi" onkeypress="return angka(this, event)">
@@ -323,7 +324,7 @@
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ayah_hp" name="ayah_hp" onkeypress="return angka(this, event)">
                                             </div>
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor WA <small class="text-danger">*</small></label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor WA </label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ayah_wa" name="ayah_wa" onkeypress="return angka(this, event)">
                                             </div>
@@ -378,7 +379,7 @@
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ibu_hp" name="ibu_hp" onkeypress="return angka(this, event)">
                                             </div>
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor WA <small class="text-danger">*</small></label>
+                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor WA </label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="ibu_wa" name="ibu_wa" onkeypress="return angka(this, event)">
                                             </div>
@@ -414,14 +415,14 @@
                                     <div class="col-sm-6">
                                        
                                         <div class="form-group row">
-                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-right">Kecamatan<small class="text-danger">*</small></label>
+                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-right">Kecamatan <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control custom-select select2" style="width: 100%;" name="kecamatan" id="kecamatan"></select>
                                             </div>
                                         </div>
                                     
                                         <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Alamat<small class="text-danger">*</small></label>
+                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Alamat <small class="text-danger">*</small></label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="alamat" name="alamat">
                                             </div>
@@ -429,120 +430,6 @@
 
                                     </div>
                                 </div>
-
-                                {{-- <h4 class="card-title bg-light p-2 mb-3"><i class="fas fa-taxi"></i>  DATA PENJEMPUT</h4>
-                  
-                                <div class="row">
-                                   
-                                    <div class="col-sm-6">
-                                        <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Nama<small class="text-danger">*</small></label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="penjemput_nama" name="penjemput_nama">
-                                            </div>
-                                        </div>     
-                
-                                        <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">NIK<small class="text-danger">*</small></label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="penjemput_nik" name="penjemput_nik" onkeypress="return angka(this, event)">
-                                            </div>
-                                        </div>  
-            
-                
-                                        <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Tempat Lahir<small class="text-danger">*</small></label>
-                                            <div class="col-sm-4">
-                                                <input type="text" class="form-control" id="penjemput_tmp_lahir" name="penjemput_tmp_lahir">
-                                            </div>
-        
-                                            <label for="example-password-input" class="col-sm-2 col-form-label text-right">Tgl Lahir <small class="text-danger">*</small></label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control datepicker" id="penjemput_lahir" name="penjemput_lahir">
-                                            </div>
-                                        </div>     
-                
-                                        <div class="form-group row">
-                                            <label for="example-number-input" class="col-sm-3 col-form-label text-right">Agama <small class="text-danger">*</small></label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_agama" id="penjemput_agama"></select>
-                                            </div>
-                                        </div>
-        
-                                        
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group row">
-                                            <label for="example-number-input" class="col-sm-3 col-form-label text-right">Hubungan <small class="text-danger">*</small></label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_hubungan" id="penjemput_hubungan"></select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Pekerjaan</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="penjemput_kerja" name="penjemput_kerja">
-                                            </div>
-                                        </div> 
-                                        <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Tingkat Pendidikan</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_pdk" id="penjemput_pdk"></select>
-                                            </div>
-                                        </div> 
-                                        <div class="form-group row">
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor HP</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="penjemput_hp" name="penjemput_hp" onkeypress="return angka(this, event)">
-                                            </div>
-                                            <label for="example-datetime-local-input" class="col-sm-3 col-form-label text-right">Nomor WA</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="penjemput_wa" name="penjemput_wa" onkeypress="return angka(this, event)">
-                                            </div>
-                                        </div> 
-                                        
-                                        
-                                    </div>
-                                </div>
-                                 
-                                <hr class="hr-dashed">
-        
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">Provinsi <small class="text-danger">*</small></label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_provinsi" id="penjemput_provinsi" onchange="showPenjemputProvinsi(this)"></select>
-                                            </div>
-                                        </div>
-                               
-                                        <div class="form-group row">
-                                            <label for="example-tel-input" class="col-sm-3 col-form-label text-right">Kecamatan<small class="text-danger">*</small></label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_kecamatan" id="penjemput_kecamatan"></select>
-                                            </div>
-                                        </div>
-                                                           
-                                    </div>
-                                    <div class="col-sm-6">
-                                       
-                                        <div class="form-group row">
-                                            <label for="example-email-input" class="col-sm-3 col-form-label text-right">Kab/Kota <small class="text-danger">*</small></label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control custom-select select2" style="width: 100%;" name="penjemput_kota" id="penjemput_kota" onchange="showPenjemputKota(this)"></select>
-                                            </div>
-                                        </div> 
-                                    
-                                        <div class="form-group row">
-                                            <label for="example-password-input" class="col-sm-3 col-form-label text-right">Alamat<small class="text-danger">*</small></label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="penjemput_alamat" name="penjemput_alamat">
-                                            </div>
-                                        </div>                        
-                                    </div>
-                                </div> --}}
-   
-                                   
                             </div>
                         </div>
                     </div>
@@ -668,7 +555,7 @@
                     </div><!--end col-->
                     <div class="col-lg-12 col-xl-4">
                         <div class="float-right d-print-none">
-                            <button id="btn_simpan" class="btn btn-success btn-sm"><i class="fas fa-save"></i> DAFTAR</button>
+                            <button id="btn_simpan" class="btn btn-success btn-sm"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="icon-loading"></span><i class="fas fa-save" id="icon-save"></i> DAFTAR</button>
                         </div>
                     </div><!--end col-->
                 </div>
@@ -699,6 +586,8 @@
             autoclose: true,
             format:'dd-mm-yyyy',
         });
+
+        $('#icon-loading').hide();
 
         combo_grup();
         combo_kategori();
@@ -931,7 +820,7 @@
 
         else if (!$("#anak_tinggi").val()) {
             $.toast({
-                text: 'BERAT MASIH KOSONG',
+                text: 'TINGGI MASIH KOSONG',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
@@ -1043,21 +932,6 @@
             return false;
 
         } 
-
-        else if (!$("#ayah_wa").val()) {
-            $.toast({
-                text: 'WA AYAH MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ayah_wa").focus();
-            return false;
-
-        } 
-
         else if (!$("#ayah_pdk").val()) {
             $.toast({
                 text: 'PENDIDIKAN AYAH MASIH KOSONG',
@@ -1159,8 +1033,6 @@
 
         } 
 
-      
-        
         else if (!$("#ibu_hp").val()) {
             $.toast({
                 text: 'HP IBU MASIH KOSONG',
@@ -1171,20 +1043,6 @@
             });
 
             $("#ibu_hp").focus();
-            return false;
-
-        }
-
-        else if (!$("#ibu_wa").val()) {
-            $.toast({
-                text: 'WA IBU MASIH KOSONG',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#ibu_wa").focus();
             return false;
 
         }
@@ -1391,6 +1249,16 @@
             cache: false,
             processData: false,
             contentType: false,
+            
+            beforeSend: () => {
+                $('#icon-loading').show();
+                $('#icon-save').hide();
+            },
+            complete: () =>{
+                $('#icon-loading').hide();
+                $('#icon-save').show();
+
+            },
             success: function(data) {
 
                 swal({   
