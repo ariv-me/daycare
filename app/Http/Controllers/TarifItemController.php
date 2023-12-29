@@ -33,7 +33,9 @@ class TarifItemController extends Controller
 
             $app = SistemApp::sistem();
             $tmp = new TarifItem();
+            $tmp->item_kode    = TarifItem::autonumber();
             $tmp->item_nama    = $r->nama;
+            $tmp->jenis_id    = $r->jenis;
             $tmp->item_nominal = str_replace(".", "", $r->nominal);
 
             $tmp->created_nip         = $app['kar_nip'];
@@ -89,11 +91,13 @@ class TarifItemController extends Controller
     public function update(Request $r){
 
         $transaction = DB::connection('daycare')->transaction(function() use($r){
-  
-              $id = $r->get('id');
+
+              $app = SistemApp::sistem();
+              $id  = $r->get('id');
               $tmp = TarifItem::where('item_id',$id)->first();
 
-              $tmp->item_nama = $r->nama;
+              $tmp->item_nama    = $r->nama;
+              $tmp->jenis_id     = $r->jenis;
               $tmp->item_nominal = str_replace(".", "", $r->nominal);
 
               $tmp->updated_nip         = $app['kar_nip'];
@@ -111,6 +115,8 @@ class TarifItemController extends Controller
     public function aktif(Request $r)
     {
         $transaction = DB::connection('daycare')->transaction(function() use($r){
+            
+            $app = SistemApp::sistem();
             $id = $r->get('id');
             $tmp = TarifItem::where('item_id',$id)->first();
             $tmp->item_aktif  = 'Y';
@@ -130,6 +136,8 @@ class TarifItemController extends Controller
     public function nonaktif(Request $r)
     {
         $transaction = DB::connection('daycare')->transaction(function() use($r){
+
+            $app = SistemApp::sistem();
             $id = $r->get('id');
             $tmp = TarifItem::where('item_id',$id)->first();
             $tmp->item_aktif  = 'T';

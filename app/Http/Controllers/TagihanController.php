@@ -58,19 +58,6 @@ class TagihanController extends Controller
             $tmp = new Pendaftaran();  
             $daftar_kode = Pendaftaran::autonumber();
 
-            $tarif       = DB::connection('daycare')
-                                ->table('daftar_tc_transaksi_detail AS aa')
-                                ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
-                                ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','bb.jenis_kode')
-                                ->where('aa.detail_aktif','Y')
-                                ->where('aa.trs_kode',null)
-                                ->where('aa.anak_kode',null)
-                                ->where('bb.jenis_kode','JN0001')
-                                ->first();
-
-            
-
-            if ($tarif == null) {
                 $tarif       = DB::connection('daycare')
                                 ->table('daftar_tc_transaksi_detail AS aa')
                                 ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
@@ -78,11 +65,26 @@ class TagihanController extends Controller
                                 ->where('aa.detail_aktif','Y')
                                 ->where('aa.trs_kode',null)
                                 ->where('aa.anak_kode',null)
+                                ->where('aa.tarif_kode',$r->paket)
+                                ->where('bb.jenis_kode','JN0001')
+                                ->first();
+
+            if ($tarif == null) {
+
+                $tarif       = DB::connection('daycare')
+                                ->table('daftar_tc_transaksi_detail AS aa')
+                                ->leftjoin('tarif_tc_tarif AS bb','bb.tarif_kode','aa.tarif_kode')
+                                ->leftjoin('tarif_ta_jenis AS cc','cc.jenis_kode','bb.jenis_kode')
+                                ->where('aa.detail_aktif','Y')
+                                ->where('aa.trs_kode',null)
+                                ->where('aa.anak_kode',null)
+                                ->where('aa.tarif_kode',$r->paket)
                                 ->where('bb.jenis_kode','JN0002')
                                 ->first();
 
             }
-        
+
+            // /dd($r->all());
 
             $tmp->trs_tgl        = date('Y-m-d', strtotime($r->tgl_daftar));
             $tmp->trs_jatuh_tempo = date('Y-m-d', strtotime($r->jatuh_tempo));
@@ -99,7 +101,6 @@ class TagihanController extends Controller
             $tmp->created_nip       = $app['kar_nip'];
             $tmp->created_nama      = $app['kar_nama_awal'];
             $tmp->created_ip        = $r->ip();
-
              
             $detail = PendaftaranDetail::where('trs_kode',null)->where('anak_kode',null)->where('detail_aktif','Y')->get();
 
