@@ -350,18 +350,17 @@
     }
 
 
-    function reset() {
-        $('#nama').val("");
+  
+    function bayar(){
+
+        $('#keterangan').val("");
+        $('#diskon').val("");
+        $('#inputbayar').val("");
+        $('#formModalBayar').modal('show');  
+        $('#formModalBayar').find('[name="trs_kode"]').val(data.trs_kode);
+        $('#formModalBayar').find('[name="input_diskon"]').val("0");
+
     }
-
-    $('#btn_add').on('click',function(){
-
-        $("#nama").val("");
-        $('#formModalAdd').modal('show');
-        reset();
-
-    });
-
 
     $('#btn_save').on('click', function(){
         
@@ -424,11 +423,8 @@
 
     return false;
 
-    });
-
-
-
-
+    })
+    ;
     function view(anak,bulan) {
 
         $.ajax({
@@ -585,7 +581,10 @@
                 
                 document.getElementById("tarif").innerHTML= data.tarif_nama +' - '+  data.kat_nama ;
 
-                $('#formModalBayar').modal('show');
+                $('#keterangan').val("");
+                $('#diskon').val("");
+                $('#input_bayar').val("");
+                $('#formModalBayar').modal('show');  
                 $('#formModalBayar').find('[name="trs_kode"]').val(data.trs_kode);
                 $('#formModalBayar').find('[name="input_diskon"]').val("0");
 
@@ -595,7 +594,6 @@
                 var bulan = $('#filter_bulan').val();
 
                 view(anak,bulan);
-                                
                 view_detail(id);
             }
         });
