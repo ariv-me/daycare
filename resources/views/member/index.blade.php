@@ -152,11 +152,11 @@
     </div>
 </div>
 
-<div class="modal fade  bd-example-modal" id="formModalBayar">
-    <div class="modal-dialog modal-lg bg-white" >
+<div class="modal fade  bd-example-modal" id="formModalEdit">
+    <div class="modal-dialog bg-white" >
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"> <i class="mdi mdi-cash-multiple"></i> <strong>Pembayaran</strong> </h5>
+                <h5 class="modal-title"> <i class="mdi mdi-cash-multiple"></i> <strong>Update Member</strong> </h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
@@ -167,133 +167,59 @@
                     <div class="col-lg-12">
                         
                                 <div class="row bg-white">
-                                    <div class="col-lg-12">
-                                        <input type="hidden" id="trs_kode" name="trs_kode">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="">
-                                                    <h6 class="mb-0"><b>Tanggal Daftar :</b> </h6> <p id="tgl_daftar"></p>
-                                                    <h6 class="mb-0"><b>Kode Pendaftaran :</b></h6> <p id="daftar_kode"></p>
-                                                </div>
-                                            </div><!--end col--> 
-                                            <div class="col-md-4">                                            
-                                                <div class="float-left">
-                                                    <address class="font-13">
-                                                        <strong class="font-14">Nama :</strong>
-                                                        <p class="mb-0" id="nama_anak"></p>
-                                                        <strong class="font-14">Jenis Kelamin :</strong>
-                                                        <p class="mb-0" id="jekel"></p>
-                                                        <strong class="font-14">Lahir :</strong>
-                                                        <p class="mb-0" id="tgl_lahir"></p>
-                                                        
-                                                    </address>
-                                                </div>
-                                            </div><!--end col--> 
-                                            <div class="col-md-4">
-                                                <div class="">
-                                                    <address class="font-13">
-                                                        <strong class="font-14">Paket:</strong>
-                                                        <p class="mb-0" id="tarif"></p>
-                                                    </address>
-                                                </div>
-                                            </div> <!--end col-->                                           
-                                                                             
+                                    <div class="col-md-12">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="username">Paket <small class="text-danger">*</small></label>
+                                            <select class="form-control custom-select select2" style="width: 100%;" name="paket" id="paket"  onchange="showFilterPaket(this)"></select>
                                         </div>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered mb-0 table-centered">
-                                                <thead>
-                                                    <tr>
-                                                        <th width="1%" style="text-align: center; vertical-align: middle;">NO</th>
-                                                        <th width="20%" style="text-align: center; vertical-align: middle;">TARIF</th>
-                                                        <th width="30%" style="text-align: right; vertical-align: middle;">TOTAL</th>
-                                                    </tr>
-                               
-                                                </thead>
-                                                <tbody id="show_data_detail">
-                                                
-                                                </tbody>
-                                            </table><!--end /table--> 
-                                            <hr>
-                                            <div class="row2">
-                                                <div class="col-sm-7">
-                                                    <div class="form-group row">
-                                                        <label for="example-password-input" class="col-sm-3 col-form-label text-right">Tanggal Bayar</small></label>
-                                                        <div class="col-sm-5">
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                                                </div>
-                                                                 <input type="text" id="tgl_bayar" name="tgl_bayar" class="form-control datepicker" >
-                                                            </div>
-                                                        </div>
-                                                    </div>   
-
-                                                    <div class="form-group row">
-                                                        <label for="example-password-input" class="col-sm-3 col-form-label text-right">Keterangan</small></label>
-                                                        <div class="col-sm-9">
-                                                            <textarea id="keterangan" name="keterangan" class="form-control" maxlength="225" rows="3"></textarea>
-                                                        </div>
-                                                    </div>     
-                            
-                                                        
-                                                </div>
-                                                <div class="col-sm-5">
-                                                    <div class="form-group row">
-                                                        <label for="example-password-input" class="col-sm-5 col-form-label text-right">Sub Total</small></label>
-                                                        <div class="col-sm-7">
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Rp. </span>
-                                                                </div>
-                                                                 <input type="text" id="total_biaya" name="total_biaya" class="form-control sub-total geser_kanan" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>   
-                                                    <div class="form-group row">
-                                                        <label for="example-password-input" class="col-sm-5 col-form-label text-right">Diskon</small></label>
-                                                        <div class="col-sm-7">
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Rp. </span>
-                                                                </div>
-                                                                 <input type="text" id="input_diskon" name="input_diskon" class="form-control diskon geser_kanan " onkeyup="sum();" onkeypress="return angka(this, event)">
-                                                            </div>
-                                                        </div>
-                                                    </div>   
-                                                    <div class="form-group row">
-                                                        <label for="example-password-input" class="col-sm-5 col-form-label text-right">Pembayaran</small></label>
-                                                        <div class="col-sm-7">
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Rp. </span>
-                                                                </div>
-                                                                 <input type="text" id="input_bayar" name="input_bayar" class="form-control diskon geser_kanan " onkeyup="input_bayar();" onkeypress="return angka(this, event)">
-                                                            </div>
-                                                        </div>
-                                                    </div>   
-
-                                                    <div class="form-group row">
-                                                        <label for="example-password-input" class="col-sm-5 col-form-label text-right">Grand Total</small></label>
-                                                        <div class="col-sm-7">
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Rp. </span>
-                                                                </div>
-                                                                 <input type="text" id="grand_total" name="grand_total" class="form-control geser_kanan grand-total" onkeypress="return angka(this, event)" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>     
-                                                </div>
-                                            </div>
-                                        </div>                                       
-                                    </div>  <!--end col-->                                      
+                                    </div>                                 
                                 </div><!--end row-->
                         
                     </div><!--end col-->
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-xs" id="btn_save"><i class="fab fa-cc-mastercard"></i> BAYAR</button>
+                <button type="button" class="btn btn-primary btn-xs" id="btn_update"><i class="fab fa-cc-mastercard"></i> BAYAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade  bd-example-modal" id="formModalNonaktif">
+    <div class="modal-dialog bg-white" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> <i class="mdi mdi-cash-multiple"></i> <strong>Non-Aktif</strong> </h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {!! csrf_field() !!}
+
+                <div class="row">
+                    <div class="col-lg-12">
+                    <input type="hidden" id="id_nonaktif" name="id_nonaktif">
+                        
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="username">Tanggal <small class="text-danger">*</small></label>
+                                            <input type="text" class="form-control datepicker" id="tanggal" name="tanggal">
+                                        </div>
+                                    </div>                         
+                                    <div class="col-md-12 mt-1">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="username">Alasan <small class="text-danger">*</small></label>
+                                            <textarea class="form-control" rows="3" id="alasan" name="alasan"></textarea>
+                                        </div>
+                                    </div>                         
+                                </div><!--end row-->
+                        
+                    </div><!--end col-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-xs" id="btn_nonaktif"><i class="fas fa-save"></i> SIMPAN</button>
             </div>
         </div>
     </div>
@@ -309,16 +235,12 @@
     $(document).ready(function(){
 
         
-        $('.datepicker[name=tgl_bayar]').val(moment().format('DD-MM-YYYY'));
+        $('.datepicker[name=tanggal]').val(moment().format('DD-MM-YYYY'));
         $('.select2').select2();
         
-        $("#filter_grup").datepicker( {
-            viewMode: "months",
-            minViewMode: "months",
-            autoClose: true,
-            format: 'MM'
-        }).on('changeDate', function (ev) {
-            $(this).datepicker('hide');
+        $('.datepicker').datepicker({
+            autoclose: true,
+            format:'dd-mm-yyyy',
         });
 
         $('#filter_grup').val('Semua');
@@ -353,63 +275,67 @@
         $('#nama').val("");
     }
 
-    $('#btn_add').on('click',function(){
 
-        $("#nama").val("");
-        $('#formModalAdd').modal('show');
-        reset();
-
-    });
-
-
-    $('#btn_save').on('click', function(){
+    $('#btn_nonaktif').on('click', function(){
         
-        if (!$("#input_bayar").val()) {
+        if (!$("#tanggal").val()) {
             $.toast({
-                text: 'PEMBAYARAN MASIH KOSONG',
+                text: 'TANGGAL MASIH KOSONG',
                 position: 'top-right',
                 loaderBg: '#fff716',
                 icon: 'error',
                 hideAfter: 3000
             });
-            $("#input_bayar").focus();
+            $("#tanggal").focus();
             return false;
 
         } 
 
-        var tgl_bayar   = $('#tgl_bayar').val();
-        var kode        = $('#trs_kode').val();
-        var sub_total   = $('#total_biaya').val();
-        var diskon      = $('#input_diskon').val();
-        var grand_total = $('#grand_total').val();
-        var bayar       = $('#input_bayar').val();
-        var keterangan  = $('#keterangan').val();
+        else if (!$("#alasan").val()) {
+            $.toast({
+                text: 'ALASAN MASIH KOSONG',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#alasan").focus();
+            return false;
 
+        } 
+
+
+
+        var id          = $('#id_nonaktif').val();
+        var tanggal     = $('#tanggal').val();
+        var alasan      = $('#alasan').val();
         var token       = $('[name=_token]').val();
         var formData    = new FormData();
     
-        formData.append('tgl_bayar', tgl_bayar);
-        formData.append('kode', kode);
-        formData.append('sub_total', sub_total);
-        formData.append('diskon', diskon);
-        formData.append('bayar', bayar);
-        formData.append('keterangan', keterangan);
-        formData.append('grand_total', grand_total);
+        formData.append('id', id);
+        formData.append('tanggal', tanggal);
+        formData.append('alasan', alasan);
         formData.append('_token', token);
 
         $.ajax({
             type: "POST",
-            url: "{{ route('pembayaran.save') }}",
+            url: "{{ route('member.nonaktif') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
             processData: false,
             contentType: false,
             success: function(r) {
+
+                    $('#tanggal').val("");
+                    $('#alasan').val("");
                     
-                    view();
+                    var kategori = $('#filter_kategori').val();
+                    var grup = $('#filter_grup').val();
+
+                    view(kategori,grup);
                     swal("Berhasil!", "Data Berhasil Disimpan", "success");
-                    $('#formModalBayar').modal('hide');
+                    $('#formModalNonaktif').modal('hide');
                 
                
             }
@@ -471,16 +397,16 @@
 
                         tr.find('td:nth-child(5)').append($('<div>')
                             .html(data[i].kat_nama));      
-                           
-                        if ((data[i].member_aktif) == 'Y' ) {
-                            tr.find('td:nth-child(6)').append($('<div>')
-                                .html('<span class="badge badge-soft-primary px-2">Aktif</span>'));
 
-                        } else {
+                        if ((data[i].member_aktif) == 'Y' ) {
+
+                            tr.find('td:nth-child(6)').append('<div class="dropdown d-inline-block float-center"><a class="nav-link btn btn-xs btn-soft-primary waves-effect waves-light dropdown-toggle arrow-none" id="dLabel4" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false" href="#" class="btn btn-soft-warning btn-xs"> <span>Aktif </span> <i class="las la-angle-down ms-1"></i></a><div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel4"><a class="dropdown-item item_edit"  href="javascript:;" data="'+data[i].member_id+'" ><i class="fas fa-edit"></i> Update Member</a><a class="dropdown-item item_nonaktif " href="javascript:;" data="'+data[i].member_id+'" ><i class="far fa-trash-alt"></i> Non-Aktif</a></div></div>');
+
+                        } 
+                        
+                        else {
                             tr.find('td:nth-child(6)').append($('<div>')
                                 .html('<span class="badge badge-soft-danger px-2">Tidak Aktif</span>'));
-
-
                         }                      
 
                         tr.appendTo($('#show_data'));
@@ -546,88 +472,46 @@
     
 
 
-    $('#show_data').on('click','.item_bayar',function(){
+    $('#show_data').on('click','.item_edit',function(){
 
         var id=$(this).attr('data');
         $.ajax({
             type : "GET",
-            url   : "{{ route('tagihan.edit') }}",
+            url   : "{{ route('member.edit') }}",
             dataType : "JSON",
             data : {id:id},
             success: function(data){
 
-                var anak_jekel = data.anak_jekel;
-
-                if (anak_jekel == 'L'){
-                    var jekel = 'Laki-Laki';
-                } else {
-                    var jekel = 'Perempuan';
-                }
-
-                document.getElementById("tgl_daftar").innerHTML= data.trs_tgl;
-                document.getElementById("daftar_kode").innerHTML= data.trs_kode;
-                document.getElementById("nama_anak").innerHTML= data.anak_nama;
-                document.getElementById("jekel").innerHTML= jekel;
-                document.getElementById("tgl_lahir").innerHTML= data.anak_tmp_lahir +' | '+ data.anak_tgl_lahir ;
-                
-                document.getElementById("tarif").innerHTML= data.tarif_nama +' - '+  data.kat_nama ;
-
-                $('#formModalBayar').modal('show');
-                $('#formModalBayar').find('[name="trs_kode"]').val(data.trs_kode);
-                $('#formModalBayar').find('[name="input_diskon"]').val("0");
-                
-                view_detail(id);
-            }
-        });
-
-    return false;
-
-    });
-
-      
-
-    $('#btn_update').on('click',function(){
-
-        if (!$("#nama_edit").val()) {
-            $.toast({
-                text: 'NAMA HARUS DI ISI',
-                position: 'top-left',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#nama_edit").focus();
-            return false;
-
-        } 
-      
-        var id = $('#id_edit').val();
-        var nama = $('#nama_edit').val();
-        var token = $('[name=_token]').val();
-
-        var formData = new FormData();
-
-        formData.append('id', id);
-        formData.append('nama', nama);
-        formData.append('_token', token);
-
-        $.ajax({
-            type : "POST",
-            url   : "{{ route('tarif.jenis.update') }}",
-            dataType : "JSON",
-            data : formData,
-            cache : false,
-            processData : false,
-            contentType : false,
-            success: function(data){
-                $('#formModalEdit').modal('hide');
-                swal("Berhasil!", "Data Berhasil Diupdate", "success");
-                view();
+                $('#formModalEdit').modal('show');
+                $('#formModalEdit').find('[name="trs_kode"]').val(data.trs_kode);
+                $('#formModalEdit').find('[name="input_diskon"]').val("0");
             }
         });
 
         return false;
+
     });
+
+    $('#show_data').on('click','.item_nonaktif',function(){
+
+        var id=$(this).attr('data');
+        $.ajax({
+            type : "GET",
+            url   : "{{ route('member.edit') }}",
+            dataType : "JSON",
+            data : {id:id},
+            success: function(data){
+
+                $('#formModalNonaktif').modal('show');
+                $('#formModalNonaktif').find('[name="id_nonaktif"]').val(data.member_id);
+            }
+        });
+
+        return false;
+
+    });
+
+      
 
     $('#show_data').on('click','.item_aktif',function(){
         var id=$(this).attr('data');
@@ -648,32 +532,6 @@
                     data : {id,_token},
                     success: function(data){
                         swal("Aktif !", "Data Sudah Di-Aktifkan !!.", "success");
-                        view();
-                    }
-                });  
-            }
-        });
-    });
-
-    $('#show_data').on('click','.item_nonaktif',function(){
-        var id=$(this).attr('data');
-        swal({
-                title: "Anda Yakin Non-Aktifkan Data Ini ?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Ya, Non-Aktifkan !",
-                closeOnConfirm: false
-        }, function (isConfirm) {
-            if (isConfirm) {
-                var _token = $('meta[name=csrf-token]').attr('content');
-                $.ajax({
-                    type : "GET",
-                    url   : "{{ route('tarif.jenis.nonaktif') }}",
-                    dataType : "JSON",
-                    data : {id,_token},
-                    success: function(data){
-                        swal("Non-Aktif !", "Data Sudah Di-Non-Aktifkan !!.", "success");
                         view();
                     }
                 });  

@@ -159,7 +159,7 @@ Route::group(['prefix' => 'member', 'as' => 'member.'], function () {
 	Route::post('/save', [MemberController::class, 'save'])->name('save');
 	Route::get('/edit', [MemberController::class, 'edit'])->name('edit');
 	Route::post('/update', [MemberController::class, 'update'])->name('update');
-	Route::post('/void', [MemberController::class, 'void'])->name('void');
+	Route::post('/nonaktif', [MemberController::class, 'nonaktif'])->name('nonaktif');
 	
 	
 	Route::get('/detail_view', [MemberController::class, 'detail_view'])->name('detail_view');

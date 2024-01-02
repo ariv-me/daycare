@@ -49,7 +49,6 @@ class MemberController extends Controller
 
                                         'aa.member_id',
                                         'aa.anak_kode',
-                                        'aa.periode_id',
                                         'aa.tarif_kode',
                                         'aa.grup_kode',
                                         'aa.kat_kode',
@@ -89,7 +88,7 @@ class MemberController extends Controller
                                     ->select(
                                         'aa.member_id',
                                         'aa.anak_kode',
-                                        'aa.periode_id',
+                                        
                                         'aa.tarif_kode',
                                         'aa.grup_kode',
                                         'aa.kat_kode',
@@ -132,7 +131,7 @@ class MemberController extends Controller
                                     ->select(
                                         'aa.member_id',
                                         'aa.anak_kode',
-                                        'aa.periode_id',
+                                        
                                         'aa.tarif_kode',
                                         'aa.grup_kode',
                                         'aa.kat_kode',
@@ -172,7 +171,7 @@ class MemberController extends Controller
                                         'aa.member_id',
                                         'aa.anak_kode',
                                         'aa.trs_kode',
-                                        'aa.periode_id',
+                                        
                                         'aa.tarif_kode',
                                         'aa.grup_kode',
                                         'aa.kat_kode',
@@ -275,9 +274,33 @@ class MemberController extends Controller
     public function edit(Request $r)
     {
         $id = strtolower($r->get('id'));
-        $data = Member::where('kat_id',$id)->first();
+        $data = Member::where('member_id',$id)->first();
         return response()->json($data);
     }
+
+    public function nonaktif(Request $r)
+    {
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
+
+            $app = SistemApp::sistem();
+            $id = $r->get('id');
+            $tmp = Member::where('member_id',$id)->first();
+
+            $tmp->member_tgl_berhenti    = date('Y-m-d', strtotime($r->tanggal));
+            $tmp->member_alasan_berhenti = $r->alasan;
+            $tmp->member_aktif           = 'T';
+
+            $tmp->updated_nip           = $app['kar_nip'];
+            $tmp->updated_nama          = $app['kar_nama_awal'];
+            $tmp->updated_ip            = $r->ip();
+            
+            $tmp->save();
+
+            return true;
+        });
+
+        return response()->json($transaction);   
+    }   
 
 
 

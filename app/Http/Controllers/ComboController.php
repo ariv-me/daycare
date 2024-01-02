@@ -126,6 +126,21 @@ class ComboController extends Controller
 
         return response()->json($result);
     }
+    public function combo_tarif_paket3(Request $r) {
+
+        $grup = $r->grup;
+        $kategori = $r->kategori;
+
+        $data = DB::connection('daycare')
+                        ->table('tarif_tc_tarif')
+                        // ->where('grup_kode',$grup)
+                        // ->where('kat_kode',$kategori)
+                        ->where('tarif_aktif','Y')
+                        ->orderby('tarif_nama')
+                        ->get();
+
+        return response()->json($data);
+   }
 
 
     // Combo Catering - Menu
