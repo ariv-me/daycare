@@ -55,8 +55,8 @@ class CateringMenuController extends Controller
                 $tmp->menu_kode             = $r->kode;
                 $tmp->kat_id                = $r->kategori;
                 $tmp->menu_nama             = $r->nama;
-                $tmp->menu_harga            = $r->harga;
-                $tmp->menu_harga_jual       = $r->harga_jual;
+                $tmp->menu_deskripsi        = $r->deskripsi;
+                $tmp->menu_harga            = str_replace(".", "", $r->harga);
 
                 $tmp->created_nip   = $app['kar_id'];
                 $tmp->created_nama  = $app['kar_nama_awal'];
@@ -81,24 +81,16 @@ class CateringMenuController extends Controller
         try{
             
             $data = DB::connection('daycare')
-                            ->table('ctrg_menu AS aa')
-                            ->leftjoin('ctrg_kategori AS bb','bb.kat_id','=','aa.kat_id')
+                            ->table('ctrg_tb_menu AS aa')
+                            ->leftjoin('ctrg_ta_kategori AS bb','bb.kat_id','=','aa.kat_id')
                             ->orderby('aa.menu_id','desc')
                             ->get();
 
-            $data2 = DB::connection('daycare')
-                            ->table('ctrg_menu_item AS aa')
-                            ->leftjoin('ctrg_menu AS bb','bb.menu_kode','=','aa.menu_kode')
-                            ->orderby('aa.item_id','desc')
-                            ->get();
-            //dd($data2);
-
-             $data = $data->map(function($value)use($data2) {
+             $data = $data->map(function($value) {
                  
-                $value->menu_kode           = strtoupper($value->menu_kode);
-                $value->item                = $data2->where('menu_kode',$value->menu_kode)->count();
-                $value->harga_tampil        = format_rupiah($value->menu_harga);
-                $value->harga_jual_tampil   = format_rupiah($value->menu_harga_jual);
+                $value->menu_kode    = strtoupper($value->menu_kode);
+                $value->harga        = format_rupiah($value->menu_harga);
+                // $value->harga_jual_tampil   = format_rupiah($value->menu_harga_jual);
 
                 return $value;
 
@@ -136,10 +128,10 @@ class CateringMenuController extends Controller
               $tmp = CateringMenu::where('menu_kode',$id)->first();
 
             //   $tmp->menu_kode = $r->kode;
-              $tmp->kat_id        = $r->kategori;
-              $tmp->menu_nama     = $r->nama;
-              $tmp->menu_harga    = $r->harga;
-              $tmp->menu_harga_jual    = $r->harga_jual;
+              $tmp->kat_id         = $r->kategori;
+              $tmp->menu_nama      = $r->nama;
+              $tmp->menu_deskripsi = $r->deskripsi;
+              $tmp->menu_harga    = str_replace(".", "", $r->harga);
 
               $tmp->updated_nip   = $app['kar_id'];
               $tmp->updated_nama  = $app['kar_nama_awal'];
@@ -222,8 +214,8 @@ class CateringMenuController extends Controller
             $id = $r->get('id');
 
             $data = DB::connection('daycare')
-                            ->table('ctrg_menu_item AS aa')
-                            ->leftjoin('ctrg_menu AS bb','bb.menu_kode','=','aa.menu_kode')
+                            ->table('ctrg_tb_menu_item AS aa')
+                            ->leftjoin('ctrg_tb_menu AS bb','bb.menu_kode','=','aa.menu_kode')
                             ->where('aa.menu_kode',$id)
                             ->orderby('aa.item_id','desc')
                             ->get();
@@ -249,8 +241,8 @@ class CateringMenuController extends Controller
             $id = $r->get('id');
 
             $data = DB::connection('daycare')
-                            ->table('ctrg_menu_item AS aa')
-                            ->leftjoin('ctrg_menu AS bb','bb.menu_kode','=','aa.menu_kode')
+                            ->table('ctrg_tb_menu_item AS aa')
+                            ->leftjoin('ctrg_tb_menu AS bb','bb.menu_kode','=','aa.menu_kode')
                             ->orderby('aa.item_id','desc')
                             ->get();
 

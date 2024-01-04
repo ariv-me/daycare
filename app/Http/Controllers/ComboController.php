@@ -148,7 +148,7 @@ class ComboController extends Controller
     public function combo_catering_kategori() {
  
         $data = DB::connection('daycare')
-                        ->table('ctrg_ta_menu_kategori')
+                        ->table('ctrg_ta_kategori')
                         ->where('kat_aktif','Y')
                         ->orderby('kat_nama')
                         ->get();
@@ -160,9 +160,10 @@ class ComboController extends Controller
     public function combo_catering_menu() {
  
         $data = DB::connection('daycare')
-                        ->table('ctrg_tb_menu')
-                        ->where('menu_aktif','Y')
-                        ->orderby('menu_nama')
+                        ->table('ctrg_tb_menu AS aa')
+                        ->leftjoin('ctrg_ta_kategori AS bb','bb.kat_id','=','aa.kat_id')
+                        ->where('aa.menu_aktif','Y')
+                        ->orderby('aa.menu_nama')
                         ->get();
 
         return response()->json($data);
@@ -173,7 +174,7 @@ class ComboController extends Controller
     public function combo_catering_order() {
  
         $data = DB::connection('daycare')
-                        ->table('ctrg_ta_menu_kategori')
+                        ->table('ctrg_ta_kategori')
                         ->where('kat_aktif','Y')
                         ->orderby('kat_nama')
                         ->get();
