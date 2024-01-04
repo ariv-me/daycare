@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class CateringOrderDetail extends Model
 {
     protected $connection = 'daycare';
-    protected $table = 'ctrg_order_detail';
+    protected $table = 'ctrg_tc_order_detail';
     protected $primaryKey = 'detail_id';
 
 }

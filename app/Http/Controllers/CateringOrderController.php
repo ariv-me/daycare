@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DapokAnak;
 use Illuminate\Http\Request;
 use App\Models\SistemApp;
 use App\Helpers;
@@ -50,27 +51,23 @@ class CateringOrderController extends Controller
             $transaction = DB::connection('daycare')->transaction(function() use($r,$order_kode){
     
                 $app        = SistemApp::sistem();
-                
+
                 /*-- SAVE --*/
     
                 $tmp = new CateringOrder();
                 
-                $tmp->order_kode = $order_kode;
-                $tmp->order_tgl = Carbon::now()->toDateString();
-                $tmp->order_jam = Carbon::now()->toTimeString();    
-                $tmp->order_status = 'U';
-                $tmp->order_total = str_replace(".", "", $r->total);
+                $tmp->order_kode        = $order_kode;
+                $tmp->anak_kode         = $r->anak_kode;
+                $tmp->order_tgl         = Carbon::now()->toDateString();
+                $tmp->order_jam         = Carbon::now()->toTimeString();    
+                $tmp->order_status      = 'U';
+                $tmp->order_total       = str_replace(".", "", $r->total_biaya);
        
-                $tmp->kar_id            = $app['kar_id'];
-                $tmp->kar_nama          = $app['kar_nama_awal'];
-                $tmp->usaha_id          = $app['usaha_id'];
-                $tmp->usaha_nama        = $app['usaha_nama'];
+                $tmp->created_nip       = $app['kar_nip'];
+                $tmp->created_nama      = $app['kar_nama_awal'];
                 $tmp->created_ip        = $r->ip();
                 
-                $tmp->save();
-    
-                $detail = CateringOrderDetail::where('kar_id',$app['kar_id'])->where('is_aktif','T')->get();
-
+                $detail = CateringOrderDetail::where('order_kode',null)->where('anak_kode',$r->anak_kode)->where('detail_status','O')->where('detail_aktif','T')->get();
                 //dd($detail);
     
                 foreach ($detail as $key => $value) {
@@ -78,14 +75,17 @@ class CateringOrderController extends Controller
                     /*-- DETAIL UPDATE --*/
     
                     $sql = DB::connection('daycare')
-                                ->table('ctrg_order_detail')
-                                ->where('kar_id',$app['kar_id'])
-                                ->where('is_aktif','T')
+                                ->table('ctrg_tc_order_detail')
+                                ->where('anak_kode',$r->anak_kode)
+                                ->where('detail_aktif','T')
                                 ->update([
                                     'order_kode' => $order_kode,
-                                    'is_aktif' => 'Y'
+                                    'detail_aktif' => 'Y'
                                 ]);
                 }
+
+                $tmp->save();
+    
     
                 return true;
     
@@ -109,7 +109,92 @@ class CateringOrderController extends Controller
 
         try{
             
-            $data = Anak::get();
+            $data = DB::connection('daycare')
+                                ->table('daftar_tc_member AS aa')      
+                                ->select(
+
+                                    'aa.member_id',
+                                    'aa.anak_kode AS anak',
+                                    'aa.tarif_kode',
+                                    'aa.grup_kode',
+                                    'aa.kat_kode',
+                                    'aa.member_tgl',
+                                    'aa.member_aktif',
+                                    'aa.created_at',
+                                    
+                                    'bb.anak_kode',
+                                    'bb.anak_id',
+                                    'bb.anak_aktif',
+                                    'bb.anak_nama',
+                                    'bb.anak_jekel',
+                                    'bb.anak_tgl_lahir',
+
+                                    'cc.anak_kode',
+                                    'cc.order_status',
+
+                                )    
+                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')    
+                                ->leftjoin('ctrg_tc_order AS cc','cc.anak_kode','aa.anak_kode')   
+                                ->where('aa.member_aktif','Y')        
+                                ->orderby('aa.member_id','desc')
+                                ->get();
+
+            $data = $data->map(function($value) {
+
+                $value->tgl_member  = format_indo($value->member_tgl);
+                $get_date    = Carbon::now()->diff(date('Y-m-d', strtotime($value->member_tgl)));
+                $hari_member = $get_date->days;
+
+                    $years = ($hari_member / 365) ; // days / 365 days
+                    $years = floor($years); // Remove all decimals
+            
+                    $month = ($hari_member % 365) / 30.5; // I choose 30.5 for Month (30,31) ;)
+                    $month = floor($month); // Remove all decimals
+
+                    $days = ($hari_member % 365) % 30.5; // the rest of days
+        
+                $value->lama_member = $years.' Tahun, '.$month.' Bulan, '.$days.' Hari';  
+
+                $tgl_lahir          = Carbon::now()->diff($value->anak_tgl_lahir);
+                $hari_anak = $tgl_lahir->days;
+
+                    $years = ($hari_anak / 365) ; // days / 365 days
+                    $years = floor($years); // Remove all decimals
+            
+                    $month = ($hari_anak % 365) / 30.5; // I choose 30.5 for Month (30,31) ;)
+                    $month = floor($month); // Remove all decimals
+
+                    $days = ($hari_anak % 365) % 30.5; // the rest of days
+        
+                $value->usia_anak = $years.' Tahun, '.$month.' Bulan, '.$days.' Hari';
+
+
+                if($value->anak_jekel == 'L'){
+                    $value->anak_jekel = 'Laki - Laki';
+                }
+                else if($value->anak_jekel == 'P'){
+                    $value->anak_jekel = 'Perempuan';
+                }
+
+                $order = CateringOrder::where('anak_kode',$value->anak_kode)->where('order_status','U')->count();
+
+                if($order > 0) {
+                    $value->status_order = '1';
+                } else {
+                    $value->status_order = '0';
+                }
+
+                $detail = CateringOrderDetail::where('anak_kode',$value->anak_kode)->get();
+                $value->jumlah_order = CateringOrderDetail::where('anak_kode',$value->anak_kode)->count();
+                $value->tagihan_order = CateringOrderDetail::where('anak_kode',$value->anak_kode)->sum('detail_total');
+                $value->tagihan_order        = format_rupiah($value->tagihan_order  );
+
+
+
+                return $value;
+
+            });
+                    
 
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  
@@ -130,6 +215,28 @@ class CateringOrderController extends Controller
         $data = CateringOrder::where('order_kode',$id)->first();
         return response()->json($data);
         
+    }
+
+    public function delete(Request $r){
+
+        $id = $r->get('id');
+        $detail = CateringOrderDetail::where('order_kode',$id)->first();
+        $data = CateringOrder::where('order_kode',$id)->delete();
+
+        foreach ($detail as $key => $value) {
+
+            $sql = DB::connection('daycare')
+                        ->table('ctrg_tc_order_detail')
+                        ->where('anak_kode',$r->anak_kode)
+                        ->where('detail_aktif','T')
+                        ->update([
+                            'order_kode' => $id,
+                            'detail_aktif' => 'Y'
+                        ]);
+        }
+
+        return response()->json($data);
+
     }
 
 

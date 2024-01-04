@@ -327,7 +327,7 @@ Route::group(['prefix' => 'catering', 'as' => 'catering.'], function () {
 		Route::get('/view', [CateringOrderController::class, 'view'])->name('view');
 		Route::post('/save', [CateringOrderController::class, 'save'])->name('save');
 		Route::get('/edit', [CateringOrderController::class, 'edit'])->name('edit');
-		Route::post('/void', [CateringOrderController::class, 'void'])->name('void');
+		Route::post('/delete', [CateringOrderController::class, 'delete'])->name('delete');
 		
 		// PIUTANG BAYAR
 		Route::post('/piutang_bayar', [CateringOrderController::class, 'piutang_bayar'])->name('piutang_bayar');
@@ -340,14 +340,13 @@ Route::group(['prefix' => 'catering', 'as' => 'catering.'], function () {
 		Route::get('/data', [CateringOrderDataController::class, 'index'])->name('data');
 		Route::get('/data_view', [CateringOrderDataController::class, 'view'])->name('data_view');
 		
-
 		// DETAIL
-		Route::get('/', [CateringOrderDetailController::class, 'index'])->name('index');
+		// Route::get('/', [CateringOrderDetailController::class, 'index'])->name('index');
 		Route::get('/detail_view', [CateringOrderDetailController::class, 'view'])->name('detail_view');
 		Route::post('/detail_save', [CateringOrderDetailController::class, 'save'])->name('detail_save');
 		Route::get('/detail_edit', [CateringOrderDetailController::class, 'edit'])->name('detail_edit');
 		Route::post('/detail_update', [CateringOrderDetailController::class, 'update'])->name('detail_update');
-		Route::get('/detail_void', [CateringOrderDetailController::class, 'void'])->name('detail_void');
+		Route::get('/detail_delete', [CateringOrderDetailController::class, 'delete'])->name('detail_delete');
 
 	});
 
@@ -372,6 +371,7 @@ Route::group(['prefix' => 'combo', 'as' => 'combo.'], function () {
 
 	// Combo Catering
 
+		Route::get('/combo_catering_menu', [ComboController::class, 'combo_catering_menu'])->name('combo_catering_menu');
 		Route::get('/combo_catering_jenis', [ComboController::class, 'combo_catering_jenis'])->name('combo_catering_jenis');
 		Route::get('/combo_catering_kategori', [ComboController::class, 'combo_catering_kategori'])->name('combo_catering_kategori');
 		Route::get('/combo_catering_item', [ComboController::class, 'combo_catering_item'])->name('combo_catering_item');

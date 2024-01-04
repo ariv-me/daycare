@@ -1,207 +1,224 @@
 @extends('app.layouts.template')
 
 @section('css')
+    <style>
+        .grand-total {
+            position: relative;
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            width: 1%;
+            min-width: 0;
+            margin-bottom: 0;
+            font-size: 15px;
+            padding-right: 0.3rem;
+            font-weight: bold;
+            color: #08ca4f
+        }
+        .sub-total {
+            position: relative;
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            width: 1%;
+            min-width: 0;
+            margin-bottom: 0;
+            font-size: 15px;
+            padding-right: 0.3rem;
+            font-weight: bold;
+        }
+        .diskon {
+            position: relative;
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            width: 1%;
+            min-width: 0;
+            margin-bottom: 0;
+            font-size: 15px;
+            padding-right: 0.3rem;
+            font-weight: bold;
+            color: #ff0002
+        }
 
-<style>
-    .form-control2:disabled, .form-control2[readonly] {
-        background-color: #e9ecef;
-        opacity: 1;
-    }
-
-    .form-control2 {
-        font-size: 40px;
-        border-radius: 0rem;
-        height: calc(5rem + 2px);
-        padding: 0.5rem 0.5rem;
-    }
-
-   
-</style>
-
+        
+        .row2 {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+    </style>
 @endsection
 
 @section('content')
 
 <div class="row mt-3">
     <div class="col-12">
-        <div class="card">
 
+        <div class="card">
+            
+            <div class="card-header bg-success">
+                <div class="row align-items-center">
+                    <div class="col">                      
+                        <h4 class="card-title text-white"><i class="mdi mdi-account-check-outline"></i>  MEMBER</h4>          
+                    </div><!--end col-->
+                    {{-- <div class="col-auto"> 
+                        <a href="{{ route('pendaftaran.transaksi.index') }}" type="button" class="btn btn-warning btn-xs text-white"><i class="fas fa-plus-circle"></i> PENDAFTARAN </a>
+                        <a href="{{ route('tagihan.add') }}" type="button" class="btn btn-warning btn-xs text-white"><i class="fas fa-plus-circle"></i> TAGIHAN </a>
+                    </div><!--end col--> --}}
+                </div>
+            </div>
             <div class="card-body">
-                {!! csrf_field() !!}
-  
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label" for="subject">Kategori  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="filter_kategori" id="filter_kategori" onchange="filterKategori(this)"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label" for="subject">Grup  <small class="text-danger">*</small></label>
+                            <select class="form-control custom-select select2" style="width: 100%;" name="filter_grup" id="filter_grup" onchange="filterGrup(this)"></select>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="row">
                     
-                <input type="hidden" class="form-control datepicker" id="tanggal" name="tanggal" disabled="disabled">
-
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label> <strong>Anak</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="anak" id="anak"></select>
-                        </div>
-                    </div> 
-
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label> <strong>Jadwal Makan</strong>  <small class="text-danger">*</small></label>
-                            <select class="form-control custom-select select2" style="width: 100%;" name="jadwal" id="jadwal"></select>
-                        </div>
-                    </div> 
-
-                    <div class="col-md-5">
-                        <div class="form-group top"> 
-                            <label> <strong>Menu</strong>  <small class="text-danger">*</small></label>
-                            <div class="input-group">
-                                <input type="text" name="kode" id="kode" class="form-control col-md-4" placeholder="Kode Menu">
-                                <span class="input-group-prepend">
-                                    <button type="button" class="btn btn-primary add" id="menu_view"><i class="fas fa-search"></i></button>
-                                </span>
-                                <input type="text" name="nama" id="nama" class="form-control" readonly="readonly">
-                            </div>                                                   
-                        </div>
-                    </div>   
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label> <strong>Harga</strong>  <small class="text-danger">*</small></label>
-                            <input type="text" name="harga" id="harga" class="form-control" readonly="readonly">
-                        </div>
-                    </div>        
-                </div>
-                <div class="row">
-                    <div class="col-md-9">
-                       
+                    <div class="col-12 col-lg-6 col-xl"> 
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col text-center">                                                                        
+                                        <span class="h4 text-pink" id="perempuan"></span>      
+                                        <h6 class="text-uppercase text-muted mt-2 m-0">Perempuan</h6>                
+                                    </div><!--end col-->
+                                </div> <!-- end row -->
+                            </div><!--end card-body-->
+                        </div> <!--end card-body-->                     
                     </div>
-                    <div class="col-md-3" style="text-align: right">
-                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" id="btn_save"><i class="fas fa-plus"></i> TAMBAH </button>
+                    <div class="col-12 col-lg-6 col-xl"> 
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col text-center">                                                                        
+                                        <span class="h4 text-info" id="laki-laki"></span>      
+                                        <h6 class="text-uppercase text-muted mt-2 m-0">Laki-Laki</h6>                
+                                    </div><!--end col-->
+                                </div> <!-- end row -->
+                            </div><!--end card-body-->
+                        </div> <!--end card-body-->                     
                     </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-9">
-                        <h4 class="card-title">Orderan</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered mb-0 table-centered">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center">NO</th>
-                                <th style="text-align: center">KODE</th>
-                                <th style="text-align: center">MENU</th>
-                                <th style="text-align: center">NAMA ANAK</th>
-                                <th style="text-align: center">JADWAL</th>
-                                <th style="text-align: center">HARGA</th>
-                                <th style="text-align: center">AKSI</th>
-                            </tr>
-                        </thead>
-                       <tbody id="show_data"></tbody>
-                </table>
-                <div class="row">
-                    <div class="col-md-8">
-                
-                    </div>
-                    <div class="col-md-4 mt-1" style="text-align: right">
-                            <h1 class="text-danger" style="text-align: right"><strong>Rp.</strong><strong id="total"></strong></h1>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-md-9">
-                       
-                    </div>
-                    <div class="col-md-3" style="text-align: right">
-                        <a href="{{ route('order.index') }}" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> BATAL</a>
-                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" id="btn_order"><i class="fas fa-cart-plus"></i> ORDER </button>
+                    <div class="col-12 col-lg-6 col-xl"> 
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col text-center">                                                                        
+                                        <span class="h4 text-dark" id="total"></span>      
+                                        <h6 class="text-uppercase text-muted mt-2 m-0">Total</h6>                
+                                    </div><!--end col-->
+                                </div> <!-- end row -->
+                            </div><!--end card-body-->
+                        </div> <!--end card-body-->                     
                     </div>
                 </div>
 
+                <hr>
+               
+                <div class="box-body">	
+                    <div class="table-responsive">
+                        <table id="datatable" class="table-sm table table-bordered mb-0 table-centered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="text-align: center">NO</th>
+                                    <th style="text-align: center">ANAK</th>
+                                    <th style="text-align: center">JUMLAH</th>
+                                    <th  style="text-align: center">TAGIHAN</th>
+                                    <th  style ="text-align: center">STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="show_data"></tbody>
+                        </table>
+                    </div>	
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade  bd-example-modal-lg" id="formModalMenu">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+<div class="modal fade bd-example-modal" id="formModalOrder">
+    <div class="modal-dialog modal-lg" >
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"> <strong>Menu Makanan</strong> </h5>
+                <h5 class="modal-title"> <i class="mdi mdi-food-fork-drink"></i> <strong>Order Makanan</strong> </h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center">NO</th>
-                            <th style="text-align: center">NAMA</th>
-                            <th style="text-align: center">KATEGORI</th>
-                            <th style="text-align: center">HARGA</th>
-                        </tr>
-                    </thead>
-                   <tbody id="show_data_item"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal modal-default fade" id="formModalBayar">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background-color: #ffffff">
-
-            <div class="modal-body">
-            
+            <div class="modal-body bg-white">
                 {!! csrf_field() !!}
-    
+
                 <div class="row">
+                    <div class="col-lg-12">
+                        <input type="hidden" class="form-control" id="anak_kode" name="anak_kode" disabled>
 
-                    <div class="col-md-12">
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">TOTAL</label>
-                            <div class="col-sm-9">
-                                <input class="form-control2" name="total_trans" id="total_trans" onkeypress="return angka(this, event)" readonly="readonly">                
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <label class="form-label" for="username">Anak<small class="text-danger">*</small></label>
+                                <input type="text" class="form-control" id="anak_nama" name="anak_nama" disabled>
                             </div>
-                        </div>
-                    </div> 
-
-                    <div class="col-md-12">
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">PEMBAYARAN</label>
-                            <div class="col-sm-9">   
-                                 <select class="form-control custom-select select2 text-left" style="width: 100%;" name="jenis_bayar" id="jenis_bayar" disabled="disabled"></select>
+                            <div class="col-md-6">
+                                <div class="mb-1">
+                                    <label class="form-label" for="username">Menu <small class="text-danger">*</small></label>
+                                    <select class="form-control custom-select select2" style="width: 100%;" name="menu" id="menu"></select>
+                                </div>
+                            </div> 
+                            <div class="col-md-2">
+                                <label class="form-label" for="username">Qty <small class="text-danger">*</small></label>
+                                <input type="text" class="form-control" id="qty" name="qty">
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-3 col-form-label text-right">BAYAR</label>
-                            <div class="col-sm-9">   
-                                <input class="form-control2" name="total_bayar" id="total_bayar" onkeypress="return angka(this, event)" readonly="readonly" >
+                            <div class="col-md-4 mt-2">
+                                {{-- <label class="form-label" for="username">Aksi <small class="text-danger">*</small></label> --}}
+                                <button type="button" class="btn btn-outline-info btn-sm mt-3 mb-1" data-toggle="modal" id="detail_save"><i class="fas fa-plus-circle"></i> Tambahkan Pesanan </button>
                             </div>
-                        </div>
-                    </div> 
-
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-success btn-xl col-md-12" id="btn_bayar"><i class="fas fa-cart-plus"></i>     ORDER</button>
-                        </div>
-                    </div>
-
+                            
+                        </div><!--end row-->
+                        <hr>
+                        <table id="datatable" class="table table-sm table-bordered dt-responsive nowrap mb-0" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center">NO</th>
+                                    <th style="text-align: center">NAMA</th>
+                                    <th style="text-align: center">HARGA</th>
+                                    <th style="text-align: center">QTY</th>
+                                    <th style="text-align: center">TOTAL</th>
+                                    <th style="text-align: center">AKSI</th>
+                                </tr>
+                            </thead>
+                            <tbody id="show_data_detail"></tbody>
+                        </table>
+                        <table class="table table-bordered mb-0 table-centered">
+                            <thead>
+                                <tr>
+                                    <th width="83%" style="text-align: right; vertical-align: middle;" colspan="4">TOTAL BIAYA</th>
+                                    <th style="text-align: right;background:white; color:#ff0002" id="total_biaya"></th>
+                                </tr>
+                            </thead>
+                        </table><!--end /table-->
+                    </div><!--end col-->
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-xs" id="btn_delete"><i class="fa fa-trash"></i> BATALKAN PESANAN</button>
+                <button type="button" class="btn btn-success btn-xs" id="btn_save"><i class="fas fa-save"></i> SIMPAN</button>
+            </div>
         </div>
     </div>
 </div>
-
 
 
 @endsection
@@ -212,303 +229,58 @@
 
     $(document).ready(function(){
 
-        $('.select2').select2();
-        $('.datepicker').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
+        
         $('.datepicker[name=tanggal]').val(moment().format('DD-MM-YYYY'));
+        $('.select2').select2();
+        
         $('.datepicker').datepicker({
-          autoclose: true,
-          format:'dd-mm-yyyy',
-        });  
-
-
-        combo_anak();
-        combo_jadwal();
-        view();
-        reset();
-
-    });
-
-    function view(kode) {
-
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('order.detail_view') }}",
-            async: true,
-            data : {kode:kode},
-            dataType: 'JSON',
-            success: function(r) {
-                var i;
-                //$('#datatable').DataTable().destroy(); 
-                $('#show_data').empty();
-                data = r.data;
-                total = r.total;
-
-                document.getElementById("total").innerHTML="<b>"+total+"</b>";  
-                
-                if (data.length) {
-                    for (i = 0; i < data.length; i++) {
-                   
-                            var tr = $('<tr>').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="5%" align="center">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="10%" align="left">'),
-                                $('<td class= width="5%" align="center">'),
-                                $('<td class= width="5%" align="right">'),
-                                $('<td class= width="1%" align="center">')
-                            ]);
-
-
-                        tr.find('td:nth-child(1)').html((i + 1));
-
-                        tr.find('td:nth-child(2)').append($('<div>')
-                            .html((data[i].menu_kode)));   
-                        
-                        tr.find('td:nth-child(3)').append($('<div>')
-                            .html((data[i].menu_nama) + ('  -   ') + ('[ ') + (data[i].kat_nama) + (' ]')));
-                            
-                        tr.find('td:nth-child(4)').append($('<div>')
-                            .html((data[i].anak_nama)));   
-
-                        if((data[i].detail_jadwal) == 'Pagi'){
-                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-pill badge-info')
-                            .html((data[i].detail_jadwal)));
-
-                        }else if((data[i].detail_jadwal) == 'Siang'){
-                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-pill badge-warning')
-                            .html((data[i].detail_jadwal)));
-                        
-                        }else{
-                            tr.find('td:nth-child(5)').append($('<span>').addClass('badge badge-pill badge-secondary')
-                            .html((data[i].detail_jadwal)));
-                        }
-
-                        tr.find('td:nth-child(6)').append($('<div>')
-                            .html((data[i].harga_jual_tampil)));     
-
-                        tr.find('td:nth-child(7)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-danger btn-xs item_delete" data="'+data[i].detail_id+'"><i class="fa fa-trash"></i></a></div>');   
-
-                        tr.appendTo($('#show_data'));
-                    }
-
-                } else {
-
-                     $('#show_data').append('<tr><td colspan="10">Data Kosong</td></tr>');
-
-                }
-            //$('#datatable').DataTable('refresh'); 
-            }
-        });
-    }
-
-    function view_menu() {
-
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('catering.menu_view') }}",
-            async: true,
-            dataType: 'JSON',
-            success: function(r) {
-                var i;
-                $('#datatable').DataTable().destroy(); 
-                $('#show_data_item').empty();
-                data = r.data;
-     
-                
-
-                if (data.length) {
-                    for (i = 0; i < data.length; i++) {
-                     
-                        var tr = $('<tr>').append([
-                            $('<td class= width="1%" align="center">'),
-                            $('<td class= width="10%" align="left">'),
-                            $('<td class= width="10%" align="left">'),
-                            $('<td class= width="1%" align="right">')
-                        ]);
-
-                        tr.find('td:nth-child(1)').html((i + 1));
-
-                        tr.find('td:nth-child(2)').append($('<div>')
-                            .html('<a href="javascript:;" class="barang_pilih" data="'+data[i].menu_kode+'">'+(data[i].menu_nama)+'</a>')); 
-                            
-                        tr.find('td:nth-child(3)').append($('<div>')
-                            .html((data[i].kat_nama)));   
-
-                        tr.find('td:nth-child(4)').append($('<div>')
-                            .html((data[i].harga_tampil)));   
-
-                        tr.appendTo($('#show_data_item'));
-                    }
-
-                }
-            $('#datatable').DataTable('refresh'); 
-            }
-        });
-    }
-
-    $('#show_data_item').on('click','.barang_pilih',function(){
-
-        var id = ($(this).attr('data')).toLowerCase();
-
-        console.log(id);
-
-        $.ajax({
-            type: "GET",
-            url: "{{ route('catering.menu_edit') }}",
-            dataType: "JSON",
-            data: {
-                id: id
-            },
-            success: function(data) {
-                
-                console.log(data);
-
-                $('[name="kode"]').val(data.menu_kode);
-                $('[name="nama"]').val(data.menu_nama);
-                $('[name="harga"]').val(data.menu_harga_jual);
-                $('#formModalMenu').modal('hide');
-            }
+            autoclose: true,
+            format:'dd-mm-yyyy',
         });
 
-        return false;
+        $('#filter_grup').val('Semua');
+
+        combo_filter_kategori();
+        combo_filter_grup();
+
+        var kategori  = $('#filter_kategori').val();
+        var bulan = $('#filter_grup').val();
+
+        view(kategori,bulan);
+    
 
     });
-
-    /*-- ORDER + SAVE --*/
-
-    $('#btn_order').on('click', function(){    
-
-        var total = $('#total').text();
-
-        if ( total == "0") {
-            $.toast({
-                text: 'TRANSAKSI TIDAK ADA',
-                position: 'top-left',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#barang_kode").focus();
-            return false;
-
-        } else {
-
-            var total = $('#total').text();
-            var bayar = $('#total_bayar').val("0");
-
-            $('[name="total_trans"]').val(total);
-
-            var ttotal = total.replace(/\./g,'');
-            var tbayar = 0;
-            var tkembali = tbayar - ttotal;
-
-            var reverse = tkembali.toString().split('').reverse().join(''),
-            ribuan = reverse.match(/\d{1,3}/g);
-            ribuan = ribuan.join('.').split('').reverse().join('');
-
-            var str1 = "- ";
-            var str2 = ribuan;
-            var xkembali = str1.concat(str2);
-
-            $('[name="total_kembali"]').val(xkembali);
-
-            $('[name="total_bayar"]').val(tbayar);
-
-            //combo_jenis_bayar();
-            $('#formModalBayar').modal('show');
-        }    
-    });
-
 
     function reset() {
-        $('#kode').val("");
-        $('#nama').val("");
-        $('#harga').val("");
-        $('#anak').val("").trigger("change");
-        $('#jadwal').val("").trigger("change");
+        $('#menu').val("").trigger("change");
+        $('#qty').val("");
     }
-
-    $('#menu_view').on('click',function(){
-
-        $('#formModalMenu').modal('show');
-        view_menu();
-        view();
-
-    });
-
+    
     $('#btn_save').on('click', function(){
-
-        if (!$("#anak").val()) {
-            $.toast({
-                text: 'ANAK HARUS DI PILIH',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#anak").focus();
-            return false;
-
-        } 
-          else if (!$("#jadwal").val()) {
-            
-            $.toast({
-                text: 'JADWAL MAKAN HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#jadwal").focus();
-            return false;
-
-        }
-          else if (!$("#kode").val()) {
-            
-            $.toast({
-                text: 'MENU HARUS DI ISI',
-                position: 'top-right',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-
-            $("#kode").focus();
-            return false;
-
-        }
-
-        var tanggal = $('#tanggal').val();
-        var anak = $('#anak').val();
-        var jadwal = $('#jadwal').val();
-        var kode = $('#kode').val();
-        var nama = $('#nama').val();
-        var harga = $('#harga').val();
-
-        var token = $('[name=_token]').val();
+       
+        var anak_kode   = $('#anak_kode').val();
+        var total_biaya = $('#total_biaya').text();
+        var token       = $('[name=_token]').val();
 
         var formData = new FormData();
-    
-        formData.append('tanggal', tanggal);
-        formData.append('anak', anak);
-        formData.append('jadwal', jadwal);
-        formData.append('kode', kode);
-        formData.append('nama', nama);
-        formData.append('harga', harga);
+
+        formData.append('anak_kode', anak_kode);
+        formData.append('total_biaya', total_biaya);
         formData.append('_token', token);
 
         $.ajax({
             type: "POST",
-            url: "{{ route('order.detail_save') }}",
+            url: "{{ route('catering.order.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
             processData: false,
             contentType: false,
             success: function(r) {
-                    
-                    view();
+
+                    var kode = $('#anak_kode').val();                    
+                    view_detail(kode);
+
                     $.toast({
                         text: 'DATA BERHASIL DI TAMBAHKAN',
                         position: 'top-right',
@@ -517,34 +289,6 @@
                         hideAfter: 3000
                     });
                     reset();
-                    $('#formModalAdd').modal('hide');
-
-            }
-        });
-
-     return false;
-
-    });
-
-    $('#show_data').on('click','.item_set',function(){
-
-        var id=$(this).attr('data');
-
-        console.log(id);
-
-        $.ajax({
-            type : "GET",
-            url   : "{{ route('catering.menu_edit') }}",
-            dataType : "JSON",
-            data : {id:id},
-            success: function(data){
-                $('#formModalSet').modal('show');    
-                $('#formModalSet').find('[name="id_set"]').val(data.menu_kode);      
-                $('#formModalSet').find('[name="nama_item"]').val("");
-                $('#formModalSet').find('[name="kode_item"]').val(data.menu_kode);
-                view();
-                view_item(id);
-              
             }
         });
 
@@ -552,18 +296,50 @@
 
     });
 
-    $('#btn_bayar').on('click', function(){
+    $('#detail_save').on('click', function(){
 
-        var total = $('#total_trans').val();
+        if (!$("#menu").val()) {
+            $.toast({
+                text: 'MENU HARUS DI PILIH',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+            $("#menu").focus();
+            return false;
+
+        } 
+        else if (!$("#qty").val()) {
+            
+            $.toast({
+                text: 'QTY HARUS DI ISI',
+                position: 'top-right',
+                loaderBg: '#fff716',
+                icon: 'error',
+                hideAfter: 3000
+            });
+
+            $("#qty").focus();
+            return false;
+
+        }
+       
+        var anak_kode = $('#anak_kode').val();
+        var qty       = $('#qty').val();
+        var menu      = $('#menu').val();
         var token = $('[name=_token]').val();
+
         var formData = new FormData();
 
-        formData.append('total', total);
+        formData.append('anak_kode', anak_kode);
+        formData.append('qty', qty);
+        formData.append('menu', menu);
         formData.append('_token', token);
 
         $.ajax({
             type: "POST",
-            url: "{{ route('order.save') }}",
+            url: "{{ route('catering.order.detail_save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -571,9 +347,17 @@
             contentType: false,
             success: function(r) {
 
-                swal("Berhasil !", "Makanan Sudah Di Order !!.", "success");
-                $('#formModalBayar').modal('hide');
-                view();
+                    var kode = $('#anak_kode').val();                    
+                    view_detail(kode);
+
+                    $.toast({
+                        text: 'DATA BERHASIL DI TAMBAHKAN',
+                        position: 'top-right',
+                        loaderBg: '#fff716',
+                        icon: 'success',
+                        hideAfter: 3000
+                    });
+                    reset();
             }
         });
 
@@ -581,26 +365,162 @@
 
     });
 
-     
-    $('#show_data').on('click','.item_edit',function(){
+    function view(kategori,grup) {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('catering.order.view') }}",
+            async: true,
+            dataType: 'JSON',
+            data:{kategori:kategori,grup:grup},
+            success: function(r) {
+                var i;
+                $('#datatable').DataTable().destroy(); 
+                $('#show_data').empty();
+                data = r.data;
+                
+                document.getElementById("laki-laki").innerHTML= r.pria;
+                document.getElementById("perempuan").innerHTML= r.perempuan;
+                document.getElementById("total").innerHTML= r.total;
+
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        var tr = $('<tr>').append([
+                            $('<td width="1%" align="center">'),
+                            $('<td width="20%">'),
+                            $('<td width="1%" align="center">'),
+                            $('<td width="5%" align="right">'),
+                            $('<td width="5%" align="center">')
+                        ]);
+             
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html('<b class="font-13">'+(data[i].anak_nama)+'</b>')); 
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html('<small class="text-muted">'+(data[i].anak_jekel)+' - '+(data[i].usia_anak)+'</small>'));                      
+
+                        // tr.find('td:nth-child(3)').append($('<div>')
+                        //     .html((data[i].ortu_ibu)+' - <small class="text-muted">(Ibu)</span></small>')); 
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html(data[i].jumlah_order));      
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html(data[i].grup));      
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html('<b class="font-13 text-danger">'+(data[i].tagihan_order)+'</b>')); 
+
+                        if ((data[i].status_order) == '0' ) {
+
+                            tr.find('td:nth-child(5)').append('<div><a class="add_orderan nav-link btn btn-xs btn-outline-success waves-effect waves-light dropdown-toggle arrow-none" id="dLabel4" d role="button" aria-haspopup="false" aria-expanded="false" href="javascript:;" class="btn btn-soft-warning btn-xs" data="'+data[i].anak+'" > <span> <i class="fas fa-shopping-basket"> </i> Order Makanan </span></a></div>');
+
+                        } 
+                        
+                        else {
+                            tr.find('td:nth-child(5)').append('<div><a class="add_orderan nav-link btn btn-xs btn-outline-primary waves-effect waves-light dropdown-toggle arrow-none" id="dLabel4" d role="button" aria-haspopup="false" aria-expanded="false" href="javascript:;" class="btn btn-soft-warning btn-xs" data="'+data[i].anak+'" > <span> <i class="fas fa-shopping-basket"> </i> Tambah Orderan </span></a></div>');
+
+                        }                      
+
+                        tr.appendTo($('#show_data'));
+                    }
+                }
+
+               $('#datatable').DataTable('refresh'); 
+            }
+        });
+    }
+
+    function view_detail(kode) {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('catering.order.detail_view') }}",
+            async: true,
+            dataType: 'JSON',
+            data:{kode:kode},
+            success: function(r) {
+                var i;
+                
+                $('#show_data_detail').empty();
+                data = r.data;
+
+                console.log(data);
+                document.getElementById("total_biaya").innerHTML='<b class="text-danger font-20">'+r.total+'</b>';
+            
+                $('[name="total_biaya"]').val(r.total);
+                $('[name="grand_total"]').val(r.total);
+
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        var tr = $('<tr>').append([
+                            $('<td width="1%" align="center">'),
+                            $('<td width="50%" align="left">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="center">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="1%" align="right">')
+                        ]);
+
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html('<b>'+(data[i].menu_nama)+'</b>')); 
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html('<small>'+(data[i].kat_nama)+'</small>'));   
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html((data[i].harga_tampil)));   
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html((data[i].detail_qty)));   
+
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html((data[i].total_tampil))); 
+
+                        tr.find('td:nth-child(6)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-danger btn-xs item_delete" data="'+data[i].detail_id+'"><i class="fa fa-trash"></i></a></div>');  
+
+                        tr.appendTo($('#show_data_detail'));
+                    }
+
+
+                } else {
+
+                    $('#show_data_detail').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
+                }
+                
+
+            }
+        });
+
+    }
+    
+
+
+    $('#show_data').on('click','.add_orderan',function(){
 
         var id=$(this).attr('data');
+        view_detail(id);
+        combo_menu();
 
         $.ajax({
             type : "GET",
-            url   : "{{ route('order.detail_edit') }}",
+            url   : "{{ route('dapok.anak.edit') }}",
             dataType : "JSON",
             data : {id:id},
             success: function(r){
 
-                $('[name="id_edit"]').val(r.detail_id);
-                $('[name="kode"]').val(r.menu_kode);
-                $('[name="nama"]').val(r.menu_nama);
-                $('[name="harga"]').val(r.menu_harga);
-                $('[name="anak"]').val(r.anak_kode).trigger("change");
-                $('[name="jadwal"]').val(r.detail_jadwal).trigger("change");
+                data = r.data;
 
-
+                $('#formModalOrder').modal('show');
+                $('#formModalOrder').find('[name="anak_kode"]').val(data.anak_kode);
+                $('#formModalOrder').find('[name="anak_nama"]').val(data.anak_nama);
             }
         });
 
@@ -608,80 +528,81 @@
 
     });
 
-    $('#formModalEdit').on('shown.bs.modal', function () {
-        $('#nama_edit').focus();
-    })  
+    $('#show_data').on('click','.item_nonaktif',function(){
 
-    $('#btn_update').on('click',function(){
-
-        if (!$("#kode_edit").val()) {
-            $.toast({
-                text: 'KODE HARUS DI ISI',
-                position: 'top-left',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#kode_edit").focus();
-            return false;
-
-        } 
-        else if (!$("#nama_edit").val()) {
-            $.toast({
-                text: 'NAMA HARUS DI ISI',
-                position: 'top-left',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#nama_edit").focus();
-            return false;
-
-        } 
-        else if (!$("#harga_edit").val()) {
-            $.toast({
-                text: 'HARGA HARUS DI ISI',
-                position: 'top-left',
-                loaderBg: '#fff716',
-                icon: 'error',
-                hideAfter: 3000
-            });
-            $("#harga_edit").focus();
-            return false;
-
-        } 
-      
-      
-        var kode = $('#kode_edit').val();
-        var nama = $('#nama_edit').val();
-        var harga = $('#harga_edit').val();
-
-        var token = $('[name=_token]').val();
-
-        var formData = new FormData();
-
-        formData.append('kode', kode);
-        formData.append('nama', nama);
-        formData.append('harga', harga);
-        formData.append('_token', token);
-
+        var id=$(this).attr('data');
         $.ajax({
-            type : "POST",
-            url   : "{{ route('catering.menu_update') }}",
+            type : "GET",
+            url   : "{{ route('member.edit') }}",
             dataType : "JSON",
-            data : formData,
-            cache : false,
-            processData : false,
-            contentType : false,
+            data : {id:id},
             success: function(data){
-                $('#formModalEdit').modal('hide');
-                swal("Berhasil!", "Data Berhasil Diupdate", "success");
-                view();
+
+                $('#formModalNonaktif').modal('show');
+                $('#formModalNonaktif').find('[name="id_nonaktif"]').val(data.member_id);
             }
         });
 
         return false;
+
     });
+
+    $('#show_data_detail').on('click','.btn_delete',function(){
+        
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Hapus Semua Pesanan ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Hapus !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('catering.order.delete') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        var kode = $('#anak_kode').val();                    
+                        view_detail(kode);
+                        swal("Di Hapus !", "Data Sudah Di-Hapus !!.", "success");
+                    }
+                });  
+            }
+        });
+    });
+
+    $('#show_data_detail').on('click','.item_delete',function(){
+        var id=$(this).attr('data');
+        swal({
+                title: "Anda Yakin Hapus Data Ini ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Hapus !",
+                closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var _token = $('meta[name=csrf-token]').attr('content');
+                $.ajax({
+                    type : "GET",
+                    url   : "{{ route('catering.order.detail_delete') }}",
+                    dataType : "JSON",
+                    data : {id,_token},
+                    success: function(data){
+                        var kode = $('#anak_kode').val();                    
+                        view_detail(kode);
+                        swal("Di Hapus !", "Data Sudah Di-Hapus !!.", "success");
+                    }
+                });  
+            }
+        });
+    });
+
+      
 
     $('#show_data').on('click','.item_aktif',function(){
         var id=$(this).attr('data');
@@ -697,7 +618,7 @@
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('catering.menu_aktif') }}",
+                    url   : "{{ route('tarif.jenis.aktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
@@ -709,68 +630,85 @@
         });
     });
 
-    $('#show_data').on('click','.item_delete',function(){
-        var id=$(this).attr('data');
-        swal({
-                title: "Anda Yakin Hapus Data Ini ?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Ya, Hapus !",
-                closeOnConfirm: false
-        }, function (isConfirm) {
-            if (isConfirm) {
-                var _token = $('meta[name=csrf-token]').attr('content');
-                $.ajax({
-                    type : "GET",
-                    url   : "{{ route('order.detail_void') }}",
-                    dataType : "JSON",
-                    data : {id,_token},
-                    success: function(data){
-                        swal("Hapus !", "Data Sudah Di Hapus !!.", "success");
-                        view();
-                    }
-                });  
-            }
-        });
-    });
+    function combo_menu(){
 
-
-    function combo_anak(){
-
-        $('select[name=anak]').empty()
-            $.ajax({
-                    type  : 'GET',
-                    url   : "{{ route('combo_sistem.combo_anak') }}",
-                    async : false,
-                    dataType : 'JSON',
-                    success : function(data){
-                        var html = '';
-                        var i;
-                        $('select[name=anak]').empty()
-                            var x = document.getElementById("anak");
-                            var option = document.createElement("option");
-                            option.text = "Pilih Anak";
-                            option.value = "";
+        $('select[name=menu]').empty()
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo.combo_catering_menu') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=menu]').empty()
+                var x = document.getElementById("menu");
+                        var option = document.createElement("option");
+                        option.text = "Pilih";
+                        option.value = '';
                         x.add(option);
-                        for(i=0; i<data.length; i++){
-                            var html = '';
-                            html = '<option value='+(data[i].anak_kode)+'>'+(data[i].anak_nama)+'</option>';
-                            $('select[name=anak]').append(html)
-                        }
-                    }
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].menu_kode)+'>'+(data[i].kat_nama)+' - '+(data[i].menu_nama)+'</option>';
+                    $('select[name=menu]').append(html)
+                }
+            }
         });
 
     }
-    
-    function combo_jadwal(){
-        $('select[name=jadwal]').empty()
-            var html = '';
-            html = '<option value="">Pilih jadwal Makan</option>'+
-                   '<option value="Pagi">Pagi</option>'+
-                   '<option value="Siang">Siang</option>'+
-                   '<option value="Malam">Malam</option>';
-        $('select[name=jadwal]').append(html)
+
+    function combo_filter_kategori(){
+
+        $('select[name=filter_kategori]').empty()
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_kategori') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=filter_kategori]').empty()
+                var x = document.getElementById("filter_kategori");
+                        var option = document.createElement("option");
+                        option.text = "Semua";
+                        option.value = 'Semua';
+                        x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].kat_kode)+'>'+(data[i].kat_nama)+'</option>';
+                    $('select[name=filter_kategori]').append(html)
+                }
+            }
+        });
+
+    }
+
+    function combo_filter_grup(){
+
+        $('select[name=filter_grup]').empty()
+        $.ajax({
+            type  : 'GET',
+            url   : "{{ route('combo_sistem.combo_grup_detail') }}",
+            async : false,
+            dataType : 'JSON',
+            success : function(data){
+                var html = '';
+                var i;
+                $('select[name=filter_grup]').empty()
+                var x = document.getElementById("filter_grup");
+                        var option = document.createElement("option");
+                        option.text = "Semua";
+                        option.value = 'Semua';
+                        x.add(option);
+                for(i=0; i<data.length; i++){
+                    var html = '';
+                    html = '<option value='+(data[i].grup_kode)+'>'+(data[i].detail_nama)+'</option>';
+                    $('select[name=filter_grup]').append(html)
+                }
+            }
+        });
+
     }
     
 </script>

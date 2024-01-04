@@ -6,16 +6,15 @@
     <div class="col-12">
 
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-success">
                 <div class="row">
                     <div class="col-md-9">
-                        <h4 class="card-title">CATERING - KATEGORI</h4>
+                        <h4 class="card-title text-white"><i class="mdi mdi-food-fork-drink"></i> CATERING - KATEGORI</h4>
                     </div>
                     <div class="col-md-3" style="text-align: right">
-                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" id="btn_add"><i class="fas fa-plus-circle"></i> TAMBAH DATA </button>
+                        <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" id="btn_add"><i class="fas fa-plus-circle"></i> TAMBAH DATA </button>
                     </div>
                 </div>
-
             </div>
             <div class="card-body">
                 <div class="box-body">					
@@ -146,7 +145,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('catering.kategori_save') }}",
+            url: "{{ route('catering.kategori.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -171,7 +170,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ route('catering.kategori_view') }}",
+            url: "{{ route('catering.kategori.view') }}",
             async: true,
             dataType: 'JSON',
             success: function(r) {
@@ -185,19 +184,19 @@
 
                         if((data[i].kat_aktif) == 'Y'){
                             var tr = $('<tr>').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="50%">'),
-                                $('<td class= width="5%" align="center">'),
-                                $('<td class= width="5%" align="center">')
+                                $('<td width="1%" align="center">'),
+                                $('<td width="50%">'),
+                                $('<td width="5%" align="center">'),
+                                $('<td width="5%" align="center">')
                             ]);
 
                         } else {
 
                             var tr = $('<tr style="background-color:#fee6ec;">').append([
-                                $('<td class= width="1%" align="center">'),
-                                $('<td class= width="50%">'),
-                                $('<td class= width="5%" align="center">'),
-                                $('<td class= width="5%" align="center">')
+                                $('<td width="1%" align="center">'),
+                                $('<td width="50%">'),
+                                $('<td width="5%" align="center">'),
+                                $('<td width="5%" align="center">')
                             ]);
 
                         }
@@ -224,28 +223,6 @@
     }
 
 
-    $('#show_data_anak2').on('click','.item_pilih2',function(){
-
-        var id = $(this).attr('data');
-
-        $.ajax({
-            type: "GET",
-            url: "{{ route('anak.edit') }}",
-            dataType: "JSON",
-            data: {
-                id: id
-            },
-            success: function(data) {
-                $('[name="daftar_nis2"]').val(data.anak_kode);
-            }
-        });
-
-        return false;
-
-    });
-
-
-
     $('#btn_simpan').on('click', function(){
     
         var anak_nama       = $('#anak_nama').val();
@@ -258,7 +235,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ route('catering.kategori_save') }}",
+            url: "{{ route('catering.kategori.save') }}",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -280,7 +257,7 @@
 
         $.ajax({
             type : "GET",
-            url   : "{{ route('catering.kategori_edit') }}",
+            url   : "{{ route('catering.kategori.edit') }}",
             dataType : "JSON",
             data : {id:id},
             success: function(data){
@@ -325,7 +302,7 @@
 
         $.ajax({
             type : "POST",
-            url   : "{{ route('catering.kategori_update') }}",
+            url   : "{{ route('catering.kategori.update') }}",
             dataType : "JSON",
             data : formData,
             cache : false,
@@ -355,7 +332,7 @@
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('catering.kategori_aktif') }}",
+                    url   : "{{ route('catering.kategori.aktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){
@@ -381,7 +358,7 @@
                 var _token = $('meta[name=csrf-token]').attr('content');
                 $.ajax({
                     type : "GET",
-                    url   : "{{ route('catering.kategori_nonaktif') }}",
+                    url   : "{{ route('catering.kategori.nonaktif') }}",
                     dataType : "JSON",
                     data : {id,_token},
                     success: function(data){

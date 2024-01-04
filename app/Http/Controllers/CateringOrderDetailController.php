@@ -46,47 +46,57 @@ class CateringOrderDetailController extends Controller
    
     public function save(Request $r){
 
-        $app       = SistemApp::sistem();
-        $kode      = $r->kode;
-
-        $menu      = CateringMenu::get()->where('menu_kode',$r->kode)->first();
-
-
+        $app         = SistemApp::sistem();
+        $menu        = CateringMenu::get()->where('menu_kode',$r->menu)->first();
         $transaction = DB::connection('daycare')->transaction(function() use($r,$menu,$app){
 
             /*-- SAVE --*/
-            $tmp = new CateringOrderDetail();
 
-            $diskon = 0;
-            $qty   = 1;
+            $cek = CateringOrderDetail::where('anak_kode',$r->anak_kode)->where('detail_status','O')->where('menu_kode',$menu->menu_kode)->count();
 
-            $tmp->anak_kode          = $r->anak;
-            $tmp->menu_kode         = $menu->menu_kode;
-            $tmp->detail_tgl        = Carbon::now()->toDateString();
-            $tmp->detail_jam        = Carbon::now()->toTimeString();
-            $tmp->detail_qty        = $qty;
+            if($cek > 0){
+                
+                $tmp = CateringOrderDetail::where('anak_kode',$r->anak_kode)->where('detail_status','O')->where('menu_kode',$menu->menu_kode)->first();
 
-            $tmp->detail_harga      = $menu->menu_harga;
-            $tmp->detail_harga_jual = $menu->menu_harga_jual;
-            $tmp->detail_jadwal     = $r->jadwal;
+                $tmp->anak_kode         = $r->anak_kode;
+                $tmp->menu_kode         = $menu->menu_kode;
+                $tmp->detail_tgl        = Carbon::now()->toDateString();
+                $tmp->detail_jam        = Carbon::now()->toTimeString();
+                $tmp->detail_qty        = $r->qty + $tmp->detail_qty;
 
+                $tmp->detail_harga      = $menu->menu_harga;
+                $tmp->detail_total      = $tmp->detail_harga * $tmp->detail_qty;
+                
+                $tmp->created_nip       = $app['kar_nip'];
+                $tmp->created_nama      = $app['kar_nama_awal'];
+                $tmp->created_ip        = $r->ip();
+                
+                $tmp->save();
 
-            /*-- DISKON --*/
+                return true;
 
-            $tmp->detail_diskon          = $diskon;
-            $tmp->detail_diskon_rupiah   = ($diskon/100) * ($menu->detail_harga_jual * $qty);
-            $tmp->detail_subtotal        = $menu->menu_harga_jual * $qty;
-            $tmp->detail_subtotal_diskon = ($menu->menu_harga_jual * $qty) - ($diskon/100) * ($menu->menu_harga_jual * $qty) ;
-            
-            $tmp->kar_id            = $app['kar_id'];
-            $tmp->kar_nama          = $app['kar_nama_awal'];
-            $tmp->usaha_id          = $app['usaha_id'];
-            $tmp->usaha_nama        = $app['usaha_nama'];
-            $tmp->created_ip        = $r->ip();
+            } else {
+                
+                $tmp = new CateringOrderDetail();
 
-            $tmp->save();
+                $tmp->anak_kode         = $r->anak_kode;
+                $tmp->menu_kode         = $menu->menu_kode;
+                $tmp->detail_tgl        = Carbon::now()->toDateString();
+                $tmp->detail_jam        = Carbon::now()->toTimeString();
+                $tmp->detail_qty        = $r->qty;
 
-            return true;
+                $tmp->detail_harga      = $menu->menu_harga;
+                $tmp->detail_total      = $tmp->detail_harga * $r->qty;
+                
+                $tmp->created_nip       = $app['kar_nip'];
+                $tmp->created_nama      = $app['kar_nama_awal'];
+                $tmp->created_ip        = $r->ip();
+                
+                $tmp->save();
+
+                return true;
+            }
+
 
         });
 
@@ -101,15 +111,13 @@ class CateringOrderDetailController extends Controller
         try{
 
             $app = SistemApp::sistem();
-            $order_kode = CateringOrder::order_kode();
-
             $data = DB::connection('daycare')
-                    ->table('ctrg_order_detail AS aa')
-                    ->leftjoin('dapok_tb_anak AS cc','cc.anak_kode','=','aa.anak_kode')
-                    ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
-                    ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
-                    ->where('aa.is_aktif','T')
-                    ->where('aa.kar_id',$app['kar_id'])
+                    ->table('ctrg_tc_order_detail AS aa')
+                    ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','=','aa.anak_kode')
+                    ->leftjoin('ctrg_tb_menu AS cc','cc.menu_kode','=','aa.menu_kode')
+                    ->leftjoin('ctrg_ta_kategori AS dd','dd.kat_id','=','cc.kat_id')
+                    //->where('aa.detail_aktif','T')
+                    ->where('aa.anak_kode',$r->kode)
                     ->orderby('aa.detail_id','desc')
                     ->get();
                             
@@ -117,8 +125,7 @@ class CateringOrderDetailController extends Controller
     
                 $value->menu_kode           = strtoupper($value->menu_kode);
                 $value->harga_tampil        = format_rupiah($value->menu_harga);
-                $value->harga_jual_tampil   = format_rupiah($value->menu_harga_jual);
-                $value->harga_total         = format_rupiah($value->detail_subtotal_diskon);
+                $value->total_tampil        = format_rupiah($value->detail_total);
                
                 return $value;
 
@@ -133,7 +140,7 @@ class CateringOrderDetailController extends Controller
 
         $result['success'] = true;
         $result['data'] = $data;
-        $result['total'] = format_rupiah($data->sum('detail_subtotal_diskon'));
+        $result['total'] = format_rupiah($data->sum('detail_total'));
 
         return response()->json($result);
 
@@ -199,7 +206,7 @@ class CateringOrderDetailController extends Controller
           return response()->json($transaction);   
     }
   
-    public function void(Request $r){
+    public function delete(Request $r){
 
         $id =$r->get('id');
         $data = CateringOrderDetail::where('detail_id',$id)->delete();
