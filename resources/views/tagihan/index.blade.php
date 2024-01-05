@@ -812,6 +812,29 @@
         }
 
     }
+    
+    // function sum() {
+
+    //     var total = document.getElementById('total_biaya').value;
+    //     var diskon = document.getElementById('input_diskon').value;
+
+    //     var total_string = total.toString();
+    //     var total_split = total_string.split(".");
+    //     var total_baru = total_split.join("");
+
+    //     var diskon_string = diskon.toString();
+    //     var diskon_split = diskon_string.split(".");
+    //     var diskon_baru = diskon_split.join("");
+
+    //     var hasil_rupiah =  parseInt(total_baru) - parseInt(diskon_baru);
+
+    //     if (!isNaN(hasil_rupiah)) {
+
+    //         var hasil = format2(hasil_rupiah,"");
+    //             document.getElementById('grand_total').value = hasil;
+    //     }
+
+    // }
 
     function input_bayar() {
 
@@ -832,6 +855,26 @@
                 document.getElementById('grand_total').value = hasil;
 
     }
+
+    // function input_bayar() {
+
+    //     var total = document.getElementById('total_biaya').value;
+    //     var bayar = document.getElementById('input_bayar').value;
+
+    //     var total_string = total.toString();
+    //     var total_split = total_string.split(".");
+    //     var total_baru = total_split.join("");
+
+    //     var bayar_string = bayar.toString();
+    //     var bayar_split = bayar_string.split(".");
+    //     var bayar_baru = bayar_split.join("");
+
+
+    //     var hasil_rupiah = parseInt(total_baru) - parseInt(bayar_baru);
+    //     var hasil = format2(hasil_rupiah,"");
+    //             document.getElementById('grand_total').value = hasil;
+
+    // }
 
 
     var diskon    = document.getElementById('input_diskon');

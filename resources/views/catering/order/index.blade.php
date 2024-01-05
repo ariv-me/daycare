@@ -220,6 +220,76 @@
     </div>
 </div>
 
+<div class="modal fade bd-example-modal" id="formModalAddOrder">
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> <i class="mdi mdi-food-fork-drink"></i> <strong>Order Makanan</strong> </h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-white">
+                {!! csrf_field() !!}
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="hidden" class="form-control" id="anak_kode" name="anak_kode" disabled>
+                        <input type="hidden" class="form-control" id="order_kode" name="order_kode" disabled>
+
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <label class="form-label" for="username">Anak<small class="text-danger">*</small></label>
+                                <input type="text" class="form-control" id="tambah_anak_nama" name="anak_nama" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-1">
+                                    <label class="form-label" for="username">Menu <small class="text-danger">*</small></label>
+                                    <select class="form-control custom-select select2" style="width: 100%;" name="menu" id="tambah_menu"></select>
+                                </div>
+                            </div> 
+                            <div class="col-md-2">
+                                <label class="form-label" for="username">Qty <small class="text-danger">*</small></label>
+                                <input type="text" class="form-control" id="tambah_qty" name="qty">
+                            </div>
+                            <div class="col-md-4 mt-2">
+                                {{-- <label class="form-label" for="username">Aksi <small class="text-danger">*</small></label> --}}
+                                <button type="button" class="btn btn-outline-info btn-sm mt-3 mb-1" data-toggle="modal" id="detail_save"><i class="fas fa-plus-circle"></i> Tambahkan Pesanan </button>
+                            </div>
+                            
+                        </div><!--end row-->
+                        <hr>
+                        <table id="datatable" class="table table-sm table-bordered dt-responsive nowrap mb-0" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center">NO</th>
+                                    <th style="text-align: center">NAMA</th>
+                                    <th style="text-align: center">HARGA</th>
+                                    <th style="text-align: center">QTY</th>
+                                    <th style="text-align: center">TOTAL</th>
+                                    <th style="text-align: center">AKSI</th>
+                                </tr>
+                            </thead>
+                            <tbody id="show_data_detail_add"></tbody>
+                        </table>
+                        <table class="table table-bordered mb-0 table-centered">
+                            <thead>
+                                <tr>
+                                    <th width="83%" style="text-align: right; vertical-align: middle;" colspan="4">TOTAL BIAYA</th>
+                                    <th style="text-align: right;background:white; color:#ff0002" id="total_biaya"></th>
+                                </tr>
+                            </thead>
+                        </table><!--end /table-->
+                    </div><!--end col-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-xs" id="btn_delete"><i class="fa fa-trash"></i> BATALKAN PESANAN</button>
+                <button type="button" class="btn btn-success btn-xs" id="add_btn_save"><i class="fas fa-save"></i> SIMPAN</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @endsection
 
@@ -264,6 +334,48 @@
 
         var formData = new FormData();
 
+        formData.append('anak_kode', anak_kode);
+        formData.append('total_biaya', total_biaya);
+        formData.append('_token', token);
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('catering.order.save') }}",
+            dataType: "JSON",
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(r) {
+
+                    var kode = $('#anak_kode').val();                    
+                    view_detail(kode);
+
+                    $.toast({
+                        text: 'DATA BERHASIL DI TAMBAHKAN',
+                        position: 'top-right',
+                        loaderBg: '#fff716',
+                        icon: 'success',
+                        hideAfter: 3000
+                    });
+                    reset();
+            }
+        });
+
+        return false;
+
+    });
+
+    $('#add_btn_save').on('click', function(){
+       
+        var order_kode   = $('#order_kode').val();
+        var anak_kode   = $('#anak_kode').val();
+        var total_biaya = $('#total_biaya').text();
+        var token       = $('[name=_token]').val();
+
+        var formData = new FormData();
+
+        formData.append('order_kode', order_kode);
         formData.append('anak_kode', anak_kode);
         formData.append('total_biaya', total_biaya);
         formData.append('_token', token);
@@ -378,6 +490,10 @@
                 $('#datatable').DataTable().destroy(); 
                 $('#show_data').empty();
                 data = r.data;
+
+                kode = r.data.kode;
+
+                console.log(kode);
                 
                 document.getElementById("laki-laki").innerHTML= r.pria;
                 document.getElementById("perempuan").innerHTML= r.perempuan;
@@ -405,11 +521,11 @@
                         // tr.find('td:nth-child(3)').append($('<div>')
                         //     .html((data[i].ortu_ibu)+' - <small class="text-muted">(Ibu)</span></small>')); 
 
-                        tr.find('td:nth-child(3)').append($('<div>')
-                            .html(data[i].jumlah_order));      
+                        // tr.find('td:nth-child(3)').append($('<div>')
+                        //     .html(data[i].jumlah_order));      
 
-                        tr.find('td:nth-child(4)').append($('<div>')
-                            .html(data[i].grup));      
+                        // tr.find('td:nth-child(4)').append($('<div>')
+                        //     .html(data[i].kode.order_kode));      
 
                         tr.find('td:nth-child(4)').append($('<div>')
                             .html('<b class="font-13 text-danger">'+(data[i].tagihan_order)+'</b>')); 
@@ -421,7 +537,7 @@
                         } 
                         
                         else {
-                            tr.find('td:nth-child(5)').append('<div><a class="add_orderan nav-link btn btn-xs btn-outline-primary waves-effect waves-light dropdown-toggle arrow-none" id="dLabel4" d role="button" aria-haspopup="false" aria-expanded="false" href="javascript:;" class="btn btn-soft-warning btn-xs" data="'+data[i].anak+'" > <span> <i class="fas fa-shopping-basket"> </i> Tambah Orderan </span></a></div>');
+                            tr.find('td:nth-child(5)').append('<div><a class="tambah_orderan nav-link btn btn-xs btn-outline-primary waves-effect waves-light dropdown-toggle arrow-none" id="dLabel4" d role="button" aria-haspopup="false" aria-expanded="false" href="javascript:;" class="btn btn-soft-warning btn-xs" data="'+data[i].anak+'" > <span> <i class="fas fa-shopping-basket"> </i> Tambah Orderan </span></a></div>');
 
                         }                      
 
@@ -501,6 +617,73 @@
 
     }
     
+    function view_detail_add(kode) {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('catering.order.detail_view') }}",
+            async: true,
+            dataType: 'JSON',
+            data:{kode:kode},
+            success: function(r) {
+                var i;
+                
+                $('#show_data_detail_add').empty();
+                data = r.data;
+
+                console.log(data);
+                document.getElementById("total_biaya").innerHTML='<b class="text-danger font-20">'+r.total+'</b>';
+            
+                $('[name="total_biaya"]').val(r.total);
+                $('[name="grand_total"]').val(r.total);
+
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        var tr = $('<tr>').append([
+                            $('<td width="1%" align="center">'),
+                            $('<td width="50%" align="left">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="10%" align="center">'),
+                            $('<td width="10%" align="right">'),
+                            $('<td width="1%" align="right">')
+                        ]);
+
+                        tr.find('td:nth-child(1)').html((i + 1));
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html('<b>'+(data[i].menu_nama)+'</b>')); 
+
+                        tr.find('td:nth-child(2)').append($('<div>')
+                            .html('<small>'+(data[i].kat_nama)+'</small>'));   
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html((data[i].harga_tampil)));   
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html((data[i].detail_qty)));   
+
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html((data[i].total_tampil))); 
+
+                        tr.find('td:nth-child(6)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-danger btn-xs item_delete" data="'+data[i].detail_id+'"><i class="fa fa-trash"></i></a></div>');  
+
+                        tr.appendTo($('#show_data_detail_add'));
+                    }
+
+
+                } else {
+
+                    $('#show_data_detail_add').append('<tr><td colspan="10">Data Kosong</td></tr>');
+
+                }
+                
+
+            }
+        });
+
+    }
+    
 
 
     $('#show_data').on('click','.add_orderan',function(){
@@ -521,6 +704,32 @@
                 $('#formModalOrder').modal('show');
                 $('#formModalOrder').find('[name="anak_kode"]').val(data.anak_kode);
                 $('#formModalOrder').find('[name="anak_nama"]').val(data.anak_nama);
+            }
+        });
+
+        return false;
+
+    });
+
+    $('#show_data').on('click','.tambah_orderan',function(){
+
+        var id=$(this).attr('data');
+        view_detail_add(id);
+        combo_menu();
+
+        $.ajax({
+            type : "GET",
+            url   : "{{ route('dapok.anak.edit') }}",
+            dataType : "JSON",
+            data : {id:id},
+            success: function(r){
+
+                data = r.data;
+
+                $('#formModalAddOrder').modal('show');
+                $('#formModalAddOrder').find('[name="anak_kode"]').val(data.anak_kode);
+                $('#formModalAddOrder').find('[name="anak_nama"]').val(data.anak_nama);
+                $('#formModalAddOrder').find('[name="order_kode"]').val(data.order_kode);
             }
         });
 
