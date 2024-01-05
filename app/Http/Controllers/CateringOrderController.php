@@ -66,6 +66,8 @@ class CateringOrderController extends Controller
                 $tmp->created_nip       = $app['kar_nip'];
                 $tmp->created_nama      = $app['kar_nama_awal'];
                 $tmp->created_ip        = $r->ip();
+
+                dd($tmp);
                 
                 $detail = CateringOrderDetail::where('order_kode',null)->where('anak_kode',$r->anak_kode)->where('detail_status','O')->where('detail_aktif','T')->get();
                 //dd($detail);
@@ -131,6 +133,7 @@ class CateringOrderController extends Controller
 
                                     'cc.anak_kode',
                                     'cc.order_status',
+                                    'cc.order_kode',
 
                                 )    
                                 ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')    
@@ -177,6 +180,8 @@ class CateringOrderController extends Controller
                 }
 
                 $order = CateringOrder::where('anak_kode',$value->anak_kode)->where('order_status','U')->count();
+               // $value->kode = CateringOrder::where('anak_kode',$value->anak_kode)->where('order_status','U')->pluck('order_kode');
+         
 
                 if($order > 0) {
                     $value->status_order = '1';
