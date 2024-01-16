@@ -45,6 +45,7 @@
             <li class="nav-item"><a class="nav-link" href="{{ route('catering.kategori.index') }}"><i class="ti-control-record"></i>Kategori</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('catering.menu.index') }}"><i class="ti-control-record"></i>Menu</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('catering.order.index') }}"><i class="ti-control-record"></i>Order</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('catering.orderan.index') }}"><i class="ti-control-record"></i>Gizi-Orderan</a></li>
         </ul>
     </li>
         

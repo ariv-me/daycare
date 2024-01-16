@@ -46,6 +46,11 @@
 
         <style>
 
+            link.active {
+                background: #ffb822;
+                color: #fff;
+            }
+
             .form-control:disabled, .form-control[readonly] {
                 background-color: #f1f5fa;
                 opacity: 1;
