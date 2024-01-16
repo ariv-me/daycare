@@ -13,6 +13,8 @@ class CateringOrder extends Model
     protected $connection = 'daycare';
     protected $table = 'ctrg_tc_order';
     protected $primaryKey = 'order_id';
+    protected $guarded = [];
+
 
     public static function order_kode()
 
@@ -37,6 +39,10 @@ class CateringOrder extends Model
         }
 
         return ($kd);
+    }
+
+    public function anak(){
+        return $this->belongsTo('App\Models\DapokAnak','anak_kode','anak_kode');
     }
 
 }

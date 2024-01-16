@@ -33,7 +33,7 @@ class CateringOrderDataController extends Controller
         
         $app = SistemApp::sistem();
         $menu = SistemApp::OtoritasMenu($app['idu']);
-        return view('catering.order.data.index',compact('app','menu'));
+        return view('catering.orderan.index',compact('app','menu'));
     }
 
 
@@ -91,68 +91,185 @@ class CateringOrderDataController extends Controller
     public function view(Request $r){
 
         $result = array('success'=>false);
+        
+        $filter_tanggal = date('Y-m-d', strtotime($r->tanggal));
 
         try{
+            
+           
+            $data = DB::connection('daycare')
+                                ->table('ctrg_tc_order_detail AS aa')      
+                                ->select(
+                                  
+                                    'bb.anak_kode',
+                                    'bb.anak_id',
+                                    'bb.anak_aktif',
+                                    'bb.anak_nama',
+                                    'bb.anak_jekel',
+                                    'bb.anak_tgl_lahir',
 
-            $tgl_mulai  = $r->get('tgl_mulai');
-            $tgl_akhir  = $r->get('tgl_akhir');
-            $status     = $r->get('status');
+                                    'aa.menu_kode',
+                                    'aa.order_kode',
+                                    'aa.menu_kode',
+                                    'aa.detail_jam',
+                                    'aa.detail_tgl',
+                                    'aa.detail_qty',
+                                    'aa.detail_harga',
+                                    'aa.detail_total',
+                                    'aa.detail_status',
+                                    'aa.detail_id',
+
+                                    'dd.menu_kode',
+                                    'dd.menu_nama',
+                                    
+                                    'ee.kat_id',
+                                    'ee.kat_nama',
+                                )    
+                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')  
+                                ->leftjoin('ctrg_tb_menu AS dd','dd.menu_kode','aa.menu_kode')  
+                                ->leftjoin('ctrg_ta_kategori AS ee','ee.kat_id','dd.kat_id')  
+                                ->where('aa.detail_aktif','Y')     
+                                ->where('aa.detail_status','O')     
+                                ->where('aa.detail_tgl', $filter_tanggal)
+                                ->orderby('aa.detail_id','desc')
+                                ->get();
+
+           
+
+            $data = $data->map(function($value) use($filter_tanggal){
+
+                $tgl_lahir          = Carbon::now()->diff($value->anak_tgl_lahir);
+                $hari_anak = $tgl_lahir->days;
+
+                    $years = ($hari_anak / 365) ; // days / 365 days
+                    $years = floor($years); // Remove all decimals
+            
+                    $month = ($hari_anak % 365) / 30.5; // I choose 30.5 for Month (30,31) ;)
+                    $month = floor($month); // Remove all decimals
+
+                    $days = ($hari_anak % 365) % 30.5; // the rest of days
+        
+                $value->usia_anak = $years.' Tahun, '.$month.' Bulan, '.$days.' Hari';
 
 
-            $tanggal_mulai = $tgl_mulai ? date('Y-m-d', strtotime($tgl_mulai)) : date('Y-m-d');
-            $tanggal_akhir = $tgl_akhir ? date('Y-m-d', strtotime($tgl_akhir)) : date('Y-m-d');
+                if($value->anak_jekel == 'L'){
+                    $value->anak_jekel = 'Laki - Laki';
+                }
+                else if($value->anak_jekel == 'P'){
+                    $value->anak_jekel = 'Perempuan';
+                }
 
-            $order_kode = CateringOrder::order_kode();
-       
-            if($status == 'Semua'){
+                $value->detail_harga = format_rupiah($value->detail_harga);
+                $value->detail_total = format_rupiah($value->detail_total);
 
-                $data = DB::connection('daycare')
-                            ->table('ctrg_order_detail AS aa')
-                            ->leftjoin('ctrg_order AS bb','bb.order_kode','=','aa.order_kode')
-                            ->leftjoin('dapok_tb_anak AS cc','cc.anak_kode','=','aa.anak_kode')
-                            ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
-                            ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
-                            ->where('bb.order_tgl', '>=', $tanggal_mulai)
-                            ->where('bb.order_tgl', '<=', $tanggal_akhir)
-                            ->where('aa.is_aktif','Y')
-                            ->orderby('aa.order_kode','desc')
-                            ->get();
-            } else {
-
-                $data = DB::connection('daycare')
-                            ->table('ctrg_order_detail AS aa')
-                            ->leftjoin('ctrg_order AS bb','bb.order_kode','=','aa.order_kode')
-                            ->leftjoin('dapok_tb_anak AS cc','cc.anak_kode','=','aa.anak_kode')
-                            ->leftjoin('ctrg_menu AS dd','dd.menu_kode','=','aa.menu_kode')
-                            ->leftjoin('ctrg_kategori AS ee','ee.kat_id','=','dd.kat_id')
-                            ->where('bb.order_tgl', '>=', $tanggal_mulai)
-                            ->where('bb.order_tgl', '<=', $tanggal_akhir)
-                            ->where('aa.detail_status', $status)
-                            ->where('aa.is_aktif','Y')
-                            ->orderby('aa.order_kode','desc')
-                            ->get();
-            }
-
-            $data = $data->map(function($value) {
-    
-                $value->menu_kode           = strtoupper($value->menu_kode);
-                $value->harga_tampil        = format_rupiah($value->menu_harga);
-                $value->harga_jual_tampil   = format_rupiah($value->menu_harga_jual);
-                $value->harga_total         = format_rupiah($value->detail_subtotal_diskon);
-               
                 return $value;
 
             });
-
-            // dd($order_kode);
+                    
 
         } catch (\Exception $e) {
             $result['message'] = $e->getMessage();  
             return response()->json($result);
         }
 
-        $result['success'] = true;
-        $result['data'] = $data;
+        $result['success']       = true;
+        $result['data']          = $data;
+        $result['total_anak']    = CateringOrder::where('order_close','T')->where('is_aktif','Y')->where('order_tgl',$filter_tanggal)->count();
+        $result['total_order']   = CateringOrderDetail::where('detail_aktif','Y')->where('detail_status','O')->where('detail_tgl',$filter_tanggal)->sum('detail_qty');
+        $result['total_tagihan'] = format_rupiah(CateringOrderDetail::where('detail_aktif','Y')->where('detail_status','O')->where('detail_tgl',$filter_tanggal)->sum('detail_total') );
+      
+
+        return response()->json($result);
+
+    }
+    public function view_terima(Request $r){
+
+        $result = array('success'=>false);
+        
+        $filter_tanggal = date('Y-m-d', strtotime($r->tanggal));
+
+        try{
+            
+           
+            $data = DB::connection('daycare')
+                                ->table('ctrg_tc_order_detail AS aa')      
+                                ->select(
+                                  
+                                    'bb.anak_kode',
+                                    'bb.anak_id',
+                                    'bb.anak_aktif',
+                                    'bb.anak_nama',
+                                    'bb.anak_jekel',
+                                    'bb.anak_tgl_lahir',
+
+                                    'aa.menu_kode',
+                                    'aa.order_kode',
+                                    'aa.menu_kode',
+                                    'aa.detail_jam',
+                                    'aa.detail_tgl',
+                                    'aa.detail_qty',
+                                    'aa.detail_harga',
+                                    'aa.detail_total',
+                                    'aa.detail_status',
+                                    'aa.detail_id',
+
+                                    'dd.menu_kode',
+                                    'dd.menu_nama',
+                                    
+                                    'ee.kat_id',
+                                    'ee.kat_nama',
+                                )    
+                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')  
+                                ->leftjoin('ctrg_tb_menu AS dd','dd.menu_kode','aa.menu_kode')  
+                                ->leftjoin('ctrg_ta_kategori AS ee','ee.kat_id','dd.kat_id')  
+                                ->where('aa.detail_aktif','Y')     
+                                ->where('aa.detail_status','C')     
+                                ->where('aa.detail_tgl', $filter_tanggal)
+                                ->orderby('aa.detail_id','desc')
+                                ->get();
+
+            $data = $data->map(function($value) use($filter_tanggal){
+
+                $tgl_lahir          = Carbon::now()->diff($value->anak_tgl_lahir);
+                $hari_anak = $tgl_lahir->days;
+
+                    $years = ($hari_anak / 365) ; // days / 365 days
+                    $years = floor($years); // Remove all decimals
+            
+                    $month = ($hari_anak % 365) / 30.5; // I choose 30.5 for Month (30,31) ;)
+                    $month = floor($month); // Remove all decimals
+
+                    $days = ($hari_anak % 365) % 30.5; // the rest of days
+        
+                $value->usia_anak = $years.' Tahun, '.$month.' Bulan, '.$days.' Hari';
+
+
+                if($value->anak_jekel == 'L'){
+                    $value->anak_jekel = 'Laki - Laki';
+                }
+                else if($value->anak_jekel == 'P'){
+                    $value->anak_jekel = 'Perempuan';
+                }
+
+                $value->detail_harga = format_rupiah($value->detail_harga);
+                $value->detail_total = format_rupiah($value->detail_total);
+
+                return $value;
+
+            });
+                    
+
+        } catch (\Exception $e) {
+            $result['message'] = $e->getMessage();  
+            return response()->json($result);
+        }
+
+        $result['success']       = true;
+        $result['data']          = $data;
+        $result['total_anak']    = CateringOrder::where('order_close','Y')->where('is_aktif','Y')->where('order_tgl',$filter_tanggal)->count();
+        $result['total_order']   = CateringOrderDetail::where('detail_aktif','Y')->where('detail_status','C')->where('detail_tgl',$filter_tanggal)->sum('detail_qty');
+        $result['total_tagihan'] = format_rupiah(CateringOrderDetail::where('detail_aktif','Y')->where('detail_status','C')->where('detail_tgl',$filter_tanggal)->sum('detail_total') );
+
 
         return response()->json($result);
 
@@ -176,6 +293,58 @@ class CateringOrderDataController extends Controller
         return response()->json($data);
     }
 
+    public function terima(Request $r){
+
+        $transaction = DB::connection('daycare')->transaction(function() use($r){
+  
+              $app = SistemApp::sistem();
+
+                $id = $r->get('semua');
+
+                $order_kode   = CateringOrderDetail::whereIn('detail_id',$id)->pluck('order_kode');
+                $order_total = CateringOrder::where('order_kode',$order_kode)->sum('order_total');
+                $detail_total = CateringOrderDetail::whereIn('detail_id',$id)->pluck('detail_total')->sum();
+
+                $min = $order_total - $detail_total;
+                $tmp = CateringOrder::where('order_kode',$order_kode)->first();
+
+                // if ($min == 0) {
+                    
+                //     $tmp->order_close       = 'Y';
+
+                // }
+
+                $tmp->order_close       = 'Y';
+
+                $tmp->order_total       = $min;
+                $tmp->created_nip       = $app['kar_nip'];
+                $tmp->created_nama      = $app['kar_nama_awal'];
+                $tmp->created_ip        = $r->ip();
+                $tmp->updated_ip = $r->ip();
+
+                $tmp->save();
+               
+                foreach ($id as $key => $value) {
+    
+                /*-- DETAIL UPDATE --*/
+
+                $sql = DB::connection('daycare')
+                            ->table('ctrg_tc_order_detail')
+                            ->where('detail_aktif','Y')
+                            ->whereIn('detail_id',$id)
+                            ->where('detail_status','O')
+                            ->update([
+                                'detail_status' => 'C'
+                            ]);
+                }
+
+             
+                return true;
+                     
+          });
+  
+          return response()->json($transaction);   
+    }
     public function update(Request $r){
 
         $transaction = DB::connection('daycare')->transaction(function() use($r){
