@@ -601,14 +601,9 @@
                         tr.find('td:nth-child(2)').append($('<div>')
                             .html('<small class="text-muted">'+(data[i].anak_jekel)+' - '+(data[i].usia_anak)+'</small>'));                      
 
-                        // tr.find('td:nth-child(3)').append($('<div>')
-                        //     .html((data[i].ortu_ibu)+' - <small class="text-muted">(Ibu)</span></small>')); 
 
                         tr.find('td:nth-child(3)').append($('<div>')
                             .html(data[i].jumlah_order));      
-
-                        // tr.find('td:nth-child(4)').append($('<div>')
-                        //     .html(data[i].kode.order_kode));      
 
                         tr.find('td:nth-child(4)').append($('<div>')
                             .html('<b class="font-13 text-danger">'+(data[i].tagihan_order)+'</b>')); 

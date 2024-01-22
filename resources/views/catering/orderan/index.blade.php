@@ -431,13 +431,12 @@
 
                         if ((data[i].detail_status) == 'O' ) {
 
-                            tr.find('td:nth-child(8)').append('<div><a class="terima_orderan nav-link btn btn-xs btn-outline-primary waves-effect waves-light dropdown-toggle arrow-none" id="dLabel4" d role="button" aria-haspopup="false" aria-expanded="false" href="javascript:;" class="btn btn-soft-success btn-xs" data="'+data[i].order_kode+'" > <span> <i class="fas fa-check"> </i> Terima Orderan </span></a></div>');
-
+                            tr.find('td:nth-child(8)').append('<span class="badge badge-soft-danger">Belum di Terima</span>');
                         } 
                         
                         else {
 
-                            tr.find('td:nth-child(8)').append('<div><a class="update_orderan nav-link btn btn-xs btn-outline-success waves-effect waves-light dropdown-toggle arrow-none" id="dLabel4" d role="button" aria-haspopup="false" aria-expanded="false" href="javascript:;" class="btn btn-soft-success btn-xs" data="'+data[i].order_kode+'" > <span> <i class="fas fa-check"> </i> Orderan Di Terima </span></a></div>');
+                            tr.find('td:nth-child(8)').append('<span class="badge badge-soft-success">Sudah di Terima</span>');
                         }                      
 
                         tr.appendTo($('#show_data'));
@@ -509,13 +508,12 @@
 
                         if ((data[i].detail_status) == 'O' ) {
 
-                            tr.find('td:nth-child(8)').append('<div><a class="terima_orderan nav-link btn btn-xs btn-outline-primary waves-effect waves-light dropdown-toggle arrow-none" id="dLabel4" d role="button" aria-haspopup="false" aria-expanded="false" href="javascript:;" class="btn btn-soft-success btn-xs" data="'+data[i].order_kode+'" > <span> <i class="fas fa-check"> </i> Terima Orderan </span></a></div>');
-
+                            tr.find('td:nth-child(8)').append('<span class="badge badge-soft-danger">Belum di Terima</span>');
                         } 
-                        
+
                         else {
 
-                            tr.find('td:nth-child(8)').append('<div><a class="update_orderan nav-link btn btn-xs btn-outline-success waves-effect waves-light dropdown-toggle arrow-none" id="dLabel4" d role="button" aria-haspopup="false" aria-expanded="false" href="javascript:;" class="btn btn-soft-success btn-xs" data="'+data[i].order_kode+'" > <span> <i class="fas fa-check"> </i> Orderan Di Terima </span></a></div>');
+                            tr.find('td:nth-child(8)').append('<span class="badge badge-soft-success">Sudah di Terima</span>');
                         }                      
 
                         tr.appendTo($('#show_data_terima'));

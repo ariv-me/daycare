@@ -110,7 +110,7 @@ class CateringOrderController extends Controller
                     $value->anak_jekel = 'Perempuan';
                 }
 
-                $order = CateringOrder::where('anak_kode',$value->anak_kode)->where('order_status','U')->where('order_tgl',$filter_tanggal)->count();
+                $order = CateringOrder::where('anak_kode',$value->anak_kode)->where('order_status','U')->where('order_tgl',$filter_tanggal)->where('order_close','T')->count();
                 $kode = CateringOrder::where('anak_kode',$value->anak_kode)->where('order_status','U')->where('order_tgl',$filter_tanggal)->first();
                 // dd($kode->order_kode);
                 if($kode != null){
@@ -126,8 +126,8 @@ class CateringOrderController extends Controller
                 }
 
                 $detail = CateringOrderDetail::where('anak_kode',$value->anak_kode)->get();
-                $value->jumlah_order  = CateringOrderDetail::where('anak_kode',$value->anak_kode)->where('detail_tgl',$filter_tanggal)->where('order_kode','!=','null')->count();
-                $value->tagihan_order = CateringOrderDetail::where('anak_kode',$value->anak_kode)->where('detail_tgl',$filter_tanggal)->where('order_kode','!=','null')->sum('detail_total');
+                $value->jumlah_order  = CateringOrderDetail::where('anak_kode',$value->anak_kode)->where('detail_tgl',$filter_tanggal)->where('order_kode','!=','null')->where('detail_status','O')->count();
+                $value->tagihan_order = CateringOrderDetail::where('anak_kode',$value->anak_kode)->where('detail_tgl',$filter_tanggal)->where('order_kode','!=','null')->where('detail_status','O')->sum('detail_total');
                 $value->tagihan_order = format_rupiah($value->tagihan_order  );
                 
 
