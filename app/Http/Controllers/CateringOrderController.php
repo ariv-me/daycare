@@ -176,6 +176,7 @@ class CateringOrderController extends Controller
                 $tmp->order_jam         = Carbon::now()->toTimeString();    
                 $tmp->order_status      = 'U';
                 $tmp->order_total       = str_replace(".", "", $r->total_biaya);
+                $tmp->order_grand_total = str_replace(".", "", $r->total_biaya);
        
                 $tmp->created_nip       = $app['kar_nip'];
                 $tmp->created_nama      = $app['kar_nama_awal'];
