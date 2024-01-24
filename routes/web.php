@@ -322,11 +322,19 @@ Route::group(['prefix' => 'catering', 'as' => 'catering.'], function () {
 		Route::get('/', [CateringOrderDataController::class, 'index'])->name('index');
 		Route::get('/view', [CateringOrderDataController::class, 'view'])->name('view');
 		Route::get('/view_terima', [CateringOrderDataController::class, 'view_terima'])->name('view_terima');
+		Route::get('/view_bayar', [CateringOrderDataController::class, 'view_bayar'])->name('view_bayar');
 		Route::get('/terima', [CateringOrderDataController::class, 'terima'])->name('terima');
+		Route::get('/bayar', [CateringOrderDataController::class, 'bayar'])->name('bayar');
 		Route::get('/edit', [CateringOrderDataController::class, 'edit'])->name('edit');
 		Route::post('/update', [CateringOrderDataController::class, 'update'])->name('update');
 		Route::post('/delete', [CateringOrderDataController::class, 'delete'])->name('delete');
-	
+		
+		Route::post('/export_order/{tgl_awal}/{tgl_awal}/{status}', [CateringOrderDataController::class, 'export_order'])->name('export_order');
+		Route::post('/export_order_terima/{tgl_awal}/{tgl_awal}/{status}', [CateringOrderDataController::class, 'export_order_terima'])->name('export_order_terima');
+		Route::post('/export_order_bayar/{tgl_awal}/{tgl_awal}/{status}', [CateringOrderDataController::class, 'export_order_bayar'])->name('export_order_bayar');
+		 
+
+
 	});
 
 	// Order 
