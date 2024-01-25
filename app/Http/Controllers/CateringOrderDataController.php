@@ -14,11 +14,14 @@ use App\Models\SistemApp;
 use App\Models\CateringMenu;
 use App\Models\HCISKaryawan;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Excel;
 use App\Models\CateringOrder;
 use App\Models\CateringKategori;
 use App\Models\CateringMenuItem;
 use App\Models\CateringOrderDetail;
+
+use App\Exports\CateringOrderExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 
 class CateringOrderDataController extends Controller
@@ -197,7 +200,7 @@ class CateringOrderDataController extends Controller
                                                                     ->where('detail_tgl', '<=', $filter_tanggal_akhir)
                                                                     ->sum('detail_total') );
 
-        $result['export_excel'] = $app['url'].'orderan/export_order/'.$filter_tanggal_awal.'/'.$filter_tanggal_akhir.'/'.$status;
+        $result['export_excel'] = $app['url'].'catering/orderan/export_order/'.$filter_tanggal_awal.'/'.$filter_tanggal_akhir.'/'.$status;
         
       
         return response()->json($result);
@@ -605,17 +608,17 @@ class CateringOrderDataController extends Controller
 
     public function export_order($filter_tanggal_awal,$filter_tanggal_akhir,$status) 
     {
-        // return Excel::download(new DaftarUtangExport($vendor,$status,$tanggal_mulai,$tanggal_akhir), 'Daftar Utang.xlsx');
+        return Excel::download(new CateringOrderExport($filter_tanggal_awal,$filter_tanggal_akhir,$status), 'Data Order.xlsx');
         
     }
-    public function export_terima($filter_tanggal_awal,$filter_tanggal_akhir,$status) 
+    public function export_order_terima($filter_tanggal_awal,$filter_tanggal_akhir,$status) 
     {
-        // return Excel::download(new DaftarUtangExport($vendor,$status,$tanggal_mulai,$tanggal_akhir), 'Daftar Utang.xlsx');
+        // return Excel::download(new DaftarUtangExport($filter_tanggal_awal,$filter_tanggal_akhir,$status), 'Daftar Utang.xlsx');
         
     }
-    public function export_bayar($filter_tanggal_awal,$filter_tanggal_akhir,$status) 
+    public function export_order_bayar($filter_tanggal_awal,$filter_tanggal_akhir,$status) 
     {
-        // return Excel::download(new DaftarUtangExport($vendor,$status,$tanggal_mulai,$tanggal_akhir), 'Daftar Utang.xlsx');
+        // return Excel::download(new DaftarUtangExport($filter_tanggal_awal,$filter_tanggal_akhir,$status), 'Daftar Utang.xlsx');
         
     }
 

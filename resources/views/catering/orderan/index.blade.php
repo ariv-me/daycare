@@ -167,6 +167,7 @@
                         </div>	
                         <button type="button" class="btn btn-primary waves-effect btn-sm waves-light mt-3" id="terima_orderan"><i class="mdi mdi-check-all mr-2"></i>Terima Orderan</button>
                         <button type="button" class="btn btn-success waves-effect btn-sm waves-light mt-3" id="export_bayar"><i class="far fa-file-excel"></i>  Export Excel</button>
+                        <div id="mantap"></div>
 
                     </div>
                     <div class="tab-pane " id="terima" role="tabpanel">
@@ -189,6 +190,7 @@
                         </div>	
                         <button type="button" class="btn btn-primary waves-effect btn-sm waves-light mt-3" id="bayar_orderan"><i class="mdi mdi-check-all mr-2"></i>Proses Pembayaran</button>
                         <button type="button" class="btn btn-success waves-effect btn-sm waves-light mt-3" id="export_tagihan"><i class="far fa-file-excel"></i>  Export Excel</button>
+                        
 
                     </div>      
                     <div class="tab-pane " id="bayar" role="tabpanel">
@@ -510,7 +512,11 @@
                 $('#datatable').DataTable().destroy(); 
                 $('#show_data').empty();
                 data = r.data;
+
+                console.log(r.export_excel);
                 
+                document.getElementById("mantap").innerHTML="<a href='"+r.export_excel+"' target='_blank' class='btn btn-success'><i class='mdi mdi-file-excel-box'></i> EXCEL</a>";
+
                 document.getElementById("total_anak").innerHTML= r.total_anak;
                 document.getElementById("total_order").innerHTML= r.total_order;
                 document.getElementById("total_tagihan").innerHTML= r.total_tagihan;

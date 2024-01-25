@@ -329,11 +329,9 @@ Route::group(['prefix' => 'catering', 'as' => 'catering.'], function () {
 		Route::post('/update', [CateringOrderDataController::class, 'update'])->name('update');
 		Route::post('/delete', [CateringOrderDataController::class, 'delete'])->name('delete');
 		
-		Route::post('/export_order/{tgl_awal}/{tgl_awal}/{status}', [CateringOrderDataController::class, 'export_order'])->name('export_order');
-		Route::post('/export_order_terima/{tgl_awal}/{tgl_awal}/{status}', [CateringOrderDataController::class, 'export_order_terima'])->name('export_order_terima');
-		Route::post('/export_order_bayar/{tgl_awal}/{tgl_awal}/{status}', [CateringOrderDataController::class, 'export_order_bayar'])->name('export_order_bayar');
-		 
-
+		Route::get('/export_order/{tgl_awal}/{tgl_akhir}/{status}', [CateringOrderDataController::class, 'export_order'])->name('export_order');
+		// Route::get('/export_order_terima/{tgl_awal}/{tgl_akhir}/{status}', [CateringOrderDataController::class, 'export_order_terima'])->name('export_order_terima');
+		// Route::get('/export_order_bayar/{tgl_awal}/{tgl_akhir}/{status}', [CateringOrderDataController::class, 'export_order_bayar'])->name('export_order_bayar');
 
 	});
 
