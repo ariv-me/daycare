@@ -16,7 +16,9 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "laravolt/indonesia": "^0.33.0",
-        "mike42/escpos-php": "^4.0"
+        "maatwebsite/excel": "^3.1",
+        "mike42/escpos-php": "^4.0",
+        "psr/simple-cache": "1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
