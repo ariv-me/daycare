@@ -167,7 +167,7 @@
                     for (i = 0; i < data.length; i++) {
 
 
-                        if((data[i].kat_aktif) == 'Y'){
+                        if((data[i].menu_aktif) == 'Y'){
                             var tr = $('<tr>').append([
                                 $('<td width="1%" align="center">'),
                                 $('<td width="5%" align="center">'),
@@ -185,7 +185,7 @@
                                 $('<td width="1%" align="center">'),
                                 $('<td width="5%" align="center">'),
                                 $('<td width="15%">'),
-                                $('<td width="30%" align="right">'),
+                                $('<td width="30%" align="left">'),
                                 $('<td width="10%" align="left">'),
                                 $('<td width="10%" align="right">'),
                                 $('<td width="7%" align="center">'),
@@ -213,10 +213,10 @@
                             .html('<strong>'+(data[i].harga)+'</strong'));   
 
                         tr.find('td:nth-child(7)').append($('<div>')
-                            .html((data[i].is_aktif)));   
+                            .html((data[i].menu_aktif)));   
                         
-                        if ((data[i].kat_aktif) == 'Y'){
-                            tr.find('td:nth-child(8)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].menu_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].menu_kode+'"><i class="fa fa-trash"></i></a></div>');   
+                        if ((data[i].menu_aktif) == 'Y'){
+                            tr.find('td:nth-child(8)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].menu_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-danger btn-xs item_nonaktif" data="'+data[i].menu_kode+'"><i class="mdi mdi-close"></i></a></div>');   
                         }
                         else {
                             tr.find('td:nth-child(8)').append('<div class="btn-group"><a href="javascript:;" class="btn btn-soft-warning btn-xs item_edit" data="'+data[i].menu_kode+'"><i class="fas fa-pencil-alt"></i></a><a href="javascript:;" class="btn btn-soft-info btn-xs item_aktif" data="'+data[i].menu_kode+'"><i class="mdi mdi-check"></i></a></div>');   
