@@ -29,7 +29,6 @@
             <a href="javascript: void(0);"> <i class="mdi mdi-clipboard-account-outline" class="align-self-center menu-icon"></i><span>Data Pokok</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
                 <li class="nav-item"><a href="{{ route('dapok.ortu.index') }}"> <i class="mdi mdi-account-multiple-outline" class="align-self-center menu-icon"></i><span>Orang Tua</span></a></li>
-                <li class="nav-item"><a href="{{ route('dapok.penjemput.index') }}"> <i class="mdi mdi-taxi" class="align-self-center menu-icon"></i><span>Penjemput</span></a></li>
                 <li class="nav-item"><a href="{{ route('dapok.anak.index') }}"> <i class="mdi mdi-face-recognition" class="align-self-center menu-icon"></i><span>Data Anak</span></a></li>        
             </ul>
         </li>
