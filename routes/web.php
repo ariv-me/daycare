@@ -332,6 +332,10 @@ Route::group(['prefix' => 'catering', 'as' => 'catering.'], function () {
 		Route::get('/export_order/{tgl_awal}/{tgl_akhir}/{status}', [CateringOrderDataController::class, 'export_order'])->name('export_order');
 		// Route::get('/export_order_terima/{tgl_awal}/{tgl_akhir}/{status}', [CateringOrderDataController::class, 'export_order_terima'])->name('export_order_terima');
 		// Route::get('/export_order_bayar/{tgl_awal}/{tgl_akhir}/{status}', [CateringOrderDataController::class, 'export_order_bayar'])->name('export_order_bayar');
+		
+		Route::get('/export_order_pdf/{tgl_awal}/{tgl_akhir}/{status}', [CateringOrderDataController::class, 'export_order_pdf'])->name('export_order_pdf');
+		Route::get('/export_terima_pdf/{tgl_awal}/{tgl_akhir}/{status}', [CateringOrderDataController::class, 'export_terima_pdf'])->name('export_terima_pdf');
+		Route::get('/export_bayar_pdf/{tgl_awal}/{tgl_akhir}/{status}', [CateringOrderDataController::class, 'export_bayar_pdf'])->name('export_bayar_pdf');
 
 	});
 

@@ -51,6 +51,26 @@
             margin-right: 0px;
             margin-left: 0px;
         }
+
+        link.active {
+            background: #ffb822;
+            color: #fff;
+        }
+
+        .nav.nav-tabs .nav-item.show:focus, .nav.nav-tabs .nav-item.show.active, .nav.nav-tabs .nav-link:focus, .nav.nav-tabs .nav-link.active {
+            color: #000000;
+            background-color: #ffb822;
+            border-color: transparent transparent #ffb822;
+            border: 1px solid white;
+        }
+
+        .nav-tabs .nav-link {
+            border: 1px solid white;
+            border-top-left-radius: 1.25rem;
+            border-top-right-radius: 1.25rem;
+            background: #e7e7e7;
+        }
+
     </style>
 @endsection
 
@@ -78,46 +98,134 @@
                     <div class="col-md-2">
                         <div class="mb-3">
                             <label class="form-label" for="subject">Tanggal  </label>
-                            <input type="text" class="form-control datepicker" id="filter_tanggal" name="filter_tanggal" onchange="FilterTanggal(this)">
+                            <input type="text" class="form-control datepicker" id="filter_tanggal_awal" name="filter_tanggal_awal" onchange="FilterTanggalAwal(this)">
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="mb-3">
-                            <label class="form-label" for="subject">Total Anak</label> <br>
-                            <span class="h4 text-success font-20 mt-2" id="total_anak"></span>      
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="mb-3">
-                            <label class="form-label" for="subject">Total Orderan</label> <br>
-                            <span class="h4 text-success font-20 mt-2" id="total_order"></span>      
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="mb-3">
-                            <label class="form-label" for="subject">Total Tagihan </label> <br>
-                            <span class="h5 text-danger text-strong mt-2">Rp. </span><span class="h4 text-danger font-20 mt-2" id="total_tagihan"></span>      
+                            <label class="form-label" for="subject">Tanggal  </label>
+                            <input type="text" class="form-control datepicker" id="filter_tanggal_akhir" name="filter_tanggal_akhir" onchange="FilterTanggalAkhir(this)">
                         </div>
                     </div>
                 </div>
+                
+                <div class="row">
 
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs nav-left" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#order" role="tab" aria-selected="true"><b class="font-18"><i class="fas fa-shopping-basket"></i>  Order </b> | Order : 
+                                    <b id="total_anak_order" class="font-15 text-danger font-weight-bold"> </b> | Menu : 
+                                    <b id="total" class="font-15 text-danger font-weight-bold"> </b> | Tagihan : 
+                                    <b> Rp.</b> 
+                                    <b id="total_tagihan_order" class="font-15 text-danger font-weight-bold"> </b></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#orderan" role="tab" aria-selected="true"><b class="font-18"><i class="fas fa-shopping-basket"></i>  Orderan </b> | Order : 
+                                    <b id="total_anak" class="font-15 text-danger font-weight-bold"> </b> | Menu : 
+                                    <b id="total_order" class="font-15 text-danger font-weight-bold"> </b> | Tagihan : 
+                                    <b> Rp.</b> 
+                                    <b id="total_tagihan" class="font-15 text-danger font-weight-bold"> </b></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#terima" role="tab" aria-selected="true"><b class="font-18"><i class="fas fa-clipboard-check"></i>  Di Terima </b> | Order : 
+                                    <b id="total_anak_terima" class="font-15 text-danger font-weight-bold"> </b> | Menu : 
+                                    <b id="total_order_terima" class="font-15 text-danger font-weight-bold"> </b> | Tagihan : 
+                                    <b> Rp.</b> <b id="total_tagihan_terima" class="font-15 text-danger font-weight-bold"> </b></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#bayar" role="tab" aria-selected="true"><b class="font-18"><i class="fas fa-money-check-alt"></i>  Di Bayar </b> | Order : 
+                                    <b id="total_anak_bayar" class="font-15 text-danger font-weight-bold"> </b> | Menu : 
+                                    <b id="total_order_bayar" class="font-15 text-danger font-weight-bold"> </b> | Tagihan : 
+                                    <b> Rp.</b> <b id="total_tagihan_bayar" class="font-15 text-danger font-weight-bold"> </b></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
                 <hr>
-               
-                <div class="box-body">	
-                    <div class="table-responsive">
-                        <table id="datatable" class="table-sm table table-bordered mb-0 table-centered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                            <thead class="table-light">
-                                <tr>
-                                    <th style="text-align: center">NO</th>
-                                    <th style="text-align: center">ANAK</th>
-                                    <th style="text-align: center">JUMLAH MENU</th>
-                                    <th  style="text-align: center">TAGIHAN</th>
-                                    <th  style ="text-align: center">STATUS</th>
-                                </tr>
-                            </thead>
-                            <tbody id="show_data"></tbody>
-                        </table>
-                    </div>	
+                <div class="tab-content">
+
+                    <div class="tab-pane active" id="order" role="tabpanel">
+                         <div class="table-responsive">
+                            <table id="datatable" class="table-sm table table-bordered mb-0 table-centered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="text-align: center">NO</th>
+                                        <th style="text-align: center">ANAK</th>
+                                        <th style="text-align: center">JUMLAH MENU</th>
+                                        <th  style="text-align: center">TAGIHAN</th>
+                                        <th  style ="text-align: center">STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="show_data"></tbody>
+                            </table>
+                        </div>	
+                    </div>
+
+                    <div class="tab-pane" id="orderan" role="tabpanel">
+                        <div class="table-responsive">
+                            <table id="datatable_order" class="table-sm table table-bordered mb-0 table-centered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th data-ordering="false" style="text-align: center; vertical-align:middle;"> </th>
+                                        <th style="text-align: center">NO</th>
+                                        <th style="text-align: center">MENU</th>
+                                        <th style="text-align: center">ANAK</th>
+                                        <th style="text-align: center">HARGA</th>
+                                        <th style="text-align: center">QTY</th>
+                                        <th  style="text-align: center">TAGIHAN</th>
+                                        <th  style ="text-align: center">STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="show_data_orderan"></tbody>
+                            </table>
+                        </div>	
+                        <div id="export_order_pdf" class="mt-3"></div>
+                    </div>
+
+                    <div class="tab-pane " id="terima" role="tabpanel">
+                        <div class="table-responsive">
+                            <table id="datatable_terima" class="table-sm table table-bordered mb-0 table-centered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th data-ordering="false" style="text-align: center; vertical-align:middle;"> </th>
+                                        <th style="text-align: center">NO</th>
+                                        <th style="text-align: center">MENU</th>
+                                        <th style="text-align: center">ANAK</th>
+                                        <th style="text-align: center">HARGA</th>
+                                        <th style="text-align: center">QTY</th>
+                                        <th  style="text-align: center">TAGIHAN</th>
+                                        <th  style ="text-align: center">STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="show_data_terima"></tbody>
+                            </table>
+                        </div>	
+                        <div id="export_terima_pdf" class="mt-3"></div>
+                    </div>      
+
+                    <div class="tab-pane " id="bayar" role="tabpanel">
+                        <div class="table-responsive">
+                            <table id="datatable_bayar" class="table-sm table table-bordered mb-0 table-centered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th data-ordering="false" style="text-align: center; vertical-align:middle;"> </th>
+                                        <th style="text-align: center">NO</th>
+                                        <th style="text-align: center">MENU</th>
+                                        <th style="text-align: center">ANAK</th>
+                                        <th style="text-align: center">HARGA</th>
+                                        <th style="text-align: center">QTY</th>
+                                        <th  style="text-align: center">TAGIHAN</th>
+                                        <th  style ="text-align: center">STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="show_data_bayar"></tbody>
+                            </table>
+                        </div>	
+                        <div id="export_bayar_pdf" class="mt-3"></div>
+                    </div>  
+                    <div id="export_bayar_pdf" class="mt-3"></div>
                 </div>
             </div>
         </div>
@@ -273,7 +381,8 @@
     $(document).ready(function(){
 
         
-        $('.datepicker[name=filter_tanggal]').val(moment().format('DD-MM-YYYY'));
+        $('.datepicker[name=filter_tanggal_awal]').val(moment().format('DD-MM-YYYY'));
+        $('.datepicker[name=filter_tanggal_akhir]').val(moment().format('DD-MM-YYYY'));
         $('.select2').select2();
         
         $('.datepicker').datepicker({
@@ -281,16 +390,34 @@
             format:'dd-mm-yyyy',
         });
 
-        var tanggal  = $('#filter_tanggal').val();
-        view(tanggal);
+        var tanggal_awal    = $('#filter_tanggal_awal').val();
+        var tanggal_akhir  = $('#filter_tanggal_akhir').val();
+        view(tanggal_awal,tanggal_akhir);
+        view_order(tanggal_awal,tanggal_akhir);
+        view_terima(tanggal_awal,tanggal_akhir);
+        view_bayar(tanggal_awal,tanggal_akhir);
     
 
     });
 
-    function FilterTanggal(select){
-        var tanggal  = $('#filter_tanggal').val();
-        view(tanggal);
-    
+    function FilterTanggalAwal(select){
+        var tanggal_awal    = $('#filter_tanggal_awal').val();
+        var tanggal_akhir  = $('#filter_tanggal_akhir').val();
+        
+        view(tanggal_awal,tanggal_akhir);
+        view_order(tanggal_awal,tanggal_akhir);
+        view_terima(tanggal_awal,tanggal_akhir);
+        view_bayar(tanggal_awal,tanggal_akhir);
+    }
+
+    function FilterTanggalAkhir(select){
+        var tanggal_awal    = $('#filter_tanggal_awal').val();
+        var tanggal_akhir  = $('#filter_tanggal_akhir').val();
+
+        view(tanggal_awal,tanggal_akhir);
+        view_order(tanggal_awal,tanggal_akhir);
+        view_terima(tanggal_awal,tanggal_akhir);
+        view_bayar(tanggal_awal,tanggal_akhir);
     }
 
     function reset() {
@@ -300,7 +427,7 @@
     
     $('#btn_save').on('click', function(){
        
-        var tanggal     = $('#filter_tanggal').val();
+        var tanggal     = $('#filter_tanggal_awal').val();
         var anak_kode   = $('#anak_kode').val();
         var total_biaya = $('#total_biaya').text();
         var token       = $('[name=_token]').val();
@@ -323,10 +450,15 @@
             success: function(r) {
 
                     $('#formModalOrder').modal('hide');
-                    var kode = $('#anak_kode').val();                    
-                    var tanggal  = $('#filter_tanggal').val();
-                    view_detail(kode,tanggal);
-                    view(tanggal);
+                    var kode = $('#anak_kode').val(); 
+                    var tanggal_awal   = $('#filter_tanggal_awal').val();
+                    var tanggal_akhir  = $('#filter_tanggal_akhir').val();
+                    
+                    view(tanggal_awal,tanggal_akhir);
+                    view_detail(kode,tanggal_akhir,tanggal_akhir);
+                    view_order(tanggal_awal,tanggal_akhir);
+                    view_terima(tanggal_awal,tanggal_akhir);
+                    view_bayar(tanggal_awal,tanggal_akhir);
 
                     swal("Berhasil !", "Data Sudah Di Simpan !!.", "success");
                     reset();
@@ -362,10 +494,15 @@
             success: function(r) {
 
                     $('#formModalUpdateOrder').modal('hide');
-                    var kode     = $('#anak_kode').val();                    
-                    var tanggal  = $('#filter_tanggal').val();
-                    view_detail(kode,tanggal);
-                    view(tanggal);
+                    var kode = $('#anak_kode').val(); 
+                    var tanggal_awal   = $('#filter_tanggal_awal').val();
+                    var tanggal_akhir  = $('#filter_tanggal_akhir').val();
+
+                    view(tanggal_awal,tanggal_akhir);
+                    view_detail(kode,tanggal_akhir,tanggal_akhir);
+                    view_order(tanggal_awal,tanggal_akhir);
+                    view_terima(tanggal_awal,tanggal_akhir);
+                    view_bayar(tanggal_awal,tanggal_akhir);
 
                     swal("Berhasil !", "Data Sudah Di Simpan !!.", "success");
                     reset();
@@ -400,10 +537,16 @@
             success: function(r) {
 
                     $('#formModalUpdateOrder').modal('hide');
-                    var kode     = $('#anak_kode').val();                    
-                    var tanggal  = $('#filter_tanggal').val();
-                    view_detail(kode,tanggal);
-                    view(tanggal);
+                    var kode = $('#anak_kode').val(); 
+                    var tanggal_awal   = $('#filter_tanggal_awal').val();
+                    var tanggal_akhir  = $('#filter_tanggal_akhir').val();
+
+                    view_detail(kode,tanggal_akhir,tanggal_akhir);
+
+                    view(tanggal_awal,tanggal_akhir);
+                    view_order(tanggal_awal,tanggal_akhir);
+                    view_terima(tanggal_awal,tanggal_akhir);
+                    view_bayar(tanggal_awal,tanggal_akhir);
 
                     swal("Berhasil !", "Data Sudah Di Simpan !!.", "success");
                     reset();
@@ -444,7 +587,7 @@
         }
        
         var anak_kode = $('#anak_kode').val();
-        var tanggal = $('#filter_tanggal').val();
+        var tanggal = $('#filter_tanggal_awal').val();
         var qty       = $('#qty').val();
         var menu      = $('#menu').val();
         var token = $('[name=_token]').val();
@@ -467,10 +610,15 @@
             contentType: false,
             success: function(r) {
 
-                    var kode     = $('#anak_kode').val();                    
-                    var tanggal  = $('#filter_tanggal').val();
-                    view_detail(kode,tanggal);
-                    view(tanggal);
+                    var kode = $('#anak_kode').val(); 
+                    var tanggal_awal   = $('#filter_tanggal_awal').val();
+                    var tanggal_akhir  = $('#filter_tanggal_akhir').val();
+
+                    view_detail(kode,tanggal_akhir,tanggal_akhir);
+                    view(tanggal_awal,tanggal_akhir);
+                    view_order(tanggal_awal,tanggal_akhir);
+                    view_terima(tanggal_awal,tanggal_akhir);
+                    view_bayar(tanggal_awal,tanggal_akhir);
 
                     $.toast({
                         text: 'DATA BERHASIL DI TAMBAHKAN',
@@ -517,7 +665,7 @@
 
         } 
 
-        var tanggal    = $('#filter_tanggal').val();
+        var tanggal    = $('#filter_tanggal_awal').val();
         var order_kode = $('#order_kode_edit').val();
         var anak_kode  = $('#anak_kode_edit').val();
         var qty        = $('#qty_edit').val();
@@ -543,11 +691,15 @@
             contentType: false,
             success: function(r) {
 
-                 
-                    var kode     = $('#order_kode_edit').val();                    
-                    var tanggal  = $('#filter_tanggal').val();
-                    view_detail_update(kode,tanggal);
-                    view(tanggal);
+                    var kode = $('#anak_kode').val(); 
+                    var tanggal_awal   = $('#filter_tanggal_awal').val();
+                    var tanggal_akhir  = $('#filter_tanggal_akhir').val();
+
+                    view_detail(kode,tanggal_akhir);
+                    view(tanggal_awal,tanggal_akhir);
+                    view_order(tanggal_awal,tanggal_akhir);
+                    view_terima(tanggal_awal,tanggal_akhir);
+                    view_bayar(tanggal_awal,tanggal_akhir);
 
                     $.toast({
                         text: 'DATA BERHASIL DI TAMBAHKAN',
@@ -564,23 +716,23 @@
 
     });
 
-    function view(tanggal) {
+    function view(tanggal_awal,tanggal_akhir) {
 
         $.ajax({
             type: 'GET',
             url: "{{ route('catering.order.view') }}",
             async: true,
             dataType: 'JSON',
-            data:{tanggal:tanggal},
+            data:{tanggal_awal:tanggal_awal,tanggal_akhir:tanggal_akhir},
             success: function(r) {
                 var i;
                 $('#datatable').DataTable().destroy(); 
                 $('#show_data').empty();
                 data = r.data;
                 
-                document.getElementById("total_anak").innerHTML= r.total_anak;
-                document.getElementById("total_order").innerHTML= r.total_order;
-                document.getElementById("total_tagihan").innerHTML= r.total_tagihan;
+                document.getElementById("total_anak_order").innerHTML= r.total_anak;
+                document.getElementById("total").innerHTML= r.total_order;
+                document.getElementById("total_tagihan_order").innerHTML= r.total_tagihan;
 
                 if (data.length) {
                     for (i = 0; i < data.length; i++) {
@@ -629,14 +781,14 @@
         });
     }
 
-    function view_detail(kode,tanggal) {
+    function view_detail(kode,tanggal_awal,tanggal_akhir) {
 
         $.ajax({
             type: 'GET',
             url: "{{ route('catering.order.detail_view') }}",
             async: true,
             dataType: 'JSON',
-            data:{kode:kode,tanggal:tanggal},
+            data:{kode:kode,tanggal_akhir:tanggal_akhir},
             success: function(r) {
                 var i;
                 
@@ -696,14 +848,14 @@
 
     }
     
-    function view_detail_update(kode,tanggal) {
+    function view_detail_update(kode,tanggal_awal,tanggal_akhir) {
 
         $.ajax({
             type: 'GET',
             url: "{{ route('catering.order.detail_view_update') }}",
             async: true,
             dataType: 'JSON',
-            data:{kode:kode,tanggal:tanggal},
+            data:{kode:kode,tanggal_akhir:tanggal_akhir},
             success: function(r) {
                 var i;
                 
@@ -762,6 +914,252 @@
         });
 
     }
+
+    function view_order(tanggal_awal,tanggal_akhir) {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('catering.orderan.view') }}",
+            async: true,
+            dataType: 'JSON',
+            data:{tanggal_awal:tanggal_awal,tanggal_akhir:tanggal_akhir},
+            success: function(r) {
+                var i;
+                $('#datatable_order').DataTable().destroy(); 
+                $('#show_data_orderan').empty();
+                data = r.data;
+
+                document.getElementById("export_order_pdf").innerHTML="<a href='"+r.export_pdf+"' target='_blank' class='btn btn-sm btn-danger'><i class='mdi mdi-file-pdf'></i> Export PDF</a>";
+
+                document.getElementById("total_anak").innerHTML= r.total_anak;
+                document.getElementById("total_order").innerHTML= r.total_order;
+                document.getElementById("total_tagihan").innerHTML= r.total_tagihan;
+
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        var tr = $('<tr>').append([
+                            $('<td width="1%" align="center">'),
+                            $('<td width="1%" align="center">'),
+                            $('<td width="10%">'),
+                            $('<td width="15%">'),
+                            $('<td width="5%" align="right">'),
+                            $('<td width="1%" align="center">'),
+                            $('<td width="5%" align="right">'),
+                            $('<td width="5%" align="center">')
+                        ]);
+            
+                        tr.find('td:nth-child(1)').append($('<div>')
+                            .html('<input href="javascript:;" type="checkbox" id="sub_chk" class="sub_chk" name="sub_chk" value="'+ data[i].detail_id +'" disabled>'));                           
+                        
+                        tr.find('td:nth-child(2)').html((i + 1));
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html('<b class="font-13">'+(data[i].menu_nama)+'</b>')); 
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html('<small class="text-muted">'+(data[i].kat_nama)+'</small>'));    
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html('<b class="font-13">'+(data[i].anak_nama)+'</b>')); 
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html('<small class="text-muted">'+(data[i].anak_jekel)+' - '+(data[i].usia_anak)+'</small>'));                      
+
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html(data[i].detail_harga));   
+
+                        tr.find('td:nth-child(6)').append($('<div>')
+                            .html(data[i].detail_qty));      
+
+                        tr.find('td:nth-child(7)').append($('<div>')
+                            .html('<b class="font-13 text-danger">'+(data[i].detail_total)+'</b>')); 
+
+                        if ((data[i].detail_status) == 'O' ) {
+
+                            tr.find('td:nth-child(8)').append('<span class="badge badge-soft-danger">Belum di Terima</span>');
+                        } 
+                        
+                        else {
+
+                            tr.find('td:nth-child(8)').append('<span class="badge badge-soft-success">Sudah di Terima</span>');
+                        }                      
+
+                        tr.appendTo($('#show_data_orderan'));
+                    }
+                }
+
+            $('#datatable_order').DataTable('refresh'); 
+            }
+        });
+
+    }
+
+    function view_terima(tanggal_awal,tanggal_akhir) {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('catering.orderan.view_terima') }}",
+            async: true,
+            dataType: 'JSON',
+            data:{tanggal_awal:tanggal_awal,tanggal_akhir:tanggal_akhir},
+
+            success: function(r) {
+                var i;
+                $('#datatable_terima').DataTable().destroy(); 
+                $('#show_data_terima').empty();
+                data = r.data;
+
+                document.getElementById("export_terima_pdf").innerHTML="<a href='"+r.export_pdf+"' target='_blank' class='btn btn-sm btn-danger'><i class='mdi mdi-file-pdf'></i> Export PDF</a>";
+
+                
+                document.getElementById("total_anak_terima").innerHTML= r.total_anak;
+                document.getElementById("total_order_terima").innerHTML= r.total_order;
+                document.getElementById("total_tagihan_terima").innerHTML= r.total_tagihan;
+
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        var tr = $('<tr>').append([
+                            $('<td width="1%" align="center">'),
+                            $('<td width="1%" align="center">'),
+                            $('<td width="10%">'),
+                            $('<td width="15%">'),
+                            $('<td width="5%" align="right">'),
+                            $('<td width="1%" align="center">'),
+                            $('<td width="5%" align="right">'),
+                            $('<td width="5%" align="center">')
+                        ]);                     
+                        
+                        tr.find('td:nth-child(2)').html((i + 1));
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html('<b class="font-13">'+(data[i].menu_nama)+'</b>')); 
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html('<small class="text-muted">'+(data[i].kat_nama)+'</small>'));    
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html('<b class="font-13">'+(data[i].anak_nama)+'</b>')); 
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html('<small class="text-muted">'+(data[i].anak_jekel)+' - '+(data[i].usia_anak)+'</small>'));                      
+
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html(data[i].detail_harga));   
+
+                        tr.find('td:nth-child(6)').append($('<div>')
+                            .html(data[i].detail_qty));      
+
+                        tr.find('td:nth-child(7)').append($('<div>')
+                            .html('<b class="font-13 text-danger">'+(data[i].detail_total)+'</b>')); 
+
+                        if ((data[i].order_status) == 'L' ) {
+
+                            tr.find('td:nth-child(1)').append($('<div>')
+                            .html('<i class="fas fa-check text-success"></i>'));          
+
+                            tr.find('td:nth-child(8)').append('<span class="badge badge-soft-success">Sudah di Bayar</span>');
+                        } 
+
+                        else {
+                            tr.find('td:nth-child(1)').append($('<div>')
+                            .html('<input href="javascript:;" type="checkbox" id="bayar_chk" class="bayar_chk" name="bayar_chk" value="'+ data[i].detail_id +'">'));      
+                            tr.find('td:nth-child(8)').append('<span class="badge badge-soft-danger">Belum di bayar</span>');
+                        }                      
+
+                        tr.appendTo($('#show_data_terima'));
+                    }
+                }
+
+            $('#datatable_terima').DataTable('refresh'); 
+            }
+        });
+
+    }
+
+    function view_bayar(tanggal_awal,tanggal_akhir) {
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('catering.orderan.view_bayar') }}",
+            async: true,
+            dataType: 'JSON',
+            data:{tanggal_awal:tanggal_awal,tanggal_akhir:tanggal_akhir},
+
+            success: function(r) {
+                var i;
+                $('#datatable_bayar').DataTable().destroy(); 
+                $('#show_data_bayar').empty();
+                data = r.data;
+
+                document.getElementById("export_bayar_pdf").innerHTML="<a href='"+r.export_bayar_pdf+"' target='_blank' class='btn btn-sm btn-danger'><i class='mdi mdi-file-pdf'></i> Export PDF</a>";
+
+                
+                document.getElementById("total_anak_bayar").innerHTML= r.total_anak;
+                document.getElementById("total_order_bayar").innerHTML= r.total_order;
+                document.getElementById("total_tagihan_bayar").innerHTML= r.total_tagihan;
+
+                if (data.length) {
+                    for (i = 0; i < data.length; i++) {
+
+                        var tr = $('<tr>').append([
+                            $('<td width="1%" align="center">'),
+                            $('<td width="1%" align="center">'),
+                            $('<td width="10%">'),
+                            $('<td width="15%">'),
+                            $('<td width="5%" align="right">'),
+                            $('<td width="1%" align="center">'),
+                            $('<td width="5%" align="right">'),
+                            $('<td width="5%" align="center">')
+                        ]);                     
+                        
+                        tr.find('td:nth-child(2)').html((i + 1));
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html('<b class="font-13">'+(data[i].menu_nama)+'</b>')); 
+
+                        tr.find('td:nth-child(3)').append($('<div>')
+                            .html('<small class="text-muted">'+(data[i].kat_nama)+'</small>'));    
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html('<b class="font-13">'+(data[i].anak_nama)+'</b>')); 
+
+                        tr.find('td:nth-child(4)').append($('<div>')
+                            .html('<small class="text-muted">'+(data[i].anak_jekel)+' - '+(data[i].usia_anak)+'</small>'));                      
+
+                        tr.find('td:nth-child(5)').append($('<div>')
+                            .html(data[i].detail_harga));   
+
+                        tr.find('td:nth-child(6)').append($('<div>')
+                            .html(data[i].detail_qty));      
+
+                        tr.find('td:nth-child(7)').append($('<div>')
+                            .html('<b class="font-13 text-danger">'+(data[i].detail_total)+'</b>')); 
+
+                        if ((data[i].order_status) == 'L' ) {
+
+                            tr.find('td:nth-child(1)').append($('<div>')
+                            .html('<i class="fas fa-check text-success"></i>'));          
+
+                            tr.find('td:nth-child(8)').append('<span class="badge badge-soft-success">Sudah di Bayar</span>');
+                        } 
+
+                        else {
+                            tr.find('td:nth-child(1)').append($('<div>')
+                            .html('<input href="javascript:;" type="checkbox" id="bayar_chk" class="bayar_chk" name="bayar_chk" value="'+ data[i].detail_id +'">'));      
+                            tr.find('td:nth-child(8)').append('<span class="badge badge-soft-danger">Belum di bayar</span>');
+                        }                      
+
+                        tr.appendTo($('#show_data_bayar'));
+                    }
+                }
+
+            $('#datatable_bayar').DataTable('refresh'); 
+            }
+        });
+
+    }
     
 
 
@@ -794,8 +1192,9 @@
     $('#show_data').on('click','.update_orderan',function(){
 
         var id      = $(this).attr('data');
-        var tanggal = $('#filter_tanggal').val();
-        view_detail_update(id,tanggal);
+        var tanggal_awal = $('#filter_tanggal_awal').val();
+        var tanggal_akhir = $('#filter_tanggal_akhir').val();
+        view_detail_update(id,tanggal_awal,tanggal_akhir);
         combo_menu();
 
         $.ajax({

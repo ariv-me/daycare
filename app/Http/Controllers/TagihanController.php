@@ -53,9 +53,8 @@ class TagihanController extends Controller
 
         try {
 
-            $app        = SistemApp::sistem();
-            
-            $tmp = new Pendaftaran();  
+            $app         = SistemApp::sistem();
+            $tmp         = new Pendaftaran();  
             $daftar_kode = Pendaftaran::autonumber();
 
                 $tarif       = DB::connection('daycare')

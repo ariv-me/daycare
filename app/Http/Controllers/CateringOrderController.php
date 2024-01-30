@@ -43,7 +43,7 @@ class CateringOrderController extends Controller
 
         $result = array('success'=>false);
         
-        $filter_tanggal = date('Y-m-d', strtotime($r->tanggal));
+        $filter_tanggal = date('Y-m-d', strtotime($r->tanggal_akhir));
 
         try{
             
