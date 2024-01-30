@@ -173,7 +173,9 @@ class CateringOrderDetailController extends Controller
     public function view(Request $r){
 
         $result   = array('success'=>false);
-        $tanggal  = date('Y-m-d', strtotime($r->tanggal) ); 
+        $tanggal = date('Y-m-d', strtotime($r->tanggal_akhir));
+
+        // dd($r->all());
 
         try{
 
@@ -185,7 +187,7 @@ class CateringOrderDetailController extends Controller
                     ->leftjoin('ctrg_ta_kategori AS dd','dd.kat_id','=','cc.kat_id')
                     ->where('aa.detail_aktif','T')
                     ->where('aa.anak_kode',$r->kode)
-                    ->where('aa.detail_tgl',$tanggal)
+                    //->where('aa.detail_tgl',$tanggal)
                     ->orderby('aa.detail_id','desc')
                     ->get();
 

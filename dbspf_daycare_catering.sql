@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `ctrg_tb_menu` (
 -- Dumping data for table dbspf_daycare.ctrg_tb_menu: ~2 rows (approximately)
 /*!40000 ALTER TABLE `ctrg_tb_menu` DISABLE KEYS */;
 INSERT IGNORE INTO `ctrg_tb_menu` (`menu_id`, `menu_kode`, `kat_id`, `menu_nama`, `menu_deskripsi`, `menu_harga`, `menu_aktif`, `created_nip`, `created_nama`, `created_ip`, `created_at`, `updated_at`, `updated_nip`, `updated_nama`, `updated_ip`) VALUES
-	(1, 'MB', '1', 'Makan Biasa', 'Ayam, Sayur wortel', 20000, 'Y', '1080', 'ARIF', '::1', '2024-01-02 15:48:58', '2024-01-03 09:29:24', '1080', 'ARIF', '::1'),
+	(1, 'MB', '1', 'Makan Biasa', 'Ayam, Sayur wortel', 20000, 'Y', '1080', 'ARIF', '::1', '2024-01-02 15:48:58', '2024-01-30 08:50:32', '1080', 'ARIF', '::1'),
 	(2, 'MS', '2', 'Mpasi', '', 10000, 'Y', '1080', 'ARIF', '::1', '2024-01-02 16:04:45', '2024-01-02 16:04:45', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `ctrg_tb_menu` ENABLE KEYS */;
 
@@ -91,14 +91,13 @@ CREATE TABLE IF NOT EXISTS `ctrg_tc_order` (
   `updated_nip` varchar(50) DEFAULT NULL,
   `updated_nama` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table dbspf_daycare.ctrg_tc_order: ~1 rows (approximately)
+-- Dumping data for table dbspf_daycare.ctrg_tc_order: ~2 rows (approximately)
 /*!40000 ALTER TABLE `ctrg_tc_order` DISABLE KEYS */;
 INSERT IGNORE INTO `ctrg_tc_order` (`order_id`, `order_kode`, `order_tgl`, `anak_kode`, `order_jam`, `order_status`, `order_close`, `order_total`, `order_grand_total`, `order_bayar`, `order_kembali`, `is_aktif`, `created_at`, `created_ip`, `created_nip`, `created_nama`, `updated_at`, `updated_ip`, `updated_nip`, `updated_nama`) VALUES
-	(1, 'ORDR0001', '2024-01-12', 'NIS20230014', '15:47:26', 'U', 'T', 50000, 0, 0, 0, 'Y', '2024-01-12 15:47:26', '::1', 10000427, 'ARIF', '2024-01-16 16:14:17', '::1', '10000427', 'ARIF'),
-	(2, 'ORDR0002', '2024-01-16', 'NIS20230014', '08:33:38', 'U', 'Y', 0, 0, 0, 0, 'Y', '2024-01-16 08:33:38', '::1', 10000427, 'ARIF', '2024-01-16 16:16:24', '::1', '10000427', 'ARIF'),
-	(3, 'ORDR0003', '2024-01-22', 'NIS20230014', '08:03:37', 'U', 'Y', 0, 0, 0, 0, 'Y', '2024-01-22 08:03:37', '::1', 10000427, 'ARIF', '2024-01-22 08:03:53', '::1', NULL, NULL);
+	(1, 'ORDR0001', '2024-01-30', 'NIS20230014', '08:34:26', 'L', 'Y', 0, 20000, 40000, 0, 'Y', '2024-01-30 08:34:26', '::1', 10000427, 'ARIF', '2024-01-30 08:35:09', NULL, NULL, NULL),
+	(2, 'ORDR0002', '2024-01-30', 'NIS20230013', '08:34:39', 'L', 'Y', 0, 20000, 40000, 0, 'Y', '2024-01-30 08:34:39', '::1', 10000427, 'ARIF', '2024-01-30 08:35:09', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `ctrg_tc_order` ENABLE KEYS */;
 
 -- Dumping structure for table dbspf_daycare.ctrg_tc_order_detail
@@ -115,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `ctrg_tc_order_detail` (
   `detail_total` double(14,0) NOT NULL DEFAULT '0',
   `detail_status` enum('O','C') DEFAULT 'O',
   `detail_aktif` enum('Y','T') DEFAULT 'T',
+  `detail_bayar` enum('Y','T') DEFAULT 'T',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `created_ip` varchar(50) DEFAULT NULL,
   `created_nip` int(11) DEFAULT NULL,
@@ -124,17 +124,13 @@ CREATE TABLE IF NOT EXISTS `ctrg_tc_order_detail` (
   `updated_nip` int(11) DEFAULT NULL,
   `updated_nama` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`detail_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table dbspf_daycare.ctrg_tc_order_detail: ~6 rows (approximately)
+-- Dumping data for table dbspf_daycare.ctrg_tc_order_detail: ~2 rows (approximately)
 /*!40000 ALTER TABLE `ctrg_tc_order_detail` DISABLE KEYS */;
-INSERT IGNORE INTO `ctrg_tc_order_detail` (`detail_id`, `order_kode`, `anak_kode`, `menu_kode`, `detail_catt`, `detail_jam`, `detail_tgl`, `detail_qty`, `detail_harga`, `detail_total`, `detail_status`, `detail_aktif`, `created_at`, `created_ip`, `created_nip`, `created_nama`, `updated_at`, `updated_ip`, `updated_nip`, `updated_nama`) VALUES
-	(1, 'ORDR0001', 'NIS20230014', 'MB', '', '15:47:19', '2024-01-12', 2, 20000, 40000, 'O', 'Y', '2024-01-12 15:47:19', '::1', 10000427, 'ARIF', '2024-01-16 16:15:41', NULL, NULL, NULL),
-	(2, 'ORDR0001', 'NIS20230014', 'MS', '', '15:47:22', '2024-01-12', 1, 10000, 10000, 'O', 'Y', '2024-01-12 15:47:22', '::1', 10000427, 'ARIF', '2024-01-16 16:15:43', NULL, NULL, NULL),
-	(3, 'ORDR0002', 'NIS20230014', 'MB', '', '08:33:32', '2024-01-16', 5, 20000, 100000, 'C', 'Y', '2024-01-16 08:33:32', '::1', 10000427, 'ARIF', '2024-01-16 16:16:24', NULL, NULL, NULL),
-	(4, 'ORDR0002', 'NIS20230014', 'MS', '', '08:33:36', '2024-01-16', 2, 10000, 20000, 'C', 'Y', '2024-01-16 08:33:36', '::1', 10000427, 'ARIF', '2024-01-16 16:16:24', NULL, NULL, NULL),
-	(5, 'ORDR0003', 'NIS20230014', 'MB', '', '08:03:32', '2024-01-22', 2, 20000, 40000, 'C', 'Y', '2024-01-22 08:03:32', '::1', 10000427, 'ARIF', '2024-01-22 08:03:53', NULL, NULL, NULL),
-	(6, 'ORDR0003', 'NIS20230014', 'MS', '', '08:03:36', '2024-01-22', 6, 10000, 60000, 'C', 'Y', '2024-01-22 08:03:36', '::1', 10000427, 'ARIF', '2024-01-22 08:03:53', NULL, NULL, NULL);
+INSERT IGNORE INTO `ctrg_tc_order_detail` (`detail_id`, `order_kode`, `anak_kode`, `menu_kode`, `detail_catt`, `detail_jam`, `detail_tgl`, `detail_qty`, `detail_harga`, `detail_total`, `detail_status`, `detail_aktif`, `detail_bayar`, `created_at`, `created_ip`, `created_nip`, `created_nama`, `updated_at`, `updated_ip`, `updated_nip`, `updated_nama`) VALUES
+	(1, 'ORDR0001', 'NIS20230014', 'MB', '', '08:34:24', '2024-01-30', 1, 20000, 20000, 'C', 'Y', 'Y', '2024-01-30 08:34:24', '::1', 10000427, 'ARIF', '2024-01-30 08:35:09', NULL, NULL, NULL),
+	(2, 'ORDR0002', 'NIS20230013', 'MB', '', '08:34:32', '2024-01-30', 1, 20000, 20000, 'C', 'Y', 'Y', '2024-01-30 08:34:32', '::1', 10000427, 'ARIF', '2024-01-30 08:35:09', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `ctrg_tc_order_detail` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

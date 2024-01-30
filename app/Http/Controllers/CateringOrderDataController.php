@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use PDF;
 use App\Helpers;
 use Carbon\Carbon;
 use App\Models\Anak;
@@ -17,8 +18,8 @@ use Illuminate\Http\Request;
 use App\Models\CateringOrder;
 use App\Models\CateringKategori;
 use App\Models\CateringMenuItem;
-use App\Models\CateringOrderDetail;
 
+use App\Models\CateringOrderDetail;
 use App\Exports\CateringOrderExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -182,11 +183,22 @@ class CateringOrderDataController extends Controller
 
         $result['success']       = true;
         $result['data']          = $data;
-        $result['total_anak']    = CateringOrder::where('order_close','T')
-                                                ->where('is_aktif','Y')
-                                                ->where('order_tgl', '>=', $filter_tanggal_awal)
-                                                ->where('order_tgl', '<=', $filter_tanggal_akhir)
-                                                ->count();
+        $result['total_anak']    = DB::connection('daycare')
+                                        ->table('ctrg_tc_order AS aa')
+                                        ->leftJoin('ctrg_tc_order_detail as bb','bb.order_kode','aa.order_kode')
+                                        //->where('order_close','Y')
+                                        ->where('bb.detail_status','O')     
+                                        ->where('is_aktif','Y')
+                                        ->where('order_status','U')
+                                        ->where('order_tgl', '>=', $filter_tanggal_awal)
+                                        ->where('order_tgl', '<=', $filter_tanggal_akhir)
+                                        ->count();
+        
+        // CateringOrder::where('order_close','T')
+        //                                         ->where('is_aktif','Y')
+        //                                         ->where('order_tgl', '>=', $filter_tanggal_awal)
+        //                                         ->where('order_tgl', '<=', $filter_tanggal_akhir)
+        //                                         ->count();
 
         $result['total_order']   = CateringOrderDetail::where('detail_aktif','Y')
                                                       ->where('detail_status','O')
@@ -201,6 +213,7 @@ class CateringOrderDataController extends Controller
                                                                     ->sum('detail_total') );
 
         $result['export_excel'] = $app['url'].'catering/orderan/export_order/'.$filter_tanggal_awal.'/'.$filter_tanggal_akhir.'/'.$status;
+        $result['export_pdf'] = $app['url'].'catering/orderan/export_order_pdf/'.$filter_tanggal_awal.'/'.$filter_tanggal_akhir.'/'.$status;
         
       
         return response()->json($result);
@@ -321,6 +334,7 @@ class CateringOrderDataController extends Controller
                                                                     ->sum('detail_total') );
 
         $result['export_excel'] = $app['url'].'orderan/export_order/'.$filter_tanggal_awal.'/'.$filter_tanggal_akhir.'/'.$status;
+        $result['export_pdf'] = $app['url'].'catering/orderan/export_terima_pdf/'.$filter_tanggal_awal.'/'.$filter_tanggal_akhir.'/'.$status;
         
 
 
@@ -332,7 +346,7 @@ class CateringOrderDataController extends Controller
 
         $result = array('success'=>false);
         $app       = SistemApp::sistem();
-        $status    = 'Y';
+        $status    = 'L';
         
         $filter_tanggal_awal = date('Y-m-d', strtotime($r->tanggal_awal));
         $filter_tanggal_akhir = date('Y-m-d', strtotime($r->tanggal_akhir));
@@ -443,6 +457,8 @@ class CateringOrderDataController extends Controller
                                                                     ->sum('detail_total') );
 
         $result['export_excel'] = $app['url'].'orderan/export_order/'.$filter_tanggal_awal.'/'.$filter_tanggal_akhir.'/'.$status;
+        $result['export_bayar_pdf'] = $app['url'].'catering/orderan/export_bayar_pdf/'.$filter_tanggal_awal.'/'.$filter_tanggal_akhir.'/'.$status;
+
 
 
         return response()->json($result);
@@ -606,21 +622,290 @@ class CateringOrderDataController extends Controller
 
     }
 
-    public function export_order($filter_tanggal_awal,$filter_tanggal_akhir,$status) 
-    {
-        return Excel::download(new CateringOrderExport($filter_tanggal_awal,$filter_tanggal_akhir,$status), 'Data Order.xlsx');
+    public function export_order_pdf($filter_tanggal_awal,$filter_tanggal_akhir,$status){
+
+        $data = DB::connection('daycare')
+                                ->table('ctrg_tc_order_detail AS aa')      
+                                ->select(
+                                  
+                                    'bb.anak_kode',
+                                    'bb.anak_id',
+                                    'bb.anak_aktif',
+                                    'bb.anak_nama',
+                                    'bb.anak_jekel',
+                                    'bb.anak_tgl_lahir',
+
+                                    'aa.menu_kode',
+                                    'aa.order_kode',
+                                    'aa.menu_kode',
+                                    'aa.detail_jam',
+                                    'aa.detail_tgl',
+                                    'aa.detail_qty',
+                                    'aa.detail_harga',
+                                    'aa.detail_total',
+                                    'aa.detail_status',
+                                    'aa.detail_id',
+
+                                    'dd.menu_kode',
+                                    'dd.menu_nama',
+                                    
+                                    'ee.kat_id',
+                                    'ee.kat_nama',
+                                )    
+
+                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')  
+                                ->leftjoin('ctrg_tb_menu AS dd','dd.menu_kode','aa.menu_kode')  
+                                ->leftjoin('ctrg_ta_kategori AS ee','ee.kat_id','dd.kat_id')  
+                                ->where('aa.detail_aktif','Y')     
+                                ->where('aa.detail_status',$status)     
+                                ->where('aa.detail_tgl', '>=', $filter_tanggal_awal)
+                                ->where('aa.detail_tgl', '<=', $filter_tanggal_akhir)
+                                ->orderby('aa.detail_id','desc')
+                                ->get();
+
+           
+
+            $data = $data->map(function($value) use($filter_tanggal_awal){
+
+                $tgl_lahir          = Carbon::now()->diff($value->anak_tgl_lahir);
+                $hari_anak = $tgl_lahir->days;
+
+                    $years = ($hari_anak / 365) ; // days / 365 days
+                    $years = floor($years); // Remove all decimals
+            
+                    $month = ($hari_anak % 365) / 30.5; // I choose 30.5 for Month (30,31) ;)
+                    $month = floor($month); // Remove all decimals
+
+                    $days = ($hari_anak % 365) % 30.5; // the rest of days
         
+                $value->usia_anak = $years.' Tahun, '.$month.' Bulan, '.$days.' Hari';
+
+
+                if($value->anak_jekel == 'L'){
+                    $value->anak_jekel = 'Laki - Laki';
+                }
+                else if($value->anak_jekel == 'P'){
+                    $value->anak_jekel = 'Perempuan';
+                }
+
+                $value->detail_harga = format_rupiah($value->detail_harga);
+                $value->detail_total = format_rupiah($value->detail_total);
+
+                return $value;
+
+            });
+
+            $total_tagihan = format_rupiah(CateringOrderDetail::where('detail_aktif','Y')
+                                    ->where('detail_status',$status)     
+                                    ->where('detail_tgl', '>=', $filter_tanggal_awal)
+                                    ->where('detail_tgl', '<=', $filter_tanggal_akhir)
+                                    ->sum('detail_total') );
+
+             $tanggal_awal = format_indo($filter_tanggal_awal);
+             $tanggal_akhir = format_indo($filter_tanggal_akhir);
+
+            $pdf = PDF::loadview('catering.orderan.cetak',compact('data','total_tagihan','tanggal_awal','tanggal_akhir'));
+            return $pdf->stream('Cetak Laporan Order.pdf');           
+
     }
-    public function export_order_terima($filter_tanggal_awal,$filter_tanggal_akhir,$status) 
-    {
-        // return Excel::download(new DaftarUtangExport($filter_tanggal_awal,$filter_tanggal_akhir,$status), 'Daftar Utang.xlsx');
+
+    public function export_terima_pdf($filter_tanggal_awal,$filter_tanggal_akhir,$status){
+
+        $data = DB::connection('daycare')
+                                ->table('ctrg_tc_order_detail AS aa')      
+                                ->select(
+                                  
+                                    'bb.anak_kode',
+                                    'bb.anak_id',
+                                    'bb.anak_aktif',
+                                    'bb.anak_nama',
+                                    'bb.anak_jekel',
+                                    'bb.anak_tgl_lahir',
+
+                                    'aa.menu_kode',
+                                    'aa.order_kode AS order_kode',
+                                    'aa.menu_kode',
+                                    'aa.detail_jam',
+                                    'aa.detail_tgl',
+                                    'aa.detail_qty',
+                                    'aa.detail_harga',
+                                    'aa.detail_total',
+                                    'aa.detail_status',
+                                    'aa.detail_id',
+
+                                    'dd.menu_kode',
+                                    'dd.menu_nama',
+                                    
+                                    'ee.kat_id',
+                                    'ee.kat_nama',
+
+                                    'ff.order_kode',
+                                    'ff.order_status',
+                                )    
+                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')  
+                                ->leftjoin('ctrg_tb_menu AS dd','dd.menu_kode','aa.menu_kode')  
+                                ->leftjoin('ctrg_ta_kategori AS ee','ee.kat_id','dd.kat_id')  
+                                ->leftjoin('ctrg_tc_order AS ff','ff.order_kode','aa.order_kode')  
+                                ->where('aa.detail_aktif','Y')     
+                                ->where('aa.detail_status','C')     
+                                ->where('ff.order_status',$status)     
+                                ->where('aa.detail_tgl', '>=', $filter_tanggal_awal)
+                                ->where('aa.detail_tgl', '<=', $filter_tanggal_akhir)
+                                ->orderby('aa.detail_id','desc')
+                                ->orderby('ff.order_status','desc')
+                                ->get();
+
+            $data = $data->map(function($value) use($filter_tanggal_awal){
+
+                $tgl_lahir          = Carbon::now()->diff($value->anak_tgl_lahir);
+                $hari_anak = $tgl_lahir->days;
+
+                    $years = ($hari_anak / 365) ; // days / 365 days
+                    $years = floor($years); // Remove all decimals
+            
+                    $month = ($hari_anak % 365) / 30.5; // I choose 30.5 for Month (30,31) ;)
+                    $month = floor($month); // Remove all decimals
+
+                    $days = ($hari_anak % 365) % 30.5; // the rest of days
         
+                $value->usia_anak = $years.' Tahun, '.$month.' Bulan, '.$days.' Hari';
+
+                if($value->anak_jekel == 'L'){
+                    $value->anak_jekel = 'Laki - Laki';
+                }
+                else if($value->anak_jekel == 'P'){
+                    $value->anak_jekel = 'Perempuan';
+                }
+
+                $value->detail_harga = format_rupiah($value->detail_harga);
+                $value->detail_total = format_rupiah($value->detail_total);
+
+                return $value;
+
+            });
+                    
+
+            $total_tagihan= format_rupiah(CateringOrderDetail::where('detail_aktif','Y')
+                                                                    ->where('detail_status','C')
+                                                                    ->where('detail_bayar','T')
+                                                                    ->where('detail_tgl', '>=', $filter_tanggal_awal)
+                                                                    ->where('detail_tgl', '<=', $filter_tanggal_akhir)
+                                                                    ->sum('detail_total') );
+
+             $tanggal_awal = format_indo($filter_tanggal_awal);
+             $tanggal_akhir = format_indo($filter_tanggal_akhir);
+
+            $pdf = PDF::loadview('catering.order.cetak_terima',compact('data','total_tagihan','tanggal_awal','tanggal_akhir'));
+            return $pdf->stream('Cetak Laporan Order.pdf');           
+
     }
-    public function export_order_bayar($filter_tanggal_awal,$filter_tanggal_akhir,$status) 
-    {
-        // return Excel::download(new DaftarUtangExport($filter_tanggal_awal,$filter_tanggal_akhir,$status), 'Daftar Utang.xlsx');
+
+    public function export_bayar_pdf($filter_tanggal_awal,$filter_tanggal_akhir,$status){
+
+        $data = DB::connection('daycare')
+                                ->table('ctrg_tc_order_detail AS aa')      
+                                ->select(
+                                  
+                                    'bb.anak_kode',
+                                    'bb.anak_id',
+                                    'bb.anak_aktif',
+                                    'bb.anak_nama',
+                                    'bb.anak_jekel',
+                                    'bb.anak_tgl_lahir',
+
+                                    'aa.menu_kode',
+                                    'aa.order_kode AS order_kode',
+                                    'aa.menu_kode',
+                                    'aa.detail_jam',
+                                    'aa.detail_tgl',
+                                    'aa.detail_qty',
+                                    'aa.detail_harga',
+                                    'aa.detail_total',
+                                    'aa.detail_status',
+                                    'aa.detail_id',
+
+                                    'dd.menu_kode',
+                                    'dd.menu_nama',
+                                    
+                                    'ee.kat_id',
+                                    'ee.kat_nama',
+
+                                    'ff.order_kode',
+                                    'ff.order_status',
+                                )    
+                                ->leftjoin('dapok_tb_anak AS bb','bb.anak_kode','aa.anak_kode')  
+                                ->leftjoin('ctrg_tb_menu AS dd','dd.menu_kode','aa.menu_kode')  
+                                ->leftjoin('ctrg_ta_kategori AS ee','ee.kat_id','dd.kat_id')  
+                                ->leftjoin('ctrg_tc_order AS ff','ff.order_kode','aa.order_kode')  
+                                ->where('aa.detail_aktif','Y')     
+                                ->where('aa.detail_status','C')     
+                                ->where('ff.order_status',$status)     
+                                ->where('aa.detail_tgl', '>=', $filter_tanggal_awal)
+                                ->where('aa.detail_tgl', '<=', $filter_tanggal_akhir)
+                                ->orderby('aa.detail_id','desc')
+                                ->orderby('ff.order_status','desc')
+                                ->get();
+
+            $data = $data->map(function($value) use($filter_tanggal_awal){
+
+                $tgl_lahir          = Carbon::now()->diff($value->anak_tgl_lahir);
+                $hari_anak = $tgl_lahir->days;
+
+                    $years = ($hari_anak / 365) ; // days / 365 days
+                    $years = floor($years); // Remove all decimals
+            
+                    $month = ($hari_anak % 365) / 30.5; // I choose 30.5 for Month (30,31) ;)
+                    $month = floor($month); // Remove all decimals
+
+                    $days = ($hari_anak % 365) % 30.5; // the rest of days
         
+                $value->usia_anak = $years.' Tahun, '.$month.' Bulan, '.$days.' Hari';
+
+                if($value->anak_jekel == 'L'){
+                    $value->anak_jekel = 'Laki - Laki';
+                }
+                else if($value->anak_jekel == 'P'){
+                    $value->anak_jekel = 'Perempuan';
+                }
+
+                $value->detail_harga = format_rupiah($value->detail_harga);
+                $value->detail_total = format_rupiah($value->detail_total);
+
+                return $value;
+
+            });
+                    
+
+            $total_tagihan= format_rupiah(CateringOrderDetail::where('detail_aktif','Y')
+                                                                    ->where('detail_status','C')
+                                                                    ->where('detail_bayar','y')
+                                                                    ->where('detail_tgl', '>=', $filter_tanggal_awal)
+                                                                    ->where('detail_tgl', '<=', $filter_tanggal_akhir)
+                                                                    ->sum('detail_total') );
+
+             $tanggal_awal = format_indo($filter_tanggal_awal);
+             $tanggal_akhir = format_indo($filter_tanggal_akhir);
+
+            $pdf = PDF::loadview('catering.order.cetak_bayar',compact('data','total_tagihan','tanggal_awal','tanggal_akhir'));
+            return $pdf->stream('Cetak Laporan Order.pdf');           
+
     }
+
+    // public function export_order($filter_tanggal_awal,$filter_tanggal_akhir,$status) 
+    // {
+    //     return Excel::download(new CateringOrderExport($filter_tanggal_awal,$filter_tanggal_akhir,$status), 'Data Order.xlsx');
+        
+    // }
+    // public function export_order_terima($filter_tanggal_awal,$filter_tanggal_akhir,$status) 
+    // {
+    //     return Excel::download(new DaftarUtangExport($filter_tanggal_awal,$filter_tanggal_akhir,$status), 'Daftar Utang.xlsx');
+        
+    // }
+    // public function export_order_bayar($filter_tanggal_awal,$filter_tanggal_akhir,$status) 
+    // {
+    //     return Excel::download(new DaftarUtangExport($filter_tanggal_awal,$filter_tanggal_akhir,$status), 'Daftar Utang.xlsx');
+        
+    // }
 
 
 

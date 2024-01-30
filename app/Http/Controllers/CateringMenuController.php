@@ -155,7 +155,7 @@ class CateringMenuController extends Controller
   
               $id = $r->get('id');
               $tmp = CateringMenu::where('menu_kode',$id)->first();
-              $tmp->is_aktif = 'Y';
+              $tmp->menu_aktif = 'Y';
               $tmp->save();
   
               return true;
@@ -173,7 +173,7 @@ class CateringMenuController extends Controller
   
               $id = $r->get('id');
               $tmp = CateringMenu::where('menu_kode',$id)->first();
-              $tmp->is_aktif = 'T';
+              $tmp->menu_aktif = 'T';
 
               $tmp->save();
   

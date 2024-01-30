@@ -165,9 +165,11 @@
                                 <tbody id="show_data"></tbody>
                             </table>
                         </div>	
-                        <button type="button" class="btn btn-primary waves-effect btn-sm waves-light mt-3" id="terima_orderan"><i class="mdi mdi-check-all mr-2"></i>Terima Orderan</button>
-                        <button type="button" class="btn btn-success waves-effect btn-sm waves-light mt-3" id="export_bayar"><i class="far fa-file-excel"></i>  Export Excel</button>
-                        <div id="mantap"></div>
+                        <div class="row ml-1">
+                            <button type="button" class="btn btn-primary waves-effect btn-sm waves-light mt-3" id="terima_orderan"><i class="mdi mdi-check-all mr-2"></i>Terima Orderan</button>
+                            <div id="export_order_pdf" class="ml-2 mt-3"></div>
+                        </div>
+                        
 
                     </div>
                     <div class="tab-pane " id="terima" role="tabpanel">
@@ -188,8 +190,10 @@
                                 <tbody id="show_data_terima"></tbody>
                             </table>
                         </div>	
-                        <button type="button" class="btn btn-primary waves-effect btn-sm waves-light mt-3" id="bayar_orderan"><i class="mdi mdi-check-all mr-2"></i>Proses Pembayaran</button>
-                        <button type="button" class="btn btn-success waves-effect btn-sm waves-light mt-3" id="export_tagihan"><i class="far fa-file-excel"></i>  Export Excel</button>
+                        <div class="row ml-1">
+                            <button type="button" class="btn btn-primary waves-effect btn-sm waves-light mt-3" id="bayar_orderan"><i class="mdi mdi-check-all mr-2"></i>Proses Pembayaran</button>
+                            <div id="export_terima_pdf" class="ml-2 mt-3"></div>
+                        </div>
                         
 
                     </div>      
@@ -211,7 +215,7 @@
                                 <tbody id="show_data_bayar"></tbody>
                             </table>
                         </div>	
-                        <button type="button" class="btn btn-success waves-effect btn-sm waves-light mt-3" id="export_bayar"><i class="far fa-file-excel"></i>  Export Excel</button>
+                        <div id="export_bayar_pdf" class="mt-3"></div>
                     </div>      
                 </div>
             </div>
@@ -513,9 +517,9 @@
                 $('#show_data').empty();
                 data = r.data;
 
-                console.log(r.export_excel);
+                console.log(r.export_pdf);
                 
-                document.getElementById("mantap").innerHTML="<a href='"+r.export_excel+"' target='_blank' class='btn btn-success'><i class='mdi mdi-file-excel-box'></i> EXCEL</a>";
+                document.getElementById("export_order_pdf").innerHTML="<a href='"+r.export_pdf+"' target='_blank' class='btn btn-sm btn-danger'><i class='mdi mdi-file-pdf'></i> Export PDF</a>";
 
                 document.getElementById("total_anak").innerHTML= r.total_anak;
                 document.getElementById("total_order").innerHTML= r.total_order;
@@ -594,6 +598,9 @@
                 $('#datatable_terima').DataTable().destroy(); 
                 $('#show_data_terima').empty();
                 data = r.data;
+
+                document.getElementById("export_terima_pdf").innerHTML="<a href='"+r.export_pdf+"' target='_blank' class='btn btn-sm btn-danger'><i class='mdi mdi-file-pdf'></i> Export PDF</a>";
+
                 
                 document.getElementById("total_anak_terima").innerHTML= r.total_anak;
                 document.getElementById("total_order_terima").innerHTML= r.total_order;
@@ -673,6 +680,8 @@
                 $('#datatable_bayar').DataTable().destroy(); 
                 $('#show_data_bayar').empty();
                 data = r.data;
+
+                document.getElementById("export_bayar_pdf").innerHTML="<a href='"+r.export_bayar_pdf+"' target='_blank' class='btn btn-sm btn-danger'><i class='mdi mdi-file-pdf'></i> Export PDF</a>";
                 
                 document.getElementById("total_anak_bayar").innerHTML= r.total_anak;
                 document.getElementById("total_order_bayar").innerHTML= r.total_order;
